@@ -18,7 +18,9 @@
 
 SettingsManager::SettingsManager()
 {
+    firstrun = true;
     config_found = false;
+    backup_needed = true;
 }
 
 SettingsManager::~SettingsManager()
@@ -56,12 +58,7 @@ void SettingsManager::SetSettings(std::string settings_key, json new_settings)
 
 void SettingsManager::LoadSettings(const filesystem::path& filename)
 {
-    /*---------------------------------------------------------*\
-    | Clear any stored settings before loading                  |
-    \*---------------------------------------------------------*/
     mutex.lock();
-
-    settings_data.clear();
 
     /*---------------------------------------------------------*\
     | Store settings filename, so we can save to it later       |
@@ -74,6 +71,12 @@ void SettingsManager::LoadSettings(const filesystem::path& filename)
     config_found = filesystem::exists(filename);
     if(config_found)
     {
+        /*---------------------------------------------------------*\
+        | Clear any stored settings before loading                  |
+        \*---------------------------------------------------------*/
+        settings_data.clear();
+
+        firstrun = false;
         std::ifstream settings_file(settings_filename, std::ios::in | std::ios::binary);
 
         /*---------------------------------------------------------*\
@@ -94,12 +97,32 @@ void SettingsManager::LoadSettings(const filesystem::path& filename)
                 | We could attempt a reload for backup location     |
                 \*-------------------------------------------------*/
                 LOG_ERROR("[SettingsManager] JSON parsing failed: %s", e.what());
+                filesystem::path corrupted_name = settings_filename;
+                corrupted_name.append("_corrupted.txt");
+                LOG_DEBUG("[SettingsManager] Preserving the corrupted file as [%s]", corrupted_name.u8string().c_str());
+                filesystem::rename(settings_filename, corrupted_name);
 
                 settings_data.clear();
             }
         }
+        else
+        {
+            LOG_ERROR("[SettingsManager] Settings file is found, but an unknown error has occured when reading it");
+        }
 
         settings_file.close();
+    }
+    else
+    {
+        backup_needed = false;
+        if(firstrun)
+        {
+            LOG_DEBUG("[SettingsManager] Application is running for the first time");
+        }
+        else
+        {
+            LOG_ERROR("[SettingsManager] The config DID exist, but went missing; we preserved the original settings to attempt to store them again");
+        }
     }
 
     mutex.unlock();
@@ -108,13 +131,22 @@ void SettingsManager::LoadSettings(const filesystem::path& filename)
 void SettingsManager::SaveSettings()
 {
     mutex.lock();
+
+    if(backup_needed && filesystem::exists(settings_filename))
+    {
+        filesystem::path backup_name = settings_filename;
+        backup_name.append(".bak");
+        LOG_DEBUG("[SettingsManager] Config overwrite is requested, backing up the file as it was before launch as [%s]", backup_name.u8string().c_str());
+        filesystem::rename(settings_filename, backup_name);
+        backup_needed = false;
+    }
     std::ofstream settings_file(settings_filename, std::ios::out | std::ios::binary);
 
     if(settings_file)
     {
         try
         {
-            settings_file << settings_data.dump(4);
+            settings_file << std::setw(4) << settings_data;
         }
         catch(const std::exception& e)
         {
@@ -124,4 +156,9 @@ void SettingsManager::SaveSettings()
         settings_file.close();
     }
     mutex.unlock();
+}
+
+bool SettingsManager::IsFirstRun() const
+{
+    return firstrun;
 }
