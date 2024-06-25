@@ -2,1101 +2,52 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
-    <name>Ambient</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Select rectangle...</source>
-        <translation type="vanished">选择矩形...</translation>
-    </message>
-    <message>
-        <source>Top</source>
-        <translation type="vanished">顶部</translation>
-    </message>
-    <message>
-        <source>Width</source>
-        <translation type="vanished">宽度</translation>
-    </message>
-    <message>
-        <source>Left</source>
-        <translation type="vanished">左</translation>
-    </message>
-    <message>
-        <source>Mode</source>
-        <translation type="vanished">模式</translation>
-    </message>
-    <message>
-        <source>Height</source>
-        <translation type="vanished">高度</translation>
-    </message>
-    <message>
-        <source>Screen</source>
-        <translation type="vanished">屏幕</translation>
-    </message>
-</context>
-<context>
-    <name>AudioParty</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Device</source>
-        <translation type="vanished">设备</translation>
-    </message>
-    <message>
-        <source>Amplitude</source>
-        <translation type="vanished">波幅</translation>
-    </message>
-    <message>
-        <source>Divisions</source>
-        <translation type="vanished">分支数量</translation>
-    </message>
-    <message>
-        <source>Effect threshold</source>
-        <translation type="vanished">效果阈值</translation>
-    </message>
-    <message>
-        <source>Zones</source>
-        <translation type="vanished">区域</translation>
-    </message>
-</context>
-<context>
-    <name>AudioSine</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Oscillation</source>
-        <translation type="vanished">振荡</translation>
-    </message>
-    <message>
-        <source>Color change speed</source>
-        <translation type="vanished">颜色变换速度</translation>
-    </message>
-    <message>
-        <source>Repeat</source>
-        <translation type="vanished">重复</translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="vanished">颜色</translation>
-    </message>
-    <message>
-        <source>Average</source>
-        <translation type="vanished">均值</translation>
-    </message>
-    <message>
-        <source>Background</source>
-        <translation type="vanished">背景</translation>
-    </message>
-    <message>
-        <source>Wave color</source>
-        <translation type="vanished">波的颜色</translation>
-    </message>
-    <message>
-        <source>Amplitude</source>
-        <translation type="vanished">波幅</translation>
-    </message>
-    <message>
-        <source>Glow</source>
-        <translation type="vanished">亮度</translation>
-    </message>
-    <message>
-        <source>Thickness</source>
-        <translation type="vanished">厚度</translation>
-    </message>
-    <message>
-        <source>Device</source>
-        <translation type="vanished">设备</translation>
-    </message>
-</context>
-<context>
-    <name>AudioStar</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Amplitude</source>
-        <translation type="vanished">波幅</translation>
-    </message>
-    <message>
-        <source>Device</source>
-        <translation type="vanished">设备</translation>
-    </message>
-    <message>
-        <source>Decay</source>
-        <translation type="vanished">衰变</translation>
-    </message>
-    <message>
-        <source>Edge beat</source>
-        <translation type="vanished">边缘节拍</translation>
-    </message>
-</context>
-<context>
-    <name>AudioVUMeter</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Audio device</source>
-        <translation type="vanished">音频设备</translation>
-    </message>
-    <message>
-        <source>Average size</source>
-        <translation type="vanished">平均尺寸</translation>
-    </message>
-    <message>
-        <source>Amplitude</source>
-        <translation type="vanished">波幅</translation>
-    </message>
-    <message>
-        <source>Color offset</source>
-        <translation type="vanished">颜色偏移</translation>
-    </message>
-    <message>
-        <source>Decay</source>
-        <translation type="vanished">衰变</translation>
-    </message>
-    <message>
-        <source>Color spread</source>
-        <translation type="vanished">颜色跨度</translation>
-    </message>
-</context>
-<context>
-    <name>AudioVisualizerUi</name>
-    <message>
-        <source>Amplitude (%)</source>
-        <translation type="vanished">振幅(%)</translation>
-    </message>
-    <message>
-        <source>FFT Window Mode</source>
-        <translation type="vanished">#FFT窗口模式</translation>
-    </message>
-    <message>
-        <source>Background Brightness</source>
-        <translation type="vanished">背景亮度</translation>
-    </message>
-    <message>
-        <source>Background Mode</source>
-        <translation type="vanished">背景模式</translation>
-    </message>
-    <message>
-        <source>Average Size</source>
-        <translation type="vanished">平均尺寸</translation>
-    </message>
-    <message>
-        <source>Foreground Mode</source>
-        <translation type="vanished">前景模式</translation>
-    </message>
-    <message>
-        <source>Decay (% per step)</source>
-        <translation type="vanished">衰减(%)</translation>
-    </message>
-    <message>
-        <source>Single Color Mode</source>
-        <translation type="vanished">单色模式</translation>
-    </message>
-    <message>
-        <source>Normalization Offset</source>
-        <translation type="vanished">正则化偏移</translation>
-    </message>
-    <message>
-        <source>Average Mode</source>
-        <translation type="vanished">平均模式</translation>
-    </message>
-    <message>
-        <source>Normalization Scale</source>
-        <translation type="vanished">正则化比例</translation>
-    </message>
-    <message>
-        <source>Audio Device</source>
-        <translation type="vanished">音频设备</translation>
-    </message>
-    <message>
-        <source>Filter Constant</source>
-        <translation type="vanished">过滤器常数</translation>
-    </message>
-    <message>
-        <source>Animation Speed</source>
-        <translation type="vanished">动画速度</translation>
-    </message>
-    <message>
-        <source>Background Timeout</source>
-        <translation type="vanished">背景等待延时</translation>
-    </message>
-    <message>
-        <source>Reactive Background</source>
-        <translation type="vanished">背景亮度映射音量</translation>
-    </message>
-    <message>
-        <source>Silent Background</source>
-        <translation type="vanished">背景在静音时打开</translation>
-    </message>
-    <message>
-        <source>Visualization Preview</source>
-        <translation type="vanished">可视化预览</translation>
-    </message>
-</context>
-<context>
-    <name>BackgroundApplier</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Add background</source>
-        <translation type="vanished">添加背景</translation>
-    </message>
-    <message>
-        <source>Custom</source>
-        <translation type="vanished">自定义</translation>
-    </message>
-    <message>
-        <source>X offset (%)</source>
-        <translation type="vanished">X 偏移量 (%)</translation>
-    </message>
-    <message>
-        <source>Add color</source>
-        <translation type="vanished">添加颜色</translation>
-    </message>
-    <message>
-        <source>Y offset (%)</source>
-        <translation type="vanished">Y 偏移量 (%)</translation>
-    </message>
-    <message>
-        <source>Load</source>
-        <translation type="vanished">加载</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="vanished">保存</translation>
-    </message>
-    <message>
-        <source>Rotate (°)</source>
-        <translation type="vanished">旋转(°)</translation>
-    </message>
-    <message>
-        <source>Brightness</source>
-        <translation type="vanished">亮度</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="vanished">文件</translation>
-    </message>
-    <message>
-        <source>Choose image file</source>
-        <translation type="vanished">选择图像文件</translation>
-    </message>
-    <message>
-        <source>Open Image</source>
-        <translation type="vanished">打开图像</translation>
-    </message>
-    <message>
-        <source>Image Files (*.png *.jpg *.bmp)</source>
-        <translation type="vanished">图像文件(*.png *.jpg *.bmp)</translation>
-    </message>
-</context>
-<context>
-    <name>Bloom</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>BouncingBall</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Spectrum Velocity</source>
-        <translation type="vanished">频谱速度</translation>
-    </message>
-    <message>
-        <source>How fast the ball moves side to side</source>
-        <translation type="vanished">小球左右移动速度</translation>
-    </message>
-    <message>
-        <source>Defaults</source>
-        <translation type="vanished">默认</translation>
-    </message>
-    <message>
-        <source>Gravity</source>
-        <translation type="vanished">重力</translation>
-    </message>
-    <message>
-        <source>Ball Radius</source>
-        <translation type="vanished">小球尺寸</translation>
-    </message>
-    <message>
-        <source>Drop Height %</source>
-        <translation type="vanished">跌落高度%</translation>
-    </message>
-    <message>
-        <source>Horizontal Velocity</source>
-        <translation type="vanished">水平速度</translation>
-    </message>
-</context>
-<context>
-    <name>BreathingCircle</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>Bubbles</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Rarity</source>
-        <translation type="vanished">稀有度</translation>
-    </message>
-    <message>
-        <source>Bubbles thickness</source>
-        <translation type="vanished">气泡厚度</translation>
-    </message>
-    <message>
-        <source>Background</source>
-        <translation type="vanished">背景</translation>
-    </message>
-    <message>
-        <source>Max bubbles</source>
-        <translation type="vanished">最大气泡数</translation>
-    </message>
-    <message>
-        <source>Speed</source>
-        <translation type="vanished">速度</translation>
-    </message>
-    <message>
-        <source>Max expansion</source>
-        <translation type="vanished">最大扩展度</translation>
-    </message>
-</context>
-<context>
-    <name>Clock</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>ColorPicker</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>ColorStop</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>ColorWheelEffect</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>X position</source>
-        <translation type="vanished">X位置</translation>
-    </message>
-    <message>
-        <source>Direction</source>
-        <translation type="vanished">方向</translation>
-    </message>
-    <message>
-        <source>Y position</source>
-        <translation type="vanished">Y位置</translation>
-    </message>
-</context>
-<context>
-    <name>Comet</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>ControllerZoneList</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>CrossingBeams</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Glow</source>
-        <translation type="vanished">亮度</translation>
-    </message>
-    <message>
-        <source>Horizontal speed</source>
-        <translation type="vanished">水平速度</translation>
-    </message>
-    <message>
-        <source>Vertical speed</source>
-        <translation type="vanished">竖直速度</translation>
-    </message>
-    <message>
-        <source>Thickness</source>
-        <translation type="vanished">厚度</translation>
-    </message>
-</context>
-<context>
-    <name>CustomBlink</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Remove selected</source>
-        <translation type="vanished">删除所选内容</translation>
-    </message>
-    <message>
-        <source>Current pattern:</source>
-        <translation type="vanished">当前模式：</translation>
-    </message>
-    <message>
-        <source>Clear list</source>
-        <translation type="vanished">清除列表</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation type="vanished">添加</translation>
-    </message>
-    <message>
-        <source>Reset time</source>
-        <translation type="vanished">复位时间</translation>
-    </message>
-    <message>
-        <source>Interval</source>
-        <translation type="vanished">间隔</translation>
-    </message>
-</context>
-<context>
-    <name>CustomGradientWave</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Preset</source>
-        <translation type="vanished">预设</translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="vanished">颜色数</translation>
-    </message>
-    <message>
-        <source>Spread</source>
-        <translation type="vanished">扩散</translation>
-    </message>
-</context>
-<context>
-    <name>CustomMarquee</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="vanished">颜色数</translation>
-    </message>
-</context>
-<context>
     <name>DetectorTableModel</name>
     <message>
-        <location filename="../DetectorTableModel.cpp" line="102"/>
+        <location filename="../DetectorTableModel.cpp" line="112"/>
         <source>Name</source>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="../DetectorTableModel.cpp" line="104"/>
+        <location filename="../DetectorTableModel.cpp" line="114"/>
         <source>Enabled</source>
         <translation>启用</translation>
     </message>
 </context>
 <context>
-    <name>DeviceList</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Select all</source>
-        <translation type="vanished">全选</translation>
-    </message>
-    <message>
-        <source>Deselect all</source>
-        <translation type="vanished">取消全选</translation>
-    </message>
-    <message>
-        <source>Controller</source>
-        <translation type="vanished">控制器</translation>
-    </message>
-    <message>
-        <source>Enable</source>
-        <translation type="vanished">启用</translation>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation type="vanished">反向</translation>
-    </message>
-</context>
-<context>
-    <name>DeviceListItem</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Enable</source>
-        <translation type="vanished">启用</translation>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation type="vanished">反向</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation type="vanished">文本标签</translation>
-    </message>
-    <message>
-        <source>This device doesn&apos;t have direct mode
-Using an effect on a device WILL damage the flash or controller</source>
-        <translation type="vanished">此设备没有直连模式
-在设备上使用灯效会损坏闪光灯或控制器</translation>
-    </message>
-</context>
-<context>
-    <name>DoubleRotatingRainbow</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Frequency</source>
-        <translation type="vanished">频率</translation>
-    </message>
-</context>
-<context>
-    <name>EffectList</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Add to the effects list</source>
-        <translation type="vanished">添加到灯效列表</translation>
-    </message>
-    <message>
-        <source>Start/Stop all effects</source>
-        <translation type="vanished">启动/停止所有效果</translation>
-    </message>
-</context>
-<context>
-    <name>EffectTabHeader</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>EffectName</source>
-        <translation type="vanished">效果名称</translation>
-    </message>
-</context>
-<context>
-    <name>Fill</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>FractalMotion</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Freq m1</source>
-        <translation type="vanished">频率 m1</translation>
-    </message>
-    <message>
-        <source>Freq m12</source>
-        <translation type="vanished">频率 m12</translation>
-    </message>
-    <message>
-        <source>Background color:</source>
-        <translation type="vanished">背景颜色：</translation>
-    </message>
-    <message>
-        <source>Amplitude</source>
-        <translation type="vanished">波幅</translation>
-    </message>
-    <message>
-        <source>Freq m2</source>
-        <translation type="vanished">频率 m2</translation>
-    </message>
-    <message>
-        <source>Freq m7</source>
-        <translation type="vanished">频率 m7</translation>
-    </message>
-    <message>
-        <source>Freq m10</source>
-        <translation type="vanished">频率 m10</translation>
-    </message>
-    <message>
-        <source>Freq m8</source>
-        <translation type="vanished">频率 m8</translation>
-    </message>
-    <message>
-        <source>Freq m9</source>
-        <translation type="vanished">频率 m9</translation>
-    </message>
-    <message>
-        <source>Freq m5</source>
-        <translation type="vanished">频率 m5</translation>
-    </message>
-    <message>
-        <source>Defaults</source>
-        <translation type="vanished">默认</translation>
-    </message>
-    <message>
-        <source>Freq m4</source>
-        <translation type="vanished">频率 m4</translation>
-    </message>
-    <message>
-        <source>Freq m3</source>
-        <translation type="vanished">频率 m3</translation>
-    </message>
-    <message>
-        <source>Freq m6</source>
-        <translation type="vanished">频率 m6</translation>
-    </message>
-    <message>
-        <source>Frequency</source>
-        <translation type="vanished">频率</translation>
-    </message>
-    <message>
-        <source>Freq m11</source>
-        <translation type="vanished">频率 m11</translation>
-    </message>
-    <message>
-        <source>Thickness</source>
-        <translation type="vanished">厚度</translation>
-    </message>
-</context>
-<context>
-    <name>GLSLCodeEditor</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Style</source>
-        <translation type="vanished">风格</translation>
-    </message>
-    <message>
-        <source>#version </source>
-        <translation type="vanished">版本 </translation>
-    </message>
-    <message>
-        <source>Tab 1</source>
-        <translation type="vanished">选项卡 1</translation>
-    </message>
-    <message>
-        <source>Tab 2</source>
-        <translation type="vanished">选项卡 2</translation>
-    </message>
-    <message>
-        <source>Apply</source>
-        <translation type="vanished">应用</translation>
-    </message>
-</context>
-<context>
-    <name>GifPlayer</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Choose GIF file</source>
-        <translation type="vanished">选择 GIF 文件</translation>
-    </message>
-    <message>
-        <source>Open GIF file</source>
-        <translation type="vanished">打开 GIF 文件</translation>
-    </message>
-    <message>
-        <source>GIF Files (*.gif)</source>
-        <translation type="vanished">GIF 文件 (*.gif)</translation>
-    </message>
-</context>
-<context>
-    <name>GridOptions</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Auto register</source>
-        <translation type="vanished">自动注册</translation>
-    </message>
-    <message>
-        <source>Height</source>
-        <translation type="vanished">高度</translation>
-    </message>
-    <message>
-        <source>Unregister member controllers</source>
-        <translation type="vanished">注销成员控制器</translation>
-    </message>
-    <message>
-        <source>Live preview</source>
-        <translation type="vanished">实时预览</translation>
-    </message>
-    <message>
-        <source>Show bounds</source>
-        <translation type="vanished">显示边界</translation>
-    </message>
-    <message>
-        <source>Auto load</source>
-        <translation type="vanished">自动加载</translation>
-    </message>
-    <message>
-        <source>Grid options</source>
-        <translation type="vanished">网格选项</translation>
-    </message>
-    <message>
-        <source>Show grid</source>
-        <translation type="vanished">显示网格</translation>
-    </message>
-    <message>
-        <source>Width</source>
-        <translation type="vanished">宽度</translation>
-    </message>
-    <message>
-        <source>Auto resize</source>
-        <translation type="vanished">自动调整大小</translation>
-    </message>
-</context>
-<context>
-    <name>Hypnotoad</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Spacing</source>
-        <translation type="vanished">间距</translation>
-    </message>
-    <message>
-        <source>Color rotation speed</source>
-        <translation type="vanished">颜色旋转速度</translation>
-    </message>
-    <message>
-        <source>Color rotation direction</source>
-        <translation type="vanished">颜色旋转方向</translation>
-    </message>
-    <message>
-        <source>X position</source>
-        <translation type="vanished">X 位置</translation>
-    </message>
-    <message>
-        <source>Animation direction</source>
-        <translation type="vanished">动画方向</translation>
-    </message>
-    <message>
-        <source>Animation speed</source>
-        <translation type="vanished">动画速度</translation>
-    </message>
-    <message>
-        <source>Thickness</source>
-        <translation type="vanished">厚度</translation>
-    </message>
-    <message>
-        <source>Y position</source>
-        <translation type="vanished">Y 位置</translation>
-    </message>
-</context>
-<context>
-    <name>ItemOptions</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Item options</source>
-        <translation type="vanished">项目选项</translation>
-    </message>
-    <message>
-        <source>x</source>
-        <translation type="vanished">x</translation>
-    </message>
-    <message>
-        <source>y</source>
-        <translation type="vanished">y</translation>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation type="vanished">反向</translation>
-    </message>
-    <message>
-        <source>Shape</source>
-        <translation type="vanished">形状</translation>
-    </message>
-    <message>
-        <source>Led spacing</source>
-        <translation type="vanished">LED间距</translation>
-    </message>
-    <message>
-        <source>Edit shape</source>
-        <translation type="vanished">编辑形状</translation>
-    </message>
-    <message>
-        <source>Identify</source>
-        <translation type="vanished">亮绿灯标识</translation>
-    </message>
-</context>
-<context>
-    <name>LayerEntry</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>LayerGroupEntry</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Add layer</source>
-        <translation type="vanished">添加图层</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="vanished">清除</translation>
-    </message>
-    <message>
-        <source>Delete group</source>
-        <translation type="vanished">删除组</translation>
-    </message>
-</context>
-<context>
-    <name>Layers</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Add group</source>
-        <translation type="vanished">添加组</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="vanished">清除</translation>
-    </message>
-</context>
-<context>
-    <name>Lightning</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Mode</source>
-        <translation type="vanished">模式</translation>
-    </message>
-</context>
-<context>
-    <name>LivePreviewController</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation type="vanished">反向</translation>
-    </message>
-    <message>
-        <source>Brightness</source>
-        <translation type="vanished">亮度</translation>
-    </message>
-    <message>
-        <source>Custom height</source>
-        <translation type="vanished">自定义高度</translation>
-    </message>
-    <message>
-        <source>Custom width</source>
-        <translation type="vanished">自定义宽度</translation>
-    </message>
-    <message>
-        <source>Scale content</source>
-        <translation type="vanished">缩放内容</translation>
-    </message>
-</context>
-<context>
-    <name>Marquee</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>Mask</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>width</source>
-        <translation type="vanished">宽度</translation>
-    </message>
-    <message>
-        <source>height</source>
-        <translation type="vanished">高度</translation>
-    </message>
-    <message>
-        <source>Invert colors</source>
-        <translation type="vanished">颜色反转</translation>
-    </message>
-</context>
-<context>
-    <name>Mosaic</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>MotionPoint</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Background color:</source>
-        <translation type="vanished">背景颜色：</translation>
-    </message>
-</context>
-<context>
-    <name>MotionPoints</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>MovingPanes</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>NewShaderPassTabHeader</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>NoiseMap</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Amplitude</source>
-        <translation type="vanished">波幅</translation>
-    </message>
-    <message>
-        <source>Defaults</source>
-        <translation type="vanished">默认</translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="vanished">颜色数</translation>
-    </message>
-    <message>
-        <source>Octaves</source>
-        <translatorcomment>八度？</translatorcomment>
-        <translation type="vanished">Octaves</translation>
-    </message>
-    <message>
-        <source>Persistence</source>
-        <translation type="vanished">持久度</translation>
-    </message>
-    <message>
-        <source>Lacunarity</source>
-        <translation type="vanished">真空度</translation>
-    </message>
-    <message>
-        <source>Frequency</source>
-        <translation type="vanished">频率</translation>
-    </message>
-    <message>
-        <source>Motion</source>
-        <translation type="vanished">运动</translation>
-    </message>
-    <message>
-        <source>Motion speed</source>
-        <translation type="vanished">运动速度</translation>
-    </message>
-</context>
-<context>
     <name>OpenRGBClientInfoPageUi</name>
     <message>
-        <location filename="../OpenRGBClientInfoPage.ui" line="14"/>
+        <location filename="../OpenRGBClientInfoPage/OpenRGBClientInfoPage.ui" line="14"/>
         <source>Client info page</source>
         <translation>客户端信息页面</translation>
     </message>
     <message>
-        <location filename="../OpenRGBClientInfoPage.ui" line="30"/>
+        <location filename="../OpenRGBClientInfoPage/OpenRGBClientInfoPage.ui" line="30"/>
         <source>Port:</source>
         <translation>端口：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBClientInfoPage.ui" line="50"/>
+        <location filename="../OpenRGBClientInfoPage/OpenRGBClientInfoPage.ui" line="50"/>
         <source>Connect</source>
         <translation>连接</translation>
     </message>
     <message>
-        <location filename="../OpenRGBClientInfoPage.ui" line="60"/>
+        <location filename="../OpenRGBClientInfoPage/OpenRGBClientInfoPage.ui" line="60"/>
         <source>IP:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../OpenRGBClientInfoPage.ui" line="71"/>
+        <location filename="../OpenRGBClientInfoPage/OpenRGBClientInfoPage.ui" line="71"/>
         <source>Connected Clients</source>
         <translation type="unfinished">连接的客户端</translation>
     </message>
     <message>
-        <location filename="../OpenRGBClientInfoPage.ui" line="76"/>
+        <location filename="../OpenRGBClientInfoPage/OpenRGBClientInfoPage.ui" line="76"/>
         <source>Protocol Version</source>
         <translation type="unfinished">协议版本</translation>
     </message>
     <message>
-        <location filename="../OpenRGBClientInfoPage.ui" line="81"/>
+        <location filename="../OpenRGBClientInfoPage/OpenRGBClientInfoPage.ui" line="81"/>
         <source>Save Connection</source>
         <translation type="unfinished">保存连接</translation>
     </message>
@@ -1104,65 +55,131 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>OpenRGBConsolePageUi</name>
     <message>
-        <location filename="../OpenRGBConsolePage.ui" line="14"/>
+        <location filename="../OpenRGBConsolePage/OpenRGBConsolePage.ui" line="14"/>
         <source>Log console page</source>
         <translation>日志控制台页面</translation>
     </message>
     <message>
-        <location filename="../OpenRGBConsolePage.ui" line="20"/>
+        <location filename="../OpenRGBConsolePage/OpenRGBConsolePage.ui" line="20"/>
         <source>Log level</source>
         <translation>日志级别</translation>
     </message>
     <message>
-        <location filename="../OpenRGBConsolePage.ui" line="30"/>
+        <location filename="../OpenRGBConsolePage/OpenRGBConsolePage.ui" line="30"/>
         <source>Refresh logs</source>
         <translation>刷新日志</translation>
     </message>
     <message>
-        <location filename="../OpenRGBConsolePage.ui" line="37"/>
+        <location filename="../OpenRGBConsolePage/OpenRGBConsolePage.ui" line="37"/>
         <source>Clear log</source>
         <translation>清除日志</translation>
     </message>
 </context>
 <context>
+    <name>OpenRGBDMXSettingsEntryUi</name>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsEntry.ui" line="20"/>
+        <source>E131 settings entry</source>
+        <translation type="unfinished">E131 设置条目</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsEntry.ui" line="32"/>
+        <source>Brightness Channel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsEntry.ui" line="42"/>
+        <source>Blue Channel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsEntry.ui" line="55"/>
+        <source>Name:</source>
+        <translation type="unfinished">名称：</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsEntry.ui" line="62"/>
+        <source>Green Channel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsEntry.ui" line="69"/>
+        <source>Red Channel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsEntry.ui" line="82"/>
+        <source>Keepalive Time:</source>
+        <translation type="unfinished">保持活动时间：</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsEntry.ui" line="92"/>
+        <source>Port:</source>
+        <translation type="unfinished">端口：</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBDMXSettingsPageUi</name>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsPage.ui" line="14"/>
+        <source>E131 settings page</source>
+        <translation type="unfinished">E131 设置页面</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsPage.ui" line="20"/>
+        <source>Add</source>
+        <translation type="unfinished">添加</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsPage.ui" line="27"/>
+        <source>Remove</source>
+        <translation type="unfinished">移除</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsPage.ui" line="34"/>
+        <source>Save</source>
+        <translation type="unfinished">保存</translation>
+    </message>
+</context>
+<context>
     <name>OpenRGBDeviceInfoPageUi</name>
     <message>
-        <location filename="../OpenRGBDeviceInfoPage.ui" line="14"/>
+        <location filename="../OpenRGBDeviceInfoPage/OpenRGBDeviceInfoPage.ui" line="14"/>
         <source>Device info page</source>
         <translation>设备信息页面</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDeviceInfoPage.ui" line="68"/>
+        <location filename="../OpenRGBDeviceInfoPage/OpenRGBDeviceInfoPage.ui" line="68"/>
         <source>Name:</source>
         <translation>名称：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDeviceInfoPage.ui" line="85"/>
+        <location filename="../OpenRGBDeviceInfoPage/OpenRGBDeviceInfoPage.ui" line="85"/>
         <source>Vendor:</source>
         <translation>供应商：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDeviceInfoPage.ui" line="102"/>
+        <location filename="../OpenRGBDeviceInfoPage/OpenRGBDeviceInfoPage.ui" line="102"/>
         <source>Type:</source>
         <translation>类型：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDeviceInfoPage.ui" line="129"/>
+        <location filename="../OpenRGBDeviceInfoPage/OpenRGBDeviceInfoPage.ui" line="129"/>
         <source>Description:</source>
         <translation>描述：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDeviceInfoPage.ui" line="136"/>
+        <location filename="../OpenRGBDeviceInfoPage/OpenRGBDeviceInfoPage.ui" line="136"/>
         <source>Version:</source>
         <translation>版本：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDeviceInfoPage.ui" line="143"/>
+        <location filename="../OpenRGBDeviceInfoPage/OpenRGBDeviceInfoPage.ui" line="143"/>
         <source>Location:</source>
         <translation>位置：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDeviceInfoPage.ui" line="51"/>
+        <location filename="../OpenRGBDeviceInfoPage/OpenRGBDeviceInfoPage.ui" line="51"/>
         <source>Serial:</source>
         <translation>序列号：</translation>
     </message>
@@ -1170,117 +187,122 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>OpenRGBDevicePageUi</name>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="14"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="14"/>
         <source>Device page</source>
         <translation>设备页面</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="87"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="87"/>
         <source>G:</source>
         <translation>绿（G）：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="73"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="73"/>
         <source>H:</source>
         <translation>色调（H）：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="197"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="211"/>
         <source>Speed:</source>
         <translation>速度:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="210"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="224"/>
         <source>Random</source>
         <translation>随机</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="115"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="115"/>
         <source>B:</source>
         <translation>蓝（B）：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="272"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="286"/>
         <source>LED:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="286"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="293"/>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="300"/>
         <source>Mode-Specific</source>
         <translation>特定模式</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="59"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="59"/>
         <source>R:</source>
         <translation>红（R）：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="224"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="238"/>
         <source>Dir:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="101"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="101"/>
         <source>S:</source>
         <translation>饱和度（S）：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="300"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="314"/>
         <source>Select All</source>
         <translation>全选</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="245"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="259"/>
         <source>Per-LED</source>
         <translation>单色</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="252"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="143"/>
+        <source>Hex:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="266"/>
         <source>Zone:</source>
         <translation>区域：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="262"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="276"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;Sets all devices to&lt;br/&gt;&lt;b&gt;Static&lt;/b&gt; mode and&lt;br/&gt;applies the selected color.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p对齐=&quot;justify&quot;&gt;所有设备都设置为&lt;br/&gt;&lt;b&gt;静态&lt;/b&gt;模式和&lt;br/&gt;应用所选颜色。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="265"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="279"/>
         <source>Apply All Devices</source>
         <translation>应用所有设备</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="238"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="252"/>
         <source>Colors:</source>
         <translation>颜色：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="129"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="129"/>
         <source>V:</source>
         <translation>明度（V）：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="293"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="307"/>
         <source>Apply Colors To Selection</source>
         <translation>将颜色应用于所选内容</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="279"/>
-        <source>Resize</source>
-        <translation>调整</translation>
-    </message>
-    <message>
-        <location filename="../OpenRGBDevicePage.ui" line="217"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="231"/>
         <source>Mode:</source>
         <translation>模式：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="317"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="331"/>
         <source>Brightness:</source>
         <translation>亮度：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="146"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="183"/>
         <source>Save To Device</source>
         <translation>保存到设备</translation>
     </message>
@@ -1288,69 +310,69 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>OpenRGBDialog2Ui</name>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="14"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="14"/>
         <source>OpenRGB</source>
         <translation>OpenRGB(汉化：画板当吃生菜、绿鲤驴与鱼)</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="34"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="34"/>
         <source>Devices</source>
         <translation>设备</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="48"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="48"/>
         <source>Information</source>
         <translation>信息</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="65"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="65"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="87"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="108"/>
         <source>Toggle LED View</source>
         <translation>开关 LED 视图</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="94"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="115"/>
         <source>Rescan Devices</source>
         <translation>重新扫描设备</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="107"/>
-        <location filename="../OpenRGBDialog2.ui" line="165"/>
-        <location filename="../OpenRGBDialog2.ui" line="168"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="128"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="189"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="192"/>
         <source>Save Profile</source>
         <translation>保存配置文件</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="117"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="138"/>
         <source>Delete Profile</source>
         <translation>删除配置文件</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="124"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="145"/>
         <source>Load Profile</source>
         <translation>加载配置文件</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="138"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="162"/>
         <source>OpenRGB is detecting devices...</source>
         <translation>OpenRGB 正在检测设备...</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="155"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="179"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="173"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="197"/>
         <source>Save Profile As...</source>
         <translation>保存配置文件为...</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="176"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="200"/>
         <source>Save Profile with custom name</source>
         <translation>使用自定义名称保存配置文件</translation>
     </message>
@@ -1358,62 +380,62 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>OpenRGBDialogUi</name>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="14"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="14"/>
         <source>OpenRGB</source>
         <translation>OpenRGB</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="63"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="63"/>
         <source>Device</source>
         <translation>设备</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="73"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="73"/>
         <source>Red</source>
         <translation>红色</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="80"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="80"/>
         <source>Green</source>
         <translation>绿色</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="87"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="87"/>
         <source>Blue</source>
         <translation>蓝色</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="94"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="94"/>
         <source>Mode</source>
         <translation>模式</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="113"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="113"/>
         <source>Set All</source>
         <translation>全部设置</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="120"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="120"/>
         <source>Set Device</source>
         <translation>设置设备</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="127"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="127"/>
         <source>Zone</source>
         <translation>区域</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="137"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="137"/>
         <source>Set Zone</source>
         <translation>设置区域</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="144"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="144"/>
         <source>Set LED</source>
         <translation>设置LED</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="151"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="151"/>
         <source>LED</source>
         <translation>LED</translation>
     </message>
@@ -1510,96 +532,6 @@ Using an effect on a device WILL damage the flash or controller</source>
     </message>
 </context>
 <context>
-    <name>OpenRGBEffectPage</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>EffectName</source>
-        <translation type="vanished">效果名称</translation>
-    </message>
-    <message>
-        <source>EffectDescription</source>
-        <translation type="vanished">效果说明</translation>
-    </message>
-    <message>
-        <source>Random</source>
-        <translation type="vanished">随机</translation>
-    </message>
-    <message>
-        <source>First color</source>
-        <translation type="vanished">初始颜色</translation>
-    </message>
-    <message>
-        <source>Slider2Label</source>
-        <translation type="vanished">滑块2标签</translation>
-    </message>
-    <message>
-        <source>Speed</source>
-        <translation type="vanished">速度</translation>
-    </message>
-    <message>
-        <source>Brightness</source>
-        <translation type="vanished">亮度</translation>
-    </message>
-    <message>
-        <source>Status:</source>
-        <translation type="vanished">状态：</translation>
-    </message>
-    <message>
-        <source>Stopped</source>
-        <translation type="vanished">停止</translation>
-    </message>
-    <message>
-        <source>Start</source>
-        <translation type="vanished">开始</translation>
-    </message>
-    <message>
-        <source>Stop</source>
-        <translation type="vanished">停止</translation>
-    </message>
-    <message>
-        <source>Auto Start</source>
-        <translation type="vanished">自动启动</translation>
-    </message>
-    <message>
-        <source>Preview</source>
-        <translation type="vanished">预览</translation>
-    </message>
-    <message>
-        <source>Save to file</source>
-        <translation type="vanished">保存到文件</translation>
-    </message>
-    <message>
-        <source>Manually edit</source>
-        <translation type="vanished">手动编辑</translation>
-    </message>
-    <message>
-        <source>Load from file</source>
-        <translation type="vanished">从文件加载</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBEffectTab</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Save as profile</source>
-        <translation type="vanished">另存为配置文件</translation>
-    </message>
-    <message>
-        <source>Load profile</source>
-        <translation type="vanished">加载配置文件</translation>
-    </message>
-    <message>
-        <source>Delete profile</source>
-        <translation type="vanished">删除配置文件</translation>
-    </message>
-</context>
-<context>
     <name>OpenRGBElgatoKeyLightSettingsEntryUi</name>
     <message>
         <location filename="../OpenRGBElgatoKeyLightSettingsPage/OpenRGBElgatoKeyLightSettingsEntry.ui" line="14"/>
@@ -1638,12 +570,12 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>OpenRGBElgatoLightStripSettingsEntryUi</name>
     <message>
-        <location filename="../OpenRGBElgatoLightStripSettingsPage/OpenRGBElgatoLightStripSettingsPage.ui" line="14"/>
+        <location filename="../OpenRGBElgatoLightStripSettingsPage/OpenRGBElgatoLightStripSettingsEntry.ui" line="14"/>
         <source>Dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../OpenRGBElgatoLightStripSettingsPage/OpenRGBElgatoLightStripSettingsPage.ui" line="26"/>
+        <location filename="../OpenRGBElgatoLightStripSettingsPage/OpenRGBElgatoLightStripSettingsEntry.ui" line="26"/>
         <source>IP:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1667,6 +599,75 @@ Using an effect on a device WILL damage the flash or controller</source>
     </message>
     <message>
         <location filename="../OpenRGBElgatoLightStripSettingsPage/OpenRGBElgatoLightStripSettingsPage.ui" line="37"/>
+        <source>Save</source>
+        <translation type="unfinished">保存</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBHardwareIDsDialogUi</name>
+    <message>
+        <location filename="../OpenRGBHardwareIDsDialog/OpenRGBHardwareIDsDialog.ui" line="14"/>
+        <source>Hardware IDs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBHardwareIDsDialog/OpenRGBHardwareIDsDialog.ui" line="20"/>
+        <source>Copy to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBHardwareIDsDialog/OpenRGBHardwareIDsDialog.ui" line="28"/>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBHardwareIDsDialog/OpenRGBHardwareIDsDialog.ui" line="33"/>
+        <source>Device</source>
+        <translation type="unfinished">设备</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBHardwareIDsDialog/OpenRGBHardwareIDsDialog.ui" line="38"/>
+        <source>Vendor</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBKasaSmartSettingsEntryUi</name>
+    <message>
+        <location filename="../OpenRGBKasaSmartSettingsPage/OpenRGBKasaSmartSettingsEntry.ui" line="20"/>
+        <source>Form</source>
+        <translation type="unfinished">表单</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBKasaSmartSettingsPage/OpenRGBKasaSmartSettingsEntry.ui" line="35"/>
+        <source>IP:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBKasaSmartSettingsPage/OpenRGBKasaSmartSettingsEntry.ui" line="45"/>
+        <source>Name</source>
+        <translation type="unfinished">名称</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBKasaSmartSettingsPageUi</name>
+    <message>
+        <location filename="../OpenRGBKasaSmartSettingsPage/OpenRGBKasaSmartSettingsPage.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished">表单</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBKasaSmartSettingsPage/OpenRGBKasaSmartSettingsPage.ui" line="20"/>
+        <source>Add</source>
+        <translation type="unfinished">添加</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBKasaSmartSettingsPage/OpenRGBKasaSmartSettingsPage.ui" line="27"/>
+        <source>Remove</source>
+        <translation type="unfinished">移除</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBKasaSmartSettingsPage/OpenRGBKasaSmartSettingsPage.ui" line="34"/>
         <source>Save</source>
         <translation type="unfinished">保存</translation>
     </message>
@@ -1713,6 +714,24 @@ Using an effect on a device WILL damage the flash or controller</source>
     </message>
 </context>
 <context>
+    <name>OpenRGBNanoleafNewDeviceDialogUi</name>
+    <message>
+        <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafNewDeviceDialog.ui" line="20"/>
+        <source>New Nanoleaf device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafNewDeviceDialog.ui" line="26"/>
+        <source>IP address:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafNewDeviceDialog.ui" line="36"/>
+        <source>Port:</source>
+        <translation type="unfinished">端口：</translation>
+    </message>
+</context>
+<context>
     <name>OpenRGBNanoleafSettingsEntryUi</name>
     <message>
         <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafSettingsEntry.ui" line="20"/>
@@ -1754,11 +773,21 @@ Using an effect on a device WILL damage the flash or controller</source>
     </message>
     <message>
         <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafSettingsPage.ui" line="20"/>
+        <source>Add</source>
+        <translation type="unfinished">添加</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafSettingsPage.ui" line="27"/>
+        <source>Remove</source>
+        <translation type="unfinished">移除</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafSettingsPage.ui" line="34"/>
         <source>Scan</source>
         <translation>扫描</translation>
     </message>
     <message>
-        <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafSettingsPage.ui" line="34"/>
+        <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafSettingsPage.ui" line="48"/>
         <source>To pair, hold the on-off button down for 5-7 seconds until the LED starts flashing in a pattern, then click the &quot;Pair&quot; button within 30 seconds.</source>
         <translation>配对时，请按住开关按钮 5-7 秒钟，直到 LED 开始以某种模式闪烁，然后在 30 秒内点按“配对”按钮。</translation>
     </message>
@@ -1842,7 +871,17 @@ Using an effect on a device WILL damage the flash or controller</source>
         <translation>飞利浦 WIZ 设置条目</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPhilipsWizSettingsPage/OpenRGBPhilipsWizSettingsEntry.ui" line="35"/>
+        <location filename="../OpenRGBPhilipsWizSettingsPage/OpenRGBPhilipsWizSettingsEntry.ui" line="32"/>
+        <source>Use Cool White</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBPhilipsWizSettingsPage/OpenRGBPhilipsWizSettingsEntry.ui" line="39"/>
+        <source>Use Warm White</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBPhilipsWizSettingsPage/OpenRGBPhilipsWizSettingsEntry.ui" line="49"/>
         <source>IP:</source>
         <translation></translation>
     </message>
@@ -1873,7 +912,7 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>OpenRGBPluginContainerUi</name>
     <message>
-        <location filename="../OpenRGBPluginContainer.ui" line="20"/>
+        <location filename="../OpenRGBPluginContainer/OpenRGBPluginContainer.ui" line="20"/>
         <source>Plugin container</source>
         <translation>插件容器</translation>
     </message>
@@ -1886,44 +925,49 @@ Using an effect on a device WILL damage the flash or controller</source>
         <translation>插件条目</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="26"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="152"/>
         <source>Version:</source>
         <translation>版本：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="66"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="179"/>
+        <source>API Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="186"/>
+        <source>API Version Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="131"/>
         <source>Name:</source>
         <translation>名称：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="79"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="84"/>
         <source>Description:</source>
         <translation>描述：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="86"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="26"/>
         <source>URL:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="120"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="138"/>
         <source>Path:</source>
         <translation>路径：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="127"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="71"/>
         <source>Enabled</source>
         <translation>启用</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="134"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="159"/>
         <source>Commit:</source>
         <translation>提交：</translation>
-    </message>
-    <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="169"/>
-        <source>Icon</source>
-        <translation>图标</translation>
     </message>
 </context>
 <context>
@@ -1952,14 +996,19 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>OpenRGBProfileSaveDialogUi</name>
     <message>
-        <location filename="../OpenRGBProfileSaveDialog.ui" line="14"/>
+        <location filename="../OpenRGBProfileSaveDialog/OpenRGBProfileSaveDialog.ui" line="20"/>
         <source>Profile Name</source>
         <translation>配置文件名称</translation>
     </message>
     <message>
-        <location filename="../OpenRGBProfileSaveDialog.ui" line="20"/>
-        <source>New Profile Name:</source>
-        <translation>新配置文件名称：</translation>
+        <location filename="../OpenRGBProfileSaveDialog/OpenRGBProfileSaveDialog.ui" line="26"/>
+        <source>Save to an existing profile:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBProfileSaveDialog/OpenRGBProfileSaveDialog.ui" line="36"/>
+        <source>Create a new profile:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2067,57 +1116,57 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>OpenRGBServerInfoPageUi</name>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="14"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="14"/>
         <source>Server info page</source>
         <translation>服务器信息页面</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="20"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="20"/>
         <source>Stop Server</source>
         <translation>中止服务器</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="27"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="27"/>
         <source>Server Port:</source>
         <translation>服务器端口：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="45"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="45"/>
         <source>Client IP</source>
         <translation type="unfinished">客户端 IP</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="50"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="50"/>
         <source>Protocol Version</source>
         <translation type="unfinished">协议版本</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="55"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="55"/>
         <source>Client Name</source>
         <translation type="unfinished">客户端名称</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="80"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="80"/>
         <source>Start Server</source>
         <translation>启动服务器</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="107"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="107"/>
         <source>Server Host:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="73"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="73"/>
         <source>Server Status:</source>
         <translation>服务器状态：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="87"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="87"/>
         <source>Offline</source>
         <translation>离线</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="34"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="34"/>
         <source>Connected Clients:</source>
         <translation>连接的客户端：</translation>
     </message>
@@ -2125,137 +1174,142 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>OpenRGBSettingsPageUi</name>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="14"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="14"/>
         <source>Settings page</source>
         <translation>软件设置</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="212"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="229"/>
         <source>Minimize On Close</source>
         <translation>关闭窗口时最小化</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="182"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="117"/>
         <source>90000</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="66"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="110"/>
         <source>Start Server</source>
         <translation>启动服务器</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="59"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="208"/>
         <source>Enable Log Console (restart required)</source>
         <translation>启用日志控制台（需要重新启动）</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="205"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="194"/>
         <source>Custom Arguments</source>
         <translation>自定义参数</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="120"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="187"/>
         <source>Save Geometry On Close</source>
         <translation>关闭时保存几何图形</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="172"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="201"/>
         <source>Load Window Geometry</source>
         <translation>加载窗口几何图形</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="127"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="130"/>
         <source>Start Client</source>
         <translation>启动客户端</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="83"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="222"/>
         <source>Start At Login Settings:</source>
         <translation>从登录设置开始：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="42"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="72"/>
         <source>Log Manager Settings:</source>
         <translation>日志管理器设置：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="90"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="93"/>
         <source>Theme (restart required)</source>
         <translation>主题（需要重新启动）</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="151"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="86"/>
         <source>Start at Login Status</source>
         <translation>从登录状态开始</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="198"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="103"/>
         <source>Set Profile on Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="219"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="167"/>
         <source>Shared SMBus Access (restart required)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="229"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="137"/>
         <source>Set Server Host</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="236"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="55"/>
         <source>Set Server Port</source>
         <translation>设置服务器端口</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="250"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="79"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="137"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="253"/>
         <source>Load Profile</source>
         <translation>加载配置文件</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="97"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="260"/>
+        <source>Disable key expansion in device view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="42"/>
         <source>Drivers Settings</source>
         <translation>驱动程序设置</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="243"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="65"/>
         <source>Run zone checks on rescan</source>
         <translation>重新扫描时运行区域检查</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="52"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="180"/>
         <source>User Interface Settings:</source>
         <translation>用户界面设置：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="76"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="160"/>
         <source>Start At Login</source>
         <translation>登录时开启</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="165"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="215"/>
         <source>Start Minimized</source>
         <translation>开启时最小化</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="158"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="246"/>
         <source>AMD SMBus: Reduce CPU Usage (restart required)</source>
         <translation>AMD SMBus：降低 CPU 使用率（需要重新启动）</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="144"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="239"/>
         <source>Greyscale Tray Icon</source>
         <translation>灰度托盘图标</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="20"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="20"/>
         <source>Open Settings Folder</source>
         <translation>打开设置文件夹</translation>
     </message>
@@ -2263,52 +1317,72 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>OpenRGBSoftwareInfoPageUi</name>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="14"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="14"/>
         <source>Software info page</source>
         <translation>软件信息页面</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="55"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="126"/>
+        <source>SDK Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="154"/>
         <source>Build Date:</source>
         <translation>构建日期：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="69"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="161"/>
+        <source>Plugin API Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="168"/>
+        <source>SDK Version Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="175"/>
+        <source>Plugin API Version Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="64"/>
         <source>Git Commit ID:</source>
         <translation>Git Commit ID:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="86"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="140"/>
         <source>Git Commit Date:</source>
         <translation>Git Commit 日期:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="100"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="91"/>
         <source>Git Branch:</source>
         <translation>Git Branch:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="41"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="133"/>
         <source>Version:</source>
         <translation>版本：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="114"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="84"/>
         <source>Gitlab page</source>
         <translation>Gitlab 页面</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="134"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="112"/>
         <source>Website</source>
         <translation>网页</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="141"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="71"/>
         <source>&lt;a href=&quot;https://openrgb.org&quot;&gt;https://openrgb.org&lt;/a&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="121"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="41"/>
         <source>&lt;a href=&quot;https://gitlab.com/CalcProgrammer1/OpenRGB&quot;&gt;https://gitlab.com/CalcProgrammer1/OpenRGB&lt;/a&gt;</source>
         <translation></translation>
     </message>
@@ -2316,114 +1390,104 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>OpenRGBSupportedDevicesPageUi</name>
     <message>
-        <location filename="../OpenRGBSupportedDevicesPage.ui" line="14"/>
+        <location filename="../OpenRGBSupportedDevicesPage/OpenRGBSupportedDevicesPage.ui" line="14"/>
         <source>Supported devices</source>
         <translation>兼容设备选择</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSupportedDevicesPage.ui" line="22"/>
+        <location filename="../OpenRGBSupportedDevicesPage/OpenRGBSupportedDevicesPage.ui" line="22"/>
         <source>Filter:</source>
         <translation>过滤：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSupportedDevicesPage.ui" line="32"/>
+        <location filename="../OpenRGBSupportedDevicesPage/OpenRGBSupportedDevicesPage.ui" line="32"/>
         <source>Enable/Disable all</source>
         <translation>全部启用/禁用</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSupportedDevicesPage.ui" line="46"/>
+        <location filename="../OpenRGBSupportedDevicesPage/OpenRGBSupportedDevicesPage.ui" line="46"/>
         <source>Apply changes</source>
         <translation>应用更改</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBSupportedDevicesPage/OpenRGBSupportedDevicesPage.ui" line="53"/>
+        <source>Get hardware IDs</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OpenRGBSystemInfoPageUi</name>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="14"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="14"/>
         <source>System info page</source>
         <translation>系统信息页面</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="20"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="20"/>
         <source>SMBus Adapters:</source>
         <translation>SMBus 适配器：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="27"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="27"/>
         <source>Address:</source>
         <translation>地址：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="34"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="34"/>
         <source>Read Device</source>
         <translation>读取设备</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="44"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="44"/>
         <source>SMBus Dumper:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="54"/>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="117"/>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="137"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="54"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="117"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="137"/>
         <source>0x</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="67"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="67"/>
         <source>SMBus Detector:</source>
         <translation>SMBus 检测器：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="77"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="77"/>
         <source>Detection Mode:</source>
         <translation>检测模式：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="87"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="87"/>
         <source>Detect Devices</source>
         <translation>检测设备</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="94"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="94"/>
         <source>Dump Device</source>
         <translation>转储设备</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="101"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="101"/>
         <source>SMBus Reader:</source>
         <translation>SMBus 读卡器：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="110"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="110"/>
         <source>Addr:</source>
         <translation>地 址：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="130"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="130"/>
         <source>Reg:</source>
         <translation>注册：</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="150"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="150"/>
         <source>Size:</source>
         <translation>大小：</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBVisualMapTab</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Tab 1</source>
-        <translation type="vanished">选项卡 1</translation>
-    </message>
-    <message>
-        <source>Tab 2</source>
-        <translation type="vanished">选项卡 2</translation>
     </message>
 </context>
 <context>
@@ -2485,369 +1549,52 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>OpenRGBZoneResizeDialogUi</name>
     <message>
-        <location filename="../OpenRGBZoneResizeDialog.ui" line="14"/>
+        <location filename="../OpenRGBZoneResizeDialog/OpenRGBZoneResizeDialog.ui" line="14"/>
         <source>Resize Zone</source>
         <translation>调整区域大小</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBZoneResizeDialog/OpenRGBZoneResizeDialog.ui" line="22"/>
+        <source>Add Segment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBZoneResizeDialog/OpenRGBZoneResizeDialog.ui" line="29"/>
+        <source>Remove Segment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBZoneResizeDialog/OpenRGBZoneResizeDialog.ui" line="60"/>
+        <source>Length</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OpenRGBZonesBulkResizerUi</name>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.ui" line="14"/>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.ui" line="14"/>
         <source>Zones resizer</source>
         <translation>区域调整大小</translation>
     </message>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.ui" line="39"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;One or more resizable zones have not been configured.  Resizable zones are most commonly used for addressable RGB headers where the size of the connected device cannot be detected automatically.&lt;/p&gt;&lt;p&gt;Please enter the number of LEDs in each zone below.&lt;/p&gt;&lt;p&gt;For more information about calcuating the correct size, please check &lt;a href=&quot;https://openrgb.org/resize&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;this link.&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translatorcomment>style???</translatorcomment>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;一个或多个可调整大小的区域尚未配置。 可调整大小的区域最常用于无法自动检测到所连接设备大小的可寻址 RGB 标头。&lt;/p&gt;&lt;p&gt;请在下面输入每个区域中的 LED 数量。&lt;/p&gt;&lt;p&gt;有关计算正确大小的详细信息，请查看&lt;a href=&quot;https://openrgb.org/resize&quot;&gt;&lt;span 样式=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;此链接。&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.ui" line="39"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;One or more resizable zones have not been configured.  Resizable zones are most commonly used for addressable RGB headers where the size of the connected device cannot be detected automatically.&lt;/p&gt;&lt;p&gt;Please enter the number of LEDs in each zone below.&lt;/p&gt;&lt;p&gt;For more information about calcuating the correct size, please check &lt;a href=&quot;https://openrgb.org/resize.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;this link.&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.ui" line="49"/>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.ui" line="49"/>
         <source>Do not show again</source>
         <translation>不再显示</translation>
     </message>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.ui" line="56"/>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.ui" line="56"/>
         <source>Save and close</source>
         <translation>保存并关闭</translation>
     </message>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.ui" line="88"/>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.ui" line="88"/>
         <source>Ignore</source>
         <translation>忽视</translation>
-    </message>
-</context>
-<context>
-    <name>PluginInfo</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Version:</source>
-        <translation type="vanished">版本：</translation>
-    </message>
-    <message>
-        <source>Build date:</source>
-        <translation type="vanished">构建日期：</translation>
-    </message>
-    <message>
-        <source>Git commit ID:</source>
-        <translation type="vanished">Git 提交 ID：</translation>
-    </message>
-    <message>
-        <source>Git commit date:</source>
-        <translation type="vanished">Git 提交日期：</translation>
-    </message>
-    <message>
-        <source>Git branch:</source>
-        <translation type="vanished">Git 分支：</translation>
-    </message>
-    <message>
-        <source>Download lastest build</source>
-        <translation type="vanished">下载最新版本</translation>
-    </message>
-    <message>
-        <source>Open plugin folder</source>
-        <translation type="vanished">打开插件文件夹</translation>
-    </message>
-</context>
-<context>
-    <name>RadialRainbow</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>X position</source>
-        <translation type="vanished">X 位置</translation>
-    </message>
-    <message>
-        <source>Y position</source>
-        <translation type="vanished">Y 位置</translation>
-    </message>
-    <message>
-        <source>Shape</source>
-        <translation type="vanished">形状</translation>
-    </message>
-</context>
-<context>
-    <name>RotatingBeam</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Mode</source>
-        <translation type="vanished">模式</translation>
-    </message>
-    <message>
-        <source>Thickness</source>
-        <translation type="vanished">厚度</translation>
-    </message>
-</context>
-<context>
-    <name>RotatingRainbow</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>SaveProfilePopup</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="vanished">保存</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="vanished">取消</translation>
-    </message>
-    <message>
-        <source>Load profile at startup</source>
-        <translation type="vanished">启动时加载配置文件</translation>
-    </message>
-    <message>
-        <source>Profile name:</source>
-        <translation type="vanished">配置文件名称：</translation>
-    </message>
-</context>
-<context>
-    <name>Sequence</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="vanished">颜色数</translation>
-    </message>
-</context>
-<context>
-    <name>ShaderFileTabHeader</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>ShaderPassEditor</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>The audio data will be automatically passed to this shader. Make sure to enabled &quot;Use audio&quot; in the effect page.</source>
-        <translation type="vanished">音频数据将自动传递到此着色器。确保在效果页面中启用了“使用音频”。</translation>
-    </message>
-    <message>
-        <source>Choose texture</source>
-        <translation type="vanished">选择纹理</translation>
-    </message>
-    <message>
-        <source>Open Image</source>
-        <translation type="vanished">打开图像</translation>
-    </message>
-    <message>
-        <source>Image Files (*.png *.jpg *.bmp)</source>
-        <translation type="vanished">图像文件 （*.png *.jpg *.bmp）</translation>
-    </message>
-</context>
-<context>
-    <name>Shaders</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Width</source>
-        <translation type="vanished">宽度</translation>
-    </message>
-    <message>
-        <source>Decay</source>
-        <translation type="vanished">衰变</translation>
-    </message>
-    <message>
-        <source>Amplitude</source>
-        <translation type="vanished">波幅</translation>
-    </message>
-    <message>
-        <source>Device</source>
-        <translation type="vanished">设备</translation>
-    </message>
-    <message>
-        <source>Average</source>
-        <translation type="vanished">平均</translation>
-    </message>
-    <message>
-        <source>Height</source>
-        <translation type="vanished">高度</translation>
-    </message>
-    <message>
-        <source>Show rendering</source>
-        <translation type="vanished">显示渲染</translation>
-    </message>
-    <message>
-        <source>Use audio</source>
-        <translation type="vanished">使用音频</translation>
-    </message>
-    <message>
-        <source>Edit shader</source>
-        <translation type="vanished">编辑着色器</translation>
-    </message>
-    <message>
-        <source>Reset time</source>
-        <translation type="vanished">复位时间</translation>
-    </message>
-    <message>
-        <source>Invert time</source>
-        <translation type="vanished">反转时间</translation>
-    </message>
-</context>
-<context>
-    <name>SmoothBlink</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Pulses (n)</source>
-        <translation type="vanished">脉冲 （n）</translation>
-    </message>
-    <message>
-        <source>Defaults</source>
-        <translation type="vanished">默认</translation>
-    </message>
-    <message>
-        <source>Strength (%)</source>
-        <translation type="vanished">强度（%）</translation>
-    </message>
-    <message>
-        <source>Interval (s)</source>
-        <translation type="vanished">间隔（秒）</translation>
-    </message>
-    <message>
-        <source>Pulse duration (s)</source>
-        <translation type="vanished">脉冲持续时间（秒）</translation>
-    </message>
-    <message>
-        <source>Rendering</source>
-        <translation type="vanished">渲染</translation>
-    </message>
-    <message>
-        <source>X position</source>
-        <translation type="vanished">X 位置</translation>
-    </message>
-    <message>
-        <source>Y position</source>
-        <translation type="vanished">Y 位置</translation>
-    </message>
-</context>
-<context>
-    <name>Spiral</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>Stack</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Matrix zone direction</source>
-        <translation type="vanished">矩阵区方向</translation>
-    </message>
-</context>
-<context>
-    <name>Sunrise</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Motion</source>
-        <translation type="vanished">运动</translation>
-    </message>
-    <message>
-        <source>Intensity</source>
-        <translation type="vanished">剧烈程度</translation>
-    </message>
-    <message>
-        <source>Intensity speed</source>
-        <translation type="vanished">剧烈强度速度</translation>
-    </message>
-    <message>
-        <source>Radius</source>
-        <translation type="vanished">半径</translation>
-    </message>
-    <message>
-        <source>Grow speed</source>
-        <translation type="vanished">扩张速度</translation>
-    </message>
-    <message>
-        <source>Run only once</source>
-        <translation type="vanished">仅运行一次</translation>
-    </message>
-</context>
-<context>
-    <name>Swap</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>SwirlCircles</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Radius</source>
-        <translation type="vanished">半径</translation>
-    </message>
-</context>
-<context>
-    <name>SwirlCirclesAudio</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Amplitude</source>
-        <translation type="vanished">波幅</translation>
-    </message>
-    <message>
-        <source>Audio device</source>
-        <translation type="vanished">音频设备</translation>
-    </message>
-    <message>
-        <source>Average</source>
-        <translation type="vanished">均值</translation>
-    </message>
-    <message>
-        <source>Decay</source>
-        <translation type="vanished">衰变</translation>
-    </message>
-    <message>
-        <source>Radius</source>
-        <translation type="vanished">半径</translation>
-    </message>
-</context>
-<context>
-    <name>TabHeader</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
     </message>
 </context>
 <context>
@@ -2858,7 +1605,7 @@ Using an effect on a device WILL damage the flash or controller</source>
         <translation>标签页标签</translation>
     </message>
     <message>
-        <location filename="../TabLabel.ui" line="104"/>
+        <location filename="../TabLabel.ui" line="92"/>
         <source>device name</source>
         <translation>设备名称</translation>
     </message>
@@ -2866,19 +1613,7 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>Ui::OpenRGBClientInfoPage</name>
     <message>
-        <source>Connected Clients</source>
-        <translation type="vanished">连接的客户端</translation>
-    </message>
-    <message>
-        <source>Protocol Version</source>
-        <translation type="vanished">协议版本</translation>
-    </message>
-    <message>
-        <source>Save Connection</source>
-        <translation type="vanished">保存连接</translation>
-    </message>
-    <message>
-        <location filename="../OpenRGBClientInfoPage.cpp" line="167"/>
+        <location filename="../OpenRGBClientInfoPage/OpenRGBClientInfoPage.cpp" line="177"/>
         <source>Disconnect</source>
         <translation>断开</translation>
     </message>
@@ -2886,107 +1621,112 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>Ui::OpenRGBDevicePage</name>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="24"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="34"/>
         <source>Set individual LEDs to static colors.  Safe for use with software-driven effects.</source>
         <translation>将单个 LED 设置为静态颜色。 可安全使用软件驱动效果。</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="25"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="35"/>
         <source>Set individual LEDs to static colors.  Not safe for use with software-driven effects.</source>
         <translation>将单个 LED 设置为静态颜色。 与软件驱动的效果一起使用不安全。</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="26"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="36"/>
         <source>Sets the entire device or a zone to a single color.</source>
         <translation>将整个设备或区域设置为单一颜色。</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="27"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="37"/>
         <source>Gradually fades between fully off and fully on.</source>
         <translation>在完全关闭和完全打开之间逐渐淡出。</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="28"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="38"/>
         <source>Abruptly changes between fully off and fully on.</source>
         <translation>在完全关闭和完全打开之间突然变化。</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="29"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="39"/>
         <source>Gradually cycles through the entire color spectrum.  All lights on the device are the same color.</source>
         <translation>在整个色谱中逐渐循环。 设备上的所有指示灯都是相同的颜色。</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="30"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="40"/>
         <source>Gradually cycles through the entire color spectrum.  Produces a rainbow pattern that moves.</source>
         <translation>在整个色谱中逐渐循环。 生成移动的彩虹图案。</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="31"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="41"/>
         <source>Flashes lights when keys or buttons are pressed.</source>
         <translation>按下按键或按钮时闪烁。</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="176"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="262"/>
         <source>Entire Device</source>
         <translation>整个设备</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="208"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="306"/>
         <source>Entire Zone</source>
         <translation>整个区域</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="547"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="365"/>
+        <source>Entire Segment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="883"/>
         <source>Left</source>
         <translation>左</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="548"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="884"/>
         <source>Right</source>
         <translation>右</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="553"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="889"/>
         <source>Up</source>
         <translation>上</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="554"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="890"/>
         <source>Down</source>
         <translation>下</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="559"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="895"/>
         <source>Horizontal</source>
         <translation>水平</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="560"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="896"/>
         <source>Vertical</source>
         <translation>垂直</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="660"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="996"/>
         <source>Saved To Device</source>
         <translation>保存到设备</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="665"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="1001"/>
         <source>Save To Device</source>
         <translation>保存到设备</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="670"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="1006"/>
         <source>Saving Not Supported</source>
         <translation>不支持保存</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="701"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="1037"/>
         <source>All Zones</source>
         <translation>所有区域</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="732"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="1078"/>
         <source>Mode Specific</source>
         <translation>特定模式</translation>
     </message>
@@ -2994,162 +1734,172 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>Ui::OpenRGBDialog2</name>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="296"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="304"/>
         <source>Show/Hide</source>
         <translation>显示/隐藏</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="300"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="308"/>
         <source>Profiles</source>
         <translation>配置文件</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="304"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="312"/>
         <source>Quick Colors</source>
         <translation>快速着色</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="306"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="314"/>
         <source>Red</source>
         <translation>红色</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="310"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="318"/>
         <source>Yellow</source>
         <translation>黄色</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="314"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="322"/>
         <source>Green</source>
         <translation>绿色</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="318"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="326"/>
         <source>Cyan</source>
         <translation>青色</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="322"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="330"/>
         <source>Blue</source>
         <translation>蓝色</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="326"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="334"/>
         <source>Magenta</source>
         <translation>品红</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="330"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="338"/>
         <source>White</source>
         <translation>白</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="336"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="344"/>
         <source>Lights Off</source>
         <translation>关灯</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="341"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="349"/>
         <source>Exit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="645"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="671"/>
         <source>Plugins</source>
         <translation>插件</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="673"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="688"/>
         <source>Software</source>
         <translation>软件</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="701"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="705"/>
         <source>Supported Devices</source>
         <translation>兼容设备选择</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="730"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="722"/>
         <source>General Settings</source>
         <translation>常规设置</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="764"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="745"/>
+        <source>DMX Devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="762"/>
         <source>E1.31 Devices</source>
         <translation>E1.31 设备</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="792"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="790"/>
+        <source>Kasa Smart Devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="807"/>
         <source>LIFX Devices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="820"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="824"/>
         <source>Philips Hue Devices</source>
         <translation>飞利浦 Hue 设备</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="848"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="841"/>
         <source>Philips Wiz Devices</source>
         <translation>飞利浦 Wiz 设备</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="876"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="858"/>
         <source>OpenRGB QMK Protocol</source>
         <translation>OpenRGB QMK 协议</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="904"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="875"/>
         <source>Serial Devices</source>
         <translation>串行设备</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="932"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="892"/>
         <source>Yeelight Devices</source>
         <translation>Yeelight 设备</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="960"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="909"/>
         <source>Nanoleaf Devices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="988"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="926"/>
         <source>Elgato KeyLight Devices</source>
         <translation type="unfinished"></translation>
     </message>
-	<message>
-        <location filename="../OpenRGBDialog2.cpp" line="988"/>
+    <message>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="943"/>
         <source>Elgato LightStrip Devices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="1202"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="1109"/>
         <source>SMBus Tools</source>
         <translation>SMBus 工具</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="1216"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="1123"/>
         <source>SDK Client</source>
         <translation>SDK 客户端</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="1238"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="1145"/>
         <source>SDK Server</source>
         <translation>SDK 服务器</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="1734"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="1643"/>
         <source>Delete Profile</source>
         <translation>删除配置文件</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="1734"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="1643"/>
         <source>Do you really want to delete this profile?</source>
         <translation>是否确定删除此配置文件？</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="2004"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="1904"/>
         <source>Log Console</source>
         <translation>日志控制台</translation>
     </message>
@@ -3157,57 +1907,57 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>Ui::OpenRGBE131SettingsEntry</name>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="12"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="21"/>
         <source>Single</source>
         <translation>点</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="13"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="22"/>
         <source>Linear</source>
         <translation>线</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="14"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="23"/>
         <source>Matrix</source>
         <translation>面</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="16"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="25"/>
         <source>Horizontal Top Left</source>
         <translation>水平左上角</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="17"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="26"/>
         <source>Horizontal Top Right</source>
         <translation>水平右上角</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="18"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="27"/>
         <source>Horizontal Bottom Left</source>
         <translation>水平左下角</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="19"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="28"/>
         <source>Horizontal Bottom Right</source>
         <translation>水平右下角</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="20"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="29"/>
         <source>Vertical Top Left</source>
         <translation>竖直左上角</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="21"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="30"/>
         <source>Vertical Top Right</source>
         <translation>竖直右上角</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="22"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="31"/>
         <source>Vertical Bottom Left</source>
         <translation>竖直左下角</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="23"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="32"/>
         <source>Vertical Bottom Right</source>
         <translation>竖直右下角</translation>
     </message>
@@ -3215,36 +1965,32 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>Ui::OpenRGBPluginsPage</name>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="98"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="118"/>
         <source>Install OpenRGB Plugin</source>
         <translation>安装 OpenRGB 插件</translation>
     </message>
     <message>
-        <source>Plugin files (*.dll; *.dylib; *.so; *.so.*)</source>
-        <translation type="vanished">插件文件(*.dll; *.dylib; *.so; *.so.*)</translation>
-    </message>
-    <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="98"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="118"/>
         <source>Plugin files (*.dll *.dylib *.so *.so.*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="136"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="155"/>
         <source>Replace Plugin</source>
         <translation>替换插件</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="136"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="155"/>
         <source>A plugin with this filename is already installed.  Are you sure you want to replace this plugin?</source>
         <translation>已安装具有此文件名的插件。 您确定要替换此插件吗？</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="174"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="193"/>
         <source>Remove Plugin</source>
         <translation>移除插件</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="174"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="193"/>
         <source>Are you sure you want to remove this plugin?</source>
         <translation>是否确定删除此插件？</translation>
     </message>
@@ -3252,48 +1998,36 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>Ui::OpenRGBServerInfoPage</name>
     <message>
-        <location filename="../OpenRGBServerInfoPage.cpp" line="46"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.cpp" line="55"/>
         <source>Stopping...</source>
         <translation>停止...</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.cpp" line="54"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.cpp" line="63"/>
         <source>Online</source>
         <translation>在线</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.cpp" line="62"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.cpp" line="71"/>
         <source>Offline</source>
         <translation>离线</translation>
-    </message>
-    <message>
-        <source>Client IP</source>
-        <translation type="vanished">客户端 IP</translation>
-    </message>
-    <message>
-        <source>Protocol Version</source>
-        <translation type="vanished">协议版本</translation>
-    </message>
-    <message>
-        <source>Client Name</source>
-        <translation type="vanished">客户端名称</translation>
     </message>
 </context>
 <context>
     <name>Ui::OpenRGBSettingsPage</name>
     <message>
-        <location filename="../OpenRGBSettingsPage.cpp" line="35"/>
-        <location filename="../OpenRGBSettingsPage.cpp" line="41"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.cpp" line="46"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.cpp" line="52"/>
         <source>English - US</source>
         <translation type="unfinished">简体中文</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.cpp" line="45"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.cpp" line="56"/>
         <source>System Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.cpp" line="650"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.cpp" line="677"/>
         <source>A problem occurred enabling Start At Login.</source>
         <translation>启用“登录时启动”时出现问题。</translation>
     </message>
@@ -3301,12 +2035,12 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>Ui::OpenRGBYeelightSettingsEntry</name>
     <message>
-        <location filename="../OpenRGBYeelightSettingsPage/OpenRGBYeelightSettingsEntry.cpp" line="47"/>
+        <location filename="../OpenRGBYeelightSettingsPage/OpenRGBYeelightSettingsEntry.cpp" line="56"/>
         <source>Choose an IP...</source>
         <translation>选择一个 IP...</translation>
     </message>
     <message>
-        <location filename="../OpenRGBYeelightSettingsPage/OpenRGBYeelightSettingsEntry.cpp" line="48"/>
+        <location filename="../OpenRGBYeelightSettingsPage/OpenRGBYeelightSettingsEntry.cpp" line="57"/>
         <source>Choose the correct IP for the host</source>
         <translation>为主机选择正确的 IP</translation>
     </message>
@@ -3314,211 +2048,47 @@ Using an effect on a device WILL damage the flash or controller</source>
 <context>
     <name>Ui::OpenRGBZonesBulkResizer</name>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.cpp" line="66"/>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.cpp" line="76"/>
         <source>Resize the zones</source>
         <translation>调整区域大小</translation>
     </message>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.cpp" line="104"/>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.cpp" line="114"/>
         <source>Controller</source>
         <translation>控制器</translation>
     </message>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.cpp" line="104"/>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.cpp" line="114"/>
         <source>Zone</source>
         <translation>区域</translation>
     </message>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.cpp" line="104"/>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.cpp" line="114"/>
         <source>Size</source>
         <translation>大小</translation>
     </message>
 </context>
 <context>
-    <name>VirtualControllerTab</name>
+    <name>i18n_xtra</name>
     <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
+        <location filename="i18n_xtra.cpp" line="16"/>
+        <source>&lt;h2&gt;Some internal devices may not be detected:&lt;/h2&gt;&lt;p&gt;One or more I2C or SMBus interfaces failed to initialize.&lt;/p&gt;&lt;p&gt;&lt;b&gt;RGB DRAM modules, some motherboards&apos; onboard RGB lighting, and RGB Graphics Cards, will not be available in OpenRGB&lt;/b&gt; without I2C or SMBus.&lt;/p&gt;&lt;h4&gt;How to fix this:&lt;/h4&gt;&lt;p&gt;On Windows, this is usually caused by a failure to load the WinRing0 driver.&lt;/p&gt;&lt;p&gt;You must run OpenRGB as administrator at least once to allow WinRing0 to set up.&lt;/p&gt;&lt;p&gt;See &lt;a href=&apos;https://help.openrgb.org/&apos;&gt;help.openrgb.org&lt;/a&gt; for additional troubleshooting steps if you keep seeing this message.&lt;br&gt;&lt;/p&gt;&lt;h3&gt;If you are not using internal RGB on a desktop this message is not important to you.&lt;/h3&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Register controller</source>
-        <translation type="vanished">添加到控制器列表</translation>
+        <location filename="i18n_xtra.cpp" line="36"/>
+        <source>&lt;h2&gt;WARNING:&lt;/h2&gt;&lt;p&gt;The OpenRGB udev rules are not installed.&lt;/p&gt;&lt;p&gt;Most devices will not be available unless running OpenRGB as root.&lt;/p&gt;&lt;p&gt;If using AppImage, Flatpak, or self-compiled versions of OpenRGB you must install the udev rules manually&lt;/p&gt;&lt;p&gt;See &lt;a href=&apos;https://openrgb.org/udev&apos;&gt;https://openrgb.org/udev&lt;/a&gt; to install the udev rules manually&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Infos</source>
-        <translation type="vanished">信息</translation>
+        <location filename="i18n_xtra.cpp" line="42"/>
+        <source>&lt;h2&gt;WARNING:&lt;/h2&gt;&lt;p&gt;Multiple OpenRGB udev rules are installed.&lt;/p&gt;&lt;p&gt;The udev rules file 60-openrgb.rules is installed in both /etc/udev/rules.d and /usr/lib/udev/rules.d.&lt;/p&gt;&lt;p&gt;Multiple udev rules files can conflict, it is recommended to remove one of them.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation type="vanished">保存</translation>
-    </message>
-    <message>
-        <source>Load</source>
-        <translation type="vanished">加载</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="vanished">清除</translation>
-    </message>
-</context>
-<context>
-    <name>Wavy</name>
-    <message>
-        <source>Will affect how many waves you will see</source>
-        <translation type="vanished">将影响你看到多少波</translation>
-    </message>
-    <message>
-        <source>Wave frequency</source>
-        <translation type="vanished">波频</translation>
-    </message>
-    <message>
-        <source>Will affect the wave speed (left to right)</source>
-        <translation type="vanished">会影响波速（从左到右）</translation>
-    </message>
-    <message>
-        <source>Wave speed</source>
-        <translation type="vanished">波速</translation>
-    </message>
-    <message>
-        <source>Will affect the wave duration</source>
-        <translation type="vanished">会影响波的持续时间</translation>
-    </message>
-    <message>
-        <source>Oscillation speed</source>
-        <translation type="vanished">振荡速度</translation>
-    </message>
-</context>
-<context>
-    <name>WidgetEditor</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>Width</source>
-        <translation type="vanished">宽度</translation>
-    </message>
-    <message>
-        <source>Height</source>
-        <translation type="vanished">高度</translation>
-    </message>
-    <message>
-        <source>LEDS</source>
-        <translation type="vanished">数量</translation>
-    </message>
-    <message>
-        <source>Undo</source>
-        <translation type="vanished">撤消</translation>
-    </message>
-    <message>
-        <source>Rotate</source>
-        <translation type="vanished">旋转</translation>
-    </message>
-    <message>
-        <source>H-Flip</source>
-        <translation type="vanished">左右镜像</translation>
-    </message>
-    <message>
-        <source>V-Flip</source>
-        <translation type="vanished">上下镜像</translation>
-    </message>
-    <message>
-        <source>H-Line</source>
-        <translation type="vanished">从左到右</translation>
-    </message>
-    <message>
-        <source>V-Line</source>
-        <translation type="vanished">从上到下</translation>
-    </message>
-    <message>
-        <source>Square</source>
-        <translation type="vanished">正方形</translation>
-    </message>
-    <message>
-        <source>Circle</source>
-        <translation type="vanished">圆形</translation>
-    </message>
-    <message>
-        <source>ZigZag</source>
-        <translation type="vanished">之字形</translation>
-    </message>
-    <message>
-        <source>Sawtooth</source>
-        <translation type="vanished">锯齿形</translation>
-    </message>
-    <message>
-        <source>Grow</source>
-        <translation type="vanished">扩大间距</translation>
-    </message>
-    <message>
-        <source>Shrink</source>
-        <translation type="vanished">缩小间距</translation>
-    </message>
-    <message>
-        <source>Auto resize</source>
-        <translation type="vanished">自动调整大小</translation>
-    </message>
-    <message>
-        <source>Copy shape</source>
-        <translation type="vanished">复制形状</translation>
-    </message>
-    <message>
-        <source>Identify</source>
-        <translation type="vanished">识别</translation>
-    </message>
-    <message>
-        <source>Auto identify</source>
-        <translation type="vanished">自动识别</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation type="vanished">重置</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="vanished">取消</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="vanished">保存</translation>
-    </message>
-    <message>
-        <source>ZigZag size</source>
-        <translation type="vanished">之字形尺寸</translation>
-    </message>
-    <message>
-        <source>Enter a value</source>
-        <translation type="vanished">输入数值</translation>
-    </message>
-    <message>
-        <source>Diagonal size</source>
-        <translation type="vanished">对角线尺寸</translation>
-    </message>
-</context>
-<context>
-    <name>ZigZag</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-</context>
-<context>
-    <name>ZoneListItem</name>
-    <message>
-        <source>Form</source>
-        <translation type="vanished">表单</translation>
-    </message>
-    <message>
-        <source>TextLabel</source>
-        <translation type="vanished">文本标签</translation>
-    </message>
-    <message>
-        <source>Enable</source>
-        <translation type="vanished">启用</translation>
-    </message>
-    <message>
-        <source>Reverse</source>
-        <translation type="vanished">反向</translation>
+        <location filename="i18n_xtra.cpp" line="25"/>
+        <source>&lt;h2&gt;Some internal devices may not be detected:&lt;/h2&gt;&lt;p&gt;One or more I2C or SMBus interfaces failed to initialize.&lt;/p&gt;&lt;p&gt;&lt;b&gt;RGB DRAM modules, some motherboards&apos; onboard RGB lighting, and RGB Graphics Cards, will not be available in OpenRGB&lt;/b&gt; without I2C or SMBus.&lt;/p&gt;&lt;h4&gt;How to fix this:&lt;/h4&gt;&lt;p&gt;On Linux, this is usually because the i2c-dev module is not loaded.&lt;/p&gt;&lt;p&gt;You must load the i2c-dev module along with the correct i2c driver for your motherboard. This is usually i2c-piix4 for AMD systems and i2c-i801 for Intel systems.&lt;/p&gt;&lt;p&gt;See &lt;a href=&apos;https://help.openrgb.org/&apos;&gt;help.openrgb.org&lt;/a&gt; for additional troubleshooting steps if you keep seeing this message.&lt;br&gt;&lt;/p&gt;&lt;h3&gt;If you are not using internal RGB on a desktop this message is not important to you.&lt;/h3&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

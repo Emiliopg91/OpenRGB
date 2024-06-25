@@ -245,6 +245,10 @@
         <source>Edit</source>
         <translation>편집</translation>
     </message>
+    <message>
+        <source>Hex:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OpenRGBDialog2Ui</name>
@@ -305,51 +309,51 @@
     <name>OpenRGBDialogUi</name>
     <message>
         <source>OpenRGB</source>
-        <translation type="vanished">OpenRGB</translation>
+        <translation>OpenRGB</translation>
     </message>
     <message>
         <source>Device</source>
-        <translation type="vanished">장치</translation>
+        <translation>장치</translation>
     </message>
     <message>
         <source>Red</source>
-        <translation type="vanished">빨강</translation>
+        <translation>빨강</translation>
     </message>
     <message>
         <source>Green</source>
-        <translation type="vanished">초록</translation>
+        <translation>초록</translation>
     </message>
     <message>
         <source>Blue</source>
-        <translation type="vanished">파랑</translation>
+        <translation>파랑</translation>
     </message>
     <message>
         <source>Mode</source>
-        <translation type="vanished">모드</translation>
+        <translation>모드</translation>
     </message>
     <message>
         <source>Set All</source>
-        <translation type="vanished">모두 설정</translation>
+        <translation>모두 설정</translation>
     </message>
     <message>
         <source>Set Device</source>
-        <translation type="vanished">장치 설정</translation>
+        <translation>장치 설정</translation>
     </message>
     <message>
         <source>Zone</source>
-        <translation type="vanished">구역</translation>
+        <translation>구역</translation>
     </message>
     <message>
         <source>Set Zone</source>
-        <translation type="vanished">구역 설정</translation>
+        <translation>구역 설정</translation>
     </message>
     <message>
         <source>Set LED</source>
-        <translation type="vanished">LED 설정</translation>
+        <translation>LED 설정</translation>
     </message>
     <message>
         <source>LED</source>
-        <translation type="vanished">LED</translation>
+        <translation>LED</translation>
     </message>
 </context>
 <context>
@@ -780,10 +784,6 @@
         <translation>커밋:</translation>
     </message>
     <message>
-        <source>Icon</source>
-        <translation type="vanished">아이콘</translation>
-    </message>
-    <message>
         <source>API Version:</source>
         <translation>API 버전:</translation>
     </message>
@@ -816,10 +816,6 @@
     <message>
         <source>Profile Name</source>
         <translation>프로파일 이름</translation>
-    </message>
-    <message>
-        <source>New Profile Name:</source>
-        <translation type="vanished">새 프로파일 이름:</translation>
     </message>
     <message>
         <source>Save to an existing profile:</source>
@@ -1532,7 +1528,7 @@
         <source>Elgato KeyLight Devices</source>
         <translation>Elgato KeyLight 장치</translation>
     </message>
-	<message>
+    <message>
         <source>Elgato LightStrip Devices</source>
         <translation>Elgato LightStrip 장치</translation>
     </message>
@@ -1685,6 +1681,25 @@
     <message>
         <source>Size</source>
         <translation>크기</translation>
+    </message>
+</context>
+<context>
+    <name>i18n_xtra</name>
+    <message>
+        <source>&lt;h2&gt;WARNING:&lt;/h2&gt;&lt;p&gt;The OpenRGB udev rules are not installed.&lt;/p&gt;&lt;p&gt;Most devices will not be available unless running OpenRGB as root.&lt;/p&gt;&lt;p&gt;If using AppImage, Flatpak, or self-compiled versions of OpenRGB you must install the udev rules manually&lt;/p&gt;&lt;p&gt;See &lt;a href=&apos;https://openrgb.org/udev&apos;&gt;https://openrgb.org/udev&lt;/a&gt; to install the udev rules manually&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;h2&gt;WARNING:&lt;/h2&gt;&lt;p&gt;Multiple OpenRGB udev rules are installed.&lt;/p&gt;&lt;p&gt;The udev rules file 60-openrgb.rules is installed in both /etc/udev/rules.d and /usr/lib/udev/rules.d.&lt;/p&gt;&lt;p&gt;Multiple udev rules files can conflict, it is recommended to remove one of them.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;h2&gt;Some internal devices may not be detected:&lt;/h2&gt;&lt;p&gt;One or more I2C or SMBus interfaces failed to initialize.&lt;/p&gt;&lt;p&gt;&lt;b&gt;RGB DRAM modules, some motherboards&apos; onboard RGB lighting, and RGB Graphics Cards, will not be available in OpenRGB&lt;/b&gt; without I2C or SMBus.&lt;/p&gt;&lt;h4&gt;How to fix this:&lt;/h4&gt;&lt;p&gt;On Linux, this is usually because the i2c-dev module is not loaded.&lt;/p&gt;&lt;p&gt;You must load the i2c-dev module along with the correct i2c driver for your motherboard. This is usually i2c-piix4 for AMD systems and i2c-i801 for Intel systems.&lt;/p&gt;&lt;p&gt;See &lt;a href=&apos;https://help.openrgb.org/&apos;&gt;help.openrgb.org&lt;/a&gt; for additional troubleshooting steps if you keep seeing this message.&lt;br&gt;&lt;/p&gt;&lt;h3&gt;If you are not using internal RGB on a desktop this message is not important to you.&lt;/h3&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;h2&gt;Some internal devices may not be detected:&lt;/h2&gt;&lt;p&gt;One or more I2C or SMBus interfaces failed to initialize.&lt;/p&gt;&lt;p&gt;&lt;b&gt;RGB DRAM modules, some motherboards&apos; onboard RGB lighting, and RGB Graphics Cards, will not be available in OpenRGB&lt;/b&gt; without I2C or SMBus.&lt;/p&gt;&lt;h4&gt;How to fix this:&lt;/h4&gt;&lt;p&gt;On Windows, this is usually caused by a failure to load the WinRing0 driver.&lt;/p&gt;&lt;p&gt;You must run OpenRGB as administrator at least once to allow WinRing0 to set up.&lt;/p&gt;&lt;p&gt;See &lt;a href=&apos;https://help.openrgb.org/&apos;&gt;help.openrgb.org&lt;/a&gt; for additional troubleshooting steps if you keep seeing this message.&lt;br&gt;&lt;/p&gt;&lt;h3&gt;If you are not using internal RGB on a desktop this message is not important to you.&lt;/h3&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

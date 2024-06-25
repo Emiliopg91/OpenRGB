@@ -4,12 +4,12 @@
 <context>
     <name>DetectorTableModel</name>
     <message>
-        <location filename="../DetectorTableModel.cpp" line="102"/>
+        <location filename="../DetectorTableModel.cpp" line="112"/>
         <source>Name</source>
         <translation>Nama</translation>
     </message>
     <message>
-        <location filename="../DetectorTableModel.cpp" line="104"/>
+        <location filename="../DetectorTableModel.cpp" line="114"/>
         <source>Enabled</source>
         <translation>Didayakan</translation>
     </message>
@@ -17,37 +17,37 @@
 <context>
     <name>OpenRGBClientInfoPageUi</name>
     <message>
-        <location filename="../OpenRGBClientInfoPage.ui" line="14"/>
+        <location filename="../OpenRGBClientInfoPage/OpenRGBClientInfoPage.ui" line="14"/>
         <source>Client info page</source>
         <translation>Halaman maklumat pelanggan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBClientInfoPage.ui" line="30"/>
+        <location filename="../OpenRGBClientInfoPage/OpenRGBClientInfoPage.ui" line="30"/>
         <source>Port:</source>
         <translation>Port:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBClientInfoPage.ui" line="50"/>
+        <location filename="../OpenRGBClientInfoPage/OpenRGBClientInfoPage.ui" line="50"/>
         <source>Connect</source>
         <translation>Sambung</translation>
     </message>
     <message>
-        <location filename="../OpenRGBClientInfoPage.ui" line="60"/>
+        <location filename="../OpenRGBClientInfoPage/OpenRGBClientInfoPage.ui" line="60"/>
         <source>IP:</source>
         <translation>IP:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBClientInfoPage.ui" line="71"/>
+        <location filename="../OpenRGBClientInfoPage/OpenRGBClientInfoPage.ui" line="71"/>
         <source>Connected Clients</source>
         <translation>Klient Terhubung</translation>
     </message>
     <message>
-        <location filename="../OpenRGBClientInfoPage.ui" line="76"/>
+        <location filename="../OpenRGBClientInfoPage/OpenRGBClientInfoPage.ui" line="76"/>
         <source>Protocol Version</source>
         <translation>Versi Protokol</translation>
     </message>
     <message>
-        <location filename="../OpenRGBClientInfoPage.ui" line="81"/>
+        <location filename="../OpenRGBClientInfoPage/OpenRGBClientInfoPage.ui" line="81"/>
         <source>Save Connection</source>
         <translation>Simpan Sambungan</translation>
     </message>
@@ -55,65 +55,131 @@
 <context>
     <name>OpenRGBConsolePageUi</name>
     <message>
-        <location filename="../OpenRGBConsolePage.ui" line="14"/>
+        <location filename="../OpenRGBConsolePage/OpenRGBConsolePage.ui" line="14"/>
         <source>Log console page</source>
         <translation>Halaman konsol log</translation>
     </message>
     <message>
-        <location filename="../OpenRGBConsolePage.ui" line="20"/>
+        <location filename="../OpenRGBConsolePage/OpenRGBConsolePage.ui" line="20"/>
         <source>Log level</source>
         <translation>Tahap log</translation>
     </message>
     <message>
-        <location filename="../OpenRGBConsolePage.ui" line="30"/>
+        <location filename="../OpenRGBConsolePage/OpenRGBConsolePage.ui" line="30"/>
         <source>Refresh logs</source>
         <translation>Muat semula log</translation>
     </message>
     <message>
-        <location filename="../OpenRGBConsolePage.ui" line="37"/>
+        <location filename="../OpenRGBConsolePage/OpenRGBConsolePage.ui" line="37"/>
         <source>Clear log</source>
         <translation>Kosongkan log</translation>
     </message>
 </context>
 <context>
+    <name>OpenRGBDMXSettingsEntryUi</name>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsEntry.ui" line="20"/>
+        <source>E131 settings entry</source>
+        <translation type="unfinished">E131 entri seting</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsEntry.ui" line="32"/>
+        <source>Brightness Channel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsEntry.ui" line="42"/>
+        <source>Blue Channel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsEntry.ui" line="55"/>
+        <source>Name:</source>
+        <translation type="unfinished">Nama:</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsEntry.ui" line="62"/>
+        <source>Green Channel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsEntry.ui" line="69"/>
+        <source>Red Channel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsEntry.ui" line="82"/>
+        <source>Keepalive Time:</source>
+        <translation type="unfinished">Keepalive Time:</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsEntry.ui" line="92"/>
+        <source>Port:</source>
+        <translation type="unfinished">Port:</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBDMXSettingsPageUi</name>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsPage.ui" line="14"/>
+        <source>E131 settings page</source>
+        <translation type="unfinished">E131 halaman seting</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsPage.ui" line="20"/>
+        <source>Add</source>
+        <translation type="unfinished">Tambah</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsPage.ui" line="27"/>
+        <source>Remove</source>
+        <translation type="unfinished">Alih keluar</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDMXSettingsPage/OpenRGBDMXSettingsPage.ui" line="34"/>
+        <source>Save</source>
+        <translation type="unfinished">Simpan</translation>
+    </message>
+</context>
+<context>
     <name>OpenRGBDeviceInfoPageUi</name>
     <message>
-        <location filename="../OpenRGBDeviceInfoPage.ui" line="14"/>
+        <location filename="../OpenRGBDeviceInfoPage/OpenRGBDeviceInfoPage.ui" line="14"/>
         <source>Device info page</source>
         <translation>Halaman maklumat peranti</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDeviceInfoPage.ui" line="51"/>
+        <location filename="../OpenRGBDeviceInfoPage/OpenRGBDeviceInfoPage.ui" line="51"/>
         <source>Serial:</source>
         <translation>Siri:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDeviceInfoPage.ui" line="68"/>
+        <location filename="../OpenRGBDeviceInfoPage/OpenRGBDeviceInfoPage.ui" line="68"/>
         <source>Name:</source>
         <translation>Nama:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDeviceInfoPage.ui" line="85"/>
+        <location filename="../OpenRGBDeviceInfoPage/OpenRGBDeviceInfoPage.ui" line="85"/>
         <source>Vendor:</source>
         <translation>Penjual:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDeviceInfoPage.ui" line="102"/>
+        <location filename="../OpenRGBDeviceInfoPage/OpenRGBDeviceInfoPage.ui" line="102"/>
         <source>Type:</source>
         <translation>Jenis:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDeviceInfoPage.ui" line="129"/>
+        <location filename="../OpenRGBDeviceInfoPage/OpenRGBDeviceInfoPage.ui" line="129"/>
         <source>Description:</source>
         <translation>Penerangan:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDeviceInfoPage.ui" line="136"/>
+        <location filename="../OpenRGBDeviceInfoPage/OpenRGBDeviceInfoPage.ui" line="136"/>
         <source>Version:</source>
         <translation>Versi:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDeviceInfoPage.ui" line="143"/>
+        <location filename="../OpenRGBDeviceInfoPage/OpenRGBDeviceInfoPage.ui" line="143"/>
         <source>Location:</source>
         <translation>Lokasi:</translation>
     </message>
@@ -121,117 +187,122 @@
 <context>
     <name>OpenRGBDevicePageUi</name>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="14"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="14"/>
         <source>Device page</source>
         <translation>Halaman peranti</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="59"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="59"/>
         <source>R:</source>
         <translation>R:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="73"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="73"/>
         <source>H:</source>
         <translation>H:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="87"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="87"/>
         <source>G:</source>
         <translation>G:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="101"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="101"/>
         <source>S:</source>
         <translation>S:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="115"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="115"/>
         <source>B:</source>
         <translation>B:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="129"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="129"/>
         <source>V:</source>
         <translation>V:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="146"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="143"/>
+        <source>Hex:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="183"/>
         <source>Save To Device</source>
         <translation>Simpan Ke Peranti</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="197"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="211"/>
         <source>Speed:</source>
         <translation>Kelajuan:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="210"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="224"/>
         <source>Random</source>
         <translation>Rambang</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="217"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="231"/>
         <source>Mode:</source>
         <translation>Mod:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="224"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="238"/>
         <source>Dir:</source>
         <translation>Arah:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="238"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="252"/>
         <source>Colors:</source>
         <translation>Warna:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="245"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="259"/>
         <source>Per-LED</source>
         <translation>Setiap-LED</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="252"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="266"/>
         <source>Zone:</source>
         <translation>Zon:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="262"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="276"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;Sets all devices to&lt;br/&gt;&lt;b&gt;Static&lt;/b&gt; mode and&lt;br/&gt;applies the selected color.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;Tetapkan semua peranti kepada mod&lt;br/&gt;&lt;b&gt;Statik&lt;/b&gt; dan&lt;br/&gt;gunakan warna yang dipilih.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="265"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="279"/>
         <source>Apply All Devices</source>
         <translation>Terapkan Semua Peranti</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="272"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="286"/>
         <source>LED:</source>
         <translation>LED:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="279"/>
-        <source>Resize</source>
-        <translation>Ubah saiz</translation>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="293"/>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="286"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="300"/>
         <source>Mode-Specific</source>
         <translation>Mod-Khusus</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="293"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="307"/>
         <source>Apply Colors To Selection</source>
         <translation>Sapukan Warna Pada Pilihan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="300"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="314"/>
         <source>Select All</source>
         <translation>Pilih semua</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.ui" line="317"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.ui" line="331"/>
         <source>Brightness:</source>
         <translation>Kecerahan:</translation>
     </message>
@@ -239,69 +310,69 @@
 <context>
     <name>OpenRGBDialog2Ui</name>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="14"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="14"/>
         <source>OpenRGB</source>
         <translation>OpenRGB</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="34"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="34"/>
         <source>Devices</source>
         <translation>Peranti</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="48"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="48"/>
         <source>Information</source>
         <translation>Maklumat</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="65"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="65"/>
         <source>Settings</source>
         <translation>Seting</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="87"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="108"/>
         <source>Toggle LED View</source>
         <translation>Togol Pandangan LED</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="94"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="115"/>
         <source>Rescan Devices</source>
         <translation>Imbasan Semula Peranti</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="107"/>
-        <location filename="../OpenRGBDialog2.ui" line="165"/>
-        <location filename="../OpenRGBDialog2.ui" line="168"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="128"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="189"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="192"/>
         <source>Save Profile</source>
         <translation>Simpan Profil</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="117"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="138"/>
         <source>Delete Profile</source>
         <translation>Padam Profil</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="124"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="145"/>
         <source>Load Profile</source>
         <translation>Muat Profil</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="138"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="162"/>
         <source>OpenRGB is detecting devices...</source>
         <translation>OpenRGB sedang mengesan peranti...</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="155"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="179"/>
         <source>Cancel</source>
         <translation>Batal</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="173"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="197"/>
         <source>Save Profile As...</source>
         <translation>Simpan Profil Sebagai...</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.ui" line="176"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.ui" line="200"/>
         <source>Save Profile with custom name</source>
         <translation>Simpan Profil dengan nama tersuai</translation>
     </message>
@@ -309,62 +380,62 @@
 <context>
     <name>OpenRGBDialogUi</name>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="14"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="14"/>
         <source>OpenRGB</source>
         <translation>OpenRGB</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="63"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="63"/>
         <source>Device</source>
         <translation>Peranti</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="73"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="73"/>
         <source>Red</source>
         <translation>Merah</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="80"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="80"/>
         <source>Green</source>
         <translation>Hijau</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="87"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="87"/>
         <source>Blue</source>
         <translation>Biru</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="94"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="94"/>
         <source>Mode</source>
         <translation>Mod</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="113"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="113"/>
         <source>Set All</source>
         <translation>Tetapkan Semua</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="120"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="120"/>
         <source>Set Device</source>
         <translation>Tetapkan Peranti</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="127"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="127"/>
         <source>Zone</source>
         <translation>Zon</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="137"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="137"/>
         <source>Set Zone</source>
         <translation>Tetapkan Zone</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="144"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="144"/>
         <source>Set LED</source>
         <translation>Tetapkan LED</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog.ui" line="151"/>
+        <location filename="../OpenRGBDialog/OpenRGBDialog.ui" line="151"/>
         <source>LED</source>
         <translation>LED</translation>
     </message>
@@ -512,7 +583,7 @@
 <context>
     <name>OpenRGBElgatoLightStripSettingsPageUi</name>
     <message>
-        <location filename="../OpenRGBElgatoLightStripSettingsPage/OpenRGBElgatoKeyLightSettingsPage.ui" line="14"/>
+        <location filename="../OpenRGBElgatoLightStripSettingsPage/OpenRGBElgatoLightStripSettingsPage.ui" line="14"/>
         <source>Dialog</source>
         <translation>Dialog</translation>
     </message>
@@ -530,6 +601,75 @@
         <location filename="../OpenRGBElgatoLightStripSettingsPage/OpenRGBElgatoLightStripSettingsPage.ui" line="37"/>
         <source>Save</source>
         <translation>Simpan</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBHardwareIDsDialogUi</name>
+    <message>
+        <location filename="../OpenRGBHardwareIDsDialog/OpenRGBHardwareIDsDialog.ui" line="14"/>
+        <source>Hardware IDs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBHardwareIDsDialog/OpenRGBHardwareIDsDialog.ui" line="20"/>
+        <source>Copy to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBHardwareIDsDialog/OpenRGBHardwareIDsDialog.ui" line="28"/>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBHardwareIDsDialog/OpenRGBHardwareIDsDialog.ui" line="33"/>
+        <source>Device</source>
+        <translation type="unfinished">Peranti</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBHardwareIDsDialog/OpenRGBHardwareIDsDialog.ui" line="38"/>
+        <source>Vendor</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBKasaSmartSettingsEntryUi</name>
+    <message>
+        <location filename="../OpenRGBKasaSmartSettingsPage/OpenRGBKasaSmartSettingsEntry.ui" line="20"/>
+        <source>Form</source>
+        <translation type="unfinished">Borang</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBKasaSmartSettingsPage/OpenRGBKasaSmartSettingsEntry.ui" line="35"/>
+        <source>IP:</source>
+        <translation type="unfinished">IP:</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBKasaSmartSettingsPage/OpenRGBKasaSmartSettingsEntry.ui" line="45"/>
+        <source>Name</source>
+        <translation type="unfinished">Nama</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBKasaSmartSettingsPageUi</name>
+    <message>
+        <location filename="../OpenRGBKasaSmartSettingsPage/OpenRGBKasaSmartSettingsPage.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished">Borang</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBKasaSmartSettingsPage/OpenRGBKasaSmartSettingsPage.ui" line="20"/>
+        <source>Add</source>
+        <translation type="unfinished">Tambah</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBKasaSmartSettingsPage/OpenRGBKasaSmartSettingsPage.ui" line="27"/>
+        <source>Remove</source>
+        <translation type="unfinished">Alih keluar</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBKasaSmartSettingsPage/OpenRGBKasaSmartSettingsPage.ui" line="34"/>
+        <source>Save</source>
+        <translation type="unfinished">Simpan</translation>
     </message>
 </context>
 <context>
@@ -574,6 +714,24 @@
     </message>
 </context>
 <context>
+    <name>OpenRGBNanoleafNewDeviceDialogUi</name>
+    <message>
+        <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafNewDeviceDialog.ui" line="20"/>
+        <source>New Nanoleaf device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafNewDeviceDialog.ui" line="26"/>
+        <source>IP address:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafNewDeviceDialog.ui" line="36"/>
+        <source>Port:</source>
+        <translation type="unfinished">Port:</translation>
+    </message>
+</context>
+<context>
     <name>OpenRGBNanoleafSettingsEntryUi</name>
     <message>
         <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafSettingsEntry.ui" line="20"/>
@@ -615,11 +773,21 @@
     </message>
     <message>
         <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafSettingsPage.ui" line="20"/>
+        <source>Add</source>
+        <translation type="unfinished">Tambah</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafSettingsPage.ui" line="27"/>
+        <source>Remove</source>
+        <translation type="unfinished">Alih keluar</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafSettingsPage.ui" line="34"/>
         <source>Scan</source>
         <translation>Scan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafSettingsPage.ui" line="34"/>
+        <location filename="../OpenRGBNanoleafSettingsPage/OpenRGBNanoleafSettingsPage.ui" line="48"/>
         <source>To pair, hold the on-off button down for 5-7 seconds until the LED starts flashing in a pattern, then click the &quot;Pair&quot; button within 30 seconds.</source>
         <translation>Untuk berpasangan, tahan butang hidup-mati ke bawah selama 5-7 saat sehingga LED mula berkelip dalam corak, kemudian klik butang &quot;Gandingkan&quot; dalam masa 30 saat.</translation>
     </message>
@@ -703,7 +871,17 @@
         <translation>Philips WIZ entri seting</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPhilipsWizSettingsPage/OpenRGBPhilipsWizSettingsEntry.ui" line="35"/>
+        <location filename="../OpenRGBPhilipsWizSettingsPage/OpenRGBPhilipsWizSettingsEntry.ui" line="32"/>
+        <source>Use Cool White</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBPhilipsWizSettingsPage/OpenRGBPhilipsWizSettingsEntry.ui" line="39"/>
+        <source>Use Warm White</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBPhilipsWizSettingsPage/OpenRGBPhilipsWizSettingsEntry.ui" line="49"/>
         <source>IP:</source>
         <translation>IP:</translation>
     </message>
@@ -734,7 +912,7 @@
 <context>
     <name>OpenRGBPluginContainerUi</name>
     <message>
-        <location filename="../OpenRGBPluginContainer.ui" line="20"/>
+        <location filename="../OpenRGBPluginContainer/OpenRGBPluginContainer.ui" line="20"/>
         <source>Plugin container</source>
         <translation>Bekas Plugin</translation>
     </message>
@@ -747,37 +925,47 @@
         <translation>Kemasukan Plugin</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="26"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="152"/>
         <source>Version:</source>
         <translation>Versi:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="66"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="179"/>
+        <source>API Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="186"/>
+        <source>API Version Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="131"/>
         <source>Name:</source>
         <translation>Nama:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="79"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="84"/>
         <source>Description:</source>
         <translation>Penerangan:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="86"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="26"/>
         <source>URL:</source>
         <translation>URL:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="120"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="138"/>
         <source>Path:</source>
         <translation>Laluan:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="127"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="71"/>
         <source>Enabled</source>
         <translation>Didayakan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="134"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsEntry.ui" line="159"/>
         <source>Commit:</source>
         <translation>Komit:</translation>
     </message>
@@ -808,14 +996,19 @@
 <context>
     <name>OpenRGBProfileSaveDialogUi</name>
     <message>
-        <location filename="../OpenRGBProfileSaveDialog.ui" line="14"/>
+        <location filename="../OpenRGBProfileSaveDialog/OpenRGBProfileSaveDialog.ui" line="20"/>
         <source>Profile Name</source>
         <translation>Nama profil</translation>
     </message>
     <message>
-        <location filename="../OpenRGBProfileSaveDialog.ui" line="20"/>
-        <source>New Profile Name:</source>
-        <translation>Nama Profil Baharu:</translation>
+        <location filename="../OpenRGBProfileSaveDialog/OpenRGBProfileSaveDialog.ui" line="26"/>
+        <source>Save to an existing profile:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBProfileSaveDialog/OpenRGBProfileSaveDialog.ui" line="36"/>
+        <source>Create a new profile:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -923,57 +1116,57 @@
 <context>
     <name>OpenRGBServerInfoPageUi</name>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="14"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="14"/>
         <source>Server info page</source>
         <translation>Halaman maklumat pelayan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="20"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="20"/>
         <source>Stop Server</source>
         <translation>Berhenti Pelayan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="27"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="27"/>
         <source>Server Port:</source>
         <translation>Port Pelayan:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="34"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="34"/>
         <source>Connected Clients:</source>
         <translation>Klient Terhubung:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="45"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="45"/>
         <source>Client IP</source>
         <translation>IP Klient</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="50"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="50"/>
         <source>Protocol Version</source>
         <translation>Versi Protokol</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="55"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="55"/>
         <source>Client Name</source>
         <translation>Nama Klient</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="73"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="73"/>
         <source>Server Status:</source>
         <translation>Status Pelayan:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="80"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="80"/>
         <source>Start Server</source>
         <translation>Mulakan Pelayan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="87"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="87"/>
         <source>Offline</source>
         <translation>Luar talian</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.ui" line="107"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.ui" line="107"/>
         <source>Server Host:</source>
         <translation>Hos Pelayan:</translation>
     </message>
@@ -981,137 +1174,142 @@
 <context>
     <name>OpenRGBSettingsPageUi</name>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="14"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="14"/>
         <source>Settings page</source>
         <translation>Halaman seting</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="20"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="20"/>
         <source>Open Settings Folder</source>
         <translation>Buka Folder Seting</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="42"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="72"/>
         <source>Log Manager Settings:</source>
         <translation>Seting Pengurus Log:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="52"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="180"/>
         <source>User Interface Settings:</source>
         <translation>Seting Antara Muka Pengguna:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="59"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="208"/>
         <source>Enable Log Console (restart required)</source>
         <translation>Dayakan Log Konsol (Restart diperlukan)</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="66"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="260"/>
+        <source>Disable key expansion in device view</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="110"/>
         <source>Start Server</source>
         <translation>Mulakan Pelayan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="76"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="160"/>
         <source>Start At Login</source>
         <translation>Mulakan Pada Log Masuk</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="83"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="222"/>
         <source>Start At Login Settings:</source>
         <translation>Seting Mulakan Pada Log Masuk:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="90"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="93"/>
         <source>Theme (restart required)</source>
         <translation>Tema (Restart diperlukan)</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="97"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="42"/>
         <source>Drivers Settings</source>
         <translation>Seting Pemacu</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="120"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="187"/>
         <source>Save Geometry On Close</source>
         <translation>Simpan Geometri Pada Tutup</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="127"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="130"/>
         <source>Start Client</source>
         <translation>Mulakan Klient</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="137"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="253"/>
         <source>Load Profile</source>
         <translation>Muat Profil</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="144"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="239"/>
         <source>Greyscale Tray Icon</source>
         <translation>Ikon Dulang Skala Kelabu</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="151"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="86"/>
         <source>Start at Login Status</source>
         <translation>Mulakan pada Status Log Masuk</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="158"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="246"/>
         <source>AMD SMBus: Reduce CPU Usage (restart required)</source>
         <translation>AMD SMBus: Kurangkan Penggunaan CPU (Restart diperlukan)</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="165"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="215"/>
         <source>Start Minimized</source>
         <translation>Diminimumkan pada Permulaan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="172"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="201"/>
         <source>Load Window Geometry</source>
         <translation>Geometri Tetingkap Muatan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="182"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="117"/>
         <source>90000</source>
         <translation>90000</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="198"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="103"/>
         <source>Set Profile on Exit</source>
         <translation>Tetapkan Profil semasa Keluar</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="205"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="194"/>
         <source>Custom Arguments</source>
         <translation>Argumen Tersuai</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="212"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="229"/>
         <source>Minimize On Close</source>
         <translation>Minimumkan Pada Tutup</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="219"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="167"/>
         <source>Shared SMBus Access (restart required)</source>
         <translation>Akses SMBus Dikongsi (Restart diperlukan)</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="229"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="137"/>
         <source>Set Server Host</source>
         <translation>Tetapkan Hos Pelayan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="236"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="55"/>
         <source>Set Server Port</source>
         <translation>Tetapkan Port Pelayan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="243"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="65"/>
         <source>Run zone checks on rescan</source>
         <translation>Jalankan pemeriksaan zon pada pengimbasan semula</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.ui" line="250"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.ui" line="79"/>
         <source>Language</source>
         <translation>Bahasa</translation>
     </message>
@@ -1119,52 +1317,72 @@
 <context>
     <name>OpenRGBSoftwareInfoPageUi</name>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="14"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="14"/>
         <source>Software info page</source>
         <translation>Halaman maklumat perisian</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="41"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="126"/>
+        <source>SDK Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="133"/>
         <source>Version:</source>
         <translation>Versi:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="55"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="154"/>
         <source>Build Date:</source>
         <translation>Tarikh Bina:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="69"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="161"/>
+        <source>Plugin API Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="168"/>
+        <source>SDK Version Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="175"/>
+        <source>Plugin API Version Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="64"/>
         <source>Git Commit ID:</source>
         <translation>ID Komit Git:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="86"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="140"/>
         <source>Git Commit Date:</source>
         <translation>Tarikh Komit Git:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="100"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="91"/>
         <source>Git Branch:</source>
         <translation>Cawangan Git:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="114"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="84"/>
         <source>Gitlab page</source>
         <translation>Halaman Gitlab</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="121"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="41"/>
         <source>&lt;a href=&quot;https://gitlab.com/CalcProgrammer1/OpenRGB&quot;&gt;https://gitlab.com/CalcProgrammer1/OpenRGB&lt;/a&gt;</source>
         <translation>&lt;a href=&quot;https://gitlab.com/CalcProgrammer1/OpenRGB&quot;&gt;https://gitlab.com/CalcProgrammer1/OpenRGB&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="134"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="112"/>
         <source>Website</source>
         <translation>Laman Web</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSoftwareInfoPage.ui" line="141"/>
+        <location filename="../OpenRGBSoftwareInfoPage/OpenRGBSoftwareInfoPage.ui" line="71"/>
         <source>&lt;a href=&quot;https://openrgb.org&quot;&gt;https://openrgb.org&lt;/a&gt;</source>
         <translation>&lt;a href=&quot;https://openrgb.org&quot;&gt;https://openrgb.org&lt;/a&gt;</translation>
     </message>
@@ -1172,97 +1390,102 @@
 <context>
     <name>OpenRGBSupportedDevicesPageUi</name>
     <message>
-        <location filename="../OpenRGBSupportedDevicesPage.ui" line="14"/>
+        <location filename="../OpenRGBSupportedDevicesPage/OpenRGBSupportedDevicesPage.ui" line="14"/>
         <source>Supported devices</source>
         <translation>Peranti yang disokong</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSupportedDevicesPage.ui" line="22"/>
+        <location filename="../OpenRGBSupportedDevicesPage/OpenRGBSupportedDevicesPage.ui" line="22"/>
         <source>Filter:</source>
         <translation>Penapis:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSupportedDevicesPage.ui" line="32"/>
+        <location filename="../OpenRGBSupportedDevicesPage/OpenRGBSupportedDevicesPage.ui" line="32"/>
         <source>Enable/Disable all</source>
         <translation>Dayakan/Lumpuhkan semua</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSupportedDevicesPage.ui" line="46"/>
+        <location filename="../OpenRGBSupportedDevicesPage/OpenRGBSupportedDevicesPage.ui" line="46"/>
         <source>Apply changes</source>
         <translation>Gunakan perubahan</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBSupportedDevicesPage/OpenRGBSupportedDevicesPage.ui" line="53"/>
+        <source>Get hardware IDs</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OpenRGBSystemInfoPageUi</name>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="14"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="14"/>
         <source>System info page</source>
         <translation>Halaman maklumat sistem</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="20"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="20"/>
         <source>SMBus Adapters:</source>
         <translation>Penyesuai SMBus:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="27"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="27"/>
         <source>Address:</source>
         <translation>Alamat:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="34"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="34"/>
         <source>Read Device</source>
         <translation>Baca Peranti</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="44"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="44"/>
         <source>SMBus Dumper:</source>
         <translation>Dumper SMBus:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="54"/>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="117"/>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="137"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="54"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="117"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="137"/>
         <source>0x</source>
         <translation>0x</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="67"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="67"/>
         <source>SMBus Detector:</source>
         <translation>Pengesan SMBus:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="77"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="77"/>
         <source>Detection Mode:</source>
         <translation>Mod Pengesanan:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="87"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="87"/>
         <source>Detect Devices</source>
         <translation>Mengesan Peranti</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="94"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="94"/>
         <source>Dump Device</source>
         <translation>Buang Peranti</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="101"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="101"/>
         <source>SMBus Reader:</source>
         <translation>Pembaca SMBus:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="110"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="110"/>
         <source>Addr:</source>
         <translation>Almt:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="130"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="130"/>
         <source>Reg:</source>
         <translation>Reg:</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSystemInfoPage.ui" line="150"/>
+        <location filename="../OpenRGBSystemInfoPage/OpenRGBSystemInfoPage.ui" line="150"/>
         <source>Size:</source>
         <translation>Saiz:</translation>
     </message>
@@ -1326,35 +1549,50 @@
 <context>
     <name>OpenRGBZoneResizeDialogUi</name>
     <message>
-        <location filename="../OpenRGBZoneResizeDialog.ui" line="14"/>
+        <location filename="../OpenRGBZoneResizeDialog/OpenRGBZoneResizeDialog.ui" line="14"/>
         <source>Resize Zone</source>
         <translation>Ubah saiz Zon</translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBZoneResizeDialog/OpenRGBZoneResizeDialog.ui" line="22"/>
+        <source>Add Segment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBZoneResizeDialog/OpenRGBZoneResizeDialog.ui" line="29"/>
+        <source>Remove Segment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBZoneResizeDialog/OpenRGBZoneResizeDialog.ui" line="60"/>
+        <source>Length</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OpenRGBZonesBulkResizerUi</name>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.ui" line="14"/>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.ui" line="14"/>
         <source>Zones resizer</source>
         <translation>Pengubah zon</translation>
     </message>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.ui" line="39"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;One or more resizable zones have not been configured.  Resizable zones are most commonly used for addressable RGB headers where the size of the connected device cannot be detected automatically.&lt;/p&gt;&lt;p&gt;Please enter the number of LEDs in each zone below.&lt;/p&gt;&lt;p&gt;For more information about calcuating the correct size, please check &lt;a href=&quot;https://openrgb.org/resize&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;this link.&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Satu atau lebih zon boleh ubah saiz belum dikonfigurasikan. Zon boleh ubah saiz paling kerap digunakan untuk pengepala ARGB di mana saiz peranti yang disambungkan tidak dapat dikesan secara automatik.&lt;/p&gt;&lt;p&gt;Sila masukkan bilangan LED dalam setiap zon di bawah.&lt;/p&gt;&lt;p&gt;Untuk maklumat lanjut tentang pengiraan saiz yang betul, sila semak &lt;a href=&quot;https://openrgb.org/resize&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;pautan ini.&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.ui" line="39"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;One or more resizable zones have not been configured.  Resizable zones are most commonly used for addressable RGB headers where the size of the connected device cannot be detected automatically.&lt;/p&gt;&lt;p&gt;Please enter the number of LEDs in each zone below.&lt;/p&gt;&lt;p&gt;For more information about calcuating the correct size, please check &lt;a href=&quot;https://openrgb.org/resize.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;this link.&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.ui" line="49"/>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.ui" line="49"/>
         <source>Do not show again</source>
         <translation>Jangan tunjukkan lagi</translation>
     </message>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.ui" line="56"/>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.ui" line="56"/>
         <source>Save and close</source>
         <translation>Simpan dan tutup</translation>
     </message>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.ui" line="88"/>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.ui" line="88"/>
         <source>Ignore</source>
         <translation>Abaikan</translation>
     </message>
@@ -1367,7 +1605,7 @@
         <translation>Label Tab</translation>
     </message>
     <message>
-        <location filename="../TabLabel.ui" line="104"/>
+        <location filename="../TabLabel.ui" line="92"/>
         <source>device name</source>
         <translation>nama peranti</translation>
     </message>
@@ -1375,7 +1613,7 @@
 <context>
     <name>Ui::OpenRGBClientInfoPage</name>
     <message>
-        <location filename="../OpenRGBClientInfoPage.cpp" line="167"/>
+        <location filename="../OpenRGBClientInfoPage/OpenRGBClientInfoPage.cpp" line="177"/>
         <source>Disconnect</source>
         <translation>Putuskan sambungan</translation>
     </message>
@@ -1383,107 +1621,112 @@
 <context>
     <name>Ui::OpenRGBDevicePage</name>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="24"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="34"/>
         <source>Set individual LEDs to static colors.  Safe for use with software-driven effects.</source>
         <translation>Tetapkan LED individu kepada warna statik. Selamat untuk digunakan dengan kesan dipacu perisian.</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="25"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="35"/>
         <source>Set individual LEDs to static colors.  Not safe for use with software-driven effects.</source>
         <translation>Tetapkan LED individu kepada warna statik. Tidak selamat untuk digunakan dengan kesan dipacu perisian.</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="26"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="36"/>
         <source>Sets the entire device or a zone to a single color.</source>
         <translation>Menetapkan keseluruhan peranti atau zon kepada satu warna.</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="27"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="37"/>
         <source>Gradually fades between fully off and fully on.</source>
         <translation>Secara beransur-ansur pudar antara mati sepenuhnya dan hidup sepenuhnya.</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="28"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="38"/>
         <source>Abruptly changes between fully off and fully on.</source>
         <translation>Berubah secara mendadak antara mati sepenuhnya dan hidup sepenuhnya.</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="29"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="39"/>
         <source>Gradually cycles through the entire color spectrum.  All lights on the device are the same color.</source>
         <translation>Secara beransur-ansur kitaran melalui keseluruhan spektrum warna. Semua lampu pada peranti adalah warna yang sama.</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="30"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="40"/>
         <source>Gradually cycles through the entire color spectrum.  Produces a rainbow pattern that moves.</source>
         <translation>Secara beransur-ansur kitaran melalui keseluruhan spektrum warna. Menghasilkan corak pelangi yang bergerak.</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="31"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="41"/>
         <source>Flashes lights when keys or buttons are pressed.</source>
         <translation>Berkelip lampu apabila butang ditekan.</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="176"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="262"/>
         <source>Entire Device</source>
         <translation>Keseluruhan Peranti</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="208"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="306"/>
         <source>Entire Zone</source>
         <translation>Keseluruhan Zon</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="547"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="365"/>
+        <source>Entire Segment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="883"/>
         <source>Left</source>
         <translation>Kiri</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="548"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="884"/>
         <source>Right</source>
         <translation>Kanan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="553"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="889"/>
         <source>Up</source>
         <translation>Atas</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="554"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="890"/>
         <source>Down</source>
         <translation>Bawah</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="559"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="895"/>
         <source>Horizontal</source>
         <translation>Mendatar</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="560"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="896"/>
         <source>Vertical</source>
         <translation>Menegak</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="660"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="996"/>
         <source>Saved To Device</source>
         <translation>Disimpan Ke Peranti</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="665"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="1001"/>
         <source>Save To Device</source>
         <translation>Simpan Ke Peranti</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="670"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="1006"/>
         <source>Saving Not Supported</source>
         <translation>Simpanan Tidak Disokong</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="701"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="1037"/>
         <source>All Zones</source>
         <translation>Semua Zon</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDevicePage.cpp" line="732"/>
+        <location filename="../OpenRGBDevicePage/OpenRGBDevicePage.cpp" line="1078"/>
         <source>Mode Specific</source>
         <translation>Mod Khusus</translation>
     </message>
@@ -1491,162 +1734,172 @@
 <context>
     <name>Ui::OpenRGBDialog2</name>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="296"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="304"/>
         <source>Show/Hide</source>
         <translation>Tunjukkan/Sembunyikan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="300"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="308"/>
         <source>Profiles</source>
         <translation>Profil</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="304"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="312"/>
         <source>Quick Colors</source>
         <translation>Warna Pantas</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="306"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="314"/>
         <source>Red</source>
         <translation>Merah</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="310"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="318"/>
         <source>Yellow</source>
         <translation>Kuning</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="314"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="322"/>
         <source>Green</source>
         <translation>Hijau</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="318"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="326"/>
         <source>Cyan</source>
         <translation>Sian</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="322"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="330"/>
         <source>Blue</source>
         <translation>Biru</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="326"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="334"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="330"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="338"/>
         <source>White</source>
         <translation>Putih</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="336"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="344"/>
         <source>Lights Off</source>
         <translation>Lampu padam</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="341"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="349"/>
         <source>Exit</source>
         <translation>Keluar</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="645"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="671"/>
         <source>Plugins</source>
         <translation>Plugin</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="673"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="688"/>
         <source>Software</source>
         <translation>Perisian</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="701"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="705"/>
         <source>Supported Devices</source>
         <translation>Peranti yang Disokong</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="730"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="722"/>
         <source>General Settings</source>
         <translation>Seting Umum</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="764"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="745"/>
+        <source>DMX Devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="762"/>
         <source>E1.31 Devices</source>
         <translation>Peranti E1.31</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="792"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="790"/>
+        <source>Kasa Smart Devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="807"/>
         <source>LIFX Devices</source>
         <translation>Peranti LIFX</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="820"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="824"/>
         <source>Philips Hue Devices</source>
         <translation>Peranti Philips Hue</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="848"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="841"/>
         <source>Philips Wiz Devices</source>
         <translation>Peranti Philips Wiz</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="876"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="858"/>
         <source>OpenRGB QMK Protocol</source>
         <translation>Protokol QMK OpenRGB</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="904"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="875"/>
         <source>Serial Devices</source>
         <translation>Peranti Bersiri</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="932"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="892"/>
         <source>Yeelight Devices</source>
         <translation>Peranti Yeelight</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="960"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="909"/>
         <source>Nanoleaf Devices</source>
         <translation>Peranti Nanoleaf</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="988"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="926"/>
         <source>Elgato KeyLight Devices</source>
         <translation>Peranti Elgato KeyLight</translation>
     </message>
-	<message>
-        <location filename="../OpenRGBDialog2.cpp" line="988"/>
+    <message>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="943"/>
         <source>Elgato LightStrip Devices</source>
         <translation>Peranti Elgato LightStrip</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="1202"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="1109"/>
         <source>SMBus Tools</source>
         <translation>Alat SMBus</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="1216"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="1123"/>
         <source>SDK Client</source>
         <translation>Klient SDK</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="1238"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="1145"/>
         <source>SDK Server</source>
         <translation>Pelayan SDK</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="1734"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="1643"/>
         <source>Delete Profile</source>
         <translation>Padam Profil</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="1734"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="1643"/>
         <source>Do you really want to delete this profile?</source>
         <translation>Adakah anda benar-benar mahu memadamkan profil ini?</translation>
     </message>
     <message>
-        <location filename="../OpenRGBDialog2.cpp" line="2004"/>
+        <location filename="../OpenRGBDialog2/OpenRGBDialog2.cpp" line="1904"/>
         <source>Log Console</source>
         <translation>Konsol Log</translation>
     </message>
@@ -1654,57 +1907,57 @@
 <context>
     <name>Ui::OpenRGBE131SettingsEntry</name>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="12"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="21"/>
         <source>Single</source>
         <translation>Satu</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="13"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="22"/>
         <source>Linear</source>
         <translation>Linear</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="14"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="23"/>
         <source>Matrix</source>
         <translation>Matriks</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="16"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="25"/>
         <source>Horizontal Top Left</source>
         <translation>Mendatar Kiri Atas</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="17"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="26"/>
         <source>Horizontal Top Right</source>
         <translation>Mendatar Atas Kanan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="18"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="27"/>
         <source>Horizontal Bottom Left</source>
         <translation>Mendatar Bawah Kiri</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="19"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="28"/>
         <source>Horizontal Bottom Right</source>
         <translation>Mendatar Bawah Kanan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="20"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="29"/>
         <source>Vertical Top Left</source>
         <translation>Menegak Atas Kiri</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="21"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="30"/>
         <source>Vertical Top Right</source>
         <translation>Menegak Atas Kanan</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="22"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="31"/>
         <source>Vertical Bottom Left</source>
         <translation>Menegak Bawah Kiri</translation>
     </message>
     <message>
-        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="23"/>
+        <location filename="../OpenRGBE131SettingsPage/OpenRGBE131SettingsEntry.cpp" line="32"/>
         <source>Vertical Bottom Right</source>
         <translation>Menegak Bawah Kanan</translation>
     </message>
@@ -1712,32 +1965,32 @@
 <context>
     <name>Ui::OpenRGBPluginsPage</name>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="98"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="118"/>
         <source>Install OpenRGB Plugin</source>
         <translation>Pasang OpenRGB Plugin</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="98"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="118"/>
         <source>Plugin files (*.dll *.dylib *.so *.so.*)</source>
         <translation>Fail Plugin (*.dll *.dylib *.so *.so.*)</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="136"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="155"/>
         <source>Replace Plugin</source>
         <translation>Gantikan Plugin</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="136"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="155"/>
         <source>A plugin with this filename is already installed.  Are you sure you want to replace this plugin?</source>
         <translation>Plugin dengan nama fail ini telah dipasang. Adakah anda pasti mahu menggantikan plugin ini?</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="174"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="193"/>
         <source>Remove Plugin</source>
         <translation>Alih Keluar Plugin</translation>
     </message>
     <message>
-        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="174"/>
+        <location filename="../OpenRGBPluginsPage/OpenRGBPluginsPage.cpp" line="193"/>
         <source>Are you sure you want to remove this plugin?</source>
         <translation>Adakah anda pasti mahu mengalih keluar plugin ini?</translation>
     </message>
@@ -1745,17 +1998,17 @@
 <context>
     <name>Ui::OpenRGBServerInfoPage</name>
     <message>
-        <location filename="../OpenRGBServerInfoPage.cpp" line="46"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.cpp" line="55"/>
         <source>Stopping...</source>
         <translation>Sedang berhenti...</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.cpp" line="54"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.cpp" line="63"/>
         <source>Online</source>
         <translation>Dalam talian</translation>
     </message>
     <message>
-        <location filename="../OpenRGBServerInfoPage.cpp" line="62"/>
+        <location filename="../OpenRGBServerInfoPage/OpenRGBServerInfoPage.cpp" line="71"/>
         <source>Offline</source>
         <translation>Luar talian</translation>
     </message>
@@ -1763,18 +2016,18 @@
 <context>
     <name>Ui::OpenRGBSettingsPage</name>
     <message>
-        <location filename="../OpenRGBSettingsPage.cpp" line="35"/>
-        <location filename="../OpenRGBSettingsPage.cpp" line="41"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.cpp" line="46"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.cpp" line="52"/>
         <source>English - US</source>
         <translation type="unfinished">Melayu</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.cpp" line="45"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.cpp" line="56"/>
         <source>System Default</source>
         <translation>Lalai Sistem</translation>
     </message>
     <message>
-        <location filename="../OpenRGBSettingsPage.cpp" line="657"/>
+        <location filename="../OpenRGBSettingsPage/OpenRGBSettingsPage.cpp" line="677"/>
         <source>A problem occurred enabling Start At Login.</source>
         <translation>Masalah telah berlaku mendayakan Mula Pada Log Masuk.</translation>
     </message>
@@ -1782,12 +2035,12 @@
 <context>
     <name>Ui::OpenRGBYeelightSettingsEntry</name>
     <message>
-        <location filename="../OpenRGBYeelightSettingsPage/OpenRGBYeelightSettingsEntry.cpp" line="47"/>
+        <location filename="../OpenRGBYeelightSettingsPage/OpenRGBYeelightSettingsEntry.cpp" line="56"/>
         <source>Choose an IP...</source>
         <translation>Pilih IP...</translation>
     </message>
     <message>
-        <location filename="../OpenRGBYeelightSettingsPage/OpenRGBYeelightSettingsEntry.cpp" line="48"/>
+        <location filename="../OpenRGBYeelightSettingsPage/OpenRGBYeelightSettingsEntry.cpp" line="57"/>
         <source>Choose the correct IP for the host</source>
         <translation>Pilih IP yang betul untuk hos</translation>
     </message>
@@ -1795,24 +2048,47 @@
 <context>
     <name>Ui::OpenRGBZonesBulkResizer</name>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.cpp" line="66"/>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.cpp" line="76"/>
         <source>Resize the zones</source>
         <translation>Ubah saiz zon</translation>
     </message>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.cpp" line="104"/>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.cpp" line="114"/>
         <source>Controller</source>
         <translation>Pengawal</translation>
     </message>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.cpp" line="104"/>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.cpp" line="114"/>
         <source>Zone</source>
         <translation>Zon</translation>
     </message>
     <message>
-        <location filename="../OpenRGBZonesBulkResizer.cpp" line="104"/>
+        <location filename="../OpenRGBZonesBulkResizer/OpenRGBZonesBulkResizer.cpp" line="114"/>
         <source>Size</source>
         <translation>Saiz</translation>
+    </message>
+</context>
+<context>
+    <name>i18n_xtra</name>
+    <message>
+        <location filename="i18n_xtra.cpp" line="16"/>
+        <source>&lt;h2&gt;Some internal devices may not be detected:&lt;/h2&gt;&lt;p&gt;One or more I2C or SMBus interfaces failed to initialize.&lt;/p&gt;&lt;p&gt;&lt;b&gt;RGB DRAM modules, some motherboards&apos; onboard RGB lighting, and RGB Graphics Cards, will not be available in OpenRGB&lt;/b&gt; without I2C or SMBus.&lt;/p&gt;&lt;h4&gt;How to fix this:&lt;/h4&gt;&lt;p&gt;On Windows, this is usually caused by a failure to load the WinRing0 driver.&lt;/p&gt;&lt;p&gt;You must run OpenRGB as administrator at least once to allow WinRing0 to set up.&lt;/p&gt;&lt;p&gt;See &lt;a href=&apos;https://help.openrgb.org/&apos;&gt;help.openrgb.org&lt;/a&gt; for additional troubleshooting steps if you keep seeing this message.&lt;br&gt;&lt;/p&gt;&lt;h3&gt;If you are not using internal RGB on a desktop this message is not important to you.&lt;/h3&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="i18n_xtra.cpp" line="36"/>
+        <source>&lt;h2&gt;WARNING:&lt;/h2&gt;&lt;p&gt;The OpenRGB udev rules are not installed.&lt;/p&gt;&lt;p&gt;Most devices will not be available unless running OpenRGB as root.&lt;/p&gt;&lt;p&gt;If using AppImage, Flatpak, or self-compiled versions of OpenRGB you must install the udev rules manually&lt;/p&gt;&lt;p&gt;See &lt;a href=&apos;https://openrgb.org/udev&apos;&gt;https://openrgb.org/udev&lt;/a&gt; to install the udev rules manually&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="i18n_xtra.cpp" line="42"/>
+        <source>&lt;h2&gt;WARNING:&lt;/h2&gt;&lt;p&gt;Multiple OpenRGB udev rules are installed.&lt;/p&gt;&lt;p&gt;The udev rules file 60-openrgb.rules is installed in both /etc/udev/rules.d and /usr/lib/udev/rules.d.&lt;/p&gt;&lt;p&gt;Multiple udev rules files can conflict, it is recommended to remove one of them.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="i18n_xtra.cpp" line="25"/>
+        <source>&lt;h2&gt;Some internal devices may not be detected:&lt;/h2&gt;&lt;p&gt;One or more I2C or SMBus interfaces failed to initialize.&lt;/p&gt;&lt;p&gt;&lt;b&gt;RGB DRAM modules, some motherboards&apos; onboard RGB lighting, and RGB Graphics Cards, will not be available in OpenRGB&lt;/b&gt; without I2C or SMBus.&lt;/p&gt;&lt;h4&gt;How to fix this:&lt;/h4&gt;&lt;p&gt;On Linux, this is usually because the i2c-dev module is not loaded.&lt;/p&gt;&lt;p&gt;You must load the i2c-dev module along with the correct i2c driver for your motherboard. This is usually i2c-piix4 for AMD systems and i2c-i801 for Intel systems.&lt;/p&gt;&lt;p&gt;See &lt;a href=&apos;https://help.openrgb.org/&apos;&gt;help.openrgb.org&lt;/a&gt; for additional troubleshooting steps if you keep seeing this message.&lt;br&gt;&lt;/p&gt;&lt;h3&gt;If you are not using internal RGB on a desktop this message is not important to you.&lt;/h3&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -1613,7 +1613,7 @@ void OpenRGBDialog2::onShowDialogMessage()
 
     QMessageBox box;
 
-    box.setInformativeText(dialog_message);
+    box.setInformativeText(QCoreApplication::translate("i18n_xtra", dialog_message.toUtf8()));
 
     QCheckBox* CheckBox_DontShowAgain = new QCheckBox("Don't show this message again");
 
