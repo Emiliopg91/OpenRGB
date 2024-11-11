@@ -272,7 +272,7 @@ void DetectSteelSeriesApexM500(hid_device_info* info, const std::string& name)
     if(dev)
     {
         LOG_ERROR("steelseries available\n");
-        SteelSeriesApexM500Controller* controller              = new SteelSeriesApexM500Controller(dev, APEX_M, info->path);
+        SteelSeriesApexM500Controller* controller              = new SteelSeriesApexM500Controller(dev, info->path);
         LOG_ERROR("steelseries controller initialized\n");
         RGBController_SteelSeriesApexM500* rgb_controller       = new RGBController_SteelSeriesApexM500(controller);
         LOG_ERROR("steelseries rgb_controller initialized\n");

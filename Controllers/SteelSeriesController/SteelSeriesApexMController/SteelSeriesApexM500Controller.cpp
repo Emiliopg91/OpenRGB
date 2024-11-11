@@ -15,11 +15,10 @@
 
 #define SS_APEX_M500_PACKET_SIZE 32 + 1
 
-SteelSeriesApexM500Controller::SteelSeriesApexM500Controller(hid_device* dev_handle, steelseries_type type, const char* path)
+SteelSeriesApexM500Controller::SteelSeriesApexM500Controller(hid_device* dev_handle, const char* path)
 {
     dev         = dev_handle;
     location    = path;
-    proto_type  = type;
     EnableLEDControl();
 }
 
@@ -97,12 +96,42 @@ void SteelSeriesApexM500Controller::EnableLEDControl()
     }
 }
 
-void SteelSeriesApexM500Controller::SetMode(unsigned char /*mode*/, std::vector<RGBColor> /*colors*/)
+void SteelSeriesApexM500Controller::SetMode(mode mode)
 {
     LOG_ERROR("steelseries SetMode\n");
+    unsigned char buf[SS_APEX_M500_PACKET_SIZE];
+
+    // memset(buf, 0x00, SS_APEX_M500_PACKET_SIZE);
+    // buf[0x00] = 0x00;
+    // buf[0x01] = 0x04;
+    // buf[0x03] = 0x01;
+    // hid_write(dev,buf,SS_APEX_M500_PACKET_SIZE);
+
+    // memset(buf, 0x00, SS_APEX_M500_PACKET_SIZE);
+    // buf[0x00] = 0x00;
+    // buf[0x01] = 0x06;
+    // buf[0x03] = 0x01;
+    // hid_write(dev,buf,SS_APEX_M500_PACKET_SIZE);
+
+    memset(buf, 0x00, SS_APEX_M500_PACKET_SIZE);
+    buf[0x00] = 0x00;
+    buf[0x01] = 0x07;
+    buf[0x03] = mode.speed + 1;
+    hid_write(dev,buf,SS_APEX_M500_PACKET_SIZE);
+
+    memset(buf, 0x00, SS_APEX_M500_PACKET_SIZE);
+    buf[0x00] = 0x00;
+    buf[0x01] = 0x05;
+    buf[0x03] = mode.brightness;
+    hid_write(dev,buf,SS_APEX_M500_PACKET_SIZE);
+
+    memset(buf, 0x00, SS_APEX_M500_PACKET_SIZE);
+    buf[0x00] = 0x00;
+    buf[0x01] = 0x09;
+    hid_write(dev,buf,SS_APEX_M500_PACKET_SIZE);
 }
 
-void SteelSeriesApexM500Controller::SetLEDsDirect(std::vector<RGBColor> colors)
-{
-    LOG_ERROR("steelseries SetLEDsDirect\n");
-}
+// void SteelSeriesApexM500Controller::SetLEDsDirect(std::vector<RGBColor> colors)
+// {
+//     LOG_ERROR("steelseries SetLEDsDirect\n");
+// }

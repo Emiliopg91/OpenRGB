@@ -21,11 +21,11 @@
     @save :x:
     @direct :white_check_mark:
     @effects :x:
-    @detectors DetectSteelSeriesApex,DetectSteelSeriesApexM
+    @detectors DetectSteelSeriesApex,DetectSteelSeriesApexM500
     @comment
 \*-------------------------------------------------------------------*/
 
-RGBController_SteelSeriesApexM500::RGBController_SteelSeriesApexM500(SteelSeriesApexBaseController* controller_ptr)
+RGBController_SteelSeriesApexM500::RGBController_SteelSeriesApexM500(SteelSeriesApexM500Controller* controller_ptr)
 {
     controller  = controller_ptr;
 
@@ -33,15 +33,15 @@ RGBController_SteelSeriesApexM500::RGBController_SteelSeriesApexM500(SteelSeries
     vendor      = "SteelSeries";
     type        = DEVICE_TYPE_KEYBOARD;
     description = "SteelSeries Apex RGB Device";
-    location    = controller->GetDeviceLocation();
-    serial      = controller->GetSerialString();
-    version     = controller->GetVersionString();
+    // location    = controller->GetDeviceLocation();
+    // serial      = controller->GetSerialString();
+    // version     = controller->GetVersionString();
 
-    LOG_ERROR("steelseries location: %s\n", location.c_str());
-    LOG_ERROR("steelseries serial: %s\n", serial.c_str());
-    LOG_ERROR("steelseries version: %s\n", version.c_str());
+    // LOG_ERROR("steelseries location: %s\n", location.c_str());
+    // LOG_ERROR("steelseries serial: %s\n", serial.c_str());
+    // LOG_ERROR("steelseries version: %s\n", version.c_str());
 
-    proto_type  = controller->proto_type;
+    // proto_type  = controller->proto_type;
 
     mode Static;
     Static.name       = "Static";
@@ -56,6 +56,7 @@ RGBController_SteelSeriesApexM500::RGBController_SteelSeriesApexM500(SteelSeries
     Breathing.value      = 0x01;
     Breathing.brightness_max = 0x64;
     Breathing.speed_max = 0x03;
+    Breathing.speed_min = 0x01;
     Breathing.flags      = MODE_FLAG_HAS_SPEED | MODE_FLAG_HAS_BRIGHTNESS;
     Breathing.color_mode = MODE_COLORS_NONE;
     modes.push_back(Breathing);
@@ -77,26 +78,36 @@ void RGBController_SteelSeriesApexM500::ResizeZone(int /*zone*/, int /*new_size*
 void RGBController_SteelSeriesApexM500::DeviceUpdateLEDs()
 {
     LOG_ERROR("steelseries DeviceUpdateLEDs\n");
-    last_update_time = std::chrono::steady_clock::now();
-    controller->SetLEDsDirect(colors);
+    /*---------------------------------------------------------*\
+    | This device does not support setting LEDS                 |
+    \*---------------------------------------------------------*/
+    // last_update_time = std::chrono::steady_clock::now();
+    // controller->SetLEDsDirect(colors);
 }
 
 void RGBController_SteelSeriesApexM500::UpdateZoneLEDs(int /*zone*/)
 {
     LOG_ERROR("steelseries UpdateZoneLEDs\n");
-    DeviceUpdateLEDs();
+    /*---------------------------------------------------------*\
+    | This device does not support setting LEDS                 |
+    \*---------------------------------------------------------*/
 }
 
 void RGBController_SteelSeriesApexM500::UpdateSingleLED(int /*led*/)
 {
     LOG_ERROR("steelseries UpdateSingleLED\n");
-    DeviceUpdateLEDs();
+    /*---------------------------------------------------------*\
+    | This device does not support setting LEDS                 |
+    \*---------------------------------------------------------*/
 }
 
 void RGBController_SteelSeriesApexM500::DeviceUpdateMode()
 {
     LOG_ERROR("steelseries DeviceUpdateMode\n");
 
-    // std::vector<RGBColor> temp_colors;
-    // controller->SetMode(modes[active_mode].value, temp_colors);
+    printf("steelseries value %i\n", modes[active_mode].value);
+    printf("steelseries speed %i\n", modes[active_mode].speed);
+    printf("steelseries brightness %i\n", modes[active_mode].brightness);
+
+    controller->SetMode(modes[active_mode]);
 }

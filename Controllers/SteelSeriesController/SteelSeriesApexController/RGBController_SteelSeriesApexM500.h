@@ -15,11 +15,12 @@
 #include "RGBController.h"
 #include "SteelSeriesApexBaseController.h"
 #include "SteelSeriesGeneric.h"
+#include "SteelSeriesApexM500Controller.h"
 
 class RGBController_SteelSeriesApexM500 : public RGBController
 {
 public:
-    RGBController_SteelSeriesApexM500(SteelSeriesApexBaseController* controller_ptr);
+    RGBController_SteelSeriesApexM500(SteelSeriesApexM500Controller* controller_ptr);
     ~RGBController_SteelSeriesApexM500();
 
     void        SetupZones() {};
@@ -32,8 +33,8 @@ public:
     void        DeviceUpdateMode();
 
 private:
-    SteelSeriesApexBaseController*  controller;
-    steelseries_type                proto_type;
+    SteelSeriesApexM500Controller*  controller;
 
-    std::chrono::time_point<std::chrono::steady_clock>  last_update_time;
+    // steelseries_type                proto_type;
+    // std::chrono::time_point<std::chrono::steady_clock>  last_update_time;
 };

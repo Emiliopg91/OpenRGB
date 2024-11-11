@@ -17,25 +17,22 @@
 #include "SteelSeriesGeneric.h"
 #include "SteelSeriesApexBaseController.h"
 
-class SteelSeriesApexM500Controller : public SteelSeriesApexBaseController
+class SteelSeriesApexM500Controller
 {
 public:
-    SteelSeriesApexM500Controller(hid_device* dev_handle, steelseries_type type, const char* path);
+    SteelSeriesApexM500Controller(hid_device* dev_handle, const char* path);
     ~SteelSeriesApexM500Controller();
 
-    void SetMode
-        (
-            unsigned char mode,
-            std::vector<RGBColor> colors
-        );
-
-    void SetLEDsDirect(std::vector<RGBColor> colors);
+    void SetMode(mode mode);
 
 private:
-
     void EnableLEDControl();
     void SelectProfile
         (
             unsigned char   profile
         );
+protected:
+    std::string             location;
+    hid_device*             dev;
+    unsigned char           active_mode;
 };
