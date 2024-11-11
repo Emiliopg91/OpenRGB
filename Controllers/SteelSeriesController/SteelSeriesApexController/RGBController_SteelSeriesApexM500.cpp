@@ -9,9 +9,7 @@
 |   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
-#include "RGBControllerKeyNames.h"
 #include "RGBController_SteelSeriesApexM500.h"
-#include "SteelSeriesApexRegions.h"
 
 /**------------------------------------------------------------------*\
     @name Steel Series APEX

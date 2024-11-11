@@ -3,7 +3,7 @@
 |                                                           |
 |   Driver for SteelSeries Apex M500                        |
 |                                                           |
-|   Myryk                                       12 Oct 2024 |
+|   Myryk                                       11 Nov 2024 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
 |   SPDX-License-Identifier: GPL-2.0-only                   |
