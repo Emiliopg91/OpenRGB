@@ -15,10 +15,10 @@
     @name Steel Series APEX
     @category Keyboard
     @type USB
-    @save :x:
+    @save :robot:
     @direct :white_check_mark:
-    @effects :x:
-    @detectors DetectSteelSeriesApex,DetectSteelSeriesApexM500
+    @effects :white_check_mark:
+    @detectors DetectSteelSeriesApexM500
     @comment
 \*-------------------------------------------------------------------*/
 
