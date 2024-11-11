@@ -1,5 +1,5 @@
 /*---------------------------------------------------------*\
-| SteelSeriesApexM500Controller.cpp                            |
+| SteelSeriesApexM500Controller.cpp                         |
 |                                                           |
 |   Driver for SteelSeries Apex M500                        |
 |                                                           |
@@ -11,7 +11,6 @@
 
 #include <cstring>
 #include "SteelSeriesApexM500Controller.h"
-#include "LogManager.h"
 
 #define SS_APEX_M500_PACKET_SIZE 32 + 1
 
@@ -19,7 +18,6 @@ SteelSeriesApexM500Controller::SteelSeriesApexM500Controller(hid_device* dev_han
 {
     dev         = dev_handle;
     location    = path;
-    EnableLEDControl();
 }
 
 SteelSeriesApexM500Controller::~SteelSeriesApexM500Controller()
@@ -27,91 +25,9 @@ SteelSeriesApexM500Controller::~SteelSeriesApexM500Controller()
     hid_close(dev);
 }
 
-void SteelSeriesApexM500Controller::EnableLEDControl()
-{
-    LOG_ERROR("steelseries EnableLEDControl\n");
-    unsigned char buf[33];
-    memset(buf, 0x00, 33);
-
-    buf[0x00] = 0x00;
-    buf[0x01] = 0x04;
-    buf[0x03] = 0x01;
-    // LOG_ERROR("steelseries bytes send: %i\n", hid_send_feature_report(dev, buf, SS_APEX_M500_PACKET_SIZE));
-
-    int bytes = hid_write(dev,buf,33);
-
-    if(bytes < 0 ) {
-        printf("Error: %ls\n", hid_error(dev));
-    }
-
-    memset(buf, 0x00, 33);
-
-    buf[0x00] = 0x00;
-    buf[0x01] = 0x06;
-    buf[0x03] = 0x01;
-    // LOG_ERROR("steelseries bytes send: %i\n", hid_send_feature_report(dev, buf, SS_APEX_M500_PACKET_SIZE));
-
-    bytes = hid_write(dev,buf,33);
-
-    if(bytes < 0 ) {
-        printf("Error: %ls\n", hid_error(dev));
-    }
-
-    memset(buf, 0x00, 33);
-
-    buf[0x00] = 0x00;
-    buf[0x01] = 0x07;
-    buf[0x03] = 0x01;
-    // LOG_ERROR("steelseries bytes send: %i\n", hid_send_feature_report(dev, buf, SS_APEX_M500_PACKET_SIZE));
-
-    bytes = hid_write(dev,buf,33);
-
-    if(bytes < 0 ) {
-        printf("Error: %ls\n", hid_error(dev));
-    }
-
-    memset(buf, 0x00, 33);
-
-    buf[0x00] = 0x00;
-    buf[0x01] = 0x05;
-    buf[0x03] = 0x64;
-    // LOG_ERROR("steelseries bytes send: %i\n", hid_send_feature_report(dev, buf, SS_APEX_M500_PACKET_SIZE));
-
-    bytes = hid_write(dev,buf,33);
-
-    if(bytes < 0 ) {
-        printf("Error: %ls\n", hid_error(dev));
-    }
-
-    memset(buf, 0x00, 33);
-
-    buf[0x00] = 0x00;
-    buf[0x01] = 0x09;
-    // LOG_ERROR("steelseries bytes send: %i\n", hid_send_feature_report(dev, buf, SS_APEX_M500_PACKET_SIZE));
-
-    bytes = hid_write(dev,buf,33);
-
-    if(bytes < 0 ) {
-        printf("Error: %ls\n", hid_error(dev));
-    }
-}
-
 void SteelSeriesApexM500Controller::SetMode(mode mode)
 {
-    LOG_ERROR("steelseries SetMode\n");
     unsigned char buf[SS_APEX_M500_PACKET_SIZE];
-
-    // memset(buf, 0x00, SS_APEX_M500_PACKET_SIZE);
-    // buf[0x00] = 0x00;
-    // buf[0x01] = 0x04;
-    // buf[0x03] = 0x01;
-    // hid_write(dev,buf,SS_APEX_M500_PACKET_SIZE);
-
-    // memset(buf, 0x00, SS_APEX_M500_PACKET_SIZE);
-    // buf[0x00] = 0x00;
-    // buf[0x01] = 0x06;
-    // buf[0x03] = 0x01;
-    // hid_write(dev,buf,SS_APEX_M500_PACKET_SIZE);
 
     memset(buf, 0x00, SS_APEX_M500_PACKET_SIZE);
     buf[0x00] = 0x00;
@@ -131,7 +47,21 @@ void SteelSeriesApexM500Controller::SetMode(mode mode)
     hid_write(dev,buf,SS_APEX_M500_PACKET_SIZE);
 }
 
-// void SteelSeriesApexM500Controller::SetLEDsDirect(std::vector<RGBColor> colors)
-// {
-//     LOG_ERROR("steelseries SetLEDsDirect\n");
-// }
+std::string SteelSeriesApexM500Controller::GetDeviceLocation()
+{
+    return ("HID: " + location);
+}
+
+std::string SteelSeriesApexM500Controller::GetSerialString()
+{
+    std::string return_string = "";
+    return(return_string);
+}
+
+
+std::string SteelSeriesApexM500Controller::GetVersionString()
+{
+
+    std::string return_string = "";
+    return(return_string);
+}

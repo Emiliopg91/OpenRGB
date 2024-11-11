@@ -14,8 +14,6 @@
 #include <string>
 #include <hidapi.h>
 #include "RGBController.h"
-#include "SteelSeriesGeneric.h"
-#include "SteelSeriesApexBaseController.h"
 
 class SteelSeriesApexM500Controller
 {
@@ -24,13 +22,9 @@ public:
     ~SteelSeriesApexM500Controller();
 
     void SetMode(mode mode);
-
-private:
-    void EnableLEDControl();
-    void SelectProfile
-        (
-            unsigned char   profile
-        );
+    std::string GetDeviceLocation();
+    std::string GetSerialString();
+    std::string GetVersionString();
 protected:
     std::string             location;
     hid_device*             dev;

@@ -11,10 +11,7 @@
 
 #pragma once
 
-#include <chrono>
 #include "RGBController.h"
-#include "SteelSeriesApexBaseController.h"
-#include "SteelSeriesGeneric.h"
 #include "SteelSeriesApexM500Controller.h"
 
 class RGBController_SteelSeriesApexM500 : public RGBController
@@ -34,7 +31,4 @@ public:
 
 private:
     SteelSeriesApexM500Controller*  controller;
-
-    // steelseries_type                proto_type;
-    // std::chrono::time_point<std::chrono::steady_clock>  last_update_time;
 };

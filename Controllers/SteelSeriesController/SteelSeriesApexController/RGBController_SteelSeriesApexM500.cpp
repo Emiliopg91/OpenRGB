@@ -12,7 +12,6 @@
 #include "RGBControllerKeyNames.h"
 #include "RGBController_SteelSeriesApexM500.h"
 #include "SteelSeriesApexRegions.h"
-#include "LogManager.h"
 
 /**------------------------------------------------------------------*\
     @name Steel Series APEX
@@ -33,15 +32,9 @@ RGBController_SteelSeriesApexM500::RGBController_SteelSeriesApexM500(SteelSeries
     vendor      = "SteelSeries";
     type        = DEVICE_TYPE_KEYBOARD;
     description = "SteelSeries Apex RGB Device";
-    // location    = controller->GetDeviceLocation();
-    // serial      = controller->GetSerialString();
-    // version     = controller->GetVersionString();
-
-    // LOG_ERROR("steelseries location: %s\n", location.c_str());
-    // LOG_ERROR("steelseries serial: %s\n", serial.c_str());
-    // LOG_ERROR("steelseries version: %s\n", version.c_str());
-
-    // proto_type  = controller->proto_type;
+    location    = controller->GetDeviceLocation();
+    serial      = controller->GetSerialString();
+    version     = controller->GetVersionString();
 
     mode Static;
     Static.name       = "Static";
@@ -69,7 +62,6 @@ RGBController_SteelSeriesApexM500::~RGBController_SteelSeriesApexM500()
 
 void RGBController_SteelSeriesApexM500::ResizeZone(int /*zone*/, int /*new_size*/)
 {
-    LOG_ERROR("steelseries ResizeZone\n");
     /*---------------------------------------------------------*\
     | This device does not support resizing zones               |
     \*---------------------------------------------------------*/
@@ -77,17 +69,13 @@ void RGBController_SteelSeriesApexM500::ResizeZone(int /*zone*/, int /*new_size*
 
 void RGBController_SteelSeriesApexM500::DeviceUpdateLEDs()
 {
-    LOG_ERROR("steelseries DeviceUpdateLEDs\n");
     /*---------------------------------------------------------*\
     | This device does not support setting LEDS                 |
     \*---------------------------------------------------------*/
-    // last_update_time = std::chrono::steady_clock::now();
-    // controller->SetLEDsDirect(colors);
 }
 
 void RGBController_SteelSeriesApexM500::UpdateZoneLEDs(int /*zone*/)
 {
-    LOG_ERROR("steelseries UpdateZoneLEDs\n");
     /*---------------------------------------------------------*\
     | This device does not support setting LEDS                 |
     \*---------------------------------------------------------*/
@@ -95,7 +83,6 @@ void RGBController_SteelSeriesApexM500::UpdateZoneLEDs(int /*zone*/)
 
 void RGBController_SteelSeriesApexM500::UpdateSingleLED(int /*led*/)
 {
-    LOG_ERROR("steelseries UpdateSingleLED\n");
     /*---------------------------------------------------------*\
     | This device does not support setting LEDS                 |
     \*---------------------------------------------------------*/
@@ -103,11 +90,5 @@ void RGBController_SteelSeriesApexM500::UpdateSingleLED(int /*led*/)
 
 void RGBController_SteelSeriesApexM500::DeviceUpdateMode()
 {
-    LOG_ERROR("steelseries DeviceUpdateMode\n");
-
-    printf("steelseries value %i\n", modes[active_mode].value);
-    printf("steelseries speed %i\n", modes[active_mode].speed);
-    printf("steelseries brightness %i\n", modes[active_mode].brightness);
-
     controller->SetMode(modes[active_mode]);
 }
