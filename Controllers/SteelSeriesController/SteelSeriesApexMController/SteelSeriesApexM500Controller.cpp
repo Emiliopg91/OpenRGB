@@ -49,7 +49,7 @@ void SteelSeriesApexM500Controller::SetMode(mode mode)
 
 std::string SteelSeriesApexM500Controller::GetDeviceLocation()
 {
-    return ("HID: " + location);
+    return("HID: " + location);
 }
 
 std::string SteelSeriesApexM500Controller::GetSerialString()

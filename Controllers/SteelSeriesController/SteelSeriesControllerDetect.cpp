@@ -270,8 +270,8 @@ void DetectSteelSeriesApexM500(hid_device_info* info, const std::string& name)
     hid_device* dev = hid_open_path(info->path);
     if(dev)
     {
-        SteelSeriesApexM500Controller* controller              = new SteelSeriesApexM500Controller(dev, info->path);
-        RGBController_SteelSeriesApexM500* rgb_controller       = new RGBController_SteelSeriesApexM500(controller);
+        SteelSeriesApexM500Controller* controller           = new SteelSeriesApexM500Controller(dev, info->path);
+        RGBController_SteelSeriesApexM500* rgb_controller   = new RGBController_SteelSeriesApexM500(controller);
         rgb_controller->name                                = name;
         ResourceManager::get()->RegisterRGBController(rgb_controller);
     }
