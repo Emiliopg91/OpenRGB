@@ -1,9 +1,9 @@
 /*---------------------------------------------------------*\
-| SteelSeriesApexM500Controller.cpp                            |
+| SteelSeriesApexM500Controller.cpp                         |
 |                                                           |
 |   Driver for SteelSeries Apex M500                        |
 |                                                           |
-|   Florian Heilmann (FHeilmann)                12 Oct 2020 |
+|   Myryk                                       12 Oct 2024 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
 |   SPDX-License-Identifier: GPL-2.0-only                   |
