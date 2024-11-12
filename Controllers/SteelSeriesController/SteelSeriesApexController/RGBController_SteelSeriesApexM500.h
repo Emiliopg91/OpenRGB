@@ -12,6 +12,7 @@
 #pragma once
 
 #include "RGBController.h"
+#include "LogManager.h"
 #include "SteelSeriesApexM500Controller.h"
 
 class RGBController_SteelSeriesApexM500 : public RGBController

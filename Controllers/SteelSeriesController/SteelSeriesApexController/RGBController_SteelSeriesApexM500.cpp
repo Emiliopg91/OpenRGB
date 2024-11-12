@@ -88,5 +88,6 @@ void RGBController_SteelSeriesApexM500::UpdateSingleLED(int /*led*/)
 
 void RGBController_SteelSeriesApexM500::DeviceUpdateMode()
 {
+    LOG_DEBUG("Steelseries Apex M500 DeviceUpdateMode");
     controller->SetMode(modes[active_mode]);
 }
