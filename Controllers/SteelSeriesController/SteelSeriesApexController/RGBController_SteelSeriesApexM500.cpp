@@ -16,7 +16,7 @@
     @category Keyboard
     @type USB
     @save :robot:
-    @direct :white_check_mark:
+    @direct :x:
     @effects :white_check_mark:
     @detectors DetectSteelSeriesApexM500
     @comment
