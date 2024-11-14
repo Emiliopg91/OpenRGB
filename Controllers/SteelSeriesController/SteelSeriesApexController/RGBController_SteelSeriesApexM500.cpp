@@ -38,7 +38,7 @@ RGBController_SteelSeriesApexM500::RGBController_SteelSeriesApexM500(SteelSeries
     Static.name       = "Static";
     Static.value      = 0x00;
     Static.brightness_max = 0x64;
-    Static.flags      = MODE_FLAG_HAS_BRIGHTNESS;
+    Static.flags      = MODE_FLAG_HAS_BRIGHTNESS | MODE_FLAG_MANUAL_SAVE;
     Static.color_mode = MODE_COLORS_NONE;
     modes.push_back(Static);
 
@@ -48,7 +48,8 @@ RGBController_SteelSeriesApexM500::RGBController_SteelSeriesApexM500(SteelSeries
     Breathing.brightness_max = 0x64;
     Breathing.speed_max = 0x03;
     Breathing.speed_min = 0x01;
-    Breathing.flags      = MODE_FLAG_HAS_SPEED | MODE_FLAG_HAS_BRIGHTNESS;
+    Breathing.flags      = MODE_FLAG_HAS_SPEED | MODE_FLAG_HAS_BRIGHTNESS
+        | MODE_FLAG_MANUAL_SAVE;
     Breathing.color_mode = MODE_COLORS_NONE;
     modes.push_back(Breathing);
 }
@@ -90,4 +91,10 @@ void RGBController_SteelSeriesApexM500::DeviceUpdateMode()
 {
     LOG_DEBUG("Steelseries Apex M500 DeviceUpdateMode");
     controller->SetMode(modes[active_mode]);
+}
+
+void        RGBController_SteelSeriesApexM500::SaveMode()
+{
+    LOG_ERROR("Steelseries Apex M500 save mode");
+    controller->SaveMode();
 }

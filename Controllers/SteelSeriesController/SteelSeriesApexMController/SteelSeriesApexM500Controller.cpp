@@ -29,8 +29,8 @@ void SteelSeriesApexM500Controller::SetMode(mode mode)
 {
     unsigned char buf[SS_APEX_M500_PACKET_SIZE];
 
-    LOG_DEBUG("Steelseries Apex M500 setting Mode %i with brightness %i\
-        and speed %i", mode.value, mode.brightness, mode.speed);
+    LOG_DEBUG("Steelseries Apex M500 setting mode %i with brightness %i\
+and speed %i", mode.value, mode.brightness, mode.speed);
     memset(buf, 0x00, SS_APEX_M500_PACKET_SIZE);
     buf[0x00] = 0x00;
     buf[0x01] = 0x07;
@@ -42,7 +42,13 @@ void SteelSeriesApexM500Controller::SetMode(mode mode)
     buf[0x01] = 0x05;
     buf[0x03] = mode.brightness;
     hid_write(dev,buf,SS_APEX_M500_PACKET_SIZE);
+}
 
+void SteelSeriesApexM500Controller::SaveMode()
+{
+    unsigned char buf[SS_APEX_M500_PACKET_SIZE];
+
+    LOG_DEBUG("Steelseries Apex M500 save mode");
     memset(buf, 0x00, SS_APEX_M500_PACKET_SIZE);
     buf[0x00] = 0x00;
     buf[0x01] = 0x09;

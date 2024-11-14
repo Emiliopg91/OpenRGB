@@ -29,6 +29,7 @@ public:
     void        UpdateSingleLED(int led);
 
     void        DeviceUpdateMode();
+    void        SaveMode();
 
 private:
     SteelSeriesApexM500Controller*  controller;

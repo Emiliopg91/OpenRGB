@@ -23,6 +23,7 @@ public:
     ~SteelSeriesApexM500Controller();
 
     void SetMode(mode mode);
+    void SaveMode();
     std::string GetDeviceLocation();
     std::string GetSerialString();
     std::string GetVersionString();
