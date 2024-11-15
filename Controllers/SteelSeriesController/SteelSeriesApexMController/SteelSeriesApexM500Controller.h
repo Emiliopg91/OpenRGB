@@ -15,6 +15,7 @@
 #include <hidapi.h>
 #include "RGBController.h"
 #include "LogManager.h"
+#include "StringUtils.h"
 
 class SteelSeriesApexM500Controller
 {

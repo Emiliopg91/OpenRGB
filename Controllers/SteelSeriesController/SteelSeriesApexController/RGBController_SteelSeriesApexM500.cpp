@@ -26,10 +26,10 @@ RGBController_SteelSeriesApexM500::RGBController_SteelSeriesApexM500(SteelSeries
 {
     controller  = controller_ptr;
 
-    name        = "SteelSeries Apex RGB Keyboard";
+    name        = "SteelSeries Apex M500";
     vendor      = "SteelSeries";
     type        = DEVICE_TYPE_KEYBOARD;
-    description = "SteelSeries Apex RGB Device";
+    description = "SteelSeries Apex Keyboard Device";
     location    = controller->GetDeviceLocation();
     serial      = controller->GetSerialString();
     version     = controller->GetVersionString();

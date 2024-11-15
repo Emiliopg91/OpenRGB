@@ -14,7 +14,7 @@
 
 #define SS_APEX_M500_PACKET_SIZE 32 + 1
 
-SteelSeriesApexM500Controller::SteelSeriesApexM500Controller(hid_device* dev_handle, const char* path)
+SteelSeriesApexM500Controller::SteelSeriesApexM500Controller(hid_device *dev_handle, const char *path)
 {
     dev         = dev_handle;
     location    = path;
@@ -35,13 +35,13 @@ and speed %i", mode.value, mode.brightness, mode.speed);
     buf[0x00] = 0x00;
     buf[0x01] = 0x07;
     buf[0x03] = mode.speed + 1;
-    hid_write(dev,buf,SS_APEX_M500_PACKET_SIZE);
+    hid_write(dev, buf, SS_APEX_M500_PACKET_SIZE);
 
     memset(buf, 0x00, SS_APEX_M500_PACKET_SIZE);
     buf[0x00] = 0x00;
     buf[0x01] = 0x05;
     buf[0x03] = mode.brightness;
-    hid_write(dev,buf,SS_APEX_M500_PACKET_SIZE);
+    hid_write(dev, buf, SS_APEX_M500_PACKET_SIZE);
 }
 
 void SteelSeriesApexM500Controller::SaveMode()
@@ -52,24 +52,48 @@ void SteelSeriesApexM500Controller::SaveMode()
     memset(buf, 0x00, SS_APEX_M500_PACKET_SIZE);
     buf[0x00] = 0x00;
     buf[0x01] = 0x09;
-    hid_write(dev,buf,SS_APEX_M500_PACKET_SIZE);
+    hid_write(dev, buf, SS_APEX_M500_PACKET_SIZE);
 }
 
 std::string SteelSeriesApexM500Controller::GetDeviceLocation()
 {
-    return("HID: " + location);
+    return ("HID: " + location);
 }
 
 std::string SteelSeriesApexM500Controller::GetSerialString()
 {
-    std::string return_string = "";
-    return(return_string);
+    wchar_t buf[128];
+    int ret = hid_get_serial_number_string(dev, buf, 128);
+    if(ret == -1)
+    {
+        LOG_WARNING("Steelseries Apex M500 could'nt read serial string\n");
+        return("Serial number not available");
+    }
+    std::string serial = StringUtils::wstring_to_string(buf);
+    if (serial.empty())
+    {
+        LOG_WARNING("Steelseries Apex M500 serial string is empty");
+        return("Serial number not available");
+    }
+    LOG_DEBUG("Steelseries Apex M500 serial string read\n");
+    return(serial);
 }
-
 
 std::string SteelSeriesApexM500Controller::GetVersionString()
 {
-
-    std::string return_string = "";
-    return(return_string);
+    hid_device_info *dev_info = hid_get_device_info(dev);
+    if(!dev_info)
+    {
+        LOG_WARNING("Steelseries Apex M500 could'nt read version number\n");
+        return("Version info not available");
+    }
+    LOG_DEBUG("Steelseries Apex M500 version number read\n");
+    unsigned short version = dev_info->release_number;
+    std::string version_str;
+    version_str.append(std::to_string(version >> 12 & 0xF));
+    version_str.append(std::to_string(version >> 8 & 0xF));
+    version_str.append(".");
+    version_str.append(std::to_string(version >> 4 & 0xF));
+    version_str.append(std::to_string(version & 0xF));
+    return(version_str);
 }
