@@ -21,7 +21,7 @@ public:
     RGBController_SteelSeriesApexM500(SteelSeriesApexM500Controller* controller_ptr);
     ~RGBController_SteelSeriesApexM500();
 
-    void        SetupZones() {};
+    void        SetupZones();
     void        ResizeZone(int zone, int new_size);
 
     void        DeviceUpdateLEDs();

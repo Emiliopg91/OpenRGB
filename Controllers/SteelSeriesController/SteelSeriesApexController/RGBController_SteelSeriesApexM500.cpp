@@ -47,9 +47,10 @@ RGBController_SteelSeriesApexM500::RGBController_SteelSeriesApexM500(SteelSeries
     Breathing.name       = "Breathing";
     Breathing.value      = 0x01;
     Breathing.brightness_max = 0x64;
+    Breathing.brightness     = Breathing.brightness_max;
     Breathing.speed_max = 0x03;
     Breathing.speed_min = 0x01;
-    Breathing.speed     = Breathing.speed_max + Breathing.speed_min / 2;
+    Breathing.speed     = (Breathing.speed_max + Breathing.speed_min) / 2;
     Breathing.flags      = MODE_FLAG_HAS_SPEED | MODE_FLAG_HAS_BRIGHTNESS
         | MODE_FLAG_MANUAL_SAVE;
     Breathing.color_mode = MODE_COLORS_NONE;
@@ -59,6 +60,25 @@ RGBController_SteelSeriesApexM500::RGBController_SteelSeriesApexM500(SteelSeries
 RGBController_SteelSeriesApexM500::~RGBController_SteelSeriesApexM500()
 {
     delete controller;
+}
+
+void RGBController_SteelSeriesApexM500::SetupZones()
+{
+    zone new_zone;
+
+    new_zone.name       = "Keyboard";
+    new_zone.type       = ZONE_TYPE_LINEAR;
+    new_zone.leds_min   = 1;
+    new_zone.leds_max   = 1;
+    new_zone.leds_count = 1;
+    new_zone.matrix_map = nullptr;
+
+    zones.emplace_back(new_zone);
+
+    leds.resize(1);
+    leds[0].name = "LED 1";
+
+    SetupColors();
 }
 
 void RGBController_SteelSeriesApexM500::ResizeZone(int /*zone*/, int /*new_size*/)
