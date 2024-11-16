@@ -48,7 +48,6 @@ void SteelSeriesApexM500Controller::SaveMode()
 {
     unsigned char buf[SS_APEX_M500_PACKET_SIZE];
 
-    LOG_DEBUG("Steelseries Apex M500 save mode");
     memset(buf, 0x00, SS_APEX_M500_PACKET_SIZE);
     buf[0x00] = 0x00;
     buf[0x01] = 0x09;
@@ -64,6 +63,7 @@ std::string SteelSeriesApexM500Controller::GetSerialString()
 {
     wchar_t buf[128];
     int ret = hid_get_serial_number_string(dev, buf, 128);
+    LOG_DEBUG("Steelseries Apex M500 serial string: <%s>\n", buf);
     if(ret == -1)
     {
         LOG_WARNING("Steelseries Apex M500 could'nt read serial string\n");
@@ -75,7 +75,6 @@ std::string SteelSeriesApexM500Controller::GetSerialString()
         LOG_WARNING("Steelseries Apex M500 serial string is empty");
         return("Serial number not available");
     }
-    LOG_DEBUG("Steelseries Apex M500 serial string read\n");
     return(serial);
 }
 
@@ -87,8 +86,8 @@ std::string SteelSeriesApexM500Controller::GetVersionString()
         LOG_WARNING("Steelseries Apex M500 could'nt read version number\n");
         return("Version info not available");
     }
-    LOG_DEBUG("Steelseries Apex M500 version number read\n");
     unsigned short version = dev_info->release_number;
+    LOG_DEBUG("Steelseries Apex M500 version number: <0x%04x>\n", version);
     std::string version_str;
     version_str.append(std::to_string(version >> 12 & 0xF));
     version_str.append(std::to_string(version >> 8 & 0xF));
