@@ -49,6 +49,7 @@ RGBController_SteelSeriesApexM500::RGBController_SteelSeriesApexM500(SteelSeries
     Breathing.brightness_max = 0x64;
     Breathing.speed_max = 0x03;
     Breathing.speed_min = 0x01;
+    Breathing.speed     = Breathing.speed_max + Breathing.speed_min / 2;
     Breathing.flags      = MODE_FLAG_HAS_SPEED | MODE_FLAG_HAS_BRIGHTNESS
         | MODE_FLAG_MANUAL_SAVE;
     Breathing.color_mode = MODE_COLORS_NONE;
