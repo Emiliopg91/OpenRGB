@@ -38,6 +38,7 @@ RGBController_SteelSeriesApexM500::RGBController_SteelSeriesApexM500(SteelSeries
     Static.name       = "Static";
     Static.value      = 0x00;
     Static.brightness_max = 0x64;
+    Static.brightness     = Static.brightness_max;
     Static.flags      = MODE_FLAG_HAS_BRIGHTNESS | MODE_FLAG_MANUAL_SAVE;
     Static.color_mode = MODE_COLORS_NONE;
     modes.push_back(Static);
