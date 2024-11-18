@@ -215,6 +215,7 @@ void CMSmallARGBController::SendUpdate()
     int  buffer_size                                    = (sizeof(buffer) / sizeof(buffer[0]));
     bool boolPassthru                                   = ( current_mode == CM_SMALL_ARGB_MODE_PASSTHRU );
     bool boolDirect                                     = ( current_mode == CM_SMALL_ARGB_MODE_DIRECT );
+    bool boolStatic                                     = ( current_mode == CM_SMALL_ARGB_MODE_STATIC );
     unsigned char function                              = boolPassthru ? 0x02 : 0x01;
     buffer[CM_SMALL_ARGB_REPORT_BYTE]                   = 0x80;
     buffer[CM_SMALL_ARGB_COMMAND_BYTE]                  = boolDirect   ? 0x10 : 0x01;
@@ -224,10 +225,10 @@ void CMSmallARGBController::SendUpdate()
     hid_write(dev, buffer, buffer_size);
 
     buffer[CM_SMALL_ARGB_COMMAND_BYTE]                  = 0x0b;
-    buffer[CM_SMALL_ARGB_FUNCTION_BYTE]                 = (false) ? 0x01 : 0x02; //This controls custom mode TODO
+    buffer[CM_SMALL_ARGB_FUNCTION_BYTE]                 = (false) ? 0x01 : 0x02; //This controls direct mode
     buffer[CM_SMALL_ARGB_ZONE_BYTE]                     = cm_small_argb_header_data[zone_index].header;
     buffer[CM_SMALL_ARGB_MODE_BYTE]                     = current_mode;
-    buffer[CM_SMALL_ARGB_SPEED_BYTE]                    = current_speed;
+    buffer[CM_SMALL_ARGB_SPEED_BYTE]                    = boolStatic ? 0x02 : current_speed; //Not exactly sure why MasterPlus does this, might not be neccessary
     buffer[CM_SMALL_ARGB_COLOUR_INDEX_BYTE]             = (bool_random) ? 0x00 : 0x10; //This looks to still be the colour index and controls random colours
     buffer[CM_SMALL_ARGB_BRIGHTNESS_BYTE]               = current_brightness;
     buffer[CM_SMALL_ARGB_RED_BYTE]                      = current_red;

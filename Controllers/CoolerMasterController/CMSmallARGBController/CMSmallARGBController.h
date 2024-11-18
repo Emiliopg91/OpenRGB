@@ -57,8 +57,9 @@ enum
     CM_SMALL_ARGB_MODE_BREATHING      = 0x04,   //Breathing Mode
     CM_SMALL_ARGB_MODE_REFILL         = 0x05,   //Refill Mode
     CM_SMALL_ARGB_MODE_DEMO           = 0x06,   //Demo Mode
+    CM_SMALL_ARGB_MODE_STATIC         = 0x08,   //Static Mode
     CM_SMALL_ARGB_MODE_OFF            = 0x09,   //Turn off
-    CM_SMALL_ARGB_MODE_DIRECT         = 0xFE,   //Direct Led Control (possibly N?A for small controller)
+    CM_SMALL_ARGB_MODE_DIRECT         = 0x30,   //Direct Led Control (Cooler Master calls it "custom mode")
     CM_SMALL_ARGB_MODE_PASSTHRU       = 0xFF    //Motherboard Pass Thru Mode
 };
 
