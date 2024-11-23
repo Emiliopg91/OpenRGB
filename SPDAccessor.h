@@ -48,6 +48,8 @@ typedef enum
     SPD_LPDDR5_SDRAM  = 19
 } SPDMemoryType;
 
+#define SPD_IO_DELAY   1ms
+
 extern const char *spd_memory_type_name[];
 
 class SPDDetector
@@ -72,7 +74,20 @@ class SPDDetector
 class SPDAccessor
 {
   public:
+    SPDAccessor(i2c_smbus_interface *bus, uint8_t address);
+    virtual ~SPDAccessor();
+
+    static SPDAccessor *for_memory_type(SPDMemoryType type, i2c_smbus_interface *bus, uint8_t address);
+
     virtual uint16_t jedec_id() = 0;
+
+    virtual SPDAccessor *copy() = 0;
+
+    virtual uint8_t at(uint16_t addr) = 0;
+
+  protected:
+    i2c_smbus_interface *bus;
+    uint8_t address;
 };
 
 class SPDWrapper
@@ -91,6 +106,89 @@ class SPDWrapper
     uint8_t address;
     SPDMemoryType mem_type;
 };
+
+/*-------------------------------------------------------------------------*\
+| Internal implementation for specific memory type.                         |
+\*-------------------------------------------------------------------------*/
+
+class DDR4Accessor : public SPDAccessor
+{
+  public:
+    DDR4Accessor(i2c_smbus_interface *bus, uint8_t address);
+    virtual ~DDR4Accessor();
+    virtual uint16_t jedec_id();
+};
+
+class DDR4DirectAccessor : public DDR4Accessor
+{
+  public:
+    DDR4DirectAccessor(i2c_smbus_interface *bus, uint8_t address);
+    virtual ~DDR4DirectAccessor();
+    virtual SPDAccessor *copy();
+    virtual uint8_t at(uint16_t addr);
+
+  private:
+    uint8_t current_page = 0xFF;
+    const uint16_t SPD_DDR4_EEPROM_LENGTH = 512;
+    const uint8_t SPD_DDR4_EEPROM_PAGE_SHIFT = 8;
+    const uint8_t SPD_DDR4_EEPROM_PAGE_MASK = 0xFF;
+
+    void set_page(uint8_t page);
+};
+
+#if 0
+#ifdef __linux__
+class EE1004Accessor : public DDR4Accessor
+{
+  public:
+    static bool isAvailable();
+    virtual SPDAccessor *copy();
+    virtual uint8_t at(uint16_t addr);
+};
+#endif
+#endif
+
+class DDR5Accessor : public SPDAccessor
+{
+  public:
+    DDR5Accessor(i2c_smbus_interface *bus, uint8_t address);
+    virtual ~DDR5Accessor();
+    virtual uint16_t jedec_id();
+};
+
+class DDR5DirectAccessor : public DDR5Accessor
+{
+  public:
+    DDR5DirectAccessor(i2c_smbus_interface *bus, uint8_t address);
+    virtual ~DDR5DirectAccessor();
+    virtual SPDAccessor *copy();
+    virtual uint8_t at(uint16_t addr);
+
+  private:
+    uint8_t current_page = 0xFF;
+    const uint16_t SPD_DDR5_EEPROM_LENGTH = 2048;
+    const uint8_t SPD_DDR5_EEPROM_PAGE_SHIFT = 7;
+    const uint8_t SPD_DDR5_EEPROM_PAGE_MASK = 0x7F;
+    const uint8_t SPD_DDR5_MREG_VIRTUAL_PAGE = 0x0B;
+
+    void set_page(uint8_t page);
+};
+
+#if 0
+#ifdef __linux__
+class SPD5118Accessor : public DDR5Accessor
+{
+  public:
+    static bool isAvailable();
+    virtual SPDAccessor *copy();
+    virtual uint8_t at(uint16_t addr);
+};
+#endif
+#endif
+
+/*-------------------------------------------------------------------------*\
+| Helper functions for easier collection handling.                          |
+\*-------------------------------------------------------------------------*/
 
 bool is_jedec_in_slots(std::vector<SPDWrapper> &slots, uint16_t jedec_id);
 std::vector<SPDWrapper*> slots_with_jedec(std::vector<SPDWrapper> &slots, uint16_t jedec_id);

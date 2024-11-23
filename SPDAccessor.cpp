@@ -21,7 +21,7 @@ const char *spd_memory_type_name[] = {
     "DDR5", "LPDDR5"
 };
 
-SPDDetector::SPDDetector(i2c_smbus_interface *bus, uint8_t address, SPDMemoryType mem_type)
+SPDDetector::SPDDetector(i2c_smbus_interface *bus, uint8_t address, SPDMemoryType mem_type = SPD_RESERVED)
   : bus(bus), address(address), mem_type(mem_type), valid(false)
 {
     detect_memory_type();
@@ -39,34 +39,42 @@ SPDMemoryType SPDDetector::memory_type() const
 
 void SPDDetector::detect_memory_type()
 {
-    if(mem_type != SPD_DDR4_SDRAM && mem_type != SPD_DDR5_SDRAM)
+    if(mem_type == SPD_RESERVED || mem_type == SPD_DDR5_SDRAM || mem_type == SPD_LPDDR5_SDRAM)
     {
         LOG_DEBUG("Looking for an SPD Hub on address 0x%02x", address);
         int ddr5Magic = bus->i2c_smbus_read_byte_data(address, 0x00);
         int ddr5Sensor = bus->i2c_smbus_read_byte_data(address, 0x01);
-        std::this_thread::sleep_for(1ms);
+        std::this_thread::sleep_for(SPD_IO_DELAY);
 
         if(ddr5Magic < 0 || ddr5Sensor < 0)
         {
             valid = false;
             return;
         }
-        valid = true;
 
         if(ddr5Magic == 0x51 && (ddr5Sensor & 0xEF) == 0x08)
         {
+            bus->i2c_smbus_write_byte_data(address, 0x0B, 0x00);
+            std::this_thread::sleep_for(SPD_IO_DELAY);
             // These values are invalid for any other memory type
-            mem_type = SPD_DDR5_SDRAM;
+            int value = bus->i2c_smbus_read_byte_data(address, 0x82);
+            if(value >= 0 &&
+               (mem_type == SPD_RESERVED || mem_type == (SPDMemoryType) value))
+            {
+                mem_type = (SPDMemoryType) value;
+                valid = true;
+            }
             return;
         }
     }
 
-    if(mem_type != SPD_DDR4_SDRAM && mem_type != SPD_DDR5_SDRAM)
+    if(mem_type == SPD_RESERVED || mem_type == SPD_DDR4_SDRAM || mem_type == SPD_DDR4E_SDRAM ||
+       mem_type == SPD_LPDDR4_SDRAM || mem_type == SPD_LPDDR4X_SDRAM)
     {
         // Get memory type from SPD for DDR4 or older
         LOG_DEBUG("Getting memory type of slot at address 0x%02x", address);
         bus->i2c_smbus_write_byte_data(0x36, 0x00, 0xFF);
-        std::this_thread::sleep_for(1ms);
+        std::this_thread::sleep_for(SPD_IO_DELAY);
         int value = bus->i2c_smbus_read_byte_data(address, 0x02);
         if(value < 0)
         {
@@ -80,10 +88,8 @@ void SPDDetector::detect_memory_type()
         return;
     }
 
-    // We know what the memory type is, but not if the slot is occupied
-    LOG_DEBUG("Probing slot at address 0x%02x", address);
-    int value = bus->i2c_smbus_write_quick(address, 0x00);
-    valid = (value < 0) ? false : true;
+    // No supported memory type
+    valid = false;
 }
 
 uint8_t SPDDetector::spd_address() const
@@ -98,7 +104,7 @@ i2c_smbus_interface *SPDDetector::smbus() const
 
 SPDWrapper::SPDWrapper(const SPDWrapper &wrapper)
 {
-    this->accessor = wrapper.accessor;
+    this->accessor = wrapper.accessor->copy();
     this->address = wrapper.address;
     this->mem_type = wrapper.mem_type;
 }
@@ -109,7 +115,7 @@ SPDWrapper::SPDWrapper(const SPDDetector &detector)
     this->mem_type = detector.memory_type();
 
     // Allocate a new accessor
-    this->accessor = nullptr;
+    this->accessor = SPDAccessor::for_memory_type(this->mem_type, detector.smbus(), this->address);
 }
 
 SPDWrapper::~SPDWrapper()
@@ -136,6 +142,10 @@ uint16_t SPDWrapper::jedec_id()
     return accessor->jedec_id();
 }
 
+/*-------------------------------------------------------------------------*\
+| Helper functions for easier collection handling.                          |
+\*-------------------------------------------------------------------------*/
+
 bool is_jedec_in_slots(std::vector<SPDWrapper> &slots, uint16_t jedec_id)
 {
     for(auto slot : slots)
@@ -161,4 +171,154 @@ std::vector<SPDWrapper*> slots_with_jedec(std::vector<SPDWrapper> &slots, uint16
     }
 
     return matching_slots;
+}
+
+/*-------------------------------------------------------------------------*\
+| Internal implementation for specific memory type.                         |
+\*-------------------------------------------------------------------------*/
+
+SPDAccessor::SPDAccessor(i2c_smbus_interface *bus, uint8_t spd_addr)
+{
+    this->bus = bus;
+    this->address = spd_addr;
+}
+
+SPDAccessor::~SPDAccessor()
+{
+}
+
+SPDAccessor *SPDAccessor::for_memory_type(SPDMemoryType type, i2c_smbus_interface *bus, uint8_t spd_addr)
+{
+    if(type == SPD_DDR4_SDRAM)
+    {
+#if 0
+#ifdef __linux__
+	if(EE1004Accessor::isAvailable())
+	{
+	    return new EE1004Accessor(bus, spd_addr);
+	}
+#endif
+#endif
+	return new DDR4DirectAccessor(bus, spd_addr);
+    }
+    if(type == SPD_DDR5_SDRAM)
+    {
+#if 0
+#ifdef __linux__
+	if(SPD5118Accessor::isAvailable())
+	{
+	    return new SPD5118Accessor(bus, spd_addr);
+	}
+#endif
+#endif
+	return new DDR5DirectAccessor(bus, spd_addr);
+    }
+};
+
+DDR4Accessor::DDR4Accessor(i2c_smbus_interface *bus, uint8_t spd_addr)
+  : SPDAccessor(bus, spd_addr)
+{
+}
+
+DDR4Accessor::~DDR4Accessor()
+{
+}
+
+uint16_t DDR4Accessor::jedec_id()
+{
+    return (this->at(0x140) << 8) + (this->at(0x141) & 0x7f) - 1;
+}
+
+DDR5Accessor::DDR5Accessor(i2c_smbus_interface *bus, uint8_t spd_addr)
+  : SPDAccessor(bus, spd_addr)
+{
+}
+
+DDR5Accessor::~DDR5Accessor()
+{
+}
+
+uint16_t DDR5Accessor::jedec_id()
+{
+    return (this->at(0x200) << 8) + (this->at(0x201) & 0x7f) - 1;
+}
+
+DDR4DirectAccessor::DDR4DirectAccessor(i2c_smbus_interface *bus, uint8_t spd_addr)
+  : DDR4Accessor(bus, spd_addr)
+{
+}
+
+DDR4DirectAccessor::~DDR4DirectAccessor()
+{
+}
+
+SPDAccessor *DDR4DirectAccessor::copy()
+{
+    DDR4DirectAccessor *access = new DDR4DirectAccessor(bus, address);
+    access->current_page = this->current_page;
+    return access;
+}
+
+uint8_t DDR4DirectAccessor::at(uint16_t addr)
+{
+    if(addr >= SPD_DDR4_EEPROM_LENGTH)
+    {
+        //throw OutOfBoundsError(addr);
+	return 0xFF;
+    }
+    set_page(addr >> SPD_DDR4_EEPROM_PAGE_SHIFT);
+    uint8_t offset = (uint8_t)(addr & SPD_DDR4_EEPROM_PAGE_MASK);
+    uint32_t value = bus->i2c_smbus_read_byte_data(address, offset);
+    std::this_thread::sleep_for(SPD_IO_DELAY);
+    return (uint8_t)value;
+}
+
+void DDR4DirectAccessor::set_page(uint8_t page)
+{
+    if(current_page != page)
+    {
+        bus->i2c_smbus_write_byte_data(0x36 + page, 0x00, 0xFF);
+        current_page = page;
+        std::this_thread::sleep_for(SPD_IO_DELAY);
+    }
+}
+
+DDR5DirectAccessor::DDR5DirectAccessor(i2c_smbus_interface *bus, uint8_t spd_addr)
+  : DDR5Accessor(bus, spd_addr)
+{
+}
+
+DDR5DirectAccessor::~DDR5DirectAccessor()
+{
+}
+
+SPDAccessor *DDR5DirectAccessor::copy()
+{
+    DDR5DirectAccessor *access = new DDR5DirectAccessor(bus, address);
+    access->current_page = this->current_page;
+    return access;
+}
+
+uint8_t DDR5DirectAccessor::at(uint16_t addr)
+{
+    if(addr >= SPD_DDR5_EEPROM_LENGTH)
+    {
+        //throw OutOfBoundsError(addr);
+	return 0xFF;
+    }
+    set_page(addr >> SPD_DDR5_EEPROM_PAGE_SHIFT);
+    uint8_t offset = (uint8_t)(addr & SPD_DDR5_EEPROM_PAGE_MASK) | 0x80;
+    uint32_t value = bus->i2c_smbus_read_byte_data(address, offset);
+    std::this_thread::sleep_for(SPD_IO_DELAY);
+    return (uint8_t)value;
+}
+
+void DDR5DirectAccessor::set_page(uint8_t page)
+{
+    if(current_page != page)
+    {
+        bus->i2c_smbus_write_byte_data(address, SPD_DDR5_MREG_VIRTUAL_PAGE, page);
+        current_page = page;
+        std::this_thread::sleep_for(SPD_IO_DELAY);
+    }
 }
