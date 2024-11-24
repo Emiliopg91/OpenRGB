@@ -47,10 +47,15 @@ TestResult TestForFurySignature(i2c_smbus_interface *bus, unsigned int slot_addr
     char test_str[] = "FURY";
     int res;
 
+    LOG_DEBUG("[%s] looking at 0x%02X",
+              FURY_CONTROLLER_NAME, slot_addr);
+
     // Start transaction
     res = bus->i2c_smbus_write_byte_data(slot_addr, FURY_REG_APPLY, FURY_BEGIN_TRNSFER);
     if(res < 0)
     {
+        LOG_DEBUG("[%s] DIMM not present at 0x%02X",
+                  FURY_CONTROLLER_NAME, slot_addr);
         return RESULT_ERROR;
     }
 

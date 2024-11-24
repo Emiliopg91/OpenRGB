@@ -130,7 +130,7 @@ SPDMemoryType SPDWrapper::memory_type()
 
 int SPDWrapper::index()
 {
-    return this->address - 0x50 + 1;
+    return this->address - 0x50;
 }
 
 uint16_t SPDWrapper::jedec_id()
@@ -162,7 +162,7 @@ std::vector<SPDWrapper*> slots_with_jedec(std::vector<SPDWrapper> &slots, uint16
 {
     std::vector<SPDWrapper*> matching_slots;
 
-    for(auto slot: slots)
+    for(SPDWrapper &slot : slots)
     {
         if(slot.jedec_id() == jedec_id)
         {
@@ -213,6 +213,8 @@ SPDAccessor *SPDAccessor::for_memory_type(SPDMemoryType type, i2c_smbus_interfac
 #endif
 	return new DDR5DirectAccessor(bus, spd_addr);
     }
+
+    return nullptr;
 };
 
 DDR4Accessor::DDR4Accessor(i2c_smbus_interface *bus, uint8_t spd_addr)
@@ -264,7 +266,7 @@ uint8_t DDR4DirectAccessor::at(uint16_t addr)
     if(addr >= SPD_DDR4_EEPROM_LENGTH)
     {
         //throw OutOfBoundsError(addr);
-	return 0xFF;
+        return 0xFF;
     }
     set_page(addr >> SPD_DDR4_EEPROM_PAGE_SHIFT);
     uint8_t offset = (uint8_t)(addr & SPD_DDR4_EEPROM_PAGE_MASK);
@@ -304,7 +306,7 @@ uint8_t DDR5DirectAccessor::at(uint16_t addr)
     if(addr >= SPD_DDR5_EEPROM_LENGTH)
     {
         //throw OutOfBoundsError(addr);
-	return 0xFF;
+        return 0xFF;
     }
     set_page(addr >> SPD_DDR5_EEPROM_PAGE_SHIFT);
     uint8_t offset = (uint8_t)(addr & SPD_DDR5_EEPROM_PAGE_MASK) | 0x80;
