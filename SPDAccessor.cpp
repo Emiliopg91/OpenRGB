@@ -39,42 +39,35 @@ SPDMemoryType SPDDetector::memory_type() const
 
 void SPDDetector::detect_memory_type()
 {
-    if(mem_type == SPD_RESERVED || mem_type == SPD_DDR5_SDRAM || mem_type == SPD_LPDDR5_SDRAM)
+    SPDAccessor *accessor;
+#if 0
+#ifdef __linux__
+    if(EE1004Accessor::isAvailable(bus, address))
     {
-        LOG_DEBUG("Looking for an SPD Hub on address 0x%02x", address);
-        int ddr5Magic = bus->i2c_smbus_read_byte_data(address, 0x00);
-        int ddr5Sensor = bus->i2c_smbus_read_byte_data(address, 0x01);
-        std::this_thread::sleep_for(SPD_IO_DELAY);
-
-        if(ddr5Magic < 0 || ddr5Sensor < 0)
-        {
-            valid = false;
-            return;
-        }
-
-        if(ddr5Magic == 0x51 && (ddr5Sensor & 0xEF) == 0x08)
-        {
-            bus->i2c_smbus_write_byte_data(address, 0x0B, 0x00);
-            std::this_thread::sleep_for(SPD_IO_DELAY);
-            // These values are invalid for any other memory type
-            int value = bus->i2c_smbus_read_byte_data(address, 0x82);
-            if(value >= 0 &&
-               (mem_type == SPD_RESERVED || mem_type == (SPDMemoryType) value))
-            {
-                mem_type = (SPDMemoryType) value;
-                valid = true;
-            }
-            return;
-        }
+        accessor = new EE1004Accessor(bus, address);
     }
-
-    if(mem_type == SPD_RESERVED || mem_type == SPD_DDR4_SDRAM || mem_type == SPD_DDR4E_SDRAM ||
-       mem_type == SPD_LPDDR4_SDRAM || mem_type == SPD_LPDDR4X_SDRAM)
+    else if(SPD5118Accessor::isAvailable(bus, address))
     {
-        // Get memory type from SPD for DDR4 or older
-        LOG_DEBUG("Getting memory type of slot at address 0x%02x", address);
-        bus->i2c_smbus_write_byte_data(0x36, 0x00, 0xFF);
-        std::this_thread::sleep_for(SPD_IO_DELAY);
+        accessor = new SPD5118Accessor(bus, address);
+    }
+    else
+#endif
+#endif
+    if((mem_type == SPD_RESERVED || mem_type == SPD_DDR4_SDRAM || mem_type == SPD_DDR4E_SDRAM ||
+        mem_type == SPD_LPDDR4_SDRAM || mem_type == SPD_LPDDR4X_SDRAM) &&
+       DDR4DirectAccessor::isAvailable(bus, address))
+    {
+        accessor = new DDR4DirectAccessor(bus, address);
+    }
+    else if((mem_type == SPD_RESERVED || mem_type == SPD_DDR5_SDRAM || mem_type == SPD_LPDDR5_SDRAM) &&
+            DDR5DirectAccessor::isAvailable(bus, address))
+    {
+        accessor = new DDR5DirectAccessor(bus, address);
+    }
+    else if(mem_type == SPD_RESERVED)
+    {
+        // Probe the SPD directly - probably an older system than DDR4
+        LOG_TRACE("Probing memory type older than DDR4");
         int value = bus->i2c_smbus_read_byte_data(address, 0x02);
         if(value < 0)
         {
@@ -87,9 +80,15 @@ void SPDDetector::detect_memory_type()
         }
         return;
     }
+    else
+    {
+        valid = false;
+        return;
+    }
 
-    // No supported memory type
-    valid = false;
+    valid = true;
+    mem_type = accessor->memory_type();
+    delete accessor;
 }
 
 uint8_t SPDDetector::spd_address() const
@@ -193,25 +192,25 @@ SPDAccessor *SPDAccessor::for_memory_type(SPDMemoryType type, i2c_smbus_interfac
     {
 #if 0
 #ifdef __linux__
-	if(EE1004Accessor::isAvailable())
-	{
-	    return new EE1004Accessor(bus, spd_addr);
-	}
+        if(EE1004Accessor::isAvailable(bus, spd_addr))
+        {
+            return new EE1004Accessor(bus, spd_addr);
+        }
 #endif
 #endif
-	return new DDR4DirectAccessor(bus, spd_addr);
+        return new DDR4DirectAccessor(bus, spd_addr);
     }
     if(type == SPD_DDR5_SDRAM)
     {
 #if 0
 #ifdef __linux__
-	if(SPD5118Accessor::isAvailable())
-	{
-	    return new SPD5118Accessor(bus, spd_addr);
-	}
+        if(SPD5118Accessor::isAvailable(bus, spd_addr))
+        {
+            return new SPD5118Accessor(bus, spd_addr);
+        }
 #endif
 #endif
-	return new DDR5DirectAccessor(bus, spd_addr);
+        return new DDR5DirectAccessor(bus, spd_addr);
     }
 
     return nullptr;
@@ -224,6 +223,11 @@ DDR4Accessor::DDR4Accessor(i2c_smbus_interface *bus, uint8_t spd_addr)
 
 DDR4Accessor::~DDR4Accessor()
 {
+}
+
+SPDMemoryType DDR4Accessor::memory_type()
+{
+    return (SPDMemoryType)(this->at(0x02));
 }
 
 uint16_t DDR4Accessor::jedec_id()
@@ -240,6 +244,11 @@ DDR5Accessor::~DDR5Accessor()
 {
 }
 
+SPDMemoryType DDR5Accessor::memory_type()
+{
+    return (SPDMemoryType)(this->at(0x02));
+}
+
 uint16_t DDR5Accessor::jedec_id()
 {
     return (this->at(0x200) << 8) + (this->at(0x201) & 0x7f) - 1;
@@ -252,6 +261,24 @@ DDR4DirectAccessor::DDR4DirectAccessor(i2c_smbus_interface *bus, uint8_t spd_add
 
 DDR4DirectAccessor::~DDR4DirectAccessor()
 {
+}
+
+bool DDR4DirectAccessor::isAvailable(i2c_smbus_interface *bus, uint8_t spd_addr)
+{
+    LOG_DEBUG("Looking for DDR4 DRAM on address 0x%02x", spd_addr);
+
+    int value = bus->i2c_smbus_write_quick(0x36, 0x00);
+    if(value < 0)
+    {
+        return false;
+    }
+
+    // Do page switch
+    bus->i2c_smbus_write_byte_data(0x36, 0x00, 0xFF);
+    std::this_thread::sleep_for(SPD_IO_DELAY);
+
+    value = bus->i2c_smbus_read_byte_data(spd_addr, 0x00);
+    return (value == 0x23);
 }
 
 SPDAccessor *DDR4DirectAccessor::copy()
@@ -292,6 +319,53 @@ DDR5DirectAccessor::DDR5DirectAccessor(i2c_smbus_interface *bus, uint8_t spd_add
 
 DDR5DirectAccessor::~DDR5DirectAccessor()
 {
+}
+
+bool DDR5DirectAccessor::isAvailable(i2c_smbus_interface *bus, uint8_t spd_addr)
+{
+    bool retry = true;
+
+    LOG_DEBUG("Looking for an SPD Hub on address 0x%02x", spd_addr);
+
+    while(true)
+    {
+        int ddr5Magic = bus->i2c_smbus_read_byte_data(spd_addr, 0x00);
+        int ddr5Sensor = bus->i2c_smbus_read_byte_data(spd_addr, 0x01);
+        std::this_thread::sleep_for(SPD_IO_DELAY);
+
+        if(ddr5Magic < 0 || ddr5Sensor < 0)
+        {
+            break;
+        }
+
+        LOG_TRACE("SPD Hub Magic: 0x%02x 0x%02x", ddr5Magic, ddr5Sensor);
+
+        if(ddr5Magic == 0x51 && (ddr5Sensor & 0xEF) == 0x08)
+        {
+            return true;
+        }
+
+        int page = bus->i2c_smbus_read_byte_data(spd_addr, SPD_DDR5_MREG_VIRTUAL_PAGE);
+        std::this_thread::sleep_for(SPD_IO_DELAY);
+
+        LOG_TRACE("SPD Page: 0x%02x", page);
+        if(page < 0)
+        {
+            break;
+        }
+        else if(retry && page > 0 && page < (SPD_DDR5_EEPROM_LENGTH >> SPD_DDR5_EEPROM_PAGE_SHIFT))
+        {
+            // This still might be a DDR5 module, just the page is off
+            bus->i2c_smbus_write_byte_data(spd_addr, SPD_DDR5_MREG_VIRTUAL_PAGE, 0);
+            std::this_thread::sleep_for(SPD_IO_DELAY);
+            retry = false;
+        }
+        else
+        {
+            break;
+        }
+    }
+    return false;
 }
 
 SPDAccessor *DDR5DirectAccessor::copy()

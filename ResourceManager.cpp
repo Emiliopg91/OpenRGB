@@ -1138,7 +1138,7 @@ void ResourceManager::DetectDevicesThreadFunction()
                 {
                     SPDWrapper accessor(spd);
                     dimm_type = spd.memory_type();
-                    LOG_TRACE("Detected occupied slot %d, bus %d, type %s", spd_addr - 0x50 + 1, bus, spd_memory_type_name[dimm_type]);
+                    LOG_INFO("Detected occupied slot %d, bus %d, type %s", spd_addr - 0x50 + 1, bus, spd_memory_type_name[dimm_type]);
                     slots.push_back(accessor);
                 }
             }

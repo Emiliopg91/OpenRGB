@@ -79,6 +79,7 @@ class SPDAccessor
 
     static SPDAccessor *for_memory_type(SPDMemoryType type, i2c_smbus_interface *bus, uint8_t address);
 
+    virtual SPDMemoryType memory_type() = 0;
     virtual uint16_t jedec_id() = 0;
 
     virtual SPDAccessor *copy() = 0;
@@ -116,6 +117,7 @@ class DDR4Accessor : public SPDAccessor
   public:
     DDR4Accessor(i2c_smbus_interface *bus, uint8_t address);
     virtual ~DDR4Accessor();
+    virtual SPDMemoryType memory_type();
     virtual uint16_t jedec_id();
 };
 
@@ -124,14 +126,17 @@ class DDR4DirectAccessor : public DDR4Accessor
   public:
     DDR4DirectAccessor(i2c_smbus_interface *bus, uint8_t address);
     virtual ~DDR4DirectAccessor();
+
+    static bool isAvailable(i2c_smbus_interface *bus, uint8_t address);
+
     virtual SPDAccessor *copy();
     virtual uint8_t at(uint16_t addr);
 
   private:
     uint8_t current_page = 0xFF;
-    const uint16_t SPD_DDR4_EEPROM_LENGTH = 512;
-    const uint8_t SPD_DDR4_EEPROM_PAGE_SHIFT = 8;
-    const uint8_t SPD_DDR4_EEPROM_PAGE_MASK = 0xFF;
+    static const uint16_t SPD_DDR4_EEPROM_LENGTH = 512;
+    static const uint8_t SPD_DDR4_EEPROM_PAGE_SHIFT = 8;
+    static const uint8_t SPD_DDR4_EEPROM_PAGE_MASK = 0xFF;
 
     void set_page(uint8_t page);
 };
@@ -141,8 +146,13 @@ class DDR4DirectAccessor : public DDR4Accessor
 class EE1004Accessor : public DDR4Accessor
 {
   public:
-    static bool isAvailable();
+    EE1004Accessor(i2c_smbus_interface *bus, uint8_t address);
+    virtual ~EE1004Accessor();
+
+    static bool isAvailable(i2c_smbus_interface *bus, uint8_t address);
+
     virtual SPDAccessor *copy();
+    virtual SPDMemoryType memory_type();
     virtual uint8_t at(uint16_t addr);
 };
 #endif
@@ -153,6 +163,7 @@ class DDR5Accessor : public SPDAccessor
   public:
     DDR5Accessor(i2c_smbus_interface *bus, uint8_t address);
     virtual ~DDR5Accessor();
+    virtual SPDMemoryType memory_type();
     virtual uint16_t jedec_id();
 };
 
@@ -161,15 +172,18 @@ class DDR5DirectAccessor : public DDR5Accessor
   public:
     DDR5DirectAccessor(i2c_smbus_interface *bus, uint8_t address);
     virtual ~DDR5DirectAccessor();
+
+    static bool isAvailable(i2c_smbus_interface *bus, uint8_t address);
+
     virtual SPDAccessor *copy();
     virtual uint8_t at(uint16_t addr);
 
   private:
     uint8_t current_page = 0xFF;
-    const uint16_t SPD_DDR5_EEPROM_LENGTH = 2048;
-    const uint8_t SPD_DDR5_EEPROM_PAGE_SHIFT = 7;
-    const uint8_t SPD_DDR5_EEPROM_PAGE_MASK = 0x7F;
-    const uint8_t SPD_DDR5_MREG_VIRTUAL_PAGE = 0x0B;
+    static const uint16_t SPD_DDR5_EEPROM_LENGTH = 2048;
+    static const uint8_t SPD_DDR5_EEPROM_PAGE_SHIFT = 7;
+    static const uint8_t SPD_DDR5_EEPROM_PAGE_MASK = 0x7F;
+    static const uint8_t SPD_DDR5_MREG_VIRTUAL_PAGE = 0x0B;
 
     void set_page(uint8_t page);
 };
@@ -179,7 +193,11 @@ class DDR5DirectAccessor : public DDR5Accessor
 class SPD5118Accessor : public DDR5Accessor
 {
   public:
-    static bool isAvailable();
+    SPD5118Accessor(i2c_smbus_interface *bus, uint8_t address);
+    virtual ~SPD5118Accessor();
+
+    static bool isAvailable(i2c_smbus_interface *bus, uint8_t address);
+
     virtual SPDAccessor *copy();
     virtual uint8_t at(uint16_t addr);
 };
