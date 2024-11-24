@@ -67,13 +67,13 @@ std::string SteelSeriesApexM500Controller::GetSerialString()
     if(ret == -1)
     {
         LOG_WARNING("Steelseries Apex M500 could'nt read serial string\n");
-        return("Serial number not available");
+        return("");
     }
     std::string serial = StringUtils::wstring_to_string(buf);
     if (serial.empty())
     {
         LOG_WARNING("Steelseries Apex M500 serial string is empty");
-        return("Serial number not available");
+        return("");
     }
     return(serial);
 }
@@ -84,7 +84,7 @@ std::string SteelSeriesApexM500Controller::GetVersionString()
     if(!dev_info)
     {
         LOG_WARNING("Steelseries Apex M500 could'nt read version number\n");
-        return("Version info not available");
+        return("");
     }
     unsigned short version = dev_info->release_number;
     LOG_DEBUG("Steelseries Apex M500 version number: <0x%04x>\n", version);
