@@ -569,6 +569,7 @@ bool i2c_smbus_i801_detect()
     }
 
     // Query manufacturer of processor
+    // For most computers, if there is only one SMBus controller, its manufacturer should be the same as that of the processor.
     std::vector<QueryObj> q_res_Processor;
     wmi.query("SELECT * FROM Win32_Processor", q_res_Processor);
     std::string processor_manufacturer;
@@ -581,7 +582,6 @@ bool i2c_smbus_i801_detect()
     // For each detected SMBus adapter, try enumerating it as either AMD or Intel
     for (QueryObj &i : q_res_PnPSignedDriver)
     {
-        // For most PC, if there is only one SMBus controller, its manufacturer should be same as processor's
         // Intel SMBus controllers do show I/O resources in Device Manager
         // Analysis of many Intel boards has shown that Intel SMBus adapter I/O space varies between boards
         // We can query Win32_PnPAllocatedResource entries and look up the PCI device ID to find the allocated I/O space
