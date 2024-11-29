@@ -41,7 +41,7 @@ RGBController_CMARGBGen2A1Controller::RGBController_CMARGBGen2A1Controller(CMARG
     description                 = name;
     location                    = controller->GetDeviceLocation();
     serial                      = controller->GetSerialString();
-    version                     = "Gen2-generic";
+    version                     = "";
 
     mode Direct;
     Direct.name                 = "Direct";

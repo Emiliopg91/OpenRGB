@@ -4,12 +4,11 @@
 |   Driver for Cooler Master ARGB Gen 2 A1 controller       |
 |                                                           |
 |   Morgan Guimard (morg)                       26 Jun 2022 |
-|  kderazorback (Fabian R) 11/08/2023                                 |
+|   Fabian R (kderazorback)                     11 Aug 2023 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
 |   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
-
 
 #pragma once
 
