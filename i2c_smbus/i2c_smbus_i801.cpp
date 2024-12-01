@@ -560,13 +560,24 @@ bool i2c_smbus_i801_detect()
     // Query WMI for Win32_PnPSignedDriver entries with names matching "SMBUS" or "SM BUS"
     // These devices may be browsed under Device Manager -> System Devices
     std::vector<QueryObj> q_res_PnPSignedDriver;
-    hres = wmi.query("SELECT * FROM Win32_PnPSignedDriver WHERE Description LIKE '%SMBUS%' OR Description LIKE '%SM BUS%'", q_res_PnPSignedDriver);
+    hres = wmi.query("SELECT * FROM Win32_PnPSignedDriver WHERE Description LIKE '%SMBUS%' OR Description LIKE '%SM BUS%' OR DeviceName LIKE '%SMBUS%' OR DeviceName LIKE '%SM BUS%'", q_res_PnPSignedDriver);
 
     if (hres)
     {
         LOG_INFO("WMI query failed, i801 I2C bus detection aborted");
         return(false);
     }
+
+    // Query manufacturer of processor
+    std::vector<QueryObj> q_res_Processor;
+    wmi.query("SELECT * FROM Win32_Processor", q_res_Processor);
+    std::string processor_manufacturer;
+    if (q_res_Processor.size() > 0)
+    {
+        processor_manufacturer = q_res_Processor[0]["Manufacturer"];
+    }
+    bool is_intel_processor = processor_manufacturer.find("Intel") != std::string::npos
+                           || processor_manufacturer.find("INTEL") != std::string::npos;
 
     // For each detected SMBus adapter, try enumerating it as either AMD or Intel
     for (QueryObj &i : q_res_PnPSignedDriver)
@@ -576,7 +587,9 @@ bool i2c_smbus_i801_detect()
         // We can query Win32_PnPAllocatedResource entries and look up the PCI device ID to find the allocated I/O space
         // Intel SMBus adapters use the i801 driver
         if ((i["Manufacturer"].find("Intel") != std::string::npos)
-         || (i["Manufacturer"].find("INTEL") != std::string::npos))
+         || (i["Manufacturer"].find("INTEL") != std::string::npos)
+         // In most computers, if there is only one SMBus controller, its manufacturer should be the same as that of the processor
+         || (is_intel_processor && q_res_PnPSignedDriver.size() == 1))
         {
             std::string rgx1 = ".+" + q_res_PnPSignedDriver[0]["DeviceID"].substr(4, 33) + ".+";
 
@@ -628,7 +641,14 @@ bool i2c_smbus_i801_detect()
                 bus->pci_device             = dev_id;
                 bus->pci_subsystem_vendor   = sbv_id;
                 bus->pci_subsystem_device   = sbd_id;
-                strcpy(bus->device_name, i["Description"].c_str());
+                if (!i["Description"].empty())
+                {
+                    strcpy(bus->device_name, i["Description"].c_str());
+                }
+                else
+                {
+                    strcpy(bus->device_name, i["DeviceName"].c_str());
+                }
                 ((i2c_smbus_i801 *)bus)->i801_smba = IORangeStart;
                 ResourceManager::get()->RegisterI2CBus(bus);
             }
