@@ -263,7 +263,6 @@ DDR4DirectAccessor::~DDR4DirectAccessor()
 
 bool DDR4DirectAccessor::isAvailable(i2c_smbus_interface *bus, uint8_t spd_addr)
 {
-
     int value = bus->i2c_smbus_write_quick(0x36, 0x00);
     if(value < 0)
     {
@@ -280,9 +279,7 @@ bool DDR4DirectAccessor::isAvailable(i2c_smbus_interface *bus, uint8_t spd_addr)
 
 SPDAccessor *DDR4DirectAccessor::copy()
 {
-    DDR4DirectAccessor *access = new DDR4DirectAccessor(bus, address);
-    access->current_page = this->current_page;
-    return access;
+    return new DDR4DirectAccessor(bus, address);
 }
 
 uint8_t DDR4DirectAccessor::at(uint16_t addr)
