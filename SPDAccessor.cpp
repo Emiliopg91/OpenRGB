@@ -11,6 +11,7 @@
 
 #include "LogManager.h"
 #include "SPDAccessor.h"
+#include "filesystem.h"
 
 using namespace std::chrono_literals;
 
@@ -311,6 +312,58 @@ void DDR4DirectAccessor::set_page(uint8_t page)
         std::this_thread::sleep_for(SPD_IO_DELAY);
     }
 }
+
+#ifdef __linux__
+const char *EE1004Accessor::SPD_EE1004_PATH = "/sys/bus/i2c/drivers/ee1004/%u-%04x/eeprom";
+
+EE1004Accessor::EE1004Accessor(i2c_smbus_interface *bus, uint8_t spd_addr)
+  : DDR4Accessor(bus, spd_addr), valid(false)
+{
+}
+
+EE1004Accessor::~EE1004Accessor()
+{
+}
+
+bool EE1004Accessor::isAvailable(i2c_smbus_interface *bus, uint8_t spd_addr)
+{
+    LOG_DEBUG("Looking for EE1004 EEPROM export for address 0x%02x", spd_addr);
+
+    char path[sizeof(SPD_EE1004_PATH) + 4];
+    snprintf(path, sizeof(path), SPD_EE1004_PATH, bus->port_id, spd_addr);
+    return std::filesystem::exists(path);
+}
+
+SPDAccessor *EE1004Accessor::copy()
+{
+    EE1004Accessor *access = new EE1004Accessor(bus, address);
+    memcpy(access->dump, this->dump, sizeof(this->dump));
+    access->valid = this->valid;
+    return access;
+}
+
+uint8_t EE1004Accessor::at(uint16_t addr)
+{
+    if(!valid)
+    {
+        readEeprom();
+    }
+    return dump[addr];
+}
+
+void EE1004Accessor::readEeprom()
+{
+    char filename[sizeof(SPD_EE1004_PATH) + 4];
+    snprintf(filename, sizeof(filename), SPD_EE1004_PATH, bus->port_id, address);
+
+    std::ifstream eeprom_file(filename, std::ios::in | std::ios::binary);
+    if(eeprom_file)
+    {
+        eeprom_file >> dump;
+        eeprom_file.close();
+    }
+}
+#endif
 
 DDR5DirectAccessor::DDR5DirectAccessor(i2c_smbus_interface *bus, uint8_t spd_addr)
   : DDR5Accessor(bus, spd_addr)

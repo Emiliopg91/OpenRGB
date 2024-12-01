@@ -141,7 +141,6 @@ class DDR4DirectAccessor : public DDR4Accessor
     void set_page(uint8_t page);
 };
 
-#if 0
 #ifdef __linux__
 class EE1004Accessor : public DDR4Accessor
 {
@@ -152,10 +151,16 @@ class EE1004Accessor : public DDR4Accessor
     static bool isAvailable(i2c_smbus_interface *bus, uint8_t address);
 
     virtual SPDAccessor *copy();
-    virtual SPDMemoryType memory_type();
     virtual uint8_t at(uint16_t addr);
+
+  private:
+    static const char *SPD_EE1004_PATH;
+
+    uint8_t dump[512];
+    bool valid;
+
+    void readEeprom();
 };
-#endif
 #endif
 
 class DDR5Accessor : public SPDAccessor
