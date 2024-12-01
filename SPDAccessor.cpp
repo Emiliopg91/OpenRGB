@@ -41,7 +41,9 @@ SPDMemoryType SPDDetector::memory_type() const
 void SPDDetector::detect_memory_type()
 {
     SPDAccessor *accessor;
-#if 0
+
+    LOG_DEBUG("Probing DRAM on address 0x%02x", address);
+
 #ifdef __linux__
     if(EE1004Accessor::isAvailable(bus, address))
     {
@@ -52,7 +54,6 @@ void SPDDetector::detect_memory_type()
         accessor = new SPD5118Accessor(bus, address);
     }
     else
-#endif
 #endif
     if((mem_type == SPD_RESERVED || mem_type == SPD_DDR4_SDRAM || mem_type == SPD_DDR4E_SDRAM ||
         mem_type == SPD_LPDDR4_SDRAM || mem_type == SPD_LPDDR4X_SDRAM) &&
@@ -191,25 +192,21 @@ SPDAccessor *SPDAccessor::for_memory_type(SPDMemoryType type, i2c_smbus_interfac
 {
     if(type == SPD_DDR4_SDRAM)
     {
-#if 0
 #ifdef __linux__
         if(EE1004Accessor::isAvailable(bus, spd_addr))
         {
             return new EE1004Accessor(bus, spd_addr);
         }
 #endif
-#endif
         return new DDR4DirectAccessor(bus, spd_addr);
     }
     if(type == SPD_DDR5_SDRAM)
     {
-#if 0
 #ifdef __linux__
         if(SPD5118Accessor::isAvailable(bus, spd_addr))
         {
             return new SPD5118Accessor(bus, spd_addr);
         }
-#endif
 #endif
         return new DDR5DirectAccessor(bus, spd_addr);
     }
@@ -266,7 +263,6 @@ DDR4DirectAccessor::~DDR4DirectAccessor()
 
 bool DDR4DirectAccessor::isAvailable(i2c_smbus_interface *bus, uint8_t spd_addr)
 {
-    LOG_DEBUG("Looking for DDR4 DRAM on address 0x%02x", spd_addr);
 
     int value = bus->i2c_smbus_write_quick(0x36, 0x00);
     if(value < 0)
@@ -327,11 +323,12 @@ EE1004Accessor::~EE1004Accessor()
 
 bool EE1004Accessor::isAvailable(i2c_smbus_interface *bus, uint8_t spd_addr)
 {
-    LOG_DEBUG("Looking for EE1004 EEPROM export for address 0x%02x", spd_addr);
-
-    char path[sizeof(SPD_EE1004_PATH) + 4];
-    snprintf(path, sizeof(path), SPD_EE1004_PATH, bus->port_id, spd_addr);
-    return std::filesystem::exists(path);
+    int size = snprintf(nullptr, 0, SPD_EE1004_PATH, bus->port_id, spd_addr);
+    char *path = new char[size+1];
+    snprintf(path, size+1, SPD_EE1004_PATH, bus->port_id, spd_addr);
+    bool result = std::filesystem::exists(path);
+    delete[] path;
+    return result;
 }
 
 SPDAccessor *EE1004Accessor::copy()
@@ -353,15 +350,17 @@ uint8_t EE1004Accessor::at(uint16_t addr)
 
 void EE1004Accessor::readEeprom()
 {
-    char filename[sizeof(SPD_EE1004_PATH) + 4];
-    snprintf(filename, sizeof(filename), SPD_EE1004_PATH, bus->port_id, address);
+    int size = snprintf(nullptr, 0, SPD_EE1004_PATH, bus->port_id, address);
+    char *filename = new char[size+1];
+    snprintf(filename, size+1, SPD_EE1004_PATH, bus->port_id, address);
 
     std::ifstream eeprom_file(filename, std::ios::in | std::ios::binary);
     if(eeprom_file)
     {
-        eeprom_file >> dump;
+        eeprom_file.read((char*)dump, sizeof(dump));
         eeprom_file.close();
     }
+    delete[] filename;
 }
 #endif
 
@@ -377,8 +376,6 @@ DDR5DirectAccessor::~DDR5DirectAccessor()
 bool DDR5DirectAccessor::isAvailable(i2c_smbus_interface *bus, uint8_t spd_addr)
 {
     bool retry = true;
-
-    LOG_DEBUG("Looking for an SPD Hub on address 0x%02x", spd_addr);
 
     while(true)
     {
@@ -451,3 +448,58 @@ void DDR5DirectAccessor::set_page(uint8_t page)
         std::this_thread::sleep_for(SPD_IO_DELAY);
     }
 }
+
+#ifdef __linux__
+const char *SPD5118Accessor::SPD_SPD5118_PATH = "/sys/bus/i2c/drivers/spd5118/%u-%04x/eeprom";
+
+SPD5118Accessor::SPD5118Accessor(i2c_smbus_interface *bus, uint8_t spd_addr)
+  : DDR5Accessor(bus, spd_addr), valid(false)
+{
+}
+
+SPD5118Accessor::~SPD5118Accessor()
+{
+}
+
+bool SPD5118Accessor::isAvailable(i2c_smbus_interface *bus, uint8_t spd_addr)
+{
+    int size = snprintf(nullptr, 0, SPD_SPD5118_PATH, bus->port_id, spd_addr);
+    char *path = new char[size+1];
+    snprintf(path, size+1, SPD_SPD5118_PATH, bus->port_id, spd_addr);
+    bool result = std::filesystem::exists(path);
+    delete[] path;
+    return result;
+}
+
+SPDAccessor *SPD5118Accessor::copy()
+{
+    SPD5118Accessor *access = new SPD5118Accessor(bus, address);
+    memcpy(access->dump, this->dump, sizeof(this->dump));
+    access->valid = this->valid;
+    return access;
+}
+
+uint8_t SPD5118Accessor::at(uint16_t addr)
+{
+    if(!valid)
+    {
+        readEeprom();
+    }
+    return dump[addr];
+}
+
+void SPD5118Accessor::readEeprom()
+{
+    int size = snprintf(nullptr, 0, SPD_SPD5118_PATH, bus->port_id, address);
+    char *filename = new char[size+1];
+    snprintf(filename, size+1, SPD_SPD5118_PATH, bus->port_id, address);
+
+    std::ifstream eeprom_file(filename, std::ios::in | std::ios::binary);
+    if(eeprom_file)
+    {
+        eeprom_file.read((char*)dump, sizeof(dump));
+        eeprom_file.close();
+    }
+    delete[] filename;
+}
+#endif

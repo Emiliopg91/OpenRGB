@@ -193,7 +193,6 @@ class DDR5DirectAccessor : public DDR5Accessor
     void set_page(uint8_t page);
 };
 
-#if 0
 #ifdef __linux__
 class SPD5118Accessor : public DDR5Accessor
 {
@@ -205,8 +204,15 @@ class SPD5118Accessor : public DDR5Accessor
 
     virtual SPDAccessor *copy();
     virtual uint8_t at(uint16_t addr);
+
+  private:
+    static const char *SPD_SPD5118_PATH;
+
+    uint8_t dump[2048];
+    bool valid;
+
+    void readEeprom();
 };
-#endif
 #endif
 
 /*-------------------------------------------------------------------------*\

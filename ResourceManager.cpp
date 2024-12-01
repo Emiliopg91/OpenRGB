@@ -1139,6 +1139,7 @@ void ResourceManager::DetectDevicesThreadFunction()
                     SPDWrapper accessor(spd);
                     dimm_type = spd.memory_type();
                     LOG_INFO("Detected occupied slot %d, bus %d, type %s", spd_addr - 0x50 + 1, bus, spd_memory_type_name[dimm_type]);
+                    LOG_DEBUG("Jedec ID: 0x%04x", accessor.jedec_id());
                     slots.push_back(accessor);
                 }
             }
