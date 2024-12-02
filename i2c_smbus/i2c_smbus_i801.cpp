@@ -641,13 +641,13 @@ bool i2c_smbus_i801_detect()
                 bus->pci_device             = dev_id;
                 bus->pci_subsystem_vendor   = sbv_id;
                 bus->pci_subsystem_device   = sbd_id;
-                if (!i["Description"].empty())
+                if (i["Description"].empty())
                 {
-                    strcpy(bus->device_name, i["Description"].c_str());
+                    strcpy(bus->device_name, i["DeviceName"].c_str());
                 }
                 else
                 {
-                    strcpy(bus->device_name, i["DeviceName"].c_str());
+                    strcpy(bus->device_name, i["Description"].c_str());
                 }
                 ((i2c_smbus_i801 *)bus)->i801_smba = IORangeStart;
                 ResourceManager::get()->RegisterI2CBus(bus);
