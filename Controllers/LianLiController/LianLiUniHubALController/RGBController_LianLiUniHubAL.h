@@ -17,6 +17,9 @@
 #include "LianLiUniHubALController.h"
 #include "RGBController.h"
 
+#define LIANLI_AL_FANS_MAX      4
+#define LIANLI_AL_ZONES_MAX     4
+
 class RGBController_LianLiUniHubAL : public RGBController
 {
 public:
@@ -32,8 +35,6 @@ public:
     void UpdateSingleLED(int led);
 
     void DeviceUpdateMode();
-
-    void SetCustomMode();
 
 private:
     LianLiUniHubALController* controller;

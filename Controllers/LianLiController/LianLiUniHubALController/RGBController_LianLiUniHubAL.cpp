@@ -11,21 +11,66 @@
 \*---------------------------------------------------------*/
 
 #include <string>
+
+#include "KeyboardLayoutManager.h"
+#include "LogManager.h"
+#include "ResourceManager.h"
+#include "SettingsManager.h"
 #include "RGBController_LianLiUniHubAL.h"
 
-//0xFFFFFFFF indicates an unused entry in matrix
-#define NA  0xFFFFFFFF
+std::map<std::string, unsigned char> lianli_al_zones =
+{
+    {"Zone 1", 1},
+    {"Zone 2", 0},
+    {"Zone 3", 0},
+    {"Zone 4", 0}
+};
 
-static unsigned int matrix_map[8][35] =
-    { {  NA,  NA,  10,  NA,  NA,  11,  NA,  NA,  NA,  NA,  NA,  30,  NA,  NA,  31,  NA,  NA,  NA,  NA,  NA,  50,  NA,  NA,  51,  NA,  NA,  NA,  NA,  NA,  70,  NA,  NA,  71,  NA,  NA},
-      {  NA,   9,  NA,  NA,  NA,  NA,  12,  NA,  NA,  NA,  29,  NA,  NA,  NA,  NA,  32,  NA,  NA,  NA,  49,  NA,  NA,  NA,  NA,  52,  NA,  NA,  NA,  69,  NA,  NA,  NA,  NA,  72,  NA},
-      {   8,  NA,  NA,   1,   2,  NA,  NA,  13,  NA,  28,  NA,  NA,  21,  22,  NA,  NA,  33,  NA,  48,  NA,  NA,  41,  42,  NA,  NA,  53,  NA,  68,  NA,  NA,  61,  62,  NA,  NA,  73},
-      {  NA,  NA,   0,  NA,  NA,   3,  NA,  NA,  NA,  NA,  NA,  20,  NA,  NA,  23,  NA,  NA,  NA,  NA,  NA,  40,  NA,  NA,  43,  NA,  NA,  NA,  NA,  NA,  60,  NA,  NA,  63,  NA,  NA},
-      {  NA,  NA,   7,  NA,  NA,   4,  NA,  NA,  NA,  NA,  NA,  27,  NA,  NA,  24,  NA,  NA,  NA,  NA,  NA,  47,  NA,  NA,  44,  NA,  NA,  NA,  NA,  NA,  67,  NA,  NA,  64,  NA,  NA},
-      {  19,  NA,  NA,   6,   5,  NA,  NA,  14,  NA,  39,  NA,  NA,  26,  25,  NA,  NA,  34,  NA,  59,  NA,  NA,  46,  45,  NA,  NA,  54,  NA,  79,  NA,  NA,  66,  65,  NA,  NA,  74},
-      {  NA,  18,  NA,  NA,  NA,  NA,  15,  NA,  NA,  NA,  38,  NA,  NA,  NA,  NA,  35,  NA,  NA,  NA,  58,  NA,  NA,  NA,  NA,  55,  NA,  NA,  NA,  78,  NA,  NA,  NA,  NA,  75,  NA},
-      {  NA,  NA,  17,  NA,  NA,  16,  NA,  NA,  NA,  NA,  NA,  37,  NA,  NA,  36,  NA,  NA,  NA,  NA,  NA,  57,  NA,  NA,  56,  NA,  NA,  NA,  NA,  NA,  77,  NA,  NA,  76,  NA,  NA}
-    };
+keyboard_keymap_overlay lianli_a1_empty
+{
+    KEYBOARD_SIZE::KEYBOARD_SIZE_EMPTY,
+    {
+    /*---------------------------------------------------------------------------------------------------------*\
+    | Edit Keys                                                                                                 |
+    |   Zone,   Row,    Column,     Value,      Key,                        OpCode,                             |
+    \*---------------------------------------------------------------------------------------------------------*/
+        {   0,      0,       0,         0,        KEY_EN_UNUSED,            KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },
+        {   0,      0,       0,         0,        KEY_EN_UNUSED,            KEYBOARD_OPCODE_INSERT_ROW,         },
+        {   0,      0,       0,         0,        KEY_EN_UNUSED,            KEYBOARD_OPCODE_INSERT_ROW,         },
+        {   0,      2,       0,         0,        KEY_EN_UNUSED,            KEYBOARD_OPCODE_REMOVE_SHIFT_LEFT,  },
+    }
+};
+
+keyboard_keymap_overlay lianli_a1_fan
+{
+    KEYBOARD_SIZE::KEYBOARD_SIZE_EMPTY,
+    {
+    /*---------------------------------------------------------------------------------------------------------*\
+    | Edit Keys                                                                                                 |
+    |   Zone,   Row,    Column,     Value,      Key,                        OpCode,                             |
+    \*---------------------------------------------------------------------------------------------------------*/
+        {   0,      3,       2,         0,        "Inner LED 1",            KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },
+        {   0,      2,       3,         1,        "Inner LED 2",            KEYBOARD_OPCODE_SWAP_ONLY,          },
+        {   0,      2,       4,         2,        "Inner LED 3",            KEYBOARD_OPCODE_SWAP_ONLY,          },
+        {   0,      3,       5,         3,        "Inner LED 4",            KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },
+        {   0,      4,       5,         4,        "Inner LED 5",            KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },
+        {   0,      5,       4,         5,        "Inner LED 6",            KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },
+        {   0,      5,       3,         6,        "Inner LED 7",            KEYBOARD_OPCODE_SWAP_ONLY,          },
+        {   0,      4,       2,         7,        "Inner LED 8",            KEYBOARD_OPCODE_SWAP_ONLY,          },
+        {   0,      2,       0,         8,        "Outer LED 1",            KEYBOARD_OPCODE_SWAP_ONLY,          },
+        {   0,      1,       1,         9,        "Outer LED 2",            KEYBOARD_OPCODE_SWAP_ONLY,          },
+        {   0,      0,       2,        10,        "Outer LED 3",            KEYBOARD_OPCODE_SWAP_ONLY,          },
+        {   0,      0,       5,        11,        "Outer LED 4",            KEYBOARD_OPCODE_SWAP_ONLY,          },
+        {   0,      1,       6,        12,        "Outer LED 5",            KEYBOARD_OPCODE_SWAP_ONLY,          },
+        {   0,      2,       7,        13,        "Outer LED 6",            KEYBOARD_OPCODE_SWAP_ONLY,          },
+        {   0,      5,       7,        14,        "Outer LED 7",            KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },
+        {   0,      6,       6,        15,        "Outer LED 8",            KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },
+        {   0,      7,       5,        16,        "Outer LED 9",            KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },
+        {   0,      7,       2,        17,        "Outer LED 10",           KEYBOARD_OPCODE_SWAP_ONLY,          },
+        {   0,      6,       1,        18,        "Outer LED 11",           KEYBOARD_OPCODE_SWAP_ONLY,          },
+        {   0,      5,       0,        19,        "Outer LED 12",           KEYBOARD_OPCODE_SWAP_ONLY,          },
+    }
+};
 
 /**------------------------------------------------------------------*\
     @name Lian Li Uni Hub AL
@@ -34,21 +79,20 @@ static unsigned int matrix_map[8][35] =
     @direct :rotating_light:
     @effects :white_check_mark:
     @detectors DetectLianLiUniHubAL
-    @comment
+    @comment Fan counts for each Zone are set in the config file.
 \*-------------------------------------------------------------------*/
 
 RGBController_LianLiUniHubAL::RGBController_LianLiUniHubAL(LianLiUniHubALController* controller_ptr)
 {
     controller  = controller_ptr;
 
-    name        = controller->GetName();
+    name        = "Lian Li Uni Hub - AL";
     vendor      = "Lian Li";
     type        = DEVICE_TYPE_COOLER;
-    description = "Lian Li Uni Hub - AL";
+    description = name;
     version     = controller->GetFirmwareVersionString();
     location    = controller->GetDeviceLocation();
     serial      = controller->GetSerialString();
-
 
     initializedMode = false;
 
@@ -371,99 +415,128 @@ RGBController_LianLiUniHubAL::~RGBController_LianLiUniHubAL()
 
 void RGBController_LianLiUniHubAL::SetupZones()
 {
-    /*-------------------------------------------------*\
-    | Only set LED count on the first run               |
-    \*-------------------------------------------------*/
-    bool first_run = false;
+    const std::string   zone_config     = "zones";
+    SettingsManager*    set_man         = ResourceManager::get()->GetSettingsManager();
+    json                device_settings = set_man->GetSettings(name);
 
-    if(zones.size() == 0)
+    /*-------------------------------------------------*\
+    | Get Linux LED settings from settings manager      |
+    \*-------------------------------------------------*/
+    if(!device_settings.contains(zone_config))
     {
-        first_run = true;
-        zones.resize(UNIHUB_AL_CHANNEL_COUNT);
+        //If supported devices is not found then write it to settings
+        device_settings[zone_config] = lianli_al_zones;
+        set_man->SetSettings(name, device_settings);
+        set_man->SaveSettings();
     }
 
-    /*-------------------------------------------------*\
-    | Clear any existing color/LED configuration        |
-    \*-------------------------------------------------*/
-    leds.clear();
-    colors.clear();
-
-    /*-------------------------------------------------*\
-    | Set zones and leds                                |
-    \*-------------------------------------------------*/
-    for(unsigned int channel_idx = 0; channel_idx < zones.size(); channel_idx++)
+    /*---------------------------------------------------------*\
+    | Fill in zones from the device data                        |
+    \*---------------------------------------------------------*/
+    for(json::iterator it = device_settings[zone_config].begin(); it != device_settings[zone_config].end(); ++it)
     {
-        zones[channel_idx].name                 = "Channel ";
-        zones[channel_idx].name.append(std::to_string(channel_idx + 1));
-
-        // Note:    Matrix types won't get loaded from the sizes.ors as the default zone type in this RGBController is ZONE_TYPE_LINEAR
-        //          This will require augmentation on the ProfileManager.cpp to be able to override zone types but this is probably not wanted in general
-        if (zones[channel_idx].leds_count == 60 || zones[channel_idx].leds_count == 40 || zones[channel_idx].leds_count == 20 || zones[channel_idx].leds_count == 80) // Assume they're AL120 Fans
+        if(zones.size() < LIANLI_AL_ZONES_MAX)
         {
-            zones[channel_idx].type                 = ZONE_TYPE_MATRIX;
-            zones[channel_idx].leds_min             = 0;
-            zones[channel_idx].leds_max             = UNIHUB_AL_CHAN_LED_COUNT;
-            zones[channel_idx].matrix_map           = new matrix_map_type;
-            zones[channel_idx].matrix_map->height   = 8;
-            zones[channel_idx].matrix_map->width    = 35;
-            zones[channel_idx].matrix_map->map      = (unsigned int *)&matrix_map;
-        }
-        else   // Treat as regular LED strip
-        {
-            zones[channel_idx].type                 = ZONE_TYPE_LINEAR;
-            zones[channel_idx].leds_min             = 0;
-            zones[channel_idx].leds_max             = UNIHUB_AL_CHAN_LED_COUNT;
-        }
+            zone new_zone;
 
-        if(first_run)
-        {
-            zones[channel_idx].leds_count = zones[channel_idx].leds_min;
+            new_zone.name               = it.key();
+            unsigned char fan_count     = std::clamp(it.value().get<int>(), 0, LIANLI_AL_FANS_MAX);
+            new_zone.type               = ZONE_TYPE_MATRIX;
+
+            KeyboardLayoutManager new_kb(KEYBOARD_LAYOUT_DEFAULT, lianli_a1_fan.base_size);
+
+            matrix_map_type * new_map   = new matrix_map_type;
+            new_zone.matrix_map         = new_map;
+            /*---------------------------------------------------------*\
+            | Set up the matrix ready for each fan                      |
+            \*---------------------------------------------------------*/
+            new_kb.ChangeKeys(lianli_a1_empty.edit_keys);
+
+            /*---------------------------------------------------------*\
+            | For each fan in the config add a fan matrix               |
+            \*---------------------------------------------------------*/
+            keyboard_keymap_overlay fans = lianli_a1_fan;
+
+            for(size_t fan_idx = 0; fan_idx < fan_count; fan_idx++)
+            {
+                new_kb.ChangeKeys(fans.edit_keys);
+
+                for(size_t led_idx = 0; led_idx < fans.edit_keys.size(); led_idx++)
+                {
+                    fans.edit_keys.at(led_idx).col   += 9;
+                    fans.edit_keys.at(led_idx).value += fans.edit_keys.size();
+                }
+            }
+
+            /*---------------------------------------------------------*\
+            | Matrix map still uses declared zone rows and columns      |
+            |   as the packet structure depends on the matrix map       |
+            \*---------------------------------------------------------*/
+            new_map->height             = new_kb.GetRowCount();
+            new_map->width              = new_kb.GetColumnCount();
+            new_map->map                = new unsigned int[new_map->height * new_map->width];
+            new_kb.GetKeyMap(new_map->map, KEYBOARD_MAP_FILL_TYPE_COUNT, new_map->height, new_map->width);
+
+            /*---------------------------------------------------------*\
+            | Create LEDs for the Matrix zone                           |
+            |   Place keys in the layout to populate the matrix         |
+            \*---------------------------------------------------------*/
+            new_zone.leds_count         = new_kb.GetKeyCount();
+            LOG_DEBUG
+            (
+                "[%s] Created KB matrix with %d rows and %d columns containing %d keys",
+                name.c_str(),
+                new_kb.GetRowCount(),
+                new_kb.GetColumnCount(),
+                new_zone.leds_count
+            );
+
+            new_zone.leds_min           = new_zone.leds_count;
+            new_zone.leds_max           = new_zone.leds_count;
+
+            for(unsigned int led_idx = 0; led_idx < new_zone.leds_count; led_idx++)
+            {
+                led new_led;
+
+                new_led.name                = new_kb.GetKeyNameAt(led_idx);
+                new_led.value               = new_kb.GetKeyValueAt(led_idx);
+                leds.push_back(new_led);
+            }
+
+            zones.push_back(new_zone);
         }
-
-        for(unsigned int led_ch_idx = 0; led_ch_idx < zones[channel_idx].leds_count; led_ch_idx++)
-        {
-            led new_led;
-            new_led.name = zones[channel_idx].name;
-            new_led.name.append(", LED ");
-            new_led.name.append(std::to_string(led_ch_idx + 1));
-            new_led.value = channel_idx;
-
-            leds.push_back(new_led);
-        }
-
     }
 
     SetupColors();
 }
 
-void RGBController_LianLiUniHubAL::ResizeZone(int zone, int new_size)
+void RGBController_LianLiUniHubAL::ResizeZone(int /* zone */, int /* new_size */)
 {
-    if((size_t) zone >= zones.size())
-    {
-        return;
-    }
-
-    if(((unsigned int)new_size >= zones[zone].leds_min) && ((unsigned int)new_size <= zones[zone].leds_max))
-    {
-        zones[zone].leds_count = new_size;
-
-        SetupZones();
-    }
+    /*---------------------------------------------------------*\
+    | This device does not support resizing zones               |
+    \*---------------------------------------------------------*/
 }
 
 void RGBController_LianLiUniHubAL::DeviceUpdateLEDs()
 {
-
     if(!initializedMode)
     {
         DeviceUpdateMode();
     }
 
-    float brightness_scale = static_cast<float>(modes[active_mode].brightness)/modes[active_mode].brightness_max;
+    float brightness_scale = static_cast<float>(modes[active_mode].brightness)
+                             / modes[active_mode].brightness_max;
 
     for(std::size_t zone_idx = 0; zone_idx < zones.size(); zone_idx++)
     {
-        controller->SetChannelLEDs((unsigned char)zone_idx, zones[zone_idx].colors, zones[zone_idx].leds_count, brightness_scale);
+        controller->SetChannelLEDs
+        (
+            zone_idx,
+            zones[zone_idx].colors,
+            zones[zone_idx].leds,
+            zones[zone_idx].leds_count,
+            brightness_scale
+        );
     }
 }
 
@@ -474,15 +547,22 @@ void RGBController_LianLiUniHubAL::UpdateZoneLEDs(int zone)
         DeviceUpdateMode();
     }
 
-    float brightness_scale = static_cast<float>(modes[active_mode].brightness)/modes[active_mode].brightness_max;
+    float brightness_scale = static_cast<float>(modes[active_mode].brightness)
+                             / modes[active_mode].brightness_max;
 
-    controller->SetChannelLEDs(zone, zones[zone].colors, zones[zone].leds_count, brightness_scale);
+    controller->SetChannelLEDs
+    (
+        zone,
+        zones[zone].colors,
+        zones[zone].leds,
+        zones[zone].leds_count,
+        brightness_scale
+    );
 }
 
 void RGBController_LianLiUniHubAL::UpdateSingleLED(int /* led */)
 {
     DeviceUpdateMode();
-
 }
 
 void RGBController_LianLiUniHubAL::DeviceUpdateMode()
@@ -492,10 +572,10 @@ void RGBController_LianLiUniHubAL::DeviceUpdateMode()
         return;                 // Do nothing, custom mode should go through DeviceUpdateLEDs() to avoid flooding controller
     }
 
-    initializedMode   = true;
+    initializedMode             = true;
 
-    int                 fan_idx = 0;
-    bool                upd_both_fan_edge      = false;
+    int     fan_idx             = 0;
+    bool    upd_both_fan_edge   = false;
 
     /*-----------------------------------------------------*\
     | Check modes that requires updating both arrays        |
@@ -517,17 +597,22 @@ void RGBController_LianLiUniHubAL::DeviceUpdateMode()
         {
             return;     // Do nothing, channel isn't in use
         }
-        fan_idx = ((zones[zone_idx].leds_count / 20) - 1);        // Indexes start at 0
+        /*-----------------------------------------------------*\
+        | Indexes start at 0                                    |
+        \*-----------------------------------------------------*/
+        fan_idx = ((zones[zone_idx].leds_count / lianli_a1_fan.edit_keys.size()) - 1);
 
-        controller->SetChannelMode((unsigned char)zone_idx, modes[active_mode].value,modes[active_mode].colors, (unsigned int)modes[active_mode].colors.size(), (fan_idx >= 0 ? fan_idx : 0), upd_both_fan_edge, modes[active_mode].brightness, modes[active_mode].speed, modes[active_mode].direction);
+        controller->SetChannelMode
+        (
+            zone_idx,
+            modes[active_mode].value,
+            modes[active_mode].colors,
+            modes[active_mode].colors.size(),
+            (fan_idx >= 0 ? fan_idx : 0),
+            upd_both_fan_edge,
+            modes[active_mode].brightness,
+            modes[active_mode].speed,
+            modes[active_mode].direction
+        );
     }
 }
-
-void RGBController_LianLiUniHubAL::SetCustomMode()
-{
-    /*-------------------------------------------------*\
-    | Set mode to Static Color                          |
-    \*-------------------------------------------------*/
-    active_mode = 0;
-}
-

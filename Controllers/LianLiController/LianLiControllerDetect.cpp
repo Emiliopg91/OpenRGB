@@ -158,13 +158,15 @@ void DetectLianLiUniHubAL(hid_device_info* info, const std::string& name)
 
     if(dev)
     {
-        LianLiUniHubALController* controller = new LianLiUniHubALController(dev, info->path, info->product_id, name);
+        LianLiUniHubALController* controller = new LianLiUniHubALController(dev, info->path);
 
         std::string firmwareVersion = controller->GetFirmwareVersionString();
 
         if(firmwareVersion == "v1.7")
         {
             RGBController_LianLiUniHubAL* rgb_controller = new RGBController_LianLiUniHubAL(controller);
+            rgb_controller->name                  = name;
+
             ResourceManager::get()->RegisterRGBController(rgb_controller);
         }
         else if(firmwareVersion == "v1.0")

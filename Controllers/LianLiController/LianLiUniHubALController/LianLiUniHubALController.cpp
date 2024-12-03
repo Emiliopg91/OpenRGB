@@ -16,12 +16,10 @@
 
 using namespace std::chrono_literals;
 
-LianLiUniHubALController::LianLiUniHubALController(hid_device* dev_handle, const char* path, unsigned short pid, std::string dev_name)
+LianLiUniHubALController::LianLiUniHubALController(hid_device* dev_handle, const char* path)
 {
     dev             = dev_handle;
-    dev_pid         = pid;
     location        = path;
-    name            = dev_name;
 }
 
 LianLiUniHubALController::~LianLiUniHubALController()
@@ -49,11 +47,6 @@ std::string LianLiUniHubALController::GetFirmwareVersionString()
     return(return_string.substr(return_string.find_last_of("-")+1,4).c_str());
 }
 
-std::string LianLiUniHubALController::GetName()
-{
-    return(name);
-}
-
 std::string LianLiUniHubALController::GetSerialString()
 {
     wchar_t serial_string[20];
@@ -70,7 +63,14 @@ std::string LianLiUniHubALController::GetSerialString()
 
 }
 
-void LianLiUniHubALController::SetChannelLEDs(unsigned char channel, RGBColor * colors, unsigned int num_colors, float brightness)
+void LianLiUniHubALController::SetChannelLEDs
+(
+    unsigned char channel,
+    RGBColor * colors,
+    led * leds,
+    unsigned int num_colors,
+    float brightness
+)
 {
     unsigned char   fan_led_data[96];
     unsigned char   edge_led_data[144];
@@ -85,19 +85,18 @@ void LianLiUniHubALController::SetChannelLEDs(unsigned char channel, RGBColor * 
 
     for(unsigned int led_idx = 0; led_idx < num_colors; led_idx++)
     {
-        mod_led_idx = (led_idx % 20);
-
-        if((mod_led_idx == 0) && (led_idx != 0))
-        {
-            fan_idx++;
-        }
+        fan_idx     = leds[led_idx].value / 20;
+        mod_led_idx = leds[led_idx].value % 20;
 
         /*---------------------------------------------------------*\
         | Limiter to protect LEDs                                   |
         \*---------------------------------------------------------*/
-        if(UNIHUB_AL_LED_LIMITER && RGBGetRValue(colors[led_idx]) > 153 && (RGBGetRValue(colors[led_idx]) == RGBGetBValue(colors[led_idx])) && (RGBGetRValue(colors[led_idx]) == RGBGetGValue(colors[led_idx])) )
+        if(UNIHUB_AL_LED_LIMITER
+           &&  RGBGetRValue(colors[led_idx]) > 153
+           && (RGBGetRValue(colors[led_idx]) == RGBGetBValue(colors[led_idx]))
+           && (RGBGetRValue(colors[led_idx]) == RGBGetGValue(colors[led_idx])) )
         {
-            colors[led_idx] = ToRGBColor(153,153,153);
+            colors[led_idx] = ToRGBColor(153, 153, 153);
         }
 
         if(mod_led_idx < 8)         // Fan LEDs, 8 LEDs per fan
@@ -105,9 +104,9 @@ void LianLiUniHubALController::SetChannelLEDs(unsigned char channel, RGBColor * 
             //Determine current position of led_data array from colors array
             cur_led_idx = ((mod_led_idx + (fan_idx * 8)) * 3);
 
-            fan_led_data[cur_led_idx + 0] = (unsigned char)(RGBGetRValue(colors[led_idx]) * brightness);
-            fan_led_data[cur_led_idx + 1] = (unsigned char)(RGBGetBValue(colors[led_idx]) * brightness);
-            fan_led_data[cur_led_idx + 2] = (unsigned char)(RGBGetGValue(colors[led_idx]) * brightness);
+            fan_led_data[cur_led_idx + 0]   = (unsigned char)(RGBGetRValue(colors[led_idx]) * brightness);
+            fan_led_data[cur_led_idx + 1]   = (unsigned char)(RGBGetBValue(colors[led_idx]) * brightness);
+            fan_led_data[cur_led_idx + 2]   = (unsigned char)(RGBGetGValue(colors[led_idx]) * brightness);
         }
         else                        // Edge LEDs, 12 LEDs per fan
         {
@@ -134,7 +133,7 @@ void LianLiUniHubALController::SetChannelLEDs(unsigned char channel, RGBColor * 
     (
         channel,            // Channel
         0,                  // 0 = Fan, 1 = Edge
-        (fan_idx + 1)*8,
+        (fan_idx + 1) * 8,
         fan_led_data
     );
 
@@ -161,7 +160,7 @@ void LianLiUniHubALController::SetChannelLEDs(unsigned char channel, RGBColor * 
     (
         channel,            // Channel
         1,                  // 0 = Fan, 1 = Edge
-        (fan_idx + 1)*12,
+        (fan_idx + 1) * 12,
         edge_led_data
     );
 

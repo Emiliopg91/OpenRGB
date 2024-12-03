@@ -757,6 +757,7 @@ bool KeyboardLayoutManager::InsertRow(uint8_t ins_row)
     /*---------------------------------------------------------------------*\
     | Check row is valid to Insert                                          |
     \*---------------------------------------------------------------------*/
+    UpdateDimensions();
     if(ins_row >= rows)
     {
         LOG_DEBUG("[%s] Inserting row %d failed as rows currently = %d", KLM_CLASS_NAME, ins_row, rows);

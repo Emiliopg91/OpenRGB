@@ -110,12 +110,11 @@ class LianLiUniHubALController
 
 
 public:
-    LianLiUniHubALController(hid_device* dev_handle, const char* path, unsigned short pid, std::string dev_name);
+    LianLiUniHubALController(hid_device* dev_handle, const char* path);
     ~LianLiUniHubALController();
 
     std::string                 GetDeviceLocation();
     std::string                 GetFirmwareVersionString();
-    std::string                 GetName();
     std::string                 GetSerialString();
 
     void                SetChannelMode
@@ -135,6 +134,7 @@ public:
                                 (
                                 unsigned char   channel,
                                 RGBColor *      colors,
+                                led * leds,
                                 unsigned int    num_colors,
                                 float           brightness
                                 );
@@ -206,12 +206,9 @@ private:
 
 private:
     hid_device*             dev;
-    unsigned short          dev_pid;
 
     /*---------------------------------------------------------*\
     | Device information strings                                |
     \*---------------------------------------------------------*/
-    std::string             firmware_version;
     std::string             location;
-    std::string             name;
 };
