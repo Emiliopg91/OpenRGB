@@ -15,11 +15,28 @@
 
 using namespace std::chrono_literals;
 
-const char *spd_memory_type_name[] = {
-    "Reserved", "FPM", "EDO", "Nibble", "SDR", "Multiplex ROM",
-    "DDR", "DDR", "DDR2", "FB", "FB Probe", "DDR3", "DDR4",
-    "Reserved", "DDR4e", "LPDDR3", "LPDDR4", "LPDDR4X",
-    "DDR5", "LPDDR5"
+const char *spd_memory_type_name[] =
+{
+    "Reserved",
+    "FPM",
+    "EDO",
+    "Nibble",
+    "SDR",
+    "Multiplex ROM",
+    "DDR",
+    "DDR",
+    "DDR2",
+    "FB",
+    "FB Probe",
+    "DDR3",
+    "DDR4",
+    "Reserved",
+    "DDR4e",
+    "LPDDR3",
+    "LPDDR4",
+    "LPDDR4X",
+    "DDR5",
+    "LPDDR5"
 };
 
 SPDDetector::SPDDetector(i2c_smbus_interface *bus, uint8_t address, SPDMemoryType mem_type = SPD_RESERVED)
@@ -149,7 +166,7 @@ uint16_t SPDWrapper::jedec_id()
 
 bool is_jedec_in_slots(std::vector<SPDWrapper> &slots, uint16_t jedec_id)
 {
-    for(auto slot : slots)
+    for(SPDWrapper &slot : slots)
     {
         if(slot.jedec_id() == jedec_id)
         {
