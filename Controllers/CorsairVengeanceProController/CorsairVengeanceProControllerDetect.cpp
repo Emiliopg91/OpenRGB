@@ -41,7 +41,8 @@ bool TestForCorsairVengeanceProController(i2c_smbus_interface* bus, unsigned cha
 
         res = bus->i2c_smbus_read_byte_data(address, 0x43);
 
-        if (res != 0x1C)
+        // 0x1b at 0x43 is also given by the Corsair Dominator RAM. Users will need to enable only the controller for the memory that they actually have.
+        if (!((res == 0x1B) || (res == 0x1C)))
         {
             pass = false;
             LOG_DEBUG("[%s] Failed: was expecting 0x1C got %02X", CORSAIR_VENGEANCE_RGB_PRO_NAME, res);
