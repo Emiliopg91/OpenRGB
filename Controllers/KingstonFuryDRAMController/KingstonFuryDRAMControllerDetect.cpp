@@ -123,7 +123,7 @@ void DetectKingstonFuryDRAMControllers(i2c_smbus_interface* bus, std::vector<SPD
                                        uint8_t fury_base_addr, bool (*modelChecker)(char), std::vector<int> &fury_slots)
 {
     // Are these the Kingston Fury DRAMs
-    for(auto slot : slots)
+    for(SPDWrapper *slot : slots)
     {
         TestResult result;
         int retries = 0;
