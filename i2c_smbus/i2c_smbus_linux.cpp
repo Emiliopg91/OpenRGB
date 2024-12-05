@@ -14,12 +14,28 @@
 #include <sys/ioctl.h>
 #include <cstring>
 #include "LogManager.h"
+#include "SettingsManager.h"
+#include "ResourceManager.h"
 #include "i2c_smbus.h"
 #include "i2c_smbus_linux.h"
 
+i2c_smbus_linux::i2c_smbus_linux()
+{
+    SettingsManager* settings_manager = ResourceManager::get()->GetSettingsManager();
+    json settings = settings_manager->GetSettings("NvidiaLinuxPatch");
+
+    if(!settings.contains("usePatch"))
+    {
+        settings["usePatch"] = false;
+        settings_manager->SetSettings("NvidiaLinuxPatch", settings);
+        settings_manager->SaveSettings();
+    }
+
+    use_nvidia_driver_patch = settings["usePatch"];
+}
+
 s32 i2c_smbus_linux::i2c_smbus_xfer(u8 addr, char read_write, u8 command, int size, union i2c_smbus_data* data)
 {
-
     struct i2c_smbus_ioctl_data args;
 
     //Tell I2C host which slave address to transfer to
@@ -30,6 +46,17 @@ s32 i2c_smbus_linux::i2c_smbus_xfer(u8 addr, char read_write, u8 command, int si
     args.size = size;
     args.data = data;
 
+    if(use_nvidia_driver_patch){
+        if((addr == 0x67) && (read_write == I2C_SMBUS_WRITE) && (command == 0x03) && (data->block[0] % 3 == 0))
+        {
+            memmove(&data->block[0], &data->block[1], 2);
+            ioctl(handle, I2C_SMBUS, &args);
+            args.size = I2C_SMBUS_BYTE_DATA;
+            args.command = 0x01;
+            data->byte = data->block[3];
+            return ioctl(handle, I2C_SMBUS, &args);
+        }
+    }
     return ioctl(handle, I2C_SMBUS, &args);
 }
 
