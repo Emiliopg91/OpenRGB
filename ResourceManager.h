@@ -228,7 +228,6 @@ private:
     void UpdateDetectorSettings();
     void SetupConfigurationDirectory();
     bool AttemptLocalConnection();
-    void InitThreadFunction();
     bool ProcessPreDetection();
     void ProcessPostDetection();
 
@@ -315,7 +314,6 @@ private:
     | Detection Thread and Detection State                                                  |
     \*-------------------------------------------------------------------------------------*/
     std::thread *                               DetectDevicesThread; // Used for rescan
-    std::thread *                               InitThread; // Used for initial scan, initial network scan, server startup
     std::mutex                                  DetectDeviceMutex;
 
     std::atomic<bool>                           detection_is_required;

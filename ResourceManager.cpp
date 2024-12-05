@@ -84,7 +84,6 @@ ResourceManager::ResourceManager()
     detection_percent           = 100;
     detection_string            = "";
     detection_is_required       = false;
-    InitThread                  = nullptr;
     DetectDevicesThread         = nullptr;
     dynamic_detectors_processed = false;
     init_finished               = false;
@@ -172,13 +171,6 @@ ResourceManager::ResourceManager()
 ResourceManager::~ResourceManager()
 {
     Cleanup();
-
-    if(InitThread)
-    {
-        DetectDevicesThread->join();
-        delete DetectDevicesThread;
-        DetectDevicesThread = nullptr;
-    }
 }
 
 void ResourceManager::RegisterI2CBus(i2c_smbus_interface *bus)
@@ -1637,11 +1629,6 @@ void ResourceManager::Initialize(bool tryConnect, bool detectDevices, bool start
     start_server       = startServer;
     apply_post_options = applyPostOptions;
 
-    InitThread = new std::thread(&ResourceManager::InitThreadFunction, this);
-}
-
-void ResourceManager::InitThreadFunction()
-{
     if(tryAutoConnect)
     {
         detection_percent = 0;
@@ -1662,8 +1649,6 @@ void ResourceManager::InitThreadFunction()
 
     /*---------------------------------------------------------*\
     | Perform actual detection                                  |
-    | Done in the same thread (InitThread), as we need to wait  |
-    | for completion anyway                                     |
     \*---------------------------------------------------------*/
     if(detection_enabled)
     {
