@@ -41,7 +41,7 @@ bool TestForCorsairVengeanceProController(i2c_smbus_interface* bus, unsigned cha
 
         res = bus->i2c_smbus_read_byte_data(address, 0x43);
 
-        if (res != 0x1C)
+        if(!((res == 0x1B) || (res == 0x1C)))
         {
             pass = false;
             LOG_DEBUG("[%s] Failed: was expecting 0x1C got %02X", CORSAIR_VENGEANCE_RGB_PRO_NAME, res);
@@ -85,7 +85,7 @@ void DetectCorsairVengeanceProControllers(std::vector<i2c_smbus_interface*> &bus
 
         IF_DRAM_SMBUS(busses[bus]->pci_vendor, busses[bus]->pci_device)
         {
-            for(unsigned char addr = 0x58; addr <= 0x5F; addr++)
+            for(unsigned char addr = 0x18; addr <= 0x5F; addr++)
             {
                 if(TestForCorsairVengeanceProController(busses[bus], addr))
                 {
@@ -93,6 +93,11 @@ void DetectCorsairVengeanceProControllers(std::vector<i2c_smbus_interface*> &bus
                     RGBController_CorsairVengeancePro* new_rgbcontroller = new RGBController_CorsairVengeancePro(new_controller);
 
                     ResourceManager::get()->RegisterRGBController(new_rgbcontroller);
+                }
+                if(addr == 0x1F)
+                {
+                    // Scan ranges 0x18-0x1f and 0x58-0x5f in one loop
+                    addr = 0x57;
                 }
             }
         }
