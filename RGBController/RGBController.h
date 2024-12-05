@@ -219,7 +219,7 @@ public:
     virtual void            SetMode(int mode)                                                                   = 0;
 
     virtual unsigned char * GetDeviceDescription(unsigned int protocol_version)                                 = 0;
-    virtual void            ReadDeviceDescription(unsigned char* data_buf, unsigned int protocol_version)       = 0;
+    virtual bool            ReadDeviceDescription(unsigned char* data_buf, unsigned int protocol_version)       = 0;
 
     virtual unsigned char * GetModeDescription(int mode, unsigned int protocol_version)                         = 0;
     virtual void            SetModeDescription(unsigned char* data_buf, unsigned int protocol_version)          = 0;
@@ -300,7 +300,7 @@ public:
     void                    SetMode(int mode);
 
     unsigned char *         GetDeviceDescription(unsigned int protocol_version);
-    void                    ReadDeviceDescription(unsigned char* data_buf, unsigned int protocol_version);
+    bool                    ReadDeviceDescription(unsigned char* data_buf, unsigned int protocol_version);
 
     unsigned char *         GetModeDescription(int mode, unsigned int protocol_version);
     void                    SetModeDescription(unsigned char* data_buf, unsigned int protocol_version);

@@ -159,7 +159,7 @@ std::vector<RGBController*> ProfileManager::LoadProfileToList
     /*---------------------------------------------------------*\
     | Open input file in binary mode                            |
     \*---------------------------------------------------------*/
-    std::ifstream controller_file(filename, std::ios::in | std::ios::binary);
+    std::fstream controller_file(filename, std::ios::in | std::ios::binary);
 
     /*---------------------------------------------------------*\
     | Read and verify file header                               |
@@ -187,6 +187,8 @@ std::vector<RGBController*> ProfileManager::LoadProfileToList
     {
         if(profile_version <= OPENRGB_PROFILE_VERSION)
         {
+            bool needs_migration = false;
+
             /*---------------------------------------------------------*\
             | Read controller data from file until EOF                  |
             \*---------------------------------------------------------*/
@@ -202,7 +204,10 @@ std::vector<RGBController*> ProfileManager::LoadProfileToList
 
                 RGBController_Dummy *temp_controller = new RGBController_Dummy();
 
-                temp_controller->ReadDeviceDescription(controller_data, profile_version);
+                if(temp_controller->ReadDeviceDescription(controller_data, profile_version))
+                {
+                    needs_migration = true;
+                }
 
                 temp_controllers.push_back(temp_controller);
 
@@ -210,6 +215,39 @@ std::vector<RGBController*> ProfileManager::LoadProfileToList
 
                 controller_offset += controller_size;
                 controller_file.seekg(controller_offset);
+            }
+
+            /*---------------------------------------------------------*\
+            | Rewrite the file if any of the controllers need migration |
+            \*---------------------------------------------------------*/
+            if(needs_migration)
+            {
+                controller_file.close();
+                controller_file.open(filename, std::ios::out | std::ios::binary | std::ios::trunc);
+
+                /*---------------------------------------------------------*\
+                | Write header                                              |
+                | 16 bytes - "OPENRGB_PROFILE"                              |
+                | 4 bytes - Version, unsigned int                           |
+                \*---------------------------------------------------------*/
+                unsigned int profile_version = OPENRGB_PROFILE_VERSION;
+                controller_file.write(OPENRGB_PROFILE_HEADER, 16);
+                controller_file.write((char *)&profile_version, sizeof(unsigned int));
+
+                /*---------------------------------------------------------*\
+                | Write controller data for each controller                 |
+                \*---------------------------------------------------------*/
+                for(std::size_t controller_index = 0; controller_index < temp_controllers.size(); controller_index++)
+                {
+                    unsigned char *controller_data = temp_controllers[controller_index]->GetDeviceDescription(profile_version);
+                    unsigned int controller_size;
+
+                    memcpy(&controller_size, controller_data, sizeof(controller_size));
+
+                    controller_file.write((const char *)controller_data, controller_size);
+
+                    delete[] controller_data;
+                }
             }
         }
     }
