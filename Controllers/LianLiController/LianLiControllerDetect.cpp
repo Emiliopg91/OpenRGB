@@ -46,6 +46,7 @@
 | Fan controller product IDs                            |
 \*-----------------------------------------------------*/
 #define UNI_HUB_PID                                 0x7750
+#define UNI_HUB_SLV1_V2_PID                         0xA100
 #define UNI_HUB_AL_PID                              0xA101
 #define UNI_HUB_SLINF_PID                           0xA102
 #define UNI_HUB_SLV2_PID                            0xA103
@@ -91,8 +92,9 @@ void DetectLianLiUniHub()
             continue;
         }
 
-        if( descriptor.idVendor  == ENE_USB_VID
-         && descriptor.idProduct == UNI_HUB_PID)
+        if(descriptor.idVendor == ENE_USB_VID
+         && (descriptor.idProduct == UNI_HUB_PID
+          || descriptor.idProduct == UNI_HUB_SLV1_V2_PID))
         {
             LianLiUniHubController*     controller     = new LianLiUniHubController(device, &descriptor);
             RGBController_LianLiUniHub* rgb_controller = new RGBController_LianLiUniHub(controller);
