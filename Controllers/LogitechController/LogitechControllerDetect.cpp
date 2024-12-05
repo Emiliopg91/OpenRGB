@@ -81,6 +81,7 @@ using namespace std::chrono_literals;
 #define LOGITECH_G502_PROTEUS_SPECTRUM_PID          0xC332
 #define LOGITECH_G502_HERO_PID                      0xC08B
 #define LOGITECH_G502_LIGHTSPEED_PID                0xC08D
+#define LOGITECH_G502_X_PLUS_LIGHTSPEED_PID         0xC095
 #define LOGITECH_G703_LIGHTSPEED_PID                0xC087
 #define LOGITECH_G703_HERO_LIGHTSPEED_PID           0xC090
 #define LOGITECH_G900_LIGHTSPEED_PID                0xC081
@@ -917,6 +918,7 @@ REGISTER_HID_DETECTOR_IPU("Logitech G502 Hero Gaming Mouse",                    
 REGISTER_HID_DETECTOR_IPU("Logitech G403 Prodigy Gaming Mouse",                 DetectLogitechWired,        LOGITECH_VID, LOGITECH_G403_PID,                            1, 0xFF00, 2);
 REGISTER_HID_DETECTOR_IPU("Logitech G403 Wireless Gaming Mouse (wired)",        DetectLogitechWired,        LOGITECH_VID, LOGITECH_G403_LIGHTSPEED_PID,                 1, 0xFF00, 2);
 REGISTER_HID_DETECTOR_IPU("Logitech G502 Wireless Gaming Mouse (wired)",        DetectLogitechWired,        LOGITECH_VID, LOGITECH_G502_LIGHTSPEED_PID,                 1, 0xFF00, 2);
+REGISTER_HID_DETECTOR_IPU("Logitech G502 X Plus Gaming Mouse (wired)",          DetectLogitechWired,        LOGITECH_VID, LOGITECH_G502_X_PLUS_LIGHTSPEED_PID,          2, 0xFF00, 2);
 REGISTER_HID_DETECTOR_IPU("Logitech G703 Wireless Gaming Mouse (wired)",        DetectLogitechWired,        LOGITECH_VID, LOGITECH_G703_LIGHTSPEED_PID,                 1, 0xFF00, 2);
 REGISTER_HID_DETECTOR_IPU("Logitech G703 Hero Wireless Gaming Mouse (wired)",   DetectLogitechWired,        LOGITECH_VID, LOGITECH_G703_HERO_LIGHTSPEED_PID,            1, 0xFF00, 2);
 REGISTER_HID_DETECTOR_IPU("Logitech G900 Wireless Gaming Mouse (wired)",        DetectLogitechWired,        LOGITECH_VID, LOGITECH_G900_LIGHTSPEED_PID,                 1, 0xFF00, 2);
