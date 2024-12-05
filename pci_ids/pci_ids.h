@@ -629,6 +629,7 @@
 | MSI Sub-Device IDs                                    |
 \*-----------------------------------------------------*/
 #define MSI_GTX1070_GAMING_X_SUB_DEV                    0x3306
+#define MSI_GTX1080TI_GAMING_X_TRIO_SUB_DEV             0x360C
 #define MSI_GTX1660_GAMING_X_6G_SUB_DEV                 0x3790
 #define MSI_GTX1660TI_GAMING_6G_SUB_DEV                 0x375C
 #define MSI_GTX1660TI_GAMING_X_6G_SUB_DEV               0x375A
