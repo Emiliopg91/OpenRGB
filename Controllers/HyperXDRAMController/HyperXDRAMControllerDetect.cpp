@@ -100,7 +100,14 @@ void DetectHyperXDRAMControllers(std::vector<i2c_smbus_interface*> &busses)
                     LOG_DEBUG("[%s] SPD check: 0x40 => %02X, 0x41 => %02X, ",
                               HYPERX_CONTROLLER_NAME, read_0x40, read_0x41);
 
-                    if((read_0x40 == 0x01) && (read_0x41 == 0x98))
+
+                    /*----------------------------------------------------------------*\
+                    | newer DDR4 kingston memory returns the address read as its value.|
+                    | if the eeprom/ee1004/at24 modules are loaded, SPD devices can be |
+                    | bound to them, in which case these reads will get 0xFF due to    |
+                    | EBUSY. maybe go through the SPD interpretation in that case?     |
+                    \*_---------------------------------------------------------------*/
+                    if(((read_0x40 == 0x01) && (read_0x41 == 0x98)) || (read_0x40 == 0x40 && read_0x41 == 0x41))
                     {
                         LOG_DEBUG("[%s] SPD check success", HYPERX_CONTROLLER_NAME);
 

@@ -103,6 +103,12 @@ enum
     HYPERX_REG_SLOT3_LED3_BRIGHTNESS    = 0xBA,     /* Brightness for LED 3, Slot 3 (0-100) */
     HYPERX_REG_SLOT3_LED4_BRIGHTNESS    = 0xBD,     /* Brightness for LED 4, Slot 3 (0-100) */
 
+    // FIXME these aren't yet known
+    HYPERX_REG_SLOT4_LED0_RED           = 0xC1,     /* R color register for LED 0, Slot 4   */
+    HYPERX_REG_SLOT5_LED0_RED           = 0xC1,     /* R color register for LED 0, Slot 5   */
+    HYPERX_REG_SLOT6_LED0_RED           = 0xC1,     /* R color register for LED 0, Slot 6   */
+    HYPERX_REG_SLOT7_LED0_RED           = 0xC1,     /* R color register for LED 0, Slot 7   */
+
     HYPERX_REG_TIMER_MSB                = 0xD1,     /* Timer MSB                            */
     HYPERX_REG_TIMER_LSB                = 0xD2,     /* Timer LSB                            */
     HYPERX_REG_ON_TIME_MSB              = 0xD3,     /* Effect on time MSB                   */
@@ -187,20 +193,28 @@ enum
     HYPERX_SPEED_COMET_FAST             = 0x0064,   /* Fastest speed for comet mode         */
 };
 
-static const unsigned char slot_base[4] =
+static const unsigned char slot_base[8] =
 {
     HYPERX_REG_SLOT0_LED0_RED,                      /* SPD 0x50 maps to slot 0              */
     HYPERX_REG_SLOT1_LED0_RED,                      /* SPD 0x52 maps to slot 1              */
     HYPERX_REG_SLOT2_LED0_RED,                      /* SPD 0x51 maps to slot 2              */
-    HYPERX_REG_SLOT3_LED0_RED                       /* SPD 0x53 maps to slot 3              */
+    HYPERX_REG_SLOT3_LED0_RED,                      /* SPD 0x53 maps to slot 3              */
+    HYPERX_REG_SLOT4_LED0_RED,                      /* SPD 0x54 maps to slot 4              */
+    HYPERX_REG_SLOT5_LED0_RED,                      /* SPD 0x55 maps to slot 5              */
+    HYPERX_REG_SLOT6_LED0_RED,                      /* SPD 0x56 maps to slot 6              */
+    HYPERX_REG_SLOT7_LED0_RED                       /* SPD 0x57 maps to slot 7              */
 };
 
-static const unsigned char slot_map[4] =
+static const unsigned char slot_map[8] =
 {
     0,
     2,
     1,
-    3
+    3,
+    4,
+    6,
+    5,
+    7
 };
 
 class HyperXDRAMController
@@ -230,4 +244,5 @@ private:
     hyperx_dev_id           dev;
     unsigned int            mode;
     unsigned short          speed;
+    static constexpr int    MAX_SLOTS = 8;
 };
