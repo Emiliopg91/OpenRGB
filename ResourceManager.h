@@ -21,6 +21,7 @@
 #include <vector>
 #include "SPDAccessor.h"
 #include "hidapi_wrapper.h"
+#include "i18n/i18n_xtra.h"
 #include "i2c_smbus.h"
 #include "filesystem.h"
 
