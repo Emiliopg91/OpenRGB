@@ -164,17 +164,6 @@ void DetectCoolerMasterV2Keyboards(hid_device_info* info, const std::string& nam
     {
         switch(info->product_id)
         {
-            case COOLERMASTER_KEYBOARD_PRO_L_PID:
-            case COOLERMASTER_KEYBOARD_PRO_L_WHITE_PID:
-            case COOLERMASTER_KEYBOARD_PRO_S_PID:
-            {
-                CMKeyboardV1Controller* controller                 = new CMKeyboardV1Controller(dev, info);
-                controller->SetDeviceName(name);
-                RGBController_CMKeyboardController* rgb_controller = new RGBController_CMKeyboardController(controller);
-                ResourceManager::get()->RegisterRGBController(rgb_controller);
-            }
-            break;
-
             case COOLERMASTER_KEYBOARD_SK622B_PID:
             case COOLERMASTER_KEYBOARD_SK622W_PID:
             case COOLERMASTER_KEYBOARD_SK630_PID:
