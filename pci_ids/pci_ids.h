@@ -55,6 +55,7 @@
 #define INTEL_TIGER_LAKE_SMBUS_DEV                      0x43A3
 #define INTEL_ALDER_LAKE_SMBUS_DEV                      0x7AA3
 #define INTEL_RAPTOR_LAKE_SMBUS_DEV                     0x7A23
+#define INTEL_ARROW_LAKE_SMBUS_DEV                      0x7F23
 
 /*-----------------------------------------------------*\
 | nVidia Device IDs                                     |
@@ -721,6 +722,7 @@
 #define PNY_RTX_3070_XLR8_REVEL_EPIC_X_LHR_SUB_DEV      0x138A
 #define PNY_RTX_3070TI_XLR8_UPRISING_EPIC_X_SUB_DEV     0x138D
 #define PNY_RTX_3080_XLR8_REVEL_EPIC_X_SUB_DEV          0x136B
+#define PNY_RTX_3080TI_XLR8_REVEL_EPIC_X_SUB_DEV        0x1385
 #define PNY_RTX_3090_XLR8_REVEL_EPIC_X_SUB_DEV          0x136A
 #define PNY_RTX_3060TI_XLR8_REVEL_EPIC_X_SUB_DEV        0x1389
 #define PNY_RTX_2060_XLR8_OC_SUB_DEV                    0x1363
@@ -763,6 +765,7 @@
 #define PALIT_RTX4060_SUB_DEV                           0xF311
 #define PALIT_RTX4070_SUB_DEV                           0xF302
 #define PALIT_RTX4070S_SUB_DEV                          0xF302
+#define PALIT_RTX4070TI_SUB_DEV                         0xF296
 #define PALIT_RTX4070TI_GAMEROCK_SUB_DEV                0xF294
 #define PALIT_RTX4090_GAMEROCK_SUB_DEV                  0xF296
 #define PALIT_RTX4080_GAMINGPRO_SUB_DEV                 0xF298
@@ -786,6 +789,7 @@
 #define SAPPHIRE_NAVI23_NITRO_PLUS_SUB_DEV              0xE448
 #define SAPPHIRE_NAVI21_6900XT_NITRO_PLUS_SUB_DEV       0x440E
 #define SAPPHIRE_NAVI21_6900XT_TOXIC_AC_SUB_DEV         0x440F
+#define SAPPHIRE_NAVI21_6950XT_TOXIC_AC_SUB_DEV         0xD440
 #define SAPPHIRE_NAVI21_6950XT_NITRO_PLUS_SUB_DEV       0x441D
 #define SAPPHIRE_NAVI21_TOXIC_SUB_DEV                   0xF440
 #define SAPPHIRE_NAVI21_TOXIC_SUB_DEV1                  0xF441
@@ -834,7 +838,8 @@
     ((ven == INTEL_VEN) && (dev == INTEL_COMET_LAKE_V_SMBUS_DEV)) || \
     ((ven == INTEL_VEN) && (dev == INTEL_TIGER_LAKE_SMBUS_DEV)) || \
     ((ven == INTEL_VEN) && (dev == INTEL_ALDER_LAKE_SMBUS_DEV)) || \
-    ((ven == INTEL_VEN) && (dev == INTEL_RAPTOR_LAKE_SMBUS_DEV)))
+    ((ven == INTEL_VEN) && (dev == INTEL_RAPTOR_LAKE_SMBUS_DEV)) || \
+    ((ven == INTEL_VEN) && (dev == INTEL_ARROW_LAKE_SMBUS_DEV)))
 
 #define IF_MOBO_SMBUS(ven, dev)                             \
     if((ven == 0) ||                                        \
@@ -848,4 +853,5 @@
     ((ven == INTEL_VEN) && (dev == INTEL_COMET_LAKE_V_SMBUS_DEV)) || \
     ((ven == INTEL_VEN) && (dev == INTEL_TIGER_LAKE_SMBUS_DEV)) || \
     ((ven == INTEL_VEN) && (dev == INTEL_ALDER_LAKE_SMBUS_DEV)) || \
-    ((ven == INTEL_VEN) && (dev == INTEL_RAPTOR_LAKE_SMBUS_DEV)))
+    ((ven == INTEL_VEN) && (dev == INTEL_RAPTOR_LAKE_SMBUS_DEV)) || \
+    ((ven == INTEL_VEN) && (dev == INTEL_ARROW_LAKE_SMBUS_DEV)))
