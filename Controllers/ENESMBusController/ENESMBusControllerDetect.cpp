@@ -33,7 +33,7 @@ using namespace std::chrono_literals;
 /*----------------------------------------------------------------------*\
 | This list contains the available SMBus addresses for mapping ENE RAM   |
 \*----------------------------------------------------------------------*/
-#define ENE_RAM_ADDRESS_COUNT  23
+#define ENE_RAM_ADDRESS_COUNT  22
 
 static const unsigned char ene_ram_addresses[] =
 {
@@ -50,7 +50,6 @@ static const unsigned char ene_ram_addresses[] =
     0x7B,
     0x7C,
     0x7D,
-    0x7E,
     0x7F,
     0x4F,
     0x66,
@@ -132,12 +131,7 @@ bool TestForENESMBusController(i2c_smbus_interface* bus, unsigned char address)
 
     LOG_DEBUG("[ENE SMBus] looking for devices at 0x%02X...", address);
 
-    int res = bus->i2c_smbus_read_byte(address);
-
-    if(res < 0)
-    {
-        res = bus->i2c_smbus_read_byte_data(address, 0x00);
-    }
+    int res = bus->i2c_smbus_write_quick(address, 0x00);
 
     if(res >= 0)
     {
@@ -154,6 +148,7 @@ bool TestForENESMBusController(i2c_smbus_interface* bus, unsigned char address)
                 LOG_VERBOSE("[ENE SMBus] Detection failed testing register %02X.  Expected %02X, got %02X.", i, (i - 0xA0), res);
 
                 pass = false;
+                break;
             }
         }
 
