@@ -82,6 +82,7 @@ public:
     void                                ProcessRequest_ClientProtocolVersion(SOCKET client_sock, unsigned int data_size, char * data);
     void                                ProcessRequest_ClientString(SOCKET client_sock, unsigned int data_size, char * data);
 
+    void                                SendReply(SOCKET client_sock, unsigned int pkt_id, unsigned int dev_idx);
     void                                SendReply_ControllerCount(SOCKET client_sock);
     void                                SendReply_ControllerData(SOCKET client_sock, unsigned int dev_idx, unsigned int protocol_version);
     void                                SendReply_ProtocolVersion(SOCKET client_sock);

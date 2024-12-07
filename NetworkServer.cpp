@@ -647,8 +647,8 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                 break;
 
             case NET_PACKET_ID_REQUEST_PROTOCOL_VERSION:
-                SendReply_ProtocolVersion(client_sock);
                 ProcessRequest_ClientProtocolVersion(client_sock, header.pkt_size, data);
+                SendReply_ProtocolVersion(client_sock);
                 break;
 
             case NET_PACKET_ID_SET_CLIENT_NAME:
@@ -658,6 +658,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                 }
 
                 ProcessRequest_ClientString(client_sock, header.pkt_size, data);
+                SendReply(client_sock, header.pkt_id, header.pkt_dev_idx);
                 break;
 
             case NET_PACKET_ID_RGBCONTROLLER_RESIZEZONE:
@@ -677,6 +678,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                     controllers[header.pkt_dev_idx]->ResizeZone(zone, new_size);
                     profile_manager->SaveProfile("sizes", true);
                 }
+                SendReply(client_sock, header.pkt_id, header.pkt_dev_idx);
                 break;
 
             case NET_PACKET_ID_RGBCONTROLLER_UPDATELEDS:
@@ -709,6 +711,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                     LOG_ERROR("NetworkServer: UpdateLEDs packet has invalid size. Packet size: %d, Data size: %d", header.pkt_size, *((unsigned int*)data));
                     goto listen_done;
                 }
+                SendReply(client_sock, header.pkt_id, header.pkt_dev_idx);
                 break;
 
             case NET_PACKET_ID_RGBCONTROLLER_UPDATEZONELEDS:
@@ -745,6 +748,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                     LOG_ERROR("NetworkServer: UpdateZoneLEDs packet has invalid size. Packet size: %d, Data size: %d", header.pkt_size, *((unsigned int*)data));
                     goto listen_done;
                 }
+                SendReply(client_sock, header.pkt_id, header.pkt_dev_idx);
                 break;
 
             case NET_PACKET_ID_RGBCONTROLLER_UPDATESINGLELED:
@@ -774,6 +778,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                     LOG_ERROR("NetworkServer: UpdateSingleLED packet has invalid size. Packet size: %d, Data size: %d", header.pkt_size, (sizeof(int) + sizeof(RGBColor)));
                     goto listen_done;
                 }
+                SendReply(client_sock, header.pkt_id, header.pkt_dev_idx);
                 break;
 
             case NET_PACKET_ID_RGBCONTROLLER_SETCUSTOMMODE:
@@ -781,6 +786,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                 {
                     controllers[header.pkt_dev_idx]->SetCustomMode();
                 }
+                SendReply(client_sock, header.pkt_id, header.pkt_dev_idx);
                 break;
 
             case NET_PACKET_ID_RGBCONTROLLER_UPDATEMODE:
@@ -813,6 +819,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                     LOG_ERROR("NetworkServer: UpdateMode packet has invalid size. Packet size: %d, Data size: %d", header.pkt_size, *((unsigned int*)data));
                     goto listen_done;
                 }
+                SendReply(client_sock, header.pkt_id, header.pkt_dev_idx);
                 break;
 
             case NET_PACKET_ID_RGBCONTROLLER_SAVEMODE:
@@ -840,6 +847,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                         controllers[header.pkt_dev_idx]->SaveMode();
                     }
                 }
+                SendReply(client_sock, header.pkt_id, header.pkt_dev_idx);
                 break;
 
             case NET_PACKET_ID_REQUEST_PROFILE_LIST:
@@ -860,6 +868,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                     profile_manager->SaveProfile(profile_name);
                 }
 
+                SendReply(client_sock, header.pkt_id, header.pkt_dev_idx);
                 break;
 
             case NET_PACKET_ID_REQUEST_LOAD_PROFILE:
@@ -881,6 +890,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                     controller->UpdateLEDs();
                 }
 
+                SendReply(client_sock, header.pkt_id, header.pkt_dev_idx);
                 break;
 
             case NET_PACKET_ID_REQUEST_DELETE_PROFILE:
@@ -897,6 +907,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                     profile_manager->DeleteProfile(profile_name);
                 }
 
+                SendReply(client_sock, header.pkt_id, header.pkt_dev_idx);
                 break;
 
             case NET_PACKET_ID_REQUEST_PLUGIN_LIST:
@@ -997,6 +1008,22 @@ void NetworkServer::ProcessRequest_ClientString(SOCKET client_sock, unsigned int
     | Client info has changed, call the callbacks               |
     \*---------------------------------------------------------*/
     ClientInfoChanged();
+}
+
+void NetworkServer::SendReply(SOCKET client_sock, unsigned int pkt_id, unsigned int dev_idx)
+{
+    NetPacketHeader reply_hdr;
+
+    reply_hdr.pkt_magic[0] = 'O';
+    reply_hdr.pkt_magic[1] = 'R';
+    reply_hdr.pkt_magic[2] = 'G';
+    reply_hdr.pkt_magic[3] = 'B';
+
+    reply_hdr.pkt_dev_idx  = dev_idx;
+    reply_hdr.pkt_id       = pkt_id;
+    reply_hdr.pkt_size     = 0;
+
+    send(client_sock, (const char *)&reply_hdr, sizeof(NetPacketHeader), 0);
 }
 
 void NetworkServer::SendReply_ControllerCount(SOCKET client_sock)
