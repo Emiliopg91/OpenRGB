@@ -1687,6 +1687,16 @@ unsigned int cli_pre_detection(int argc, char* argv[])
         exit(0);
     }
 
+    if((argc - cfg_args) <= 1)
+    {
+#ifdef _CLI_ONLY_
+        server_start = true;
+        ret_flags &= ~RET_FLAG_START_GUI;
+#else
+        ret_flags |= RET_FLAG_START_GUI;
+#endif
+    }
+
     if(server_start)
     {
         NetworkServer * server = ResourceManager::get()->GetServer();
@@ -1695,11 +1705,7 @@ unsigned int cli_pre_detection(int argc, char* argv[])
         ret_flags |= RET_FLAG_START_SERVER;
     }
 
-    if((argc - cfg_args) <= 1)
-    {
-        ret_flags |= RET_FLAG_START_GUI;
-    }
-
+    LOG_INFO("Arg count  %d and cfg args %d: flags %08X", argc, cfg_args, ret_flags);
     return(ret_flags);
 }
 
