@@ -129,10 +129,6 @@ SPDWrapper::SPDWrapper(const SPDWrapper &wrapper)
     {
         this->accessor = wrapper.accessor->copy();
     }
-    else
-    {
-        this->accessor = nullptr;
-    }
     this->address = wrapper.address;
     this->mem_type = wrapper.mem_type;
 }
