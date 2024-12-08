@@ -28,6 +28,7 @@ void DetectMSIGPUControllers(i2c_smbus_interface* bus, uint8_t i2c_addr, const s
         return;
     }
 
+
     MSIGPUController*     controller     = new MSIGPUController(bus, i2c_addr);
     RGBController_MSIGPU* rgb_controller = new RGBController_MSIGPU(controller);
     rgb_controller->name                 = name;
@@ -123,3 +124,4 @@ REGISTER_I2C_PCI_DETECTOR("MSI Radeon RX 6900 XT Gaming X Trio",            Dete
 REGISTER_I2C_PCI_DETECTOR("MSI Radeon RX 6900 XT Gaming Z Trio",            DetectMSIGPUControllers,    AMD_GPU_VEN,    AMD_NAVI21_DEV2,            MSI_SUB_VEN,    MSI_RX6950XT_GAMING_X_TRIO_SUB_DEV,     0x68);
 REGISTER_I2C_PCI_DETECTOR("MSI Radeon RX 6950 XT Gaming X Trio",            DetectMSIGPUControllers,    AMD_GPU_VEN,    AMD_NAVI21_DEV1,            MSI_SUB_VEN,    MSI_RX6950XT_GAMING_X_TRIO_SUB_DEV,     0x68);
 REGISTER_I2C_PCI_DETECTOR("MSI Radeon RX 6950 XT Gaming X Trio",            DetectMSIGPUControllers,    AMD_GPU_VEN,    AMD_NAVI21_DEV3,            MSI_SUB_VEN,    MSI_RX6950XT_GAMING_X_TRIO_SUB_DEV,     0x68);
+REGISTER_I2C_PCI_DETECTOR("MSI Radeon RX 7900 XTX Gaming X Trio",           DetectMSIGPUControllers,    AMD_GPU_VEN,    AMD_NAVI31_DEV,             MSI_SUB_VEN,    MSI_RX7900XTX_GAMING_X_TRIO_SUB_DEV,    0x68);
