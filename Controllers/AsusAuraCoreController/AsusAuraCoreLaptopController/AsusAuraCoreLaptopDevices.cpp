@@ -242,17 +242,16 @@ keyboard_keymap_overlay_values g713rw_keyboard_layout
     }
 };
 
-keyboard_keymap_overlay_values g614rw_keyboard_layout
+keyboard_keymap_overlay_values g614jz_keyboard_layout
 {
-    KEYBOARD_SIZE_FULL,
+    KEYBOARD_SIZE_TKL ,
     {
-        aura_core_laptop_17_values,
+        aura_core_laptop_16_values,
         {
             /* Add more regional layout fixes here */
         }
     },
     {
-        {   0,      4,      15,         121,        KEY_EN_MEDIA_NEXT,          KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },  // Insert Next
         /*---------------------------------------------------------------------------------------------------------*\
         | Edit Keys                                                                                                 |
         |   Zone,   Row,    Column,     Value,      Key,                        OpCode,                             |
@@ -287,7 +286,7 @@ keyboard_keymap_overlay_values g614rw_keyboard_layout
         {   0,      5,      12,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_REMOVE_SHIFT_LEFT,  },  // gap before arrow up key
         {   0,      5,      13,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_REMOVE_SHIFT_LEFT,  },  // trim extra column before numpad
 
-        {   0,      6,      11,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },  // 1 empty key before arrow keys
+        {   0,      6,      6,          136,        KEY_EN_PRINT_SCREEN,        KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },  // Insert a Print Screen key
         {   0,      6,      15,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_REMOVE_SHIFT_LEFT,  },  // trim extra column before numpad
         {   0,      6,      16,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },  // 1 empty key between numpad 0 and .
 
@@ -302,7 +301,7 @@ keyboard_keymap_overlay_values g614rw_keyboard_layout
         // Move Arrow keys
         {   0,      5,      13,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_SWAP_ONLY,          },  // Remove Arrow Up
         {   0,      6,      13,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_SWAP_ONLY,          },  // Remove Arrow Down
-        {   0,      6,      12,         139,        KEY_EN_UP_ARROW,            KEYBOARD_OPCODE_SWAP_ONLY,          },  // Shift Arrow Ups
+        {   0,      6,      12,         120,        KEY_EN_UP_ARROW,            KEYBOARD_OPCODE_SWAP_ONLY,          },  // Shift Arrow Ups
         {   0,      7,      11,         140,        KEY_EN_LEFT_ARROW,          KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },
         {   0,      7,      12,         141,        KEY_EN_DOWN_ARROW,          KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },
         {   0,      7,      13,         142,        KEY_EN_RIGHT_ARROW,         KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },
@@ -498,7 +497,7 @@ static const aura_core_laptop_device g533zw_device =
 static const aura_core_laptop_zone g614jz_keyboard_zone =
 {
     ZONE_EN_KEYBOARD,
-    &g614rw_keyboard_layout
+    &g614jz_keyboard_layout
 };
 
 static const aura_core_laptop_zone g713rw_keyboard_zone =
