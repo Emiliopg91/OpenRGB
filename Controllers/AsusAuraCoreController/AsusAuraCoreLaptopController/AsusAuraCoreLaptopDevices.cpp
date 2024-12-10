@@ -244,9 +244,9 @@ keyboard_keymap_overlay_values g713rw_keyboard_layout
 
 keyboard_keymap_overlay_values g614jz_keyboard_layout
 {
-    KEYBOARD_SIZE_FULL,
+    KEYBOARD_SIZE_TKL ,
     {
-        aura_core_laptop_17_values,
+        aura_core_laptop_16_values,
         {
             /* Add more regional layout fixes here */
         }
