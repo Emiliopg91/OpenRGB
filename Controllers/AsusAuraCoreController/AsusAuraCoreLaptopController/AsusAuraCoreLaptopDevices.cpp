@@ -497,7 +497,7 @@ static const aura_core_laptop_device g533zw_device =
 static const aura_core_laptop_zone g614jz_keyboard_zone =
 {
     ZONE_EN_KEYBOARD,
-    &g713rw_keyboard_layout
+    &g614jz_keyboard_layout
 };
 
 static const aura_core_laptop_zone g713rw_keyboard_zone =
