@@ -270,7 +270,7 @@ keyboard_keymap_overlay_values g614jz_keyboard_layout
         {   0,      0,      15,          37,        KEY_EN_DELETE,              KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },  // Insert Delete
         {   0,      1,      14,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_SWAP_ONLY,          },
         {   0,      1,      15,          58,        KEY_EN_MEDIA_PLAY_PAUSE,    KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },  // Insert Play / Pause
-        {   0,      1,      15,          38,        KEY_EN_DELETE,              KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },  // Insert a Delete key
+        {   0,      1,      15,          38,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },  // Insert a Delete key
         {   0,      2,      14,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_REMOVE_SHIFT_LEFT,  },
         {   0,      2,      14,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_REMOVE_SHIFT_LEFT,  },
         {   0,      2,      15,          79,        KEY_EN_MEDIA_STOP,          KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },  // Insert Stop
@@ -284,7 +284,7 @@ keyboard_keymap_overlay_values g614jz_keyboard_layout
         {   0,      5,      12,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_REMOVE_SHIFT_LEFT,  },  // gap before arrow up key
         {   0,      5,      13,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_REMOVE_SHIFT_LEFT,  },  // trim extra column before numpad
 
-        {   0,      6,      6,          136,        KEY_EN_PRINT_SCREEN,        KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },  // Insert a Print Screen key
+        {   0,      6,      10,         136,        KEY_EN_PRINT_SCREEN,        KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },  // Insert a Print Screen key
         {   0,      6,      15,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_REMOVE_SHIFT_LEFT,  },  // trim extra column before numpad
         {   0,      6,      16,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT, },  // 1 empty key between numpad 0 and .
 
