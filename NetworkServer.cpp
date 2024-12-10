@@ -1047,6 +1047,7 @@ void NetworkServer::SendReply_ProtocolVersion(SOCKET client_sock)
 void NetworkServer::SendRequest_DeviceListChanged(SOCKET client_sock)
 {
     NetPacketHeader pkt_hdr;
+    LOG_INFO("NetworkServer: Sending DeviceListChangedEvents");
 
     InitNetPacketHeader(&pkt_hdr, 0, NET_PACKET_ID_DEVICE_LIST_UPDATED, 0);
 
