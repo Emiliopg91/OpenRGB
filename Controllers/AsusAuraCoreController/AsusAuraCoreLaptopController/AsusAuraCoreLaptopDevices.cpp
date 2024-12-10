@@ -292,7 +292,6 @@ keyboard_keymap_overlay_values g614jz_keyboard_layout
         {   0,      3,      14,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_REMOVE_SHIFT_LEFT,  },
         {   0,      4,      14,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_REMOVE_SHIFT_LEFT,  },
         {   0,      5,      14,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_REMOVE_SHIFT_LEFT,  },
-        {   0,      6,      14,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_REMOVE_SHIFT_LEFT,  },
 
         // Move Arrow keys
         {   0,      5,      13,           0,        KEY_EN_UNUSED,              KEYBOARD_OPCODE_SWAP_ONLY,          },  // Remove Arrow Up
