@@ -11,6 +11,7 @@
 
 #include "RGBController_AsusAuraMouse.h"
 #include "AsusAuraMouseDevices.h"
+#include <LogManager.h>
 
 static std::string aura_mouse_zone_names[5]{
     "Logo",
@@ -206,9 +207,11 @@ void RGBController_AuraMouse::SetupZones()
         for (int j = 0; j < aura_mouse_led_maps[pid].map[i].size(); j++)
         {
             led mouse_led;
-            mouse_zone.name + "_LED_" + std::to_string(j);
-            mouse_led.value = *zone_it;
+            mouse_led.value = aura_mouse_led_maps[pid].map[i][j];
+            mouse_led.name = mouse_zone.name + "_LED_" + std::to_string(j);
             leds.push_back(mouse_led);
+
+            LOG_INFO("Detected %s=%d", mouse_led.name, mouse_led.value);
         }
     }
 
