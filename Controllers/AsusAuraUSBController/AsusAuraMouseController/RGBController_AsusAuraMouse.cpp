@@ -10,6 +10,7 @@
 \*---------------------------------------------------------*/
 
 #include "RGBController_AsusAuraMouse.h"
+#include "AsusAuraMouseDevices.h"
 
 static std::string aura_mouse_zone_names[5]{
     "Logo",
@@ -188,25 +189,27 @@ RGBController_AuraMouse::~RGBController_AuraMouse()
 
 void RGBController_AuraMouse::SetupZones()
 {
-    for (std::vector<uint8_t>::iterator zone_it = aura_mouse_devices[pid].mouse_zones.begin(); zone_it != aura_mouse_devices[pid].mouse_zones.end(); zone_it++)
+    int i = 0;
+    for (std::vector<uint8_t>::iterator zone_it = aura_mouse_devices[pid].mouse_zones.begin(); zone_it != aura_mouse_devices[pid].mouse_zones.end(); zone_it++, i++)
     {
         zone mouse_zone;
 
         mouse_zone.name = aura_mouse_zone_names[*zone_it];
         mouse_zone.type = ZONE_TYPE_SINGLE;
-        mouse_zone.leds_min = 1;
-        mouse_zone.leds_max = 1;
-        mouse_zone.leds_count = 1;
+        mouse_zone.leds_min = aura_mouse_led_maps[pid].map[i].size();
+        mouse_zone.leds_max = aura_mouse_led_maps[pid].map[i].size();
+        mouse_zone.leds_count = aura_mouse_led_maps[pid].map[i].size();
         mouse_zone.matrix_map = NULL;
 
         zones.push_back(mouse_zone);
 
-        led mouse_led;
-
-        mouse_led.name = mouse_zone.name + " LED";
-        mouse_led.value = *zone_it;
-
-        leds.push_back(mouse_led);
+        for (int j = 0; j < aura_mouse_led_maps[pid].map[i].size(); j++)
+        {
+            led mouse_led;
+            mouse_zone.name + "_LED_" + std::to_string(j);
+            mouse_led.value = *zone_it;
+            leds.push_back(mouse_led);
+        }
     }
 
     SetupColors();
