@@ -19,14 +19,8 @@ RUN apt-get update && apt-get install -y \
     qttools5-dev-tools \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /output && chmod 777 /output
-
 # Set the default command to clone, build, and copy the binary
 CMD ["/bin/bash", "-c", "\
-    git clone https://github.com/Emiliopg91/OpenRGB /opt/OpenRGB && \
-    cd /opt/OpenRGB && \
-    mkdir build && \
-    cd build && \
+    cd /input/build && \
     qmake ../OpenRGB.pro && \
-    make -j$(nproc) && \
-    cp ./openrgb /output"]
+    make -j$(nproc)"]
