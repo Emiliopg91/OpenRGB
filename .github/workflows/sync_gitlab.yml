@@ -1,0 +1,24 @@
+name: Sync with GitLab
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Cada hora
+  workflow_dispatch: # Permite ejecutarlo manualmente
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout GitHub repo
+        uses: actions/checkout@v4
+
+      - name: Add GitLab remote
+        run: git remote add gitlab https://gitlab.com/ojosdeserbio/OpenRGB.git
+
+      - name: Fetch and merge GitLab changes
+        run: |
+          git fetch gitlab
+          git checkout master
+          git merge gitlab/master --allow-unrelated-histories
+          git push origin master
