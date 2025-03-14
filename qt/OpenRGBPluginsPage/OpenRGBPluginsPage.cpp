@@ -16,6 +16,7 @@
 #include "SettingsManager.h"
 #include "OpenRGBPluginsPage.h"
 #include "ui_OpenRGBPluginsPage.h"
+#include "ResourceManager.h"
 
 void EnableClickCallbackFunction(void* this_ptr, void* entry_ptr)
 {
@@ -235,36 +236,24 @@ void Ui::OpenRGBPluginsPage::on_RemovePluginButton_clicked()
                 if((plugin_settings["plugins"][plugin_idx]["name"] == entries[cur_row]->ui->NameValue->text().toStdString())
                  &&(plugin_settings["plugins"][plugin_idx]["description"] == entries[cur_row]->ui->DescriptionValue->text().toStdString()))
                 {
+                    /*-------------------------------------*\
+                    | Remove plugin from settings           |
+                    \*-------------------------------------*/
                     plugin_settings["plugins"].erase(plugin_idx);
-
-                    ResourceManager::get()->GetSettingsManager()->SetSettings("Plugins", plugin_settings);
-                    ResourceManager::get()->GetSettingsManager()->SaveSettings();
-
-                    break;
                 }
             }
         }
     }
 
     /*-----------------------------------------------------*\
-    | Remove plugin entry from GUI plugin entries list      |
+    | Mark plugin to be removed on next restart             |
     \*-----------------------------------------------------*/
-    QListWidgetItem* item = ui->PluginsList->takeItem(cur_row);
+    plugin_settings["plugins_remove"][plugin_settings["plugins_remove"].size()] = entries[cur_row]->ui->PathValue->text().toStdString();
 
-    ui->PluginsList->removeItemWidget(item);
-    delete item;
+    ResourceManager::get()->GetSettingsManager()->SetSettings("Plugins", plugin_settings);
+    ResourceManager::get()->GetSettingsManager()->SaveSettings();
 
-    /*-----------------------------------------------------*\
-    | Command plugin manager to unload and remove the plugin|
-    \*-----------------------------------------------------*/
-    plugin_manager->RemovePlugin(entries[cur_row]->ui->PathValue->text().toStdString());
-
-    /*-----------------------------------------------------*\
-    | Delete the plugin file and refresh the GUI            |
-    \*-----------------------------------------------------*/
-    filesystem::remove(entries[cur_row]->ui->PathValue->text().toStdString());
-
-    RefreshList();
+    QMessageBox::information(this, tr("Restart Needed"), tr("The plugin will be fully removed after restarting OpenRGB."), QMessageBox::Ok);
 }
 
 void Ui::OpenRGBPluginsPage::on_EnableButton_clicked(OpenRGBPluginsEntry* entry)
@@ -351,12 +340,27 @@ void Ui::OpenRGBPluginsPage::on_PluginsList_itemSelectionChanged()
     int cur_row = ui->PluginsList->currentRow();
 
     /*-----------------------------------------------------*\
+    | Disable the remove button if no item selected         |
+    \*-----------------------------------------------------*/
+    if(cur_row == -1)
+    {
+        ui->RemovePluginButton->setEnabled(false);
+        return;
+    }
+
+    /*-----------------------------------------------------*\
     | Enable the remove button when there's a selected item |
     | and the selected item is not a system plugin          |
     \*-----------------------------------------------------*/
     if(!entries[cur_row]->is_system)
     {
         ui->RemovePluginButton->setEnabled(!ui->PluginsList->selectedItems().empty());
+        ui->RemovePluginButton->setText("Remove Plugin");
+    }
+    else
+    {
+        ui->RemovePluginButton->setEnabled(false);
+        ui->RemovePluginButton->setText("System Plugin - Cannot Remove");
     }
 }
 

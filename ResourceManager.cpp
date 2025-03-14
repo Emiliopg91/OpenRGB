@@ -30,6 +30,42 @@
 #include "filesystem.h"
 #include "StringUtils.h"
 
+/*-------------------------------------------------------------------------*\
+| Translation Strings                                                       |
+\*-------------------------------------------------------------------------*/
+const char* I2C_ERR_WIN =   QT_TRANSLATE_NOOP("ResourceManager",
+                                              "<h2>Some internal devices may not be detected:</h2>"
+                                              "<p>One or more I2C or SMBus interfaces failed to initialize.</p>"
+                                              "<p><b>RGB DRAM modules, some motherboards' onboard RGB lighting, and RGB Graphics Cards, will not be available in OpenRGB</b> without I2C or SMBus.</p>"
+                                              "<h4>How to fix this:</h4>"
+                                              "<p>On Windows, this is usually caused by a failure to load the WinRing0 driver.</p>"
+                                              "<p>You must run OpenRGB as administrator at least once to allow WinRing0 to set up.</p>"
+                                              "<p>See <a href='https://help.openrgb.org/'>help.openrgb.org</a> for additional troubleshooting steps if you keep seeing this message.<br></p>"
+                                              "<h3>If you are not using internal RGB on a desktop this message is not important to you.</h3>");
+const char* I2C_ERR_LINUX = QT_TRANSLATE_NOOP("ResourceManager",
+                                              "<h2>Some internal devices may not be detected:</h2>"
+                                              "<p>One or more I2C or SMBus interfaces failed to initialize.</p>"
+                                              "<p><b>RGB DRAM modules, some motherboards' onboard RGB lighting, and RGB Graphics Cards, will not be available in OpenRGB</b> without I2C or SMBus.</p>"
+                                              "<h4>How to fix this:</h4>"
+                                              "<p>On Linux, this is usually because the i2c-dev module is not loaded.</p>"
+                                              "<p>You must load the i2c-dev module along with the correct i2c driver for your motherboard. "
+                                              "This is usually i2c-piix4 for AMD systems and i2c-i801 for Intel systems.</p>"
+                                              "<p>See <a href='https://help.openrgb.org/'>help.openrgb.org</a> for additional troubleshooting steps if you keep seeing this message.<br></p>"
+                                              "<h3>If you are not using internal RGB on a desktop this message is not important to you.</h3>");
+
+const char* UDEV_MISSING =  QT_TRANSLATE_NOOP("ResourceManager",
+                                              "<h2>WARNING:</h2>"
+                                              "<p>The OpenRGB udev rules are not installed.</p>"
+                                              "<p>Most devices will not be available unless running OpenRGB as root.</p>"
+                                              "<p>If using AppImage, Flatpak, or self-compiled versions of OpenRGB you must install the udev rules manually</p>"
+                                              "<p>See <a href='https://openrgb.org/udev'>https://openrgb.org/udev</a> to install the udev rules manually</p>");
+const char* UDEV_MUTLI =    QT_TRANSLATE_NOOP("ResourceManager",
+                                              "<h2>WARNING:</h2>"
+                                              "<p>Multiple OpenRGB udev rules are installed.</p>"
+                                              "<p>The udev rules file 60-openrgb.rules is installed in both /etc/udev/rules.d and /usr/lib/udev/rules.d.</p>"
+                                              "<p>Multiple udev rules files can conflict, it is recommended to remove one of them.</p>");
+
+
 const hidapi_wrapper default_wrapper =
 {
     NULL,
@@ -84,10 +120,15 @@ ResourceManager::ResourceManager()
     detection_percent           = 100;
     detection_string            = "";
     detection_is_required       = false;
-    InitThread                  = nullptr;
-    DetectDevicesThread         = nullptr;
     dynamic_detectors_processed = false;
     init_finished               = false;
+    background_thread_running    = true;
+
+    /*-------------------------------------------------------------------------*\
+    | Start the background detection thread in advance; it will be suspended    |
+    | until necessary                                                           |
+    \*-------------------------------------------------------------------------*/
+    DetectDevicesThread         = new std::thread(&ResourceManager::BackgroundThreadFunction, this);
 
     SetupConfigurationDirectory();
 
@@ -110,6 +151,7 @@ ResourceManager::ResourceManager()
     \*-------------------------------------------------------------------------*/
     json server_settings    = settings_manager->GetSettings("Server");
     bool all_controllers    = false;
+    bool legacy_workaround  = false;
 
     if(server_settings.contains("all_controllers"))
     {
@@ -123,6 +165,19 @@ ResourceManager::ResourceManager()
     else
     {
         server              = new NetworkServer(rgb_controllers_hw);
+    }
+
+    /*-------------------------------------------------------------------------*\
+    | Enable legacy SDK workaround in server if configured                      |
+    \*-------------------------------------------------------------------------*/
+    if(server_settings.contains("legacy_workaround"))
+    {
+        legacy_workaround   = server_settings["legacy_workaround"];
+    }
+
+    if(legacy_workaround)
+    {
+        server->SetLegacyWorkaroundEnable(true);
     }
 
     /*-------------------------------------------------------------------------*\
@@ -173,7 +228,13 @@ ResourceManager::~ResourceManager()
 {
     Cleanup();
 
-    if(InitThread)
+    // Mark the background detection thread as not running
+    // And then wake it up so it knows that it has to stop
+    background_thread_running = false;
+    BackgroundFunctionStartTrigger.notify_one();
+
+    // Stop the background thread
+    if(DetectDevicesThread)
     {
         DetectDevicesThread->join();
         delete DetectDevicesThread;
@@ -183,7 +244,7 @@ ResourceManager::~ResourceManager()
 
 void ResourceManager::RegisterI2CBus(i2c_smbus_interface *bus)
 {
-    LOG_INFO("Registering I2C interface: %s Device %04X:%04X Subsystem: %04X:%04X", bus->device_name, bus->pci_vendor, bus->pci_device,bus->pci_subsystem_vendor,bus->pci_subsystem_device);
+    LOG_INFO("[ResourceManager] Registering I2C interface: %s Device %04X:%04X Subsystem: %04X:%04X", bus->device_name, bus->pci_vendor, bus->pci_device,bus->pci_subsystem_vendor,bus->pci_subsystem_device);
     busses.push_back(bus);
 }
 
@@ -194,6 +255,12 @@ std::vector<i2c_smbus_interface*> & ResourceManager::GetI2CBusses()
 
 void ResourceManager::RegisterRGBController(RGBController *rgb_controller)
 {
+    /*-------------------------------------------------*\
+    | Mark this controller as locally owned             |
+    \*-------------------------------------------------*/
+    rgb_controller->flags &= ~CONTROLLER_FLAG_REMOTE;
+    rgb_controller->flags |= CONTROLLER_FLAG_LOCAL;
+
     LOG_INFO("[%s] Registering RGB controller", rgb_controller->name.c_str());
     rgb_controllers_hw.push_back(rgb_controller);
 
@@ -704,9 +771,9 @@ bool ResourceManager::AttemptLocalConnection()
 
     if(!client->GetConnected())
     {
-        LOG_TRACE("[main] Client failed to connect");
+        LOG_TRACE("[ResourceManager] Client failed to connect");
         client->StopClient();
-        LOG_TRACE("[main] Client stopped");
+        LOG_TRACE("[ResourceManager] Client stopped");
 
         delete client;
 
@@ -715,7 +782,7 @@ bool ResourceManager::AttemptLocalConnection()
     else
     {
         ResourceManager::get()->RegisterNetworkClient(client);
-        LOG_TRACE("[main] Registered network client");
+        LOG_TRACE("[ResourceManager] Registered network client");
 
         success = true;
 
@@ -805,19 +872,7 @@ void ResourceManager::Cleanup()
         delete bus;
     }
 
-    /*-------------------------------------------------*\
-    | Cleanup HID interface                             |
-    \*-------------------------------------------------*/
-    int hid_status = hid_exit();
-
-    LOG_DEBUG("Closing HID interfaces: %s", ((hid_status == 0) ? "Success" : "Failed"));
-
-    if(DetectDevicesThread)
-    {
-        DetectDevicesThread->join();
-        delete DetectDevicesThread;
-        DetectDevicesThread = nullptr;
-    }
+    RunInBackgroundThread(std::bind(&ResourceManager::HidExitCoroutine, this));
 }
 
 void ResourceManager::ProcessPreDetectionHooks()
@@ -900,10 +955,11 @@ bool ResourceManager::ProcessPreDetection()
         \*-------------------------------------------------*/
         int hid_status = hid_init();
 
-        LOG_INFO("Initializing HID interfaces: %s", ((hid_status == 0) ? "Success" : "Failed"));
+        LOG_INFO("[ResourceManager] Initializing HID interfaces: %s", ((hid_status == 0) ? "Success" : "Failed"));
 
         /*-------------------------------------------------*\
-        | Start the device detection thread                 |
+        | Mark the detection as ongoing                     |
+        | So the detection thread may proceed               |
         \*-------------------------------------------------*/
         detection_is_required = true;
 
@@ -916,13 +972,8 @@ void ResourceManager::DetectDevices()
 {
     if(ProcessPreDetection())
     {
-        DetectDevicesThread = new std::thread(&ResourceManager::DetectDevicesThreadFunction, this);
-
-        /*-------------------------------------------------*\
-        | Release the current thread to allow detection     |
-        | thread to start                                   |
-        \*-------------------------------------------------*/
-        std::this_thread::sleep_for(1ms);
+        // Run the detection coroutine
+        RunInBackgroundThread(std::bind(&ResourceManager::DetectDevicesCoroutine, this));
     }
 
     if(!detection_enabled)
@@ -960,7 +1011,7 @@ void ResourceManager::DisableDetection()
     detection_enabled = false;
 }
 
-void ResourceManager::DetectDevicesThreadFunction()
+void ResourceManager::DetectDevicesCoroutine()
 {
     DetectDeviceMutex.lock();
 
@@ -1079,7 +1130,7 @@ void ResourceManager::DetectDevicesThreadFunction()
     LOG_INFO("------------------------------------------------------");
     for(unsigned int i2c_detector_idx = 0; i2c_detector_idx < (unsigned int)i2c_device_detectors.size() && detection_is_required.load(); i2c_detector_idx++)
     {
-        unsigned int controller_size = rgb_controllers_hw.size();
+        std::size_t controller_size = rgb_controllers_hw.size();
         detection_string = i2c_device_detector_strings[i2c_detector_idx].c_str();
 
         /*-------------------------------------------------*\
@@ -1138,8 +1189,8 @@ void ResourceManager::DetectDevicesThreadFunction()
                 {
                     SPDWrapper accessor(spd);
                     dimm_type = spd.memory_type();
-                    LOG_INFO("Detected occupied slot %d, bus %d, type %s", spd_addr - 0x50 + 1, bus, spd_memory_type_name[dimm_type]);
-                    LOG_DEBUG("Jedec ID: 0x%04x", accessor.jedec_id());
+                    LOG_INFO("[ResourceManager] Detected occupied slot %d, bus %d, type %s", spd_addr - 0x50 + 1, bus, spd_memory_type_name[dimm_type]);
+                    LOG_DEBUG("[ResourceManager] Jedec ID: 0x%04x", accessor.jedec_id());
                     slots.push_back(accessor);
                 }
             }
@@ -1251,7 +1302,7 @@ void ResourceManager::DetectDevicesThreadFunction()
             HIDDeviceDetectorBlock & detector = hid_device_detectors[hid_detector_idx];
             hid_devices = hid_enumerate(detector.vid, detector.pid);
 
-            LOG_VERBOSE("Trying to run detector for [%s] (for %04x:%04x)", detector.name.c_str(), detector.vid, detector.pid);
+            LOG_VERBOSE("[ResourceManager] Trying to run detector for [%s] (for %04x:%04x)", detector.name.c_str(), detector.vid, detector.pid);
 
             current_hid_device = hid_devices;
 
@@ -1563,13 +1614,7 @@ void ResourceManager::DetectDevicesThreadFunction()
     \*-------------------------------------------------*/
     if(udev_not_exist)
     {
-        const char* message =  "<h2>WARNING:</h2>"
-                                "<p>The OpenRGB udev rules are not installed.</p>"
-                                "<p>Most devices will not be available unless running OpenRGB as root.</p>"
-                                "<p>If using AppImage, Flatpak, or self-compiled versions of OpenRGB you must install the udev rules manually</p>"
-                                "<p>See <a href='https://openrgb.org/udev'>https://openrgb.org/udev</a> to install the udev rules manually</p>";
-
-        LOG_DIALOG("%s", message);
+        LOG_DIALOG("%s", UDEV_MISSING);
 
         udev_multiple       = false;
         i2c_interface_fail  = false;
@@ -1581,12 +1626,7 @@ void ResourceManager::DetectDevicesThreadFunction()
     \*-------------------------------------------------*/
     if(udev_multiple)
     {
-        const char* message =  "<h2>WARNING:</h2>"
-                                "<p>Multiple OpenRGB udev rules are installed.</p>"
-                                "<p>The udev rules file 60-openrgb.rules is installed in both /etc/udev/rules.d and /usr/lib/udev/rules.d.</p>"
-                                "<p>Multiple udev rules files can conflict, it is recommended to remove one of them.</p>";
-
-        LOG_DIALOG("%s", message);
+        LOG_DIALOG("%s", UDEV_MUTLI);
 
         i2c_interface_fail  = false;
     }
@@ -1599,30 +1639,18 @@ void ResourceManager::DetectDevicesThreadFunction()
     \*-------------------------------------------------*/
     if(i2c_interface_fail)
     {
-        const char* message =   "<h2>Some internal devices may not be detected:</h2>"
-                                "<p>One or more I2C or SMBus interfaces failed to initialize.</p>"
-                                "<p><b>RGB DRAM modules, some motherboards' onboard RGB lighting, and RGB Graphics Cards, will not be available in OpenRGB</b> without I2C or SMBus.</p>"
-
-                                "<h4>How to fix this:</h4>"
 #ifdef _WIN32
-                                "<p>On Windows, this is usually caused by a failure to load the WinRing0 driver.</p>"
-                                "<p>You must run OpenRGB as administrator at least once to allow WinRing0 to set up.</p>"
+        LOG_DIALOG("%s", I2C_ERR_WIN);
 #endif
 #ifdef __linux__
-                                "<p>On Linux, this is usually because the i2c-dev module is not loaded.</p>"
-                                "<p>You must load the i2c-dev module along with the correct i2c driver for your motherboard. "
-                                "This is usually i2c-piix4 for AMD systems and i2c-i801 for Intel systems.</p>"
+        LOG_DIALOG("%s", I2C_ERR_LINUX);
 #endif
-                                "<p>See <a href='https://help.openrgb.org/'>help.openrgb.org</a> for additional troubleshooting steps if you keep seeing this message.<br></p>"
-                                "<h3>If you are not using internal RGB on a desktop this message is not important to you.</h3>";
-
-        LOG_DIALOG("%s", message);
     }
 }
 
 void ResourceManager::StopDeviceDetection()
 {
-    LOG_INFO("Detection abort requested");
+    LOG_INFO("[ResourceManager] Detection abort requested");
     detection_is_required = false;
     detection_percent = 100;
     detection_string = "Stopping";
@@ -1637,10 +1665,10 @@ void ResourceManager::Initialize(bool tryConnect, bool detectDevices, bool start
     start_server       = startServer;
     apply_post_options = applyPostOptions;
 
-    InitThread = new std::thread(&ResourceManager::InitThreadFunction, this);
+    RunInBackgroundThread(std::bind(&ResourceManager::InitCoroutine, this));
 }
 
-void ResourceManager::InitThreadFunction()
+void ResourceManager::InitCoroutine()
 {
     if(tryAutoConnect)
     {
@@ -1670,7 +1698,8 @@ void ResourceManager::InitThreadFunction()
         LOG_DEBUG("[ResourceManager] Running standalone");
         if(ProcessPreDetection())
         {
-            DetectDevicesThreadFunction();
+            // We are currently in a coroutine, so run detection directly with no scheduling
+            DetectDevicesCoroutine();
         }
     }
     else
@@ -1701,6 +1730,74 @@ void ResourceManager::InitThreadFunction()
     }
 
     init_finished = true;
+}
+
+void ResourceManager::HidExitCoroutine()
+{
+    /*-------------------------------------------------*\
+    | Cleanup HID interface                             |
+    | WARNING: may not be ran from any other thread!!!  |
+    \*-------------------------------------------------*/
+    int hid_status = hid_exit();
+
+    LOG_DEBUG("[ResourceManager] Closing HID interfaces: %s", ((hid_status == 0) ? "Success" : "Failed"));
+}
+
+void ResourceManager::RunInBackgroundThread(std::function<void()> coroutine)
+{
+    if(std::this_thread::get_id() == DetectDevicesThread->get_id())
+    {
+        // We are already in the background thread - don't schedule the call, run it immediately
+        coroutine();
+    }
+    else
+    {
+        BackgroundThreadStateMutex.lock();
+        if(ScheduledBackgroundFunction != nullptr)
+        {
+            LOG_WARNING("[ResourceManager] Detection coroutine: assigned a new coroutine when one was already scheduled - probably two rescan events sent at once");
+        }
+        ScheduledBackgroundFunction = coroutine;
+        BackgroundThreadStateMutex.unlock();
+        BackgroundFunctionStartTrigger.notify_one();
+    }
+}
+
+void ResourceManager::BackgroundThreadFunction()
+{
+    // The background thread that runs scheduled coroutines when applicable
+    // Stays asleep if nothing is scheduled
+    // NOTE: this thread owns the HIDAPI library internal objects on MacOS
+    // hid_init and hid_exit may not be called outside of this thread
+    // calling hid_exit outside of this thread WILL cause an immediate CRASH on MacOS
+    // BackgroundThreadStateMutex will be UNLOCKED as long as the thread is suspended
+    // It locks automatically when any coroutine is running
+    // However, it seems to be necessary to be separate from the DeviceDetectionMutex, even though their states are nearly identical
+
+    std::unique_lock lock(BackgroundThreadStateMutex);
+    while(background_thread_running)
+    {
+        if(ScheduledBackgroundFunction)
+        {
+            std::function<void()> coroutine = nullptr;
+            std::swap(ScheduledBackgroundFunction, coroutine);
+            try
+            {
+                coroutine();
+            }
+            catch(std::exception& e)
+            {
+                LOG_ERROR("[ResourceManager] Unhandled exception in coroutine; e.what(): %s", e.what());
+            }
+            catch(...)
+            {
+                LOG_ERROR("[ResourceManager] Unhandled exception in coroutine");
+            }
+        }
+        // This line will cause the thread to suspend until the condition variable is triggered
+        // NOTE: it may be subject to "spurious wakeups"
+        BackgroundFunctionStartTrigger.wait(lock);
+    }
 }
 
 void ResourceManager::UpdateDetectorSettings()
@@ -1811,7 +1908,7 @@ void ResourceManager::UpdateDetectorSettings()
     \*-------------------------------------------------*/
     if(save_settings)
     {
-        LOG_INFO("Saving detector settings");
+        LOG_INFO("[ResourceManager] Saving detector settings");
 
         settings_manager->SetSettings("Detectors", detector_settings);
 
@@ -1847,10 +1944,10 @@ bool ResourceManager::IsAnyDimmDetectorEnabled(json &detector_settings)
         | Check if this detector is enabled                 |
         \*-------------------------------------------------*/
         if(detector_settings.contains("detectors") && detector_settings["detectors"].contains(detection_string) &&
-           detector_settings["detectors"][detection_string] == false)
+           detector_settings["detectors"][detection_string] == true)
         {
-            return false;
+            return true;
         }
     }
-    return true;
+    return false;
 }

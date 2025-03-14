@@ -83,6 +83,16 @@ bool ProfileManager::SaveProfile(std::string profile_name, bool sizes)
         \*---------------------------------------------------------*/
         for(std::size_t controller_index = 0; controller_index < controllers.size(); controller_index++)
         {
+            /*-----------------------------------------------------*\
+            | Ignore remote and virtual controllers when saving     |
+            | sizes                                                 |
+            \*-----------------------------------------------------*/
+            if(sizes && (controllers[controller_index]->flags & CONTROLLER_FLAG_REMOTE
+                      || controllers[controller_index]->flags & CONTROLLER_FLAG_VIRTUAL))
+            {
+                break;
+            }
+
             unsigned char *controller_data = controllers[controller_index]->GetDeviceDescription(profile_version);
             unsigned int controller_size;
 
@@ -291,14 +301,19 @@ bool ProfileManager::LoadDeviceFromListWithOptions
                          &&(temp_controller->zones[zone_idx].leds_min   == load_controller->zones[zone_idx].leds_min  )
                          &&(temp_controller->zones[zone_idx].leds_max   == load_controller->zones[zone_idx].leds_max  ))
                         {
-                            if (temp_controller->zones[zone_idx].leds_count != load_controller->zones[zone_idx].leds_count)
+                            if(temp_controller->zones[zone_idx].leds_count != load_controller->zones[zone_idx].leds_count)
                             {
                                 load_controller->ResizeZone((int)zone_idx, temp_controller->zones[zone_idx].leds_count);
                             }
 
-                            for(std::size_t segment_idx = 0; segment_idx < temp_controller->zones[zone_idx].segments.size(); segment_idx++)
+                            if(temp_controller->zones[zone_idx].segments.size() != load_controller->zones[zone_idx].segments.size())
                             {
-                                load_controller->zones[zone_idx].segments.push_back(temp_controller->zones[zone_idx].segments[segment_idx]);
+                                load_controller->zones[zone_idx].segments.clear();
+
+                                for(std::size_t segment_idx = 0; segment_idx < temp_controller->zones[zone_idx].segments.size(); segment_idx++)
+                                {
+                                    load_controller->zones[zone_idx].segments.push_back(temp_controller->zones[zone_idx].segments[segment_idx]);
+                                }
                             }
                         }
                     }
@@ -403,7 +418,7 @@ bool ProfileManager::LoadProfileWithOptions
     {
         bool temp_ret_val = LoadDeviceFromListWithOptions(temp_controllers, temp_controller_used, controllers[controller_index], load_size, load_settings);
         std::string current_name = controllers[controller_index]->name + " @ " + controllers[controller_index]->location;
-        LOG_INFO("Profile loading: %s for %s", ( temp_ret_val ? "Succeeded" : "FAILED!" ), current_name.c_str());
+        LOG_INFO("[ProfileManager] Profile loading: %s for %s", ( temp_ret_val ? "Succeeded" : "FAILED!" ), current_name.c_str());
         ret_val |= temp_ret_val;
     }
 
@@ -443,7 +458,7 @@ void ProfileManager::UpdateProfileList()
 
         if(filename.find(".orp") != std::string::npos)
         {
-            LOG_INFO("Found file: %s attempting to validate header", filename.c_str());
+            LOG_INFO("[ProfileManager] Found file: %s attempting to validate header", filename.c_str());
 
             /*---------------------------------------------------------*\
             | Open input file in binary mode                            |
@@ -471,16 +486,16 @@ void ProfileManager::UpdateProfileList()
                     filename.erase(filename.length() - 4);
                     profile_list.push_back(filename);
 
-                    LOG_INFO("Valid v%i profile found for %s", profile_version, filename.c_str());
+                    LOG_INFO("[ProfileManager] Valid v%i profile found for %s", profile_version, filename.c_str());
                 }
                 else
                 {
-                    LOG_WARNING("Profile %s isn't valid for current version (v%i, expected v%i at most)", filename.c_str(), profile_version, OPENRGB_PROFILE_VERSION);
+                    LOG_WARNING("[ProfileManager] Profile %s isn't valid for current version (v%i, expected v%i at most)", filename.c_str(), profile_version, OPENRGB_PROFILE_VERSION);
                 }
             }
             else
             {
-                LOG_WARNING("Profile %s isn't valid: header is missing", filename.c_str());
+                LOG_WARNING("[ProfileManager] Profile %s isn't valid: header is missing", filename.c_str());
             }
 
             profile_file.close();

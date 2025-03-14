@@ -6,12 +6,14 @@ The protocol mimics the [RGBController API](The-RGBController-API) closely.  It 
 
 # Protocol Versions
 
-| Version | Release | Description                                   |
-| ------- | ------- | --------------------------------------------- |
-| 0       | 0.3     | Initial (unversioned) protocol                |
-| 1       | 0.5     | Add versioning, add vendor string             |
-| 2       | 0.6     | Add profile controls                          |
-| 3       | 0.7*    | Add brightness field to modes, add SaveMode() |
+| Protocol Version | OpenRGB Release | Description                                                                                                    |
+| ---------------- | --------------- | -------------------------------------------------------------------------------------------------------------- |
+| 0                | 0.3             | Initial (unversioned) protocol                                                                                 |
+| 1                | 0.5             | Add versioning, add vendor string                                                                              |
+| 2                | 0.6             | Add profile controls                                                                                           |
+| 3                | 0.7             | Add brightness field to modes, add SaveMode()                                                                  |
+| 4                | 0.9             | Add segments field to zones, plugin interface                                                                  |
+| 5                | 1.0             | Add zone flags, controller flags, effects-only zones, alternative LED names, add ClearSegments and AddSegments |
 
 \* Denotes unreleased version, reflects status of current pipeline
 
@@ -42,24 +44,30 @@ Each packet starts with a header that indicates the packet is an OpenRGB SDK pac
 
 The following IDs represent different SDK commands.  Each ID packet has a certain format of data associated with it, which will be explained under each ID's section of this document.  Gaps have been left in the ID values to allow for future expansion.  The same ID values are often used for both request and response packets.
 
-| Value | Name                                                                                        | Description                                      |
-| ----- | ------------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| 0     | [NET_PACKET_ID_REQUEST_CONTROLLER_COUNT](#net_packet_id_request_controller_count)           | Request RGBController device count from server   |
-| 1     | [NET_PACKET_ID_REQUEST_CONTROLLER_DATA](#net_packet_id_request_controller_data)             | Request RGBController data block                 |
-| 40    | [NET_PACKET_ID_REQUEST_PROTOCOL_VERSION](#net_packet_id_request_protocol_version)           | Request OpenRGB SDK protocol version from server |
-| 50    | [NET_PACKET_ID_SET_CLIENT_NAME](#net_packet_id_set_client_name)                             | Send client name string to server                |
-| 100   | [NET_PACKET_ID_DEVICE_LIST_UPDATED](#net_packet_id_device_list_updated)                     | Indicate to clients that device list has updated |
-| 150   | [NET_PACKET_ID_REQUEST_PROFILE_LIST](#net_packet_id_request_profile_list)                   | Request profile list                             |
-| 151   | [NET_PACKET_ID_REQUEST_SAVE_PROFILE](#net_packet_id_request_save_profile)                   | Save current configuration in a new profile      |
-| 152   | [NET_PACKET_ID_REQUEST_LOAD_PROFILE](#net_packet_id_request_load_profile)                   | Load a given profile                             |
-| 153   | [NET_PACKET_ID_REQUEST_DELETE_PROFILE](#net_packet_id_request_delete_profile)               | Delete a given profile                           |
-| 1000  | [NET_PACKET_ID_RGBCONTROLLER_RESIZEZONE](#net_packet_id_rgbcontroller_resizezone)           | RGBController::ResizeZone()                      |
-| 1050  | [NET_PACKET_ID_RGBCONTROLLER_UPDATELEDS](#net_packet_id_rgbcontroller_updateleds)           | RGBController::UpdateLEDs()                      |
-| 1051  | [NET_PACKET_ID_RGBCONTROLLER_UPDATEZONELEDS](#net_packet_id_rgbcontroller_updatezoneleds)   | RGBController::UpdateZoneLEDs()                  |
-| 1052  | [NET_PACKET_ID_RGBCONTROLLER_UPDATESINGLELED](#net_packet_id_rgbcontroller_updatesingleled) | RGBController::UpdateSingleLED()                 |
-| 1100  | [NET_PACKET_ID_RGBCONTROLLER_SETCUSTOMMODE](#net_packet_id_rgbcontroller_setcustommode)     | RGBController::SetCustomMode()                   |
-| 1101  | [NET_PACKET_ID_RGBCONTROLLER_UPDATEMODE](#net_packet_id_rgbcontroller_updatemode)           | RGBController::UpdateMode()                      |
-| 1102  | [NET_PACKET_ID_RGBCONTROLLER_SAVEMODE](#net_packet_id_rgbcontroller_savemode)               | RGBController::SaveMode()                        |
+| Value | Name                                                                                        | Description                                      | Protocol Version |
+| ----- | ------------------------------------------------------------------------------------------- | ------------------------------------------------ | ---------------- |
+| 0     | [NET_PACKET_ID_REQUEST_CONTROLLER_COUNT](#net_packet_id_request_controller_count)           | Request RGBController device count from server   | 0                |
+| 1     | [NET_PACKET_ID_REQUEST_CONTROLLER_DATA](#net_packet_id_request_controller_data)             | Request RGBController data block                 | 0                |
+| 40    | [NET_PACKET_ID_REQUEST_PROTOCOL_VERSION](#net_packet_id_request_protocol_version)           | Request OpenRGB SDK protocol version from server | 1*               |
+| 50    | [NET_PACKET_ID_SET_CLIENT_NAME](#net_packet_id_set_client_name)                             | Send client name string to server                | 0                |
+| 100   | [NET_PACKET_ID_DEVICE_LIST_UPDATED](#net_packet_id_device_list_updated)                     | Indicate to clients that device list has updated | 1                |
+| 150   | [NET_PACKET_ID_REQUEST_PROFILE_LIST](#net_packet_id_request_profile_list)                   | Request profile list                             | 2                |
+| 151   | [NET_PACKET_ID_REQUEST_SAVE_PROFILE](#net_packet_id_request_save_profile)                   | Save current configuration in a new profile      | 2                |
+| 152   | [NET_PACKET_ID_REQUEST_LOAD_PROFILE](#net_packet_id_request_load_profile)                   | Load a given profile                             | 2                |
+| 153   | [NET_PACKET_ID_REQUEST_DELETE_PROFILE](#net_packet_id_request_delete_profile)               | Delete a given profile                           | 2                |
+| 200   | [NET_PACKET_ID_REQUEST_PLUGIN_LIST](#net_packet_id_request_plugin_list)                     | Request plugin list                              | 4                |
+| 201   | [NET_PACKET_ID_PLUGIN_SPECIFIC](#net_packet_id_plugin_specific)                             | Plugin specific                                  | 4                |
+| 1000  | [NET_PACKET_ID_RGBCONTROLLER_RESIZEZONE](#net_packet_id_rgbcontroller_resizezone)           | RGBController::ResizeZone()                      | 0                |
+| 1001  | [NET_PACKET_ID_RGBCONTROLLER_CLEARSEGMENTS](#net_packet_id_rgbcontroller_clearsegments)     | RGBController::ClearSegments()                   | 5                |
+| 1002  | [NET_PACKET_ID_RGBCONTROLLER_ADDSEGMENT](#net_packet_id_rgbcontroller_addsegment)           | RGBController::AddSegment()                      | 5                |
+| 1050  | [NET_PACKET_ID_RGBCONTROLLER_UPDATELEDS](#net_packet_id_rgbcontroller_updateleds)           | RGBController::UpdateLEDs()                      | 0                |
+| 1051  | [NET_PACKET_ID_RGBCONTROLLER_UPDATEZONELEDS](#net_packet_id_rgbcontroller_updatezoneleds)   | RGBController::UpdateZoneLEDs()                  | 0                |
+| 1052  | [NET_PACKET_ID_RGBCONTROLLER_UPDATESINGLELED](#net_packet_id_rgbcontroller_updatesingleled) | RGBController::UpdateSingleLED()                 | 0                |
+| 1100  | [NET_PACKET_ID_RGBCONTROLLER_SETCUSTOMMODE](#net_packet_id_rgbcontroller_setcustommode)     | RGBController::SetCustomMode()                   | 0                |
+| 1101  | [NET_PACKET_ID_RGBCONTROLLER_UPDATEMODE](#net_packet_id_rgbcontroller_updatemode)           | RGBController::UpdateMode()                      | 0                |
+| 1102  | [NET_PACKET_ID_RGBCONTROLLER_SAVEMODE](#net_packet_id_rgbcontroller_savemode)               | RGBController::SaveMode()                        | 3                |
+        
+\* The NET_PACKET_ID_REQUEST_PROTOCOL_VERSION packet was not present in protocol version 0, but clients supporting protocol versions 1+ should always send this packet.  If no response is received, it should be assumed that the server is using protocol 0.
 
 # Packet-Specific Documentation
 
@@ -85,31 +93,34 @@ NOTE: Before sending this request, the client should request the protocol versio
 
 The server responds to this request with a large data block.  The format of the block is shown below.  Portions of this block are omitted if the requested protocol level is below the listed value.  The receiver is expected to parse this data block using the same protocol version sent in the request (or protocol 0 if the request is sent with no data).
 
-| Size                | Format                    | Name                | Protocol Version | Description                                                                  |
-| ------------------- | ------------------------- | ------------------- | ---------------- | ---------------------------------------------------------------------------- |
-| 4                   | unsigned int              | data_size           | 0                | Size of all data in packet                                                   |
-| 4                   | int                       | type                | 0                | RGBController type field value                                               |
-| 2                   | unsigned short            | name_len            | 0                | Length of RGBController name field string, including null termination        |
-| name_len            | char[name_len]            | name                | 0                | RGBController name field string value, including null termination            |
-| 2                   | unsigned short            | vendor_len          | 1                | Length of RGBController vendor field string, including null termination      |
-| vendor_len          | char[vendor_len]          | vendor              | 1                | RGBController vendor field string value, including null termination          |
-| 2                   | unsigned short            | description_len     | 0                | Length of RGBController description field string, including null termination |
-| description_len     | char[description_len]     | description         | 0                | RGBController description field string value, including null termination     |
-| 2                   | unsigned short            | version_len         | 0                | Length of RGBController version field string, including null termination     |
-| version_len         | char[version_len]         | version             | 0                | RGBController version field string value, including null termination         |
-| 2                   | unsigned short            | serial_len          | 0                | Length of RGBController serial field string, including null termination      |
-| serial_len          | char[serial_len]          | serial              | 0                | RGBController serial field string value, including null termination          |
-| 2                   | unsigned short            | location_len        | 0                | Length of RGBController location field string, including null termination    |
-| location_len        | char[location_len]        | location            | 0                | RGBController location field string value, including null termination        |
-| 2                   | unsigned short            | num_modes           | 0                | Number of modes in RGBController                                             |
-| 4                   | int                       | active_mode         | 0                | RGBController active_mode field value                                        |
-| Variable            | Mode Data[num_modes]      | modes               | 0                | See [Mode Data](#mode-data) block format table.  Repeat num_modes times      |
-| 2                   | unsigned short            | num_zones           | 0                | Number of zones in RGBController                                             |
-| Variable            | Zone Data[num_zones]      | zones               | 0                | See [Zone Data](#zone-data) block format table.  Repeat num_zones times      |
-| 2                   | unsigned short            | num_leds            | 0                | Number of LEDs in RGBController                                              |
-| Variable            | LED Data[num_leds]        | leds                | 0                | See [LED Data](#led-data) block format table.  Repeat num_leds times         |
-| 2                   | unsigned short            | num_colors          | 0                | Number of colors in RGBController                                            |
-| 4 * num_colors      | RGBColor[num_colors]      | colors              | 0                | RGBController colors field values                                            |
+| Size                | Format                                | Name                | Protocol Version | Description                                                                                                  |
+| ------------------- | ------------------------------------- | ------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------ |
+| 4                   | unsigned int                          | data_size           | 0                | Size of all data in packet                                                                                   |
+| 4                   | int                                   | type                | 0                | RGBController type field value                                                                               |
+| 2                   | unsigned short                        | name_len            | 0                | Length of RGBController name field string, including null termination                                        |
+| name_len            | char[name_len]                        | name                | 0                | RGBController name field string value, including null termination                                            |
+| 2                   | unsigned short                        | vendor_len          | 1                | Length of RGBController vendor field string, including null termination                                      |
+| vendor_len          | char[vendor_len]                      | vendor              | 1                | RGBController vendor field string value, including null termination                                          |
+| 2                   | unsigned short                        | description_len     | 0                | Length of RGBController description field string, including null termination                                 |
+| description_len     | char[description_len]                 | description         | 0                | RGBController description field string value, including null termination                                     |
+| 2                   | unsigned short                        | version_len         | 0                | Length of RGBController version field string, including null termination                                     |
+| version_len         | char[version_len]                     | version             | 0                | RGBController version field string value, including null termination                                         |
+| 2                   | unsigned short                        | serial_len          | 0                | Length of RGBController serial field string, including null termination                                      |
+| serial_len          | char[serial_len]                      | serial              | 0                | RGBController serial field string value, including null termination                                          |
+| 2                   | unsigned short                        | location_len        | 0                | Length of RGBController location field string, including null termination                                    |
+| location_len        | char[location_len]                    | location            | 0                | RGBController location field string value, including null termination                                        |
+| 2                   | unsigned short                        | num_modes           | 0                | Number of modes in RGBController                                                                             |
+| 4                   | int                                   | active_mode         | 0                | RGBController active_mode field value                                                                        |
+| Variable            | Mode Data[num_modes]                  | modes               | 0                | See [Mode Data](#mode-data) block format table.  Repeat num_modes times                                      |
+| 2                   | unsigned short                        | num_zones           | 0                | Number of zones in RGBController                                                                             |
+| Variable            | Zone Data[num_zones]                  | zones               | 0                | See [Zone Data](#zone-data) block format table.  Repeat num_zones times                                      |
+| 2                   | unsigned short                        | num_leds            | 0                | Number of LEDs in RGBController                                                                              |
+| Variable            | LED Data[num_leds]                    | leds                | 0                | See [LED Data](#led-data) block format table.  Repeat num_leds times                                         |
+| 2                   | unsigned short                        | num_colors          | 0                | Number of colors in RGBController                                                                            |
+| 4 * num_colors      | RGBColor[num_colors]                  | colors              | 0                | RGBController colors field values                                                                            |
+| 2                   | unsigned short                        | num_led_alt_names   | 5                | Number of LED alternate name strings                                                                         |
+| Variable            | LED Alternate Name[num_led_alt_names] | led_alt_names       | 5                | See [LED Alternate Name Data](#led-alternate-names-data) block format table.  Repeat num_led_alt_names times |
+| 4                   | unsigned int                          | flags               | 5                | RGBController flags field value                                                                              |
 
 ## Mode Data
 
@@ -150,17 +161,40 @@ The Zone Data block represents one entry in the `RGBController::zones` vector.
 | 4*                     | unsigned int                      | zone_matrix_height  | 0                | Zone matrix_map height (*only if matrix_map exists)                                                          |
 | 4*                     | unsigned int                      | zone_matrix_width   | 0                | Zone matrix_map width (*only if matrix_map exists)                                                           |
 | (zone_matrix_len - 8)* | unsigned int[zone_matrix_len - 8] | zone_matrix_data    | 0                | Zone matrix_map data (*only if matrix_map exists)                                                            |
+| 2                      | unsigned short                    | num_segments        | 4                | Number of segments in zone                                                                                   |
+| Variable               | Segment Data[num_segments]        | segments            | 4                | See [Segment Data](#segment-data) block format table.  Repeat num_segments times                             |
+| 4                      | unsigned int                      | zone_flags          | 5                | Zone flags value                                                                                             |
 
-## LED data
+## Segment Data
+
+The Segment Data block represents one entry in the `RGBController::zones::segments` vector.  This data block was introduced in protocol version 4.
+
+| Size             | Format                 | Name               | Protocol Version | Description                                               |
+| ---------------- | ---------------------- | ------------------ | ---------------- | --------------------------------------------------------- |
+| 2                | unsigned short         | segment_name_len   | 4                | Length of segment name string, including null termination |
+| segment_name_len | char[segment_name_len] | segment_name       | 4                | Segment name string value, including null termination     |
+| 4                | int                    | segment_type       | 4                | Segment type value                                        |
+| 4                | unsigned int           | segment_start_idx  | 4                | Segment start_idx value                                   |
+| 4                | unsigned int           | segment_leds_count | 4                | Segment leds_count value                                  |
+
+## LED Data
 
 The LED Data block represents one entry in the `RGBController::leds` vector.
-
 
 | Size                | Format                    | Name                | Protocol Version | Description                                            |
 | ------------------- | ------------------------- | ------------------- | ---------------- | ------------------------------------------------------ |
 | 2                   | unsigned short            | led_name_len        | 0                | Length of LED name string, including null termination  |
 | led_name_len        | char[led_name_len]        | led_name            | 0                | LED name string value, including null termination      |
-| 4                   | unsignd int               | led_value           | 0                | LED value field value                                  |
+| 4                   | unsigned int              | led_value           | 0                | LED value field value                                  |
+
+## LED Alternate Name Data
+
+The LED Alternate Name Data block represents one entry in the `RGBController::led_alt_names` vector.  This data block was introduced in protocol version 5.
+
+| Size             | Format                 | Name             | Protocol Version | Description                                                     |
+| ---------------- | ---------------------- | ---------------- | ---------------- | --------------------------------------------------------------- |
+| 2                | unsigned short         | led_alt_name_len | 5                | Length of LED alternate name string, including null termination |
+| led_alt_name_len | char[led_alt_name_len] | led_alt_name     | 5                | LED alternate name string value, including null termination     |
 
 ## NET_PACKET_ID_REQUEST_PROTOCOL_VERSION
 
@@ -170,7 +204,7 @@ The client uses this ID to request the server's highest supported protocol versi
 
 ### Response [Size: 4]
 
-The server responds to this request with a single `unsigned int`, size 4, containing the server's highest supported protocol version.
+The server responds to this request with a single `unsigned int`, size 4, containing the server's highest supported protocol version.  If the server is using protocol version 0, it will not send a response.  If no response is received, assume the server's highest supported protocol version is version 0.
 
 ## NET_PACKET_ID_SET_CLIENT_NAME
 
@@ -194,6 +228,21 @@ The client uses this ID to request the server's profile list.  The request conta
 
 The server responds to this request with a data block.  The format of the block is shown below.
 
+| Size     | Format                     | Name         | Protocol Version | Description                                                                      |
+| -------- | -------------------------- | ------------ | ---------------- | -------------------------------------------------------------------------------- |
+| 4        | unsigned int               | data_size    | 2                | Size of all data in packet                                                       |
+| 2        | unsigned short             | num_profiles | 2                | Number of profiles on server                                                     |
+| Variable | Profile Data[num_profiles] | profiles     | 2                | See [Profile Data](#profile-data) block format table.  Repeat num_profiles times |
+
+## Profile Data
+
+The profile data block represents the information of one profile.  This data block was introduced in protocol version 2.
+
+| Size             | Format                 | Name             | Protocol Version | Description                                               |
+| ---------------- | ---------------------- | ---------------- | ---------------- | --------------------------------------------------------- |
+| 2                | unsigned short         | profile_name_len | 2                | Length of profile name string, including null termination |
+| profile_name_len | char[profile_name_len] | profile_name     | 2                | Profile name string value, including null termination     |
+
 ## NET_PACKET_ID_REQUEST_SAVE_PROFILE
 
 ### Client Only [Size: Variable]
@@ -214,6 +263,47 @@ Calling this function will not actually update the controllers.  Instead, the co
 
 The client uses this ID to command the server to delete the given profile.  It passes the name of the profile to delete as a null-terminated string.  The size of the packet is the size of the string including the null terminator.  In C, this is strlen() + 1.  There is no response from the server for this packet.
 
+## NET_PACKET_ID_REQUEST_PLUGIN_LIST
+
+### Request [Size: 0]
+
+The client uses this ID to request the server's plugin list.  The request contains no data.
+
+### Response [Size: Variable]
+
+The server responds to this request with a data block.  The format of the block is shown below.
+
+| Size     | Format                   | Name        | Protocol Version | Description                                                                   |
+| -------- | ------------------------ | ----------- | ---------------- | ----------------------------------------------------------------------------- |
+| 4        | unsigned int             | data_size   | 4                | Size of all data in packet                                                    |
+| 2        | unsigned short           | num_plugins | 4                | Number of plugins on server                                                   |
+| Variable | Plugin Data[num_plugins] | plugins     | 4                | See [Plugin Data](#plugin-data) block format table.  Repeat num_plugins times |
+
+## Plugin Data
+
+The plugin data block represents the information of one plugin.  This data block was introduced in protocol version 4.
+
+| Size                   | Format                       | Name                    | Protocol Version | Description                                                     |
+| ---------------------- | ---------------------------- | ----------------------- | ---------------- | --------------------------------------------------------------- |
+| 2                      | unsigned short               | plugin_name_len         | 4                | Length of plugin name string, including null termination        |
+| plugin_name_len        | char[plugin_name_len]        | plugin_name             | 4                | Plugin name string value, including null termination            |
+| 2                      | unsigned short               | plugin_description_len  | 4                | Length of plugin description string, including null termination |
+| plugin_description_len | char[plugin_description_len] | plugin_description      | 4                | Plugin description string value, including null termination     |
+| 2                      | unsigned short               | plugin_version_len      | 4                | Length of plugin version string, including null termination     |
+| plugin_version_len     | char[plugin_version_len]     | plugin_version          | 4                | Plugin version string value, including null termination         |
+| 4                      | unsigned int                 | plugin_index            | 4                | Plugin index value                                              |
+| 4                      | unsigned int                 | plugin_protocol_version | 4                | Plugin protocol version value                                   |
+
+## NET_PACKET_ID_PLUGIN_SPECIFIC
+
+### Request [Size: Variable]
+
+This packet is used to send data to a plugin.  The `pkt_dev_idx` field in the header specifies which plugin to send to and corresponds to the `plugin_index` field in the plugin list.  The first 4 bytes of the data is the plugin packet type, the rest of the packet is plugin-specific.
+
+### Response [Size: Variable]
+
+The response is optionally generated by the plugin.  The data in the packet is plugin-specific.
+
 ## NET_PACKET_ID_RGBCONTROLLER_RESIZEZONE
 
 ### Client Only [Size: 8]
@@ -224,6 +314,24 @@ The client uses this ID to call the ResizeZone() function of an RGBController de
 | ---- | ------ | -------- | -------------------- |
 | 4    | int    | zone_idx | Zone index to resize |
 | 4    | int    | new_size | New size of the zone |
+
+## NET_PACKET_ID_RGBCONTROLLER_CLEARSEGMENTS
+
+### Client Only [Size: 4]
+
+The client uses this ID to call the ClearSegments() function of an RGBController device.  The packet contains the index of the zone to clear segments on, type int (size 4).  The `pkt_dev_idx` of this request's header indicates which controller you are calling ClearSegments() on.
+
+## NET_PACKET_ID_RGBCONTROLLER_ADDSEGMENT
+
+### Client Only [Size: Variable]
+
+The client uses this ID to call the AddSegment() function of an RGBController device.  The packet contains a data block.  The format of the block is shown below.  The `pkt_dev_idx` of this request's header indicates which controller you are calling AddSegment() on.
+
+| Size             | Format                 | Name             | Description                                               |
+| ---------------- | ---------------------- | ---------------- | --------------------------------------------------------- |
+| 4                | unsigned int           | data_size        | Size of all data in packet                                |
+| 4                | unsigned int           | zone_idx         | Zone index to add segment to                              |
+| Variable         | Segment Data           | segment          | See [Segment Data](#segment-data) block format table.     |
 
 ## NET_PACKET_ID_RGBCONTROLLER_UPDATELEDS
 

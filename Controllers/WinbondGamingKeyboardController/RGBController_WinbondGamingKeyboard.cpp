@@ -42,6 +42,7 @@ static std::vector<keyboard_led> additional_mm_leds =
         17,      // col
         KV(1,0), // value
         KEY_EN_MEDIA_VOLUME_UP, // name
+        KEY_EN_UNUSED, // translated name
         KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT // opcode
     },
     {
@@ -50,6 +51,7 @@ static std::vector<keyboard_led> additional_mm_leds =
         18,      // col
         KV(1,1), // value
         KEY_EN_MEDIA_VOLUME_DOWN, // name
+        KEY_EN_UNUSED, // translated name
         KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT // opcode
     },
     {
@@ -58,6 +60,7 @@ static std::vector<keyboard_led> additional_mm_leds =
         19,      // col
         KV(1,2), // value
         KEY_EN_MEDIA_MUTE, // name
+        KEY_EN_UNUSED, // translated name
         KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT // opcode
     },
     {
@@ -66,6 +69,7 @@ static std::vector<keyboard_led> additional_mm_leds =
         20,      // col
         KV(1,3), // value
         "Key: Cylinder?!",   // name; TODO: no idea what the symbol meant, was a cylinder..
+        KEY_EN_UNUSED, // translated name
         KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT // opcode
     }
 };
@@ -86,6 +90,7 @@ static layout_values winbond_gaming_keyboard_full_layouts =
                 12,           // col
                 KV(4,7),      // value
                 KEY_EN_POUND, // name
+                KEY_EN_UNUSED, // translated name
                 KEYBOARD_OPCODE_SWAP_ONLY // opcode
             },
             {
@@ -94,6 +99,7 @@ static layout_values winbond_gaming_keyboard_full_layouts =
                 1,            // col
                 KV(4,17),     // value
                 KEY_EN_ISO_BACK_SLASH, // name
+                KEY_EN_UNUSED, // translated name
                 KEYBOARD_OPCODE_SWAP_ONLY // opcode
             },
         }
@@ -109,6 +115,7 @@ static layout_values winbond_gaming_keyboard_full_layouts =
                 13,           // col
                 KV(1,17),     // value
                 KEY_JP_YEN,   // name
+                KEY_EN_UNUSED, // translated name
                 KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT // opcode
             }
         }
@@ -135,6 +142,7 @@ static layout_values winbond_gaming_keyboard_tkl_layouts =
                 12,           // col
                 KV(4,7),      // value
                 KEY_EN_POUND, // name
+                KEY_EN_UNUSED, // translated name
                 KEYBOARD_OPCODE_SWAP_ONLY // opcode
             },
             {
@@ -143,6 +151,7 @@ static layout_values winbond_gaming_keyboard_tkl_layouts =
                 1,            // col
                 KV(4,17),     // value
                 KEY_EN_ISO_BACK_SLASH, // name
+                KEY_EN_UNUSED, // translated name
                 KEYBOARD_OPCODE_SWAP_ONLY // opcode
             },
         }
@@ -158,6 +167,7 @@ static layout_values winbond_gaming_keyboard_tkl_layouts =
                 13,           // col
                 KV(1,17),     // value
                 KEY_JP_YEN,   // name
+                KEY_EN_UNUSED, // translated name
                 KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT // opcode
             }
         }
@@ -184,6 +194,7 @@ static layout_values winbond_gaming_keyboard_60_layouts =
                 12,           // col
                 KV(4,7),      // value
                 KEY_EN_POUND, // name
+                KEY_EN_UNUSED, // translated name
                 KEYBOARD_OPCODE_SWAP_ONLY // opcode
             },
             {
@@ -192,6 +203,7 @@ static layout_values winbond_gaming_keyboard_60_layouts =
                 1,            // col
                 KV(4,17),     // value
                 KEY_EN_ISO_BACK_SLASH, // name
+                KEY_EN_UNUSED, // translated name
                 KEYBOARD_OPCODE_SWAP_ONLY // opcode
             },
         }
@@ -207,6 +219,7 @@ static layout_values winbond_gaming_keyboard_60_layouts =
                 13,           // col
                 KV(1,17),     // value
                 KEY_JP_YEN,   // name
+                KEY_EN_UNUSED, // translated name
                 KEYBOARD_OPCODE_INSERT_SHIFT_RIGHT // opcode
             }
         }
@@ -217,7 +230,7 @@ static layout_values winbond_gaming_keyboard_60_layouts =
     }
 };
 
-static void InitLayouts(layout_values& keyboard_layouts, KEYBOARD_SIZE kb_size)
+static void InitLayouts(layout_values& keyboard_layouts, KEYBOARD_SIZE kb_size, std::string vendor)
 {
     /*-------------------------------------------------------------------*\
     | using kvs ("keyvals" or sth like that) as an alias for              |
@@ -328,12 +341,21 @@ static void InitLayouts(layout_values& keyboard_layouts, KEYBOARD_SIZE kb_size)
     |    8-1 = (Num7, Num8, Num9, Num+ ?), 12 = CapsLock, ??, 14 = A, S, D, F |
     \*-----------------------------------------------------------------------*/
 
-    // P, Ü/[, +/], US-Backslash
+    // P, Ü/[, +/]
     if(kb_size & KEYBOARD_ZONE_MAIN)
     {
-        for(int i=0; i <= 3; ++i)
+        for(int i=0; i <= 2; ++i)
         {
             kvs.push_back( KV(3,i) );
+        }
+        // Backslash
+        if(vendor != "Hator")
+        {
+            kvs.push_back( KV(3,3) );
+        }
+        else
+        {
+            kvs.push_back( KV(3,4) );
         }
     }
 
@@ -719,6 +741,8 @@ void RGBController_WinbondGamingKeyboard::SetupZones()
 
     layout_values* layouts = &winbond_gaming_keyboard_full_layouts;
     KEYBOARD_SIZE kb_size = controller->GetSize();
+    std::string vendor = controller->GetVendor();
+
     if(kb_size == KEYBOARD_SIZE_TKL)
     {
         layouts = &winbond_gaming_keyboard_tkl_layouts;
@@ -734,7 +758,7 @@ void RGBController_WinbondGamingKeyboard::SetupZones()
 
     if(layouts->default_values.empty())
     {
-        InitLayouts(*layouts, kb_size);
+        InitLayouts(*layouts, kb_size, vendor);
     }
 
     KeyboardLayoutManager new_kb(controller->GetLayout(), kb_size, *layouts);

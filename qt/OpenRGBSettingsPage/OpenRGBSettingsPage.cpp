@@ -73,7 +73,7 @@ OpenRGBSettingsPage::OpenRGBSettingsPage(QWidget *parent) :
     /*---------------------------------------------------------*\
     | Load theme settings                                       |
     \*---------------------------------------------------------*/
-    ui->ComboBoxTheme->addItems({"auto", "light", "dark"});
+    ui->ComboBoxTheme->addItems({"Auto", "Light", "Dark"});
 
     json theme_settings = ResourceManager::get()->GetSettingsManager()->GetSettings("Theme");
 
@@ -84,7 +84,7 @@ OpenRGBSettingsPage::OpenRGBSettingsPage(QWidget *parent) :
     }
     else
     {
-        ui->ComboBoxTheme->setCurrentText(QString::fromStdString(("light")));
+        ui->ComboBoxTheme->setCurrentText(QString::fromStdString(("Light")));
     }
 
     theme_initialized = true;
@@ -186,22 +186,42 @@ OpenRGBSettingsPage::OpenRGBSettingsPage(QWidget *parent) :
     /*---------------------------------------------------------*\
     | Checkboxes                                                |
     \*---------------------------------------------------------*/
+    if(log_manager_settings.contains("log_file"))
+    {
+        ui->CheckboxLogFile->setChecked(log_manager_settings["log_file"]);
+    }
+    else
+    {
+        ui->CheckboxLogFile->setChecked(true);
+    }
+
     if(log_manager_settings.contains("log_console"))
     {
         ui->CheckboxLogConsole->setChecked(log_manager_settings["log_console"]);
     }
+    else
+    {
+        ui->CheckboxLogConsole->setChecked(false);
+    }
 
     /*---------------------------------------------------------*\
-    | Load drivers settings (Windows only)                      |
+    | Load drivers settings (Windows only or Mac)               |
     \*---------------------------------------------------------*/
-#ifdef _WIN32
+#if defined(WIN32) || defined(_MACOSX_X86_X64)
     json drivers_settings = ResourceManager::get()->GetSettingsManager()->GetSettings("Drivers");
 
     if(drivers_settings.contains("amd_smbus_reduce_cpu"))
     {
         ui->CheckboxAMDSMBusReduceCPU->setChecked(drivers_settings["amd_smbus_reduce_cpu"]);
     }
-
+#else
+    ui->DriversSettingsLabel->hide();
+    ui->CheckboxAMDSMBusReduceCPU->hide();
+#endif
+    /*---------------------------------------------------------*\
+    | Load drivers settings (Windows only)                      |
+    \*---------------------------------------------------------*/
+#ifdef _WIN32
     if(drivers_settings.contains("shared_smbus_access"))
     {
         ui->CheckboxSharedSMBusAccess->setChecked(drivers_settings["shared_smbus_access"]);
@@ -211,8 +231,6 @@ OpenRGBSettingsPage::OpenRGBSettingsPage(QWidget *parent) :
         ui->CheckboxSharedSMBusAccess->setChecked(true);
     }
 #else
-    ui->DriversSettingsLabel->hide();
-    ui->CheckboxAMDSMBusReduceCPU->hide();
     ui->CheckboxSharedSMBusAccess->hide();
 #endif
 
@@ -820,7 +838,7 @@ void OpenRGBSettingsPage::ConfigureAutoStart()
 
         if (!auto_start.EnableAutoStart(auto_start_info))
         {
-            ui->AutoStartStatusLabel->setText(tr("A problem occurred enabling Start At Login."));
+            ui->AutoStartStatusLabel->setText(tr("A problem occurred enabling Start at Login."));
             ui->AutoStartStatusLabel->show();
             SetAutoStartVisibility(true);
         }
@@ -942,6 +960,14 @@ void Ui::OpenRGBSettingsPage::on_CheckboxLogConsole_clicked()
 {
     json log_manager_settings = ResourceManager::get()->GetSettingsManager()->GetSettings("LogManager");
     log_manager_settings["log_console"] = ui->CheckboxLogConsole->isChecked();
+    ResourceManager::get()->GetSettingsManager()->SetSettings("LogManager", log_manager_settings);
+    SaveSettings();
+}
+
+void Ui::OpenRGBSettingsPage::on_CheckboxLogFile_clicked()
+{
+    json log_manager_settings = ResourceManager::get()->GetSettingsManager()->GetSettings("LogManager");
+    log_manager_settings["log_file"] = ui->CheckboxLogFile->isChecked();
     ResourceManager::get()->GetSettingsManager()->SetSettings("LogManager", log_manager_settings);
     SaveSettings();
 }

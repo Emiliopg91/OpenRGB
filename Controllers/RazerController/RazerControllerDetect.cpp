@@ -189,6 +189,8 @@ REGISTER_HID_DETECTOR_IPU("Razer Huntsman Tournament Edition",               Det
 REGISTER_HID_DETECTOR_IPU("Razer Huntsman V2 Analog",                        DetectRazerControllers,        RAZER_VID,  RAZER_HUNTSMAN_V2_ANALOG_PID,                   0x03,   0x0C,   0x01);
 REGISTER_HID_DETECTOR_IPU("Razer Huntsman V2 TKL",                           DetectRazerControllers,        RAZER_VID,  RAZER_HUNTSMAN_V2_TKL_PID,                      0x03,   0x0C,   0x01);
 REGISTER_HID_DETECTOR_IPU("Razer Huntsman V2",                               DetectRazerControllers,        RAZER_VID,  RAZER_HUNTSMAN_V2_PID,                          0x03,   0x0C,   0x01);
+REGISTER_HID_DETECTOR_IPU("Razer Huntsman V3 Pro",                           DetectRazerControllers,        RAZER_VID,  RAZER_HUNTSMAN_V3_PRO_PID,                      0x03,   0x0C,   0x01);
+REGISTER_HID_DETECTOR_IPU("Razer Huntsman V3 Pro TKL White",                 DetectRazerControllers,        RAZER_VID,  RAZER_HUNTSMAN_V3_PRO_TKL_WHITE_PID,            0x03,   0x0C,   0x01);
 REGISTER_HID_DETECTOR_IPU("Razer Ornata Chroma",                             DetectRazerControllers,        RAZER_VID,  RAZER_ORNATA_CHROMA_PID,                        0x02,   0x01,   0x02);
 REGISTER_HID_DETECTOR_IPU("Razer Ornata Chroma V2",                          DetectRazerControllers,        RAZER_VID,  RAZER_ORNATA_CHROMA_V2_PID,                     0x02,   0x01,   0x02);
 REGISTER_HID_DETECTOR_IPU("Razer Ornata V3",                                 DetectRazerControllers,        RAZER_VID,  RAZER_ORNATA_V3_PID,                            0x02,   0x01,   0x02);
@@ -336,7 +338,7 @@ REGISTER_HID_DETECTOR_IPU("Razer Strider Chroma",                            Det
 REGISTER_HID_DETECTOR_IPU("Razer Base Station Chroma",                       DetectRazerControllers,        RAZER_VID,  RAZER_BASE_STATION_CHROMA_PID,                  0x00,   0x01,   0x02);
 REGISTER_HID_DETECTOR_IPU("Razer Base Station V2 Chroma",                    DetectRazerControllers,        RAZER_VID,  RAZER_BASE_STATION_V2_CHROMA_PID,               0x00,   0x01,   0x02);
 REGISTER_HID_DETECTOR_IPU("Razer Charging Pad Chroma",                       DetectRazerControllers,        RAZER_VID,  RAZER_CHARGING_PAD_CHROMA_PID,                  0x00,   0x0C,   0x01);
-REGISTER_HID_DETECTOR_I  ("Razer Chroma Addressable RGB Controller",         DetectRazerARGBControllers,    RAZER_VID,  RAZER_CHROMA_ADDRESSABLE_RGB_CONTROLLER_PID,    0x00                );
+REGISTER_HID_DETECTOR_I("Razer Chroma Addressable RGB Controller",           DetectRazerARGBControllers,    RAZER_VID,  RAZER_CHROMA_ADDRESSABLE_RGB_CONTROLLER_PID,    0x00                );
 REGISTER_HID_DETECTOR_IPU("Razer Chroma HDK",                                DetectRazerControllers,        RAZER_VID,  RAZER_CHROMA_HDK_PID,                           0x02,   0x01,   0x02);
 REGISTER_HID_DETECTOR_IPU("Razer Chroma Mug Holder",                         DetectRazerControllers,        RAZER_VID,  RAZER_CHROMA_MUG_PID,                           0x00,   0x01,   0x02);
 REGISTER_HID_DETECTOR_IPU("Razer Chroma PC Case Lighting Kit",               DetectRazerControllers,        RAZER_VID,  RAZER_CHROMA_PC_CASE_LIGHTING_KIT_PID,          0x02,   0x01,   0x02);
@@ -350,7 +352,7 @@ REGISTER_HID_DETECTOR_IPU("Razer Mouse Bungee V3 Chroma",                    Det
 REGISTER_HID_DETECTOR_IPU("Razer Mouse Dock Chroma",                         DetectRazerControllers,        RAZER_VID,  RAZER_MOUSE_DOCK_CHROMA_PID,                    0x00,   0x01,   0x02);
 REGISTER_HID_DETECTOR_IPU("Razer Mouse Dock Pro",                            DetectRazerControllers,        RAZER_VID,  RAZER_MOUSE_DOCK_PRO_PID,                       0x00,   0x01,   0x02);
 REGISTER_HID_DETECTOR_IPU("Lian Li O11 Dynamic - Razer Edition",             DetectRazerControllers,        RAZER_VID,  RAZER_O11_DYNAMIC_PID,                          0x02,   0x01,   0x02);
-REGISTER_HID_DETECTOR_PU ("Razer Seiren Emote",                              DetectRazerControllers,        RAZER_VID,  RAZER_SEIREN_EMOTE_PID,                         0x0C,   0x01        );
+REGISTER_HID_DETECTOR_PU("Razer Seiren Emote",                               DetectRazerControllers,        RAZER_VID,  RAZER_SEIREN_EMOTE_PID,                         0x0C,   0x01        );
 REGISTER_HID_DETECTOR_PU("Razer Thunderbolt 4 Dock Chroma",                  DetectRazerControllers,        RAZER_VID,  RAZER_THUNDERBOLT_4_DOCK_CHROMA_PID,            0x0C,   0x01        );
 
 /*-----------------------------------------------------------------------------------------------------*\

@@ -24,6 +24,7 @@ OpenRGBZoneResizeDialog::OpenRGBZoneResizeDialog(RGBController* edit_dev_ptr, un
     unsigned int size_current = edit_dev->zones[edit_zone_idx].leds_count;
 
     ui->setupUi(this);
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     QStringList header_labels;
     header_labels << "Name" << "Size" << "";
@@ -68,6 +69,7 @@ OpenRGBZoneResizeDialog::OpenRGBZoneResizeDialog(unsigned int edit_zone_min_val,
     edit_dev = NULL;
 
     ui->setupUi(this);
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     /*-----------------------------------------------------*\
     | This constructor is used for resizing mode-specific   |
@@ -183,7 +185,7 @@ int Ui::OpenRGBZoneResizeDialog::show()
     {
         edit_dev->ResizeZone(edit_zone_idx, ret_val);
 
-        edit_dev->zones[edit_zone_idx].segments.clear();
+        edit_dev->ClearSegments(edit_zone_idx);
 
         unsigned int start_idx = 0;
 
@@ -195,7 +197,7 @@ int Ui::OpenRGBZoneResizeDialog::show()
             new_segment.start_idx  = start_idx;
             new_segment.leds_count = ((QLineEdit*)ui->SegmentsTreeWidget->itemWidget(ui->SegmentsTreeWidget->topLevelItem(item_idx), 1))->text().toInt();
 
-            edit_dev->zones[edit_zone_idx].segments.push_back(new_segment);
+            edit_dev->AddSegment(edit_zone_idx, new_segment);
 
             start_idx += new_segment.leds_count;
         }

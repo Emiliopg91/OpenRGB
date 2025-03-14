@@ -19,11 +19,12 @@
 #include <thread>
 #include <string>
 #include <vector>
-#include "SPDAccessor.h"
+#include "SPDWrapper.h"
 #include "hidapi_wrapper.h"
 #include "i2c_smbus.h"
+#include "ResourceManagerInterface.h"
 #include "filesystem.h"
-#include "json.hpp"
+#include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
 
@@ -94,50 +95,15 @@ typedef struct
     uint8_t                         dimm_type;
 } I2CDIMMDeviceDetectorBlock;
 
-typedef void (*DeviceListChangeCallback)(void *);
-typedef void (*DetectionProgressCallback)(void *);
-typedef void (*DetectionStartCallback)(void *);
-typedef void (*DetectionEndCallback)(void *);
-typedef void (*I2CBusListChangeCallback)(void *);
+/*-------------------------------------------------------------------------*\
+| Define a macro for QT lupdate to parse                                    |
+\*-------------------------------------------------------------------------*/
+#define QT_TRANSLATE_NOOP(scope, x) x
 
-class ResourceManagerInterface
-{
-public:
-    virtual std::vector<i2c_smbus_interface*> & GetI2CBusses()                                                                                      = 0;
-
-    virtual void                                RegisterRGBController(RGBController *rgb_controller)                                                = 0;
-    virtual void                                UnregisterRGBController(RGBController *rgb_controller)                                              = 0;
-
-    virtual void                                RegisterDeviceListChangeCallback(DeviceListChangeCallback new_callback, void * new_callback_arg)    = 0;
-    virtual void                                RegisterDetectionProgressCallback(DetectionProgressCallback new_callback, void * new_callback_arg)  = 0;
-    virtual void                                RegisterDetectionStartCallback(DetectionStartCallback new_callback, void * new_callback_arg)        = 0;
-    virtual void                                RegisterDetectionEndCallback(DetectionEndCallback new_callback, void * new_callback_arg)            = 0;
-    virtual void                                RegisterI2CBusListChangeCallback(I2CBusListChangeCallback new_callback, void * new_callback_arg)    = 0;
-
-    virtual void                                UnregisterDeviceListChangeCallback(DeviceListChangeCallback callback, void * callback_arg)          = 0;
-    virtual void                                UnregisterDetectionProgressCallback(DetectionProgressCallback callback, void *callback_arg)         = 0;
-    virtual void                                UnregisterDetectionStartCallback(DetectionStartCallback callback, void *callback_arg)               = 0;
-    virtual void                                UnregisterDetectionEndCallback(DetectionEndCallback callback, void *callback_arg)                   = 0;
-    virtual void                                UnregisterI2CBusListChangeCallback(I2CBusListChangeCallback callback, void * callback_arg)          = 0;
-
-    virtual std::vector<RGBController*> &       GetRGBControllers()                                                                                 = 0;
-
-    virtual unsigned int                        GetDetectionPercent()                                                                               = 0;
-
-    virtual filesystem::path                    GetConfigurationDirectory()                                                                         = 0;
-
-    virtual std::vector<NetworkClient*>&        GetClients()                                                                                        = 0;
-    virtual NetworkServer*                      GetServer()                                                                                         = 0;
-
-    virtual ProfileManager*                     GetProfileManager()                                                                                 = 0;
-    virtual SettingsManager*                    GetSettingsManager()                                                                                = 0;
-
-    virtual void                                UpdateDeviceList()                                                                                  = 0;
-    virtual void                                WaitForDeviceDetection()                                                                            = 0;
-
-protected:
-    virtual                                    ~ResourceManagerInterface() {};
-};
+extern const char* I2C_ERR_WIN;
+extern const char* I2C_ERR_LINUX;
+extern const char* UDEV_MISSING;
+extern const char* UDEV_MULTI;
 
 class ResourceManager: public ResourceManagerInterface
 {
@@ -227,14 +193,22 @@ public:
     void WaitForDeviceDetection();
 
 private:
-    void DetectDevicesThreadFunction();
     void UpdateDetectorSettings();
     void SetupConfigurationDirectory();
     bool AttemptLocalConnection();
-    void InitThreadFunction();
     bool ProcessPreDetection();
     void ProcessPostDetection();
     bool IsAnyDimmDetectorEnabled(json &detector_settings);
+    void RunInBackgroundThread(std::function<void()>);
+    void BackgroundThreadFunction();
+
+    /*-------------------------------------------------------------------------------------*\
+    | Functions that must be run in the background thread                                   |
+    | These are not related to STL coroutines, yet this name is the most convenient         |
+    \*-------------------------------------------------------------------------------------*/
+    void InitCoroutine();
+    void DetectDevicesCoroutine();
+    void HidExitCoroutine();
 
     /*-------------------------------------------------------------------------------------*\
     | Static pointer to shared instance of ResourceManager                                  |
@@ -318,10 +292,13 @@ private:
     /*-------------------------------------------------------------------------------------*\
     | Detection Thread and Detection State                                                  |
     \*-------------------------------------------------------------------------------------*/
-    std::thread *                               DetectDevicesThread; // Used for rescan
-    std::thread *                               InitThread; // Used for initial scan, initial network scan, server startup
+    std::thread *                               DetectDevicesThread;
     std::mutex                                  DetectDeviceMutex;
+    std::function<void()>                       ScheduledBackgroundFunction;
+    std::mutex                                  BackgroundThreadStateMutex;
+    std::condition_variable                     BackgroundFunctionStartTrigger; // NOTE: wakes up the background detection thread
 
+    std::atomic<bool>                           background_thread_running;
     std::atomic<bool>                           detection_is_required;
     std::atomic<unsigned int>                   detection_percent;
     std::atomic<unsigned int>                   detection_prev_size;
