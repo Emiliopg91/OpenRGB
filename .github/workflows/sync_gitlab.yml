@@ -26,4 +26,8 @@ jobs:
           git fetch gitlab
           git checkout master
           git merge gitlab/master --allow-unrelated-histories
+
+      - name: Push changes to GitHub
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/Emiliopg91/OpenRGB.git
           git push origin master
