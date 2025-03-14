@@ -228,6 +228,14 @@ void NZXTHue2Controller::UpdateDeviceList()
                 num_leds_in_device = 8;
                 break;
 
+            case 0x1D: //F360 RGB Core Fan Case Version (360mm)
+                num_leds_in_device = 24;
+                break;
+
+            case 0x1E: //Kraken Elite Ring
+                num_leds_in_device = 24;
+                break;
+
             default:
                 break;
             }

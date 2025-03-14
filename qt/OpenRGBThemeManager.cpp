@@ -31,16 +31,14 @@ void OpenRGBThemeManager::Init()
     | default theme does not handle vertical tabs well  |
     \*-------------------------------------------------*/
     QApplication::setStyle(QStyleFactory::create("Fusion"));
-#else
-    /*---------------------------------------------------*\
-    | Apply dark theme on Windows and Linux if configured |
-    \*---------------------------------------------------*/
+#endif
+    /*-------------------------------------------------*\
+    | Apply dark theme if configured                    |
+    \*-------------------------------------------------*/
     if(IsDarkTheme())
     {
         SetDarkTheme();
     }
-#endif
-
 }
 
 void OpenRGBThemeManager::SetDarkTheme()
@@ -95,19 +93,19 @@ bool OpenRGBThemeManager::IsDarkTheme()
     /*-------------------------------------------------*\
     | Read the theme key and adjust accordingly         |
     \*-------------------------------------------------*/
-    std::string current_theme = "light";
+    std::string current_theme = "Light";
 
     if(theme_settings.contains("theme"))
     {
         current_theme = theme_settings["theme"];
     }
 
-    if(current_theme == "dark")
+    if(current_theme == "Dark")
     {
         return true;
     }
 #ifdef _WIN32
-    else if(current_theme == "auto")
+    else if(current_theme == "Auto")
     {
         QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", QSettings::NativeFormat);
 

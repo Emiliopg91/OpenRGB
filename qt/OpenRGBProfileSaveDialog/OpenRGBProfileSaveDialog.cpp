@@ -9,7 +9,7 @@
 
 #include <QCloseEvent>
 #include "ResourceManager.h"
-#include "OpenRGBDialog2.h"
+#include "OpenRGBDialog.h"
 #include "ProfileManager.h"
 #include "OpenRGBProfileSaveDialog.h"
 #include "ui_OpenRGBProfileSaveDialog.h"
@@ -22,6 +22,7 @@ Ui::OpenRGBProfileSaveDialog::OpenRGBProfileSaveDialog(QWidget *parent) :
     QDialog(parent), ui(new Ui::OpenRGBProfileSaveDialogUi)
 {
     ui->setupUi(this);
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     std::vector<std::string> filenames = ResourceManager::get()->GetProfileManager()->profile_list;
 

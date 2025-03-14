@@ -21,18 +21,50 @@ CONFIG +=   c++17                                                               
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-greaterThan(QT_MAJOR_VERSION, 5): DEFINES += _QT6
-
 #-----------------------------------------------------------------------------------------------#
 # Application Configuration                                                                     #
 #-----------------------------------------------------------------------------------------------#
 MAJOR       = 0
 MINOR       = 9
-REVISION    = 1
-VERSION     = $$MAJOR"."$$MINOR$$REVISION
+SUFFIX      = git
+
+SHORTHASH   = $$system("git rev-parse --short=7 HEAD")
+LASTTAG     = "release_"$$MAJOR"."$$MINOR
+COMMAND     = "git rev-list --count "$$LASTTAG"..HEAD"
+COMMITS     = $$system($$COMMAND)
+
+VERSION_NUM = $$MAJOR"."$$MINOR"."$$COMMITS
+VERSION_STR = $$MAJOR"."$$MINOR
+
+VERSION_DEB = $$VERSION_NUM
+VERSION_WIX = $$VERSION_NUM
+VERSION_AUR = $$VERSION_NUM
+VERSION_RPM = $$VERSION_NUM
+
+equals(SUFFIX, "git") {
+VERSION_STR = $$VERSION_STR"+ ("$$SUFFIX$$COMMITS")"
+VERSION_DEB = $$VERSION_DEB"~git"$$SHORTHASH
+VERSION_AUR = $$VERSION_AUR".g"$$SHORTHASH
+VERSION_RPM = $$VERSION_RPM"^git"$$SHORTHASH
+} else {
+    !isEmpty(SUFFIX) {
+VERSION_STR = $$VERSION_STR"+ ("$$SUFFIX")"
+VERSION_DEB = $$VERSION_DEB"~"$$SUFFIX
+VERSION_AUR = $$VERSION_AUR"."$$SUFFIX
+VERSION_RPM = $$VERSION_RPM"^"$$SUFFIX
+    }
+}
+
 TARGET      = OpenRGB
 TEMPLATE    = app
 
+message("VERSION_NUM: "$$VERSION_NUM)
+message("VERSION_STR: "$$VERSION_STR)
+message("VERSION_SFX: "$$SUFFIX)
+message("VERSION_DEB: "$$VERSION_DEB)
+message("VERSION_WIX: "$$VERSION_WIX)
+message("VERSION_AUR: "$$VERSION_AUR)
+message("VERSION_RPM: "$$VERSION_RPM)
 #-----------------------------------------------------------------------------------------------#
 # Automatically generated build information                                                     #
 #-----------------------------------------------------------------------------------------------#
@@ -42,10 +74,17 @@ freebsd:BUILDDATE       = $$system(date -j -R -r "${SOURCE_DATE_EPOCH:-$(date +%
 macx:BUILDDATE          = $$system(date -j -R -r "${SOURCE_DATE_EPOCH:-$(date +%s)}")
 GIT_COMMIT_ID           = $$system(git log -n 1 --pretty=format:"%H")
 GIT_COMMIT_DATE         = $$system(git log -n 1 --pretty=format:"%ci")
-GIT_BRANCH              = $$system(git branch --show-current)
 
+unix {
+    GIT_BRANCH          = $$system(sh scripts/git-get-branch.sh)
+}
+else {
+    GIT_BRANCH          = $$system(pwsh scripts/git-get-branch.ps1)
+}
+
+message("GIT_BRANCH: "$$GIT_BRANCH)
 DEFINES +=                                                                                      \
-    VERSION_STRING=\\"\"\"$$VERSION\\"\"\"                                                      \
+    VERSION_STRING=\\"\"\"$$VERSION_STR\\"\"\"                                                  \
     BUILDDATE_STRING=\\"\"\"$$BUILDDATE\\"\"\"                                                  \
     GIT_COMMIT_ID=\\"\"\"$$GIT_COMMIT_ID\\"\"\"                                                 \
     GIT_COMMIT_DATE=\\"\"\"$$GIT_COMMIT_DATE\\"\"\"                                             \
@@ -104,8 +143,8 @@ INCLUDEPATH +=                                                                  
     $$GUI_INCLUDES                                                                              \
     dependencies/ColorWheel                                                                     \
     dependencies/CRCpp/                                                                         \
-    dependencies/hueplusplus-1.1.0/include                                                      \
-    dependencies/hueplusplus-1.1.0/include/hueplusplus                                          \
+    dependencies/hueplusplus-1.2.0/include                                                      \
+    dependencies/hueplusplus-1.2.0/include/hueplusplus                                          \
     dependencies/httplib                                                                        \
     dependencies/json/                                                                          \
     dependencies/mdns                                                                           \
@@ -123,6 +162,7 @@ INCLUDEPATH +=                                                                  
     KeyboardLayoutManager/                                                                      \
     RGBController/                                                                              \
     qt/                                                                                         \
+    SPDAccessor/                                                                                \
     SuspendResume/
 
 HEADERS +=                                                                                      \
@@ -130,7 +170,7 @@ HEADERS +=                                                                      
     $$CONTROLLER_H                                                                              \
     Colors.h                                                                                    \
     dependencies/ColorWheel/ColorWheel.h                                                        \
-    dependencies/json/json.hpp                                                                  \
+    dependencies/json/nlohmann/json.hpp                                                         \
     LogManager.h                                                                                \
     NetworkClient.h                                                                             \
     NetworkProtocol.h                                                                           \
@@ -139,6 +179,7 @@ HEADERS +=                                                                      
     PluginManager.h                                                                             \
     ProfileManager.h                                                                            \
     ResourceManager.h                                                                           \
+    ResourceManagerInterface.h                                                                  \
     SettingsManager.h                                                                           \
     Detector.h                                                                                  \
     DeviceDetector.h                                                                            \
@@ -169,35 +210,35 @@ SOURCES +=                                                                      
     $$GUI_CPP                                                                                   \
     $$CONTROLLER_CPP                                                                            \
     dependencies/ColorWheel/ColorWheel.cpp                                                      \
-    dependencies/hueplusplus-1.1.0/src/Action.cpp                                               \
-    dependencies/hueplusplus-1.1.0/src/APICache.cpp                                             \
-    dependencies/hueplusplus-1.1.0/src/BaseDevice.cpp                                           \
-    dependencies/hueplusplus-1.1.0/src/BaseHttpHandler.cpp                                      \
-    dependencies/hueplusplus-1.1.0/src/Bridge.cpp                                               \
-    dependencies/hueplusplus-1.1.0/src/BridgeConfig.cpp                                         \
-    dependencies/hueplusplus-1.1.0/src/CLIPSensors.cpp                                          \
-    dependencies/hueplusplus-1.1.0/src/ColorUnits.cpp                                           \
-    dependencies/hueplusplus-1.1.0/src/EntertainmentMode.cpp                                    \
-    dependencies/hueplusplus-1.1.0/src/ExtendedColorHueStrategy.cpp                             \
-    dependencies/hueplusplus-1.1.0/src/ExtendedColorTemperatureStrategy.cpp                     \
-    dependencies/hueplusplus-1.1.0/src/Group.cpp                                                \
-    dependencies/hueplusplus-1.1.0/src/HueCommandAPI.cpp                                        \
-    dependencies/hueplusplus-1.1.0/src/HueDeviceTypes.cpp                                       \
-    dependencies/hueplusplus-1.1.0/src/HueException.cpp                                         \
-    dependencies/hueplusplus-1.1.0/src/Light.cpp                                                \
-    dependencies/hueplusplus-1.1.0/src/ModelPictures.cpp                                        \
-    dependencies/hueplusplus-1.1.0/src/NewDeviceList.cpp                                        \
-    dependencies/hueplusplus-1.1.0/src/Scene.cpp                                                \
-    dependencies/hueplusplus-1.1.0/src/Schedule.cpp                                             \
-    dependencies/hueplusplus-1.1.0/src/Sensor.cpp                                               \
-    dependencies/hueplusplus-1.1.0/src/SimpleBrightnessStrategy.cpp                             \
-    dependencies/hueplusplus-1.1.0/src/SimpleColorHueStrategy.cpp                               \
-    dependencies/hueplusplus-1.1.0/src/SimpleColorTemperatureStrategy.cpp                       \
-    dependencies/hueplusplus-1.1.0/src/StateTransaction.cpp                                     \
-    dependencies/hueplusplus-1.1.0/src/TimePattern.cpp                                          \
-    dependencies/hueplusplus-1.1.0/src/UPnP.cpp                                                 \
-    dependencies/hueplusplus-1.1.0/src/Utils.cpp                                                \
-    dependencies/hueplusplus-1.1.0/src/ZLLSensors.cpp                                           \
+    dependencies/hueplusplus-1.2.0/src/Action.cpp                                               \
+    dependencies/hueplusplus-1.2.0/src/APICache.cpp                                             \
+    dependencies/hueplusplus-1.2.0/src/BaseDevice.cpp                                           \
+    dependencies/hueplusplus-1.2.0/src/BaseHttpHandler.cpp                                      \
+    dependencies/hueplusplus-1.2.0/src/Bridge.cpp                                               \
+    dependencies/hueplusplus-1.2.0/src/BridgeConfig.cpp                                         \
+    dependencies/hueplusplus-1.2.0/src/CLIPSensors.cpp                                          \
+    dependencies/hueplusplus-1.2.0/src/ColorUnits.cpp                                           \
+    dependencies/hueplusplus-1.2.0/src/EntertainmentMode.cpp                                    \
+    dependencies/hueplusplus-1.2.0/src/ExtendedColorHueStrategy.cpp                             \
+    dependencies/hueplusplus-1.2.0/src/ExtendedColorTemperatureStrategy.cpp                     \
+    dependencies/hueplusplus-1.2.0/src/Group.cpp                                                \
+    dependencies/hueplusplus-1.2.0/src/HueCommandAPI.cpp                                        \
+    dependencies/hueplusplus-1.2.0/src/HueDeviceTypes.cpp                                       \
+    dependencies/hueplusplus-1.2.0/src/HueException.cpp                                         \
+    dependencies/hueplusplus-1.2.0/src/Light.cpp                                                \
+    dependencies/hueplusplus-1.2.0/src/ModelPictures.cpp                                        \
+    dependencies/hueplusplus-1.2.0/src/NewDeviceList.cpp                                        \
+    dependencies/hueplusplus-1.2.0/src/Scene.cpp                                                \
+    dependencies/hueplusplus-1.2.0/src/Schedule.cpp                                             \
+    dependencies/hueplusplus-1.2.0/src/Sensor.cpp                                               \
+    dependencies/hueplusplus-1.2.0/src/SimpleBrightnessStrategy.cpp                             \
+    dependencies/hueplusplus-1.2.0/src/SimpleColorHueStrategy.cpp                               \
+    dependencies/hueplusplus-1.2.0/src/SimpleColorTemperatureStrategy.cpp                       \
+    dependencies/hueplusplus-1.2.0/src/StateTransaction.cpp                                     \
+    dependencies/hueplusplus-1.2.0/src/TimePattern.cpp                                          \
+    dependencies/hueplusplus-1.2.0/src/UPnP.cpp                                                 \
+    dependencies/hueplusplus-1.2.0/src/Utils.cpp                                                \
+    dependencies/hueplusplus-1.2.0/src/ZLLSensors.cpp                                           \
     main.cpp                                                                                    \
     cli.cpp                                                                                     \
     dmiinfo/dmiinfo.cpp                                                                         \
@@ -208,7 +249,11 @@ SOURCES +=                                                                      
     PluginManager.cpp                                                                           \
     ProfileManager.cpp                                                                          \
     ResourceManager.cpp                                                                         \
-    SPDAccessor.cpp                                                                             \
+    SPDAccessor/DDR4DirectAccessor.cpp                                                          \
+    SPDAccessor/DDR5DirectAccessor.cpp                                                          \
+    SPDAccessor/SPDAccessor.cpp                                                                 \
+    SPDAccessor/SPDDetector.cpp                                                                 \
+    SPDAccessor/SPDWrapper.cpp                                                                  \
     SettingsManager.cpp                                                                         \
     i2c_smbus/i2c_smbus.cpp                                                                     \
     i2c_tools/i2c_tools.cpp                                                                     \
@@ -255,6 +300,7 @@ unix {
 #-----------------------------------------------------------------------------------------------#
 TRANSLATIONS +=                                                                                 \
     qt/i18n/OpenRGB_de_DE.ts                                                                    \
+    qt/i18n/OpenRGB_el_GR.ts                                                                    \
     qt/i18n/OpenRGB_en_US.ts                                                                    \
     qt/i18n/OpenRGB_en_AU.ts                                                                    \
     qt/i18n/OpenRGB_en_GB.ts                                                                    \
@@ -262,8 +308,10 @@ TRANSLATIONS +=                                                                 
     qt/i18n/OpenRGB_fr_FR.ts                                                                    \
     qt/i18n/OpenRGB_hr_HR.ts                                                                    \
     qt/i18n/OpenRGB_it_IT.ts                                                                    \
+    qt/i18n/OpenRGB_ja_JP.ts                                                                    \
     qt/i18n/OpenRGB_ko_KR.ts                                                                    \
     qt/i18n/OpenRGB_ms_MY.ts                                                                    \
+    qt/i18n/OpenRGB_nb_NO.ts                                                                    \
     qt/i18n/OpenRGB_pl_PL.ts                                                                    \
     qt/i18n/OpenRGB_pt_BR.ts                                                                    \
     qt/i18n/OpenRGB_ru_RU.ts                                                                    \
@@ -279,110 +327,14 @@ win32:INCLUDEPATH +=                                                            
     dependencies/hidapi-win/include                                                             \
     dependencies/winring0/include                                                               \
     dependencies/libusb-1.0.27/include                                                          \
-    dependencies/mbedtls-2.28.8/include                                                         \
+    dependencies/mbedtls-3.2.1/include                                                          \
     dependencies/NVFC                                                                           \
     wmi/                                                                                        \
 
 win32:SOURCES += $$CONTROLLER_CPP_WINDOWS
 
 win32:SOURCES +=                                                                                \
-    dependencies/hueplusplus-1.1.0/src/WinHttpHandler.cpp                                       \
-    dependencies/mbedtls-2.28.8/library/aes.c                                                   \
-    dependencies/mbedtls-2.28.8/library/aesni.c                                                 \
-    dependencies/mbedtls-2.28.8/library/arc4.c                                                  \
-    dependencies/mbedtls-2.28.8/library/aria.c                                                  \
-    dependencies/mbedtls-2.28.8/library/asn1parse.c                                             \
-    dependencies/mbedtls-2.28.8/library/asn1write.c                                             \
-    dependencies/mbedtls-2.28.8/library/base64.c                                                \
-    dependencies/mbedtls-2.28.8/library/bignum.c                                                \
-    dependencies/mbedtls-2.28.8/library/blowfish.c                                              \
-    dependencies/mbedtls-2.28.8/library/camellia.c                                              \
-    dependencies/mbedtls-2.28.8/library/ccm.c                                                   \
-    dependencies/mbedtls-2.28.8/library/certs.c                                                 \
-    dependencies/mbedtls-2.28.8/library/chacha20.c                                              \
-    dependencies/mbedtls-2.28.8/library/chachapoly.c                                            \
-    dependencies/mbedtls-2.28.8/library/cipher.c                                                \
-    dependencies/mbedtls-2.28.8/library/cipher_wrap.c                                           \
-    dependencies/mbedtls-2.28.8/library/cmac.c                                                  \
-    dependencies/mbedtls-2.28.8/library/constant_time.c                                         \
-    dependencies/mbedtls-2.28.8/library/ctr_drbg.c                                              \
-    dependencies/mbedtls-2.28.8/library/debug.c                                                 \
-    dependencies/mbedtls-2.28.8/library/des.c                                                   \
-    dependencies/mbedtls-2.28.8/library/dhm.c                                                   \
-    dependencies/mbedtls-2.28.8/library/ecdh.c                                                  \
-    dependencies/mbedtls-2.28.8/library/ecdsa.c                                                 \
-    dependencies/mbedtls-2.28.8/library/ecjpake.c                                               \
-    dependencies/mbedtls-2.28.8/library/ecp.c                                                   \
-    dependencies/mbedtls-2.28.8/library/ecp_curves.c                                            \
-    dependencies/mbedtls-2.28.8/library/entropy.c                                               \
-    dependencies/mbedtls-2.28.8/library/entropy_poll.c                                          \
-    dependencies/mbedtls-2.28.8/library/error.c                                                 \
-    dependencies/mbedtls-2.28.8/library/gcm.c                                                   \
-    dependencies/mbedtls-2.28.8/library/havege.c                                                \
-    dependencies/mbedtls-2.28.8/library/hkdf.c                                                  \
-    dependencies/mbedtls-2.28.8/library/hmac_drbg.c                                             \
-    dependencies/mbedtls-2.28.8/library/md2.c                                                   \
-    dependencies/mbedtls-2.28.8/library/md4.c                                                   \
-    dependencies/mbedtls-2.28.8/library/md5.c                                                   \
-    dependencies/mbedtls-2.28.8/library/md.c                                                    \
-    dependencies/mbedtls-2.28.8/library/memory_buffer_alloc.c                                   \
-    dependencies/mbedtls-2.28.8/library/mps_reader.c                                            \
-    dependencies/mbedtls-2.28.8/library/mps_trace.c                                             \
-    dependencies/mbedtls-2.28.8/library/net_sockets.c                                           \
-    dependencies/mbedtls-2.28.8/library/nist_kw.c                                               \
-    dependencies/mbedtls-2.28.8/library/oid.c                                                   \
-    dependencies/mbedtls-2.28.8/library/padlock.c                                               \
-    dependencies/mbedtls-2.28.8/library/pem.c                                                   \
-    dependencies/mbedtls-2.28.8/library/pk.c                                                    \
-    dependencies/mbedtls-2.28.8/library/pkcs11.c                                                \
-    dependencies/mbedtls-2.28.8/library/pkcs12.c                                                \
-    dependencies/mbedtls-2.28.8/library/pkcs5.c                                                 \
-    dependencies/mbedtls-2.28.8/library/pkparse.c                                               \
-    dependencies/mbedtls-2.28.8/library/pk_wrap.c                                               \
-    dependencies/mbedtls-2.28.8/library/pkwrite.c                                               \
-    dependencies/mbedtls-2.28.8/library/platform.c                                              \
-    dependencies/mbedtls-2.28.8/library/platform_util.c                                         \
-    dependencies/mbedtls-2.28.8/library/poly1305.c                                              \
-    dependencies/mbedtls-2.28.8/library/psa_crypto_aead.c                                       \
-    dependencies/mbedtls-2.28.8/library/psa_crypto.c                                            \
-    dependencies/mbedtls-2.28.8/library/psa_crypto_cipher.c                                     \
-    dependencies/mbedtls-2.28.8/library/psa_crypto_client.c                                     \
-    dependencies/mbedtls-2.28.8/library/psa_crypto_driver_wrappers.c                            \
-    dependencies/mbedtls-2.28.8/library/psa_crypto_ecp.c                                        \
-    dependencies/mbedtls-2.28.8/library/psa_crypto_hash.c                                       \
-    dependencies/mbedtls-2.28.8/library/psa_crypto_mac.c                                        \
-    dependencies/mbedtls-2.28.8/library/psa_crypto_rsa.c                                        \
-    dependencies/mbedtls-2.28.8/library/psa_crypto_se.c                                         \
-    dependencies/mbedtls-2.28.8/library/psa_crypto_slot_management.c                            \
-    dependencies/mbedtls-2.28.8/library/psa_crypto_storage.c                                    \
-    dependencies/mbedtls-2.28.8/library/psa_its_file.c                                          \
-    dependencies/mbedtls-2.28.8/library/ripemd160.c                                             \
-    dependencies/mbedtls-2.28.8/library/rsa.c                                                   \
-    dependencies/mbedtls-2.28.8/library/rsa_internal.c                                          \
-    dependencies/mbedtls-2.28.8/library/sha1.c                                                  \
-    dependencies/mbedtls-2.28.8/library/sha256.c                                                \
-    dependencies/mbedtls-2.28.8/library/sha512.c                                                \
-    dependencies/mbedtls-2.28.8/library/ssl_cache.c                                             \
-    dependencies/mbedtls-2.28.8/library/ssl_ciphersuites.c                                      \
-    dependencies/mbedtls-2.28.8/library/ssl_cli.c                                               \
-    dependencies/mbedtls-2.28.8/library/ssl_cookie.c                                            \
-    dependencies/mbedtls-2.28.8/library/ssl_msg.c                                               \
-    dependencies/mbedtls-2.28.8/library/ssl_srv.c                                               \
-    dependencies/mbedtls-2.28.8/library/ssl_ticket.c                                            \
-    dependencies/mbedtls-2.28.8/library/ssl_tls13_keys.c                                        \
-    dependencies/mbedtls-2.28.8/library/ssl_tls.c                                               \
-    dependencies/mbedtls-2.28.8/library/threading.c                                             \
-    dependencies/mbedtls-2.28.8/library/timing.c                                                \
-    dependencies/mbedtls-2.28.8/library/version.c                                               \
-    dependencies/mbedtls-2.28.8/library/version_features.c                                      \
-    dependencies/mbedtls-2.28.8/library/x509.c                                                  \
-    dependencies/mbedtls-2.28.8/library/x509_create.c                                           \
-    dependencies/mbedtls-2.28.8/library/x509_crl.c                                              \
-    dependencies/mbedtls-2.28.8/library/x509_crt.c                                              \
-    dependencies/mbedtls-2.28.8/library/x509_csr.c                                              \
-    dependencies/mbedtls-2.28.8/library/x509write_crt.c                                         \
-    dependencies/mbedtls-2.28.8/library/x509write_csr.c                                         \
-    dependencies/mbedtls-2.28.8/library/xtea.c                                                  \
+    dependencies/hueplusplus-1.2.0/src/WinHttpHandler.cpp                                       \
     dependencies/NVFC/nvapi.cpp                                                                 \
     i2c_smbus/i2c_smbus_amdadl.cpp                                                              \
     i2c_smbus/i2c_smbus_i801.cpp                                                                \
@@ -418,6 +370,7 @@ win32:contains(QMAKE_TARGET.arch, x86_64) {
         -L"$$PWD/dependencies/winring0/x64/" -lWinRing0x64                                      \
         -L"$$PWD/dependencies/libusb-1.0.27/VS2019/MS64/dll" -llibusb-1.0                       \
         -L"$$PWD/dependencies/hidapi-win/x64/" -lhidapi                                         \
+        -L"$$PWD/dependencies/mbedtls-3.2.1/lib/x64/" -lmbedcrypto -lmbedtls -lmbedx509         \
 }
 
 win32:contains(QMAKE_TARGET.arch, x86) {
@@ -427,6 +380,7 @@ win32:contains(QMAKE_TARGET.arch, x86) {
         -L"$$PWD/dependencies/winring0/Win32/" -lWinRing0                                       \
         -L"$$PWD/dependencies/libusb-1.0.27/VS2019/MS32/dll" -llibusb-1.0                       \
         -L"$$PWD/dependencies/hidapi-win/x86/" -lhidapi                                         \
+        -L"$$PWD/dependencies/mbedtls-3.2.1/lib/x86/" -lmbedcrypto -lmbedtls -lmbedx509         \
 }
 
 win32:DEFINES -=                                                                                \
@@ -504,14 +458,16 @@ contains(QMAKE_PLATFORM, linux) {
     dependencies/NVFC/nvapi.h                                                                   \
     i2c_smbus/i2c_smbus_linux.h                                                                 \
     AutoStart/AutoStart-Linux.h                                                                 \
+    SPDAccessor/EE1004Accessor_Linux.h                                                          \
+    SPDAccessor/SPD5118Accessor_Linux.h                                                         \
     SuspendResume/SuspendResume_Linux_FreeBSD.h                                                 \
 
     INCLUDEPATH +=                                                                              \
     dependencies/NVFC                                                                           \
-    /usr/include/mbedtls2/                                                                      \
+    /usr/include/mbedtls/                                                                       \
 
     LIBS +=                                                                                     \
-    -L/usr/lib/mbedtls2/                                                                        \
+    -L/usr/lib/mbedtls/                                                                         \
     -lmbedx509                                                                                  \
     -lmbedtls                                                                                   \
     -lmbedcrypto                                                                                \
@@ -552,12 +508,14 @@ contains(QMAKE_PLATFORM, linux) {
     SOURCES += $$CONTROLLER_CPP_LINUX
 
     SOURCES +=                                                                                  \
-    dependencies/hueplusplus-1.1.0/src/LinHttpHandler.cpp                                       \
+    dependencies/hueplusplus-1.2.0/src/LinHttpHandler.cpp                                       \
     dependencies/NVFC/nvapi.cpp                                                                 \
     i2c_smbus/i2c_smbus_linux.cpp                                                               \
     scsiapi/scsiapi_linux.c                                                                     \
     serial_port/find_usb_serial_port_linux.cpp                                                  \
     AutoStart/AutoStart-Linux.cpp                                                               \
+    SPDAccessor/EE1004Accessor_Linux.cpp                                                        \
+    SPDAccessor/SPD5118Accessor_Linux.cpp                                                       \
     SuspendResume/SuspendResume_Linux_FreeBSD.cpp                                               \
 
     #-------------------------------------------------------------------------------------------#
@@ -676,7 +634,7 @@ contains(QMAKE_PLATFORM, freebsd) {
     SOURCES += $$CONTROLLER_CPP_FREEBSD
 
     SOURCES +=                                                                                  \
-    dependencies/hueplusplus-1.1.0/src/LinHttpHandler.cpp                                       \
+    dependencies/hueplusplus-1.2.0/src/LinHttpHandler.cpp                                       \
     serial_port/find_usb_serial_port_linux.cpp                                                  \
     AutoStart/AutoStart-FreeBSD.cpp                                                             \
     SuspendResume/SuspendResume_Linux_FreeBSD.cpp                                               \
@@ -744,7 +702,7 @@ macx {
     HEADERS += $$CONTROLLER_H_MACOS
 
     SOURCES +=                                                                                  \
-    dependencies/hueplusplus-1.1.0/src/LinHttpHandler.cpp                                       \
+    dependencies/hueplusplus-1.2.0/src/LinHttpHandler.cpp                                       \
     serial_port/find_usb_serial_port_macos.cpp                                                  \
     AutoStart/AutoStart-MacOS.cpp                                                               \
     qt/macutils.mm                                                                              \
@@ -752,8 +710,8 @@ macx {
 
     SOURCES += $$CONTROLLER_CPP_MACOS
 
-    # Use mbedtls v2 instead of latest
-    MBEDTLS_PREFIX = $$system(brew --prefix mbedtls@2)
+    # Use mbedtls
+    MBEDTLS_PREFIX = $$system(brew --prefix mbedtls)
 
     INCLUDEPATH +=                                                                              \
     $$MBEDTLS_PREFIX/include                                                                    \
@@ -797,11 +755,15 @@ macx:contains(QMAKE_HOST.arch, x86_64) {
 
     SOURCES +=                                                                                  \
     i2c_smbus/i2c_smbus_i801.cpp                                                                \
+    i2c_smbus/i2c_smbus_nct6775.cpp                                                             \
+    i2c_smbus/i2c_smbus_piix4.cpp                                                               \
     scsiapi/scsiapi_macos.c                                                                     \
 
     HEADERS +=                                                                                  \
     dependencies/macUSPCIO/macUSPCIOAccess.h                                                    \
     i2c_smbus/i2c_smbus_i801.h                                                                  \
+    i2c_smbus/i2c_smbus_nct6775.h                                                               \
+    i2c_smbus/i2c_smbus_piix4.h                                                                 \
 
     LIBS +=                                                                                     \
     -L/usr/local/lib                                                                            \

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Device info page</string>
+   <string notr="true">Device Info Page</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -148,6 +148,23 @@
        <widget class="QLabel" name="LocationValue">
         <property name="text">
          <string notr="true">Location Value</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="FlagsLabel">
+        <property name="text">
+         <string>Flags:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLabel" name="FlagsValue">
+        <property name="text">
+         <string notr="true">Flags Value</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

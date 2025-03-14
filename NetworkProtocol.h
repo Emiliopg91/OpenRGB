@@ -19,8 +19,10 @@
 |   2:      Add profile controls (Release 0.6)                          |
 |   3:      Add brightness field to modes (Release 0.7)                 |
 |   4:      Add segments field to zones, network plugins (Release 0.9)  |
+|   5:      Zone flags, controller flags, resizable effects-only zones  |
+                (Release 1.0)                                           |
 \*---------------------------------------------------------------------*/
-#define OPENRGB_SDK_PROTOCOL_VERSION    4
+#define OPENRGB_SDK_PROTOCOL_VERSION    5
 
 /*-----------------------------------------------------*\
 | Default Interface to bind to.                         |
@@ -73,6 +75,8 @@ enum
     | RGBController class functions                                                                              |
     \*----------------------------------------------------------------------------------------------------------*/
     NET_PACKET_ID_RGBCONTROLLER_RESIZEZONE      = 1000, /* RGBController::ResizeZone()                          */
+    NET_PACKET_ID_RGBCONTROLLER_CLEARSEGMENTS   = 1001, /* RGBController::ClearSegments()                       */
+    NET_PACKET_ID_RGBCONTROLLER_ADDSEGMENT      = 1002, /* RGBController::AddSegment()                          */
 
     NET_PACKET_ID_RGBCONTROLLER_UPDATELEDS      = 1050, /* RGBController::UpdateLEDs()                          */
     NET_PACKET_ID_RGBCONTROLLER_UPDATEZONELEDS  = 1051, /* RGBController::UpdateZoneLEDs()                      */

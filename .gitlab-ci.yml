@@ -33,6 +33,10 @@
 stages:
   - build
   - test
+  - deploy
+
+variables:
+  GIT_DEPTH: 0
 
 before_script:
  - echo "started by ${GITLAB_USER_NAME}"
@@ -299,15 +303,12 @@ before_script:
   image: fedora:40
   stage: build
   script:
-  - dnf install rpmdevtools dnf-plugins-core libcurl-devel qt5-qtbase-devel -y
+  - dnf install rpmdevtools dnf-plugins-core libcurl-devel qt5-qtbase-devel git -y
   - rpmdev-setuptree
   - ./scripts/build-package-files.sh fedora/OpenRGB.spec
-  - ls /root/
   - cp fedora/OpenRGB.spec /root/rpmbuild/SPECS
-  - cp ../OpenRGB /root/rpmbuild/SOURCES/ -r
-  - cd /root/rpmbuild/SOURCES
-  - tar -cf OpenRGB.tar.gz OpenRGB/
-  - cd ..
+  - cp -rp . /root/rpmbuild/SOURCES/OpenRGB
+  - cd /root/rpmbuild
   - dnf builddep SPECS/OpenRGB.spec -y
   - rpmbuild -ba SPECS/OpenRGB.spec
   - cd RPMS/x86_64/
@@ -618,3 +619,30 @@ before_script:
   - if: $CI_PIPELINE_SOURCE == "push"
     when: manual
     allow_failure: true
+
+#-----------------------------------------------------------------------#
+# Windows (64-bit) MSI Target                                           #
+#-----------------------------------------------------------------------#
+"Windows 64 MSI":
+  image: registry.gitlab.com/openrgbdevelopers/openrgb-linux-ci-deb-builder:bookworm-i386
+  stage: deploy
+  tags:
+  - linux
+  - i386
+  script:
+  -  ls -la
+  -  ls -la "OpenRGB Windows 64-bit/"
+  -  ./scripts/build-msi.sh
+  dependencies:
+  - "Windows 64"
+  needs:
+  - "Windows 64"
+
+  artifacts:
+    name: "${CI_PROJECT_NAME}_Windows_64_msi_${CI_COMMIT_SHORT_SHA}"
+    paths:
+    - OpenRGB_Windows_64.msi
+    expire_in: 30 days
+
+  rules:
+    - !reference [.upstream_rules, rules]

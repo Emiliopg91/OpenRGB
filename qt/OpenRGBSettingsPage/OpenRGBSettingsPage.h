@@ -13,7 +13,7 @@
 #include <QDirIterator>
 #include <QTranslator>
 #include <QWidget>
-#include <json.hpp>
+#include <nlohmann/json.hpp>
 #include "ui_OpenRGBSettingsPage.h"
 
 using json = nlohmann::json;
@@ -78,6 +78,7 @@ private slots:
     void on_CheckboxRunZoneChecks_clicked();
     void on_OpenSettingsFolderButton_clicked();
     void on_CheckboxLogConsole_clicked();
+    void on_CheckboxLogFile_clicked();
     void on_CheckboxAMDSMBusReduceCPU_clicked();
     void on_CheckboxSharedSMBusAccess_clicked();
 

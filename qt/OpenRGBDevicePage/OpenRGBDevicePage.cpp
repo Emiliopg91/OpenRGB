@@ -7,7 +7,7 @@
 |   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
-#include "OpenRGBDialog2.h"
+#include "OpenRGBDialog.h"
 #include "OpenRGBDevicePage.h"
 #include "OpenRGBZoneResizeDialog.h"
 #include "ResourceManager.h"
@@ -116,7 +116,7 @@ OpenRGBDevicePage::OpenRGBDevicePage(RGBController *dev, QWidget *parent) :
 
     for(std::size_t i = 0; i < device->modes.size(); i++)
     {
-        ui->ModeBox->addItem(device->modes[i].name.c_str());
+        ui->ModeBox->addItem(device->GetModeName(i).c_str());
         ui->ModeBox->setItemData((int)i, ModeDescription(device->modes[i]), Qt::ToolTipRole);
     }
 
@@ -285,7 +285,7 @@ void Ui::OpenRGBDevicePage::on_ZoneBox_currentIndexChanged(int index)
                     \*-------------------------------------*/
                     for(std::size_t i = 0; i < device->leds.size(); i++)
                     {
-                        ui->LEDBox->addItem(device->leds[i].name.c_str());
+                        ui->LEDBox->addItem(device->GetLEDName(i).c_str());
                     }
 
                     /*-------------------------------------*\
@@ -307,13 +307,15 @@ void Ui::OpenRGBDevicePage::on_ZoneBox_currentIndexChanged(int index)
                 \*-----------------------------------------*/
                 else if(selected_zone != -1 && selected_segment == -1)
                 {
+                    unsigned int leds_in_zone = device->GetLEDsInZone(selected_zone);
+
                     /*-------------------------------------*\
                     | If there are multiple LEDs, add the   |
                     | "Entire Zone" option to the LED box   |
                     | and enable it, otherwise there is     |
                     | only one LED so disable it            |
                     \*-------------------------------------*/
-                    if(device->zones[selected_zone].leds_count > 1)
+                    if(leds_in_zone > 1)
                     {
                         ui->LEDBox->addItem(tr("Entire Zone"));
                         ui->LEDBox->setEnabled(1);
@@ -327,7 +329,7 @@ void Ui::OpenRGBDevicePage::on_ZoneBox_currentIndexChanged(int index)
                     | Fill in the LED list with all LEDs in |
                     | the zone                              |
                     \*-------------------------------------*/
-                    for(std::size_t led_idx = 0; led_idx < device->zones[selected_zone].leds_count; led_idx++)
+                    for(std::size_t led_idx = 0; led_idx < leds_in_zone; led_idx++)
                     {
                         ui->LEDBox->addItem(device->zones[selected_zone].leds[led_idx].name.c_str());
                     }
@@ -591,9 +593,9 @@ void Ui::OpenRGBDevicePage::on_LEDBox_currentIndexChanged(int index)
                     /*-------------------------------------*\
                     | Handle single selected LED            |
                     \*-------------------------------------*/
-                    if(device->zones[selected_zone].leds_count == 1 || selected_led != -1)
+                    if(device->GetLEDsInZone(selected_zone) == 1 || selected_led != -1)
                     {
-                        if((unsigned int)selected_led < device->zones[selected_zone].leds_count)
+                        if((unsigned int)selected_led < device->GetLEDsInZone(selected_zone))
                         {
                             /*-----------------------------*\
                             | Get selected LED's current    |
@@ -1060,7 +1062,7 @@ void Ui::OpenRGBDevicePage::UpdateModeUi()
 
                 for(std::size_t zone_idx = 0; zone_idx < device->zones.size(); zone_idx++)
                 {
-                    ui->ZoneBox->addItem(device->zones[zone_idx].name.c_str());
+                    ui->ZoneBox->addItem(device->GetZoneName(zone_idx).c_str());
 
                     for(std::size_t segment_idx = 0; segment_idx < device->zones[zone_idx].segments.size(); segment_idx++)
                     {
@@ -1624,9 +1626,10 @@ void Ui::OpenRGBDevicePage::on_EditZoneButton_clicked()
             }
 
             /*-----------------------------------------*\
-            | Only allow resizing linear zones          |
+            | Only allow resizing linear zones or       |
+            | effects-only resizable zones              |
             \*-----------------------------------------*/
-            if(device->zones[selected_zone].type == ZONE_TYPE_LINEAR)
+            if((device->zones[selected_zone].type == ZONE_TYPE_LINEAR) || (device->zones[selected_zone].flags & ZONE_FLAG_RESIZE_EFFECTS_ONLY))
             {
                 OpenRGBZoneResizeDialog dlg(device, selected_zone);
 

@@ -12,6 +12,11 @@
 #include "PluginManager.h"
 #include "OpenRGBThemeManager.h"
 #include "SettingsManager.h"
+#include "ResourceManager.h"
+
+#ifdef _WIN32
+#include <Windows.h>
+#endif
 
 PluginManager::PluginManager()
 {
@@ -64,6 +69,24 @@ void PluginManager::ScanAndLoadPlugins()
     \*---------------------------------------------------------*/
     ScanAndLoadPluginsFrom(OPENRGB_SYSTEM_PLUGIN_DIRECTORY, true);
 #endif
+
+#ifdef _WIN32
+    /*---------------------------------------------------------*\
+    | Get the exe folder plugins directory (Windows)            |
+    |                                                           |
+    | On Windows, system plugins are located in a folder called |
+    | "plugins" inside the folder where the OpenRGB.exe file is |
+    | installed.  Typically, C:\Program Files\OpenRGB but other |
+    | install paths are allowed.                                |
+    \*---------------------------------------------------------*/
+    char path[MAX_PATH];
+    GetModuleFileName(NULL, path, MAX_PATH);
+
+    filesystem::path exe_dir(path);
+    exe_dir = exe_dir.remove_filename() / plugins_path;
+
+    ScanAndLoadPluginsFrom(exe_dir, true);
+#endif
 }
 
 void PluginManager::ScanAndLoadPluginsFrom(const filesystem::path & plugins_dir, bool is_system)
@@ -104,6 +127,38 @@ void PluginManager::AddPlugin(const filesystem::path& path, bool is_system)
     OpenRGBPluginInterface* plugin = nullptr;
 
     unsigned int plugin_idx;
+
+    /*---------------------------------------------------------------------*\
+    | Open plugin settings                                                  |
+    \*---------------------------------------------------------------------*/
+    json plugin_settings = ResourceManager::get()->GetSettingsManager()->GetSettings("Plugins");
+
+    /*---------------------------------------------------------------------*\
+    | Check if this plugin is on the remove list                            |
+    \*---------------------------------------------------------------------*/
+    if(plugin_settings.contains("plugins_remove"))
+    {
+        for(unsigned int plugin_remove_idx = 0; plugin_remove_idx < plugin_settings["plugins_remove"].size(); plugin_remove_idx++)
+        {
+            LOG_WARNING("[PluginManager] Checking remove %d, %s", plugin_remove_idx, to_string(plugin_settings["plugins_remove"][plugin_remove_idx]).c_str());
+
+            if(plugin_settings["plugins_remove"][plugin_remove_idx] == path.generic_u8string())
+            {
+                /*---------------------------------------------------------*\
+                | Delete the plugin file                                    |
+                \*---------------------------------------------------------*/
+                filesystem::remove(path);
+            }
+
+            /*-----------------------------------------------------------------*\
+            | Erase the plugin from the remove list                             |
+            \*-----------------------------------------------------------------*/
+            plugin_settings["plugins_remove"].erase(plugin_remove_idx);
+
+            ResourceManager::get()->GetSettingsManager()->SetSettings("Plugins", plugin_settings);
+            ResourceManager::get()->GetSettingsManager()->SaveSettings();
+        }
+    }
 
     /*---------------------------------------------------------------------*\
     | Search active plugins to see if this path already exists              |
@@ -160,11 +215,6 @@ void PluginManager::AddPlugin(const filesystem::path& path, bool is_system)
                     bool            found       = false;
                     unsigned int    plugin_ct   = 0;
 
-                    /*-----------------------------------------------------*\
-                    | Open plugin list and check if plugin is in the list   |
-                    \*-----------------------------------------------------*/
-                    json plugin_settings = ResourceManager::get()->GetSettingsManager()->GetSettings("Plugins");
-
                     if(plugin_settings.contains("plugins"))
                     {
                         plugin_ct = (unsigned int)plugin_settings["plugins"].size();
@@ -209,7 +259,7 @@ void PluginManager::AddPlugin(const filesystem::path& path, bool is_system)
                         ResourceManager::get()->GetSettingsManager()->SaveSettings();
                     }
 
-                    LOG_VERBOSE("Loaded plugin %s", info.Name.c_str());
+                    LOG_VERBOSE("[PluginManager] Loaded plugin %s", info.Name.c_str());
 
                     /*-----------------------------------------------------*\
                     | Add the plugin to the PluginManager active plugins    |
@@ -260,6 +310,7 @@ void PluginManager::AddPlugin(const filesystem::path& path, bool is_system)
                     entry.widget        = nullptr;
                     entry.incompatible  = true;
                     entry.api_version   = plugin->GetPluginAPIVersion();
+                    entry.is_system     = is_system;
 
                     loader->unload();
 
@@ -374,8 +425,6 @@ void PluginManager::LoadPlugin(OpenRGBPluginEntry* plugin_entry)
 
         QObject* instance                = plugin_entry->loader->instance();
 
-        bool dark_theme = OpenRGBThemeManager::IsDarkTheme();
-
         if(instance)
         {
             OpenRGBPluginInterface* plugin = qobject_cast<OpenRGBPluginInterface*>(instance);
@@ -386,7 +435,7 @@ void PluginManager::LoadPlugin(OpenRGBPluginEntry* plugin_entry)
                 {
                     plugin_entry->plugin = plugin;
 
-                    plugin->Load(dark_theme, ResourceManager::get());
+                    plugin->Load(ResourceManager::get());
 
                     /*-------------------------------------------------*\
                     | Call the Add Plugin callback                      |
