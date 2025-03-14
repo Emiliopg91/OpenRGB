@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write # Permiso para hacer push
+  contents: write
 
 jobs:
   sync:
@@ -26,11 +26,13 @@ jobs:
       - name: Add GitLab remote
         run: git remote add gitlab https://gitlab.com/ojosdeserbio/OpenRGB.git
 
-      - name: Fetch and merge GitLab changes
-        run: |
-          git fetch gitlab
-          git checkout master
-          git merge gitlab/master --allow-unrelated-histories
+      - name: Fetch GitLab changes
+        run: git fetch gitlab
 
-      - name: Push changes to GitHub
-        run: git push origin master
+      - name: Merge GitLab changes ignoring workflows
+        run: |
+          git checkout master
+          git merge gitlab/master --allow-unrelated-histories --no-commit
+          git rm -r --cached .github/workflows || true
+          git commit -m "Merge changes from GitLab, ignoring workflows"
+          git push origin master
