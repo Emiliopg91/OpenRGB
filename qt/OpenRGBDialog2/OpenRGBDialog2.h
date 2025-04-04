@@ -25,18 +25,7 @@
 #include "OpenRGBSystemInfoPage.h"
 #include "OpenRGBSupportedDevicesPage.h"
 #include "OpenRGBSettingsPage.h"
-#include "OpenRGBDMXSettingsPage/OpenRGBDMXSettingsPage.h"
-#include "OpenRGBE131SettingsPage/OpenRGBE131SettingsPage.h"
-#include "OpenRGBElgatoKeyLightSettingsPage/OpenRGBElgatoKeyLightSettingsPage.h"
-#include "OpenRGBElgatoLightStripSettingsPage/OpenRGBElgatoLightStripSettingsPage.h"
-#include "OpenRGBKasaSmartSettingsPage/OpenRGBKasaSmartSettingsPage.h"
-#include "OpenRGBLIFXSettingsPage/OpenRGBLIFXSettingsPage.h"
-#include "OpenRGBPhilipsHueSettingsPage/OpenRGBPhilipsHueSettingsPage.h"
-#include "OpenRGBPhilipsWizSettingsPage/OpenRGBPhilipsWizSettingsPage.h"
-#include "OpenRGBQMKORGBSettingsPage/OpenRGBQMKORGBSettingsPage.h"
 #include "OpenRGBSerialSettingsPage/OpenRGBSerialSettingsPage.h"
-#include "OpenRGBYeelightSettingsPage/OpenRGBYeelightSettingsPage.h"
-#include "OpenRGBNanoleafSettingsPage/OpenRGBNanoleafSettingsPage.h"
 #include "PluginManager.h"
 #include "SuspendResume.h"
 
@@ -96,18 +85,7 @@ private:
     OpenRGBSoftwareInfoPage *SoftInfoPage;
     OpenRGBSupportedDevicesPage *SupportedPage;
     OpenRGBSettingsPage *SettingsPage;
-    OpenRGBDMXSettingsPage *DMXSettingsPage;
-    OpenRGBE131SettingsPage *E131SettingsPage;
-    OpenRGBElgatoKeyLightSettingsPage *ElgatoKeyLightSettingsPage;
-    OpenRGBElgatoLightStripSettingsPage *ElgatoLightStripSettingsPage;
-    OpenRGBKasaSmartSettingsPage *KasaSmartSettingsPage;
-    OpenRGBLIFXSettingsPage *LIFXSettingsPage;
-    OpenRGBPhilipsHueSettingsPage *PhilipsHueSettingsPage;
-    OpenRGBPhilipsWizSettingsPage *PhilipsWizSettingsPage;
-    OpenRGBQMKORGBSettingsPage *QMKORGBSettingsPage;
     OpenRGBSerialSettingsPage *SerialSettingsPage;
-    OpenRGBYeelightSettingsPage *YeelightSettingsPage;
-    OpenRGBNanoleafSettingsPage *NanoleafSettingsPage;
 
     bool ShowI2CTools = false;
     bool plugins_loaded = false;
@@ -127,18 +105,7 @@ private:
     void AddSoftwareInfoPage();
     void AddSupportedDevicesPage();
     void AddSettingsPage();
-    void AddDMXSettingsPage();
-    void AddE131SettingsPage();
-    void AddElgatoKeyLightSettingsPage();
-    void AddElgatoLightStripSettingsPage();
-    void AddKasaSmartSettingsPage();
-    void AddLIFXSettingsPage();
-    void AddPhilipsHueSettingsPage();
-    void AddPhilipsWizSettingsPage();
-    void AddQMKORGBSettingsPage();
     void AddSerialSettingsPage();
-    void AddYeelightSettingsPage();
-    void AddNanoleafSettingsPage();
     void AddPluginsPage();
     void AddConsolePage();
 
