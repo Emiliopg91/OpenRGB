@@ -18,20 +18,23 @@ UNCRUSTIFY_EXE = "uncrustify"
 UNCRUSTIFY_ARGS = ["-c", CONFIG_FILE]
 CHECK_GENERATED_FILES = "tests/scripts/check-generated-files.sh"
 
+
 def print_err(*args):
     print("Error: ", *args, file=sys.stderr)
+
 
 # Print the file names that will be skipped and the help message
 def print_skip(files_to_skip):
     print()
     print(*files_to_skip, sep=", SKIP\n", end=", SKIP\n")
-    print("Warning: The listed files will be skipped because\n"
-          "they are not known to git.")
+    print("Warning: The listed files will be skipped because\n" "they are not known to git.")
     print()
 
+
 # Match FILENAME(s) in "check SCRIPT (FILENAME...)"
-CHECK_CALL_RE = re.compile(r"\n\s*check\s+[^\s#$&*?;|]+([^\n#$&*?;|]+)",
-                           re.ASCII)
+CHECK_CALL_RE = re.compile(r"\n\s*check\s+[^\s#$&*?;|]+([^\n#$&*?;|]+)", re.ASCII)
+
+
 def list_generated_files() -> FrozenSet[str]:
     """Return the names of generated files.
 
@@ -51,6 +54,7 @@ def list_generated_files() -> FrozenSet[str]:
     checks = re.findall(CHECK_CALL_RE, content)
     return frozenset(word for s in checks for word in s.split())
 
+
 def get_src_files(since: Optional[str]) -> List[str]:
     """
     Use git to get a list of the source files.
@@ -62,11 +66,8 @@ def get_src_files(since: Optional[str]) -> List[str]:
     Only C files are included, and certain files (generated, or 3rdparty)
     are excluded.
     """
-    file_patterns = ["*.[hc]",
-                     "tests/suites/*.function",
-                     "scripts/data_files/*.fmt"]
-    output = subprocess.check_output(["git", "ls-files"] + file_patterns,
-                                     universal_newlines=True)
+    file_patterns = ["*.[hc]", "tests/suites/*.function", "scripts/data_files/*.fmt"]
+    output = subprocess.check_output(["git", "ls-files"] + file_patterns, universal_newlines=True)
     src_files = output.split()
     if since:
         # get all files changed in commits since the starting point
@@ -83,23 +84,23 @@ def get_src_files(since: Optional[str]) -> List[str]:
     # Don't correct style for third-party files (and, for simplicity,
     # companion files in the same subtree), or for automatically
     # generated files (we're correcting the templates instead).
-    src_files = [filename for filename in src_files
-                 if not (filename.startswith("3rdparty/") or
-                         filename in generated_files)]
+    src_files = [
+        filename for filename in src_files if not (filename.startswith("3rdparty/") or filename in generated_files)
+    ]
     return src_files
+
 
 def get_uncrustify_version() -> str:
     """
     Get the version string from Uncrustify
     """
-    result = subprocess.run([UNCRUSTIFY_EXE, "--version"],
-                            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                            check=False)
+    result = subprocess.run([UNCRUSTIFY_EXE, "--version"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False)
     if result.returncode != 0:
         print_err("Could not get Uncrustify version:", str(result.stderr, "utf-8"))
         return ""
     else:
         return str(result.stdout, "utf-8")
+
 
 def check_style_is_correct(src_file_list: List[str]) -> bool:
     """
@@ -109,11 +110,9 @@ def check_style_is_correct(src_file_list: List[str]) -> bool:
     style_correct = True
     for src_file in src_file_list:
         uncrustify_cmd = [UNCRUSTIFY_EXE] + UNCRUSTIFY_ARGS + [src_file]
-        result = subprocess.run(uncrustify_cmd, stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE, check=False)
+        result = subprocess.run(uncrustify_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False)
         if result.returncode != 0:
-            print_err("Uncrustify returned " + str(result.returncode) +
-                      " correcting file " + src_file)
+            print_err("Uncrustify returned " + str(result.returncode) + " correcting file " + src_file)
             return False
 
         # Uncrustify makes changes to the code and places the result in a new
@@ -126,13 +125,13 @@ def check_style_is_correct(src_file_list: List[str]) -> bool:
             print(src_file + " changed - code style is incorrect.")
             style_correct = False
         elif cp.returncode != 0:
-            raise subprocess.CalledProcessError(cp.returncode, cp.args,
-                                                cp.stdout, cp.stderr)
+            raise subprocess.CalledProcessError(cp.returncode, cp.args, cp.stdout, cp.stderr)
 
         # Tidy up artifact
         os.remove(src_file + ".uncrustify")
 
     return style_correct
+
 
 def fix_style_single_pass(src_file_list: List[str]) -> bool:
     """
@@ -143,11 +142,10 @@ def fix_style_single_pass(src_file_list: List[str]) -> bool:
         uncrustify_cmd = [UNCRUSTIFY_EXE] + code_change_args + [src_file]
         result = subprocess.run(uncrustify_cmd, check=False)
         if result.returncode != 0:
-            print_err("Uncrustify with file returned: " +
-                      str(result.returncode) + " correcting file " +
-                      src_file)
+            print_err("Uncrustify with file returned: " + str(result.returncode) + " correcting file " + src_file)
             return False
     return True
+
 
 def fix_style(src_file_list: List[str]) -> int:
     """
@@ -166,34 +164,46 @@ def fix_style(src_file_list: List[str]) -> int:
     else:
         return 0
 
+
 def main() -> int:
     """
     Main with command line arguments.
     """
     uncrustify_version = get_uncrustify_version().strip()
     if UNCRUSTIFY_SUPPORTED_VERSION not in uncrustify_version:
-        print("Warning: Using unsupported Uncrustify version '" +
-              uncrustify_version + "'")
-        print("Note: The only supported version is " +
-              UNCRUSTIFY_SUPPORTED_VERSION)
+        print("Warning: Using unsupported Uncrustify version '" + uncrustify_version + "'")
+        print("Note: The only supported version is " + UNCRUSTIFY_SUPPORTED_VERSION)
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-f', '--fix', action='store_true',
-                        help=('modify source files to fix the code style '
-                              '(default: print diff, do not modify files)'))
-    parser.add_argument('-s', '--since', metavar='COMMIT', const='mbedtls-2.28', nargs='?',
-                        help=('only check files modified since the specified commit'
-                              ' (e.g. --since=HEAD~3 or --since=mbedtls-2.28). If no'
-                              ' commit is specified, default to mbedtls-2.28.'))
+    parser.add_argument(
+        "-f",
+        "--fix",
+        action="store_true",
+        help=("modify source files to fix the code style " "(default: print diff, do not modify files)"),
+    )
+    parser.add_argument(
+        "-s",
+        "--since",
+        metavar="COMMIT",
+        const="mbedtls-2.28",
+        nargs="?",
+        help=(
+            "only check files modified since the specified commit"
+            " (e.g. --since=HEAD~3 or --since=mbedtls-2.28). If no"
+            " commit is specified, default to mbedtls-2.28."
+        ),
+    )
     # --subset is almost useless: it only matters if there are no files
     # ('code_style.py' without arguments checks all files known to Git,
     # 'code_style.py --subset' does nothing). In particular,
     # 'code_style.py --fix --subset ...' is intended as a stable ("porcelain")
     # way to restyle a possibly empty set of files.
-    parser.add_argument('--subset', action='store_true',
-                        help='only check the specified files (default with non-option arguments)')
-    parser.add_argument('operands', nargs='*', metavar='FILE',
-                        help='files to check (files MUST be known to git, if none: check all)')
+    parser.add_argument(
+        "--subset", action="store_true", help="only check the specified files (default with non-option arguments)"
+    )
+    parser.add_argument(
+        "operands", nargs="*", metavar="FILE", help="files to check (files MUST be known to git, if none: check all)"
+    )
 
     args = parser.parse_args()
 
@@ -218,5 +228,6 @@ def main() -> int:
         else:
             return 1
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     sys.exit(main())

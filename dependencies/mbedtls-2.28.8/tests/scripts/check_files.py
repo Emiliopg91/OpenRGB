@@ -18,12 +18,13 @@ import os
 import re
 import subprocess
 import sys
+
 try:
-    from typing import FrozenSet, Optional, Pattern # pylint: disable=unused-import
+    from typing import FrozenSet, Optional, Pattern  # pylint: disable=unused-import
 except ImportError:
     pass
 
-import scripts_path # pylint: disable=unused-import
+import scripts_path  # pylint: disable=unused-import
 from mbedtls_dev import build_tree
 
 
@@ -44,8 +45,8 @@ class FileIssueTracker:
     ``heading``: human-readable description of the issue
     """
 
-    suffix_exemptions = frozenset() #type: FrozenSet[str]
-    path_exemptions = None #type: Optional[Pattern[str]]
+    suffix_exemptions = frozenset()  # type: FrozenSet[str]
+    path_exemptions = None  # type: Optional[Pattern[str]]
     # heading must be defined in derived classes.
     # pylint: disable=no-member
 
@@ -61,7 +62,7 @@ class FileIssueTracker:
         seps = os.path.sep
         if os.path.altsep is not None:
             seps += os.path.altsep
-        return '/'.join(filepath.split(seps))
+        return "/".join(filepath.split(seps))
 
     def should_check_file(self, filepath):
         """Whether the given file name should be checked.
@@ -72,8 +73,7 @@ class FileIssueTracker:
         for files_exemption in self.suffix_exemptions:
             if filepath.endswith(files_exemption):
                 return False
-        if self.path_exemptions and \
-           re.match(self.path_exemptions, self.normalize_path(filepath)):
+        if self.path_exemptions and re.match(self.path_exemptions, self.normalize_path(filepath)):
             return False
         return True
 
@@ -96,24 +96,24 @@ class FileIssueTracker:
             logger.info(self.heading)
             for filename, lines in sorted(self.files_with_issues.items()):
                 if lines:
-                    logger.info("{}: {}".format(
-                        filename, ", ".join(str(x) for x in lines)
-                    ))
+                    logger.info("{}: {}".format(filename, ", ".join(str(x) for x in lines)))
                 else:
                     logger.info(filename)
             logger.info("")
 
+
 BINARY_FILE_PATH_RE_LIST = [
-    r'docs/.*\.pdf\Z',
-    r'programs/fuzz/corpuses/[^.]+\Z',
-    r'tests/data_files/[^.]+\Z',
-    r'tests/data_files/.*\.(crt|csr|db|der|key|pubkey)\Z',
-    r'tests/data_files/.*\.req\.[^/]+\Z',
-    r'tests/data_files/.*malformed[^/]+\Z',
-    r'tests/data_files/format_pkcs12\.fmt\Z',
-    r'tests/data_files/.*\.bin\Z',
+    r"docs/.*\.pdf\Z",
+    r"programs/fuzz/corpuses/[^.]+\Z",
+    r"tests/data_files/[^.]+\Z",
+    r"tests/data_files/.*\.(crt|csr|db|der|key|pubkey)\Z",
+    r"tests/data_files/.*\.req\.[^/]+\Z",
+    r"tests/data_files/.*malformed[^/]+\Z",
+    r"tests/data_files/format_pkcs12\.fmt\Z",
+    r"tests/data_files/.*\.bin\Z",
 ]
-BINARY_FILE_PATH_RE = re.compile('|'.join(BINARY_FILE_PATH_RE_LIST))
+BINARY_FILE_PATH_RE = re.compile("|".join(BINARY_FILE_PATH_RE_LIST))
+
 
 class LineIssueTracker(FileIssueTracker):
     """Base class for line-by-line issue tracking.
@@ -148,7 +148,7 @@ class LineIssueTracker(FileIssueTracker):
 
 def is_windows_file(filepath):
     _root, ext = os.path.splitext(filepath)
-    return ext in ('.bat', '.dsp', '.dsw', '.sln', '.vcxproj')
+    return ext in (".bat", ".dsp", ".dsw", ".sln", ".vcxproj")
 
 
 class ShebangIssueTracker(FileIssueTracker):
@@ -163,16 +163,15 @@ class ShebangIssueTracker(FileIssueTracker):
     # Allow at most one argument (this is a Linux limitation).
     # For sh and bash, the argument if present must be options.
     # For env, the argument must be the base name of the interpreter.
-    _shebang_re = re.compile(rb'^#! ?(?:/bin/(bash|sh)(?: -[^\n ]*)?'
-                             rb'|/usr/bin/env ([^\n /]+))$')
+    _shebang_re = re.compile(rb"^#! ?(?:/bin/(bash|sh)(?: -[^\n ]*)?" rb"|/usr/bin/env ([^\n /]+))$")
     _extensions = {
-        b'bash': 'sh',
-        b'perl': 'pl',
-        b'python3': 'py',
-        b'sh': 'sh',
+        b"bash": "sh",
+        b"perl": "pl",
+        b"python3": "py",
+        b"sh": "sh",
     }
 
-    path_exemptions = re.compile(r'tests/scripts/quiet/.*')
+    path_exemptions = re.compile(r"tests/scripts/quiet/.*")
 
     def is_valid_shebang(self, first_line, filepath):
         m = re.match(self._shebang_re, first_line)
@@ -181,7 +180,7 @@ class ShebangIssueTracker(FileIssueTracker):
         interpreter = m.group(1) or m.group(2)
         if interpreter not in self._extensions:
             return False
-        if not filepath.endswith('.' + self._extensions[interpreter]):
+        if not filepath.endswith("." + self._extensions[interpreter]):
             return False
         return True
 
@@ -189,7 +188,7 @@ class ShebangIssueTracker(FileIssueTracker):
         is_executable = os.access(filepath, os.X_OK)
         with open(filepath, "rb") as f:
             first_line = f.readline()
-        if first_line.startswith(b'#!'):
+        if first_line.startswith(b"#!"):
             if not is_executable:
                 # Shebang on a non-executable file
                 self.files_with_issues[filepath] = None
@@ -251,30 +250,33 @@ class UnicodeIssueTracker(LineIssueTracker):
     # for example '-' (U+002D HYPHEN-MINUS) vs '­' (U+00AD SOFT HYPHEN) vs
     # '‐' (U+2010 HYPHEN), or 'A' (U+0041 LATIN CAPITAL LETTER A) vs
     # 'Α' (U+0391 GREEK CAPITAL LETTER ALPHA).
-    GOOD_CHARACTERS = ''.join([
-        '\t\n\r -~', # ASCII (tabs and line endings are checked separately)
-        '\u00A0-\u00FF', # Latin-1 Supplement (for NO-BREAK SPACE and punctuation)
-        '\u2010-\u2027\u2030-\u205E', # General Punctuation (printable)
-        '\u2070\u2071\u2074-\u208E\u2090-\u209C', # Superscripts and Subscripts
-        '\u2190-\u21FF', # Arrows
-        '\u2200-\u22FF', # Mathematical Symbols
-        '\u2500-\u257F' # Box Drawings characters used in markdown trees
-    ])
+    GOOD_CHARACTERS = "".join(
+        [
+            "\t\n\r -~",  # ASCII (tabs and line endings are checked separately)
+            "\u00a0-\u00ff",  # Latin-1 Supplement (for NO-BREAK SPACE and punctuation)
+            "\u2010-\u2027\u2030-\u205e",  # General Punctuation (printable)
+            "\u2070\u2071\u2074-\u208e\u2090-\u209c",  # Superscripts and Subscripts
+            "\u2190-\u21ff",  # Arrows
+            "\u2200-\u22ff",  # Mathematical Symbols
+            "\u2500-\u257f",  # Box Drawings characters used in markdown trees
+        ]
+    )
     # Allow any of the characters and ranges above, and anything classified
     # as a word constituent.
-    GOOD_CHARACTERS_RE = re.compile(r'[\w{}]+\Z'.format(GOOD_CHARACTERS))
+    GOOD_CHARACTERS_RE = re.compile(r"[\w{}]+\Z".format(GOOD_CHARACTERS))
 
     def issue_with_line(self, line, _filepath, line_number):
         try:
-            text = line.decode('utf-8')
+            text = line.decode("utf-8")
         except UnicodeDecodeError:
             return True
-        if line_number == 1 and text.startswith('\uFEFF'):
+        if line_number == 1 and text.startswith("\ufeff"):
             # Strip BOM (U+FEFF ZERO WIDTH NO-BREAK SPACE) at the beginning.
             # Which files are allowed to have a BOM is handled in
             # Utf8BomIssueTracker.
             text = text[1:]
         return not self.GOOD_CHARACTERS_RE.match(text)
+
 
 class UnixLineEndingIssueTracker(LineIssueTracker):
     """Track files with non-Unix line endings (i.e. files with CR)."""
@@ -318,13 +320,15 @@ class TabIssueTracker(LineIssueTracker):
     """Track lines with tabs."""
 
     heading = "Tabs present:"
-    suffix_exemptions = frozenset([
-        ".pem", # some openssl dumps have tabs
-        ".sln",
-        "/Makefile",
-        "/Makefile.inc",
-        "/generate_visualc_files.pl",
-    ])
+    suffix_exemptions = frozenset(
+        [
+            ".pem",  # some openssl dumps have tabs
+            ".sln",
+            "/Makefile",
+            "/Makefile.inc",
+            "/generate_visualc_files.pl",
+        ]
+    )
 
     def issue_with_line(self, line, _filepath, _line_number):
         return b"\t" in line
@@ -338,12 +342,11 @@ class MergeArtifactIssueTracker(LineIssueTracker):
 
     def issue_with_line(self, line, _filepath, _line_number):
         # Detect leftover git conflict markers.
-        if line.startswith(b'<<<<<<< ') or line.startswith(b'>>>>>>> '):
+        if line.startswith(b"<<<<<<< ") or line.startswith(b">>>>>>> "):
             return True
-        if line.startswith(b'||||||| '): # from merge.conflictStyle=diff3
+        if line.startswith(b"||||||| "):  # from merge.conflictStyle=diff3
             return True
-        if line.rstrip(b'\r\n') == b'=======' and \
-           not _filepath.endswith('.md'):
+        if line.rstrip(b"\r\n") == b"=======" and not _filepath.endswith(".md"):
             return True
         return False
 
@@ -353,7 +356,10 @@ def this_location():
     assert frame is not None
     info = inspect.getframeinfo(frame)
     return os.path.basename(info.filename), info.lineno
+
+
 THIS_FILE_BASE_NAME, LINE_NUMBER_BEFORE_LICENSE_ISSUE_TRACKER = this_location()
+
 
 class LicenseIssueTracker(LineIssueTracker):
     """Check copyright statements and license indications.
@@ -367,34 +373,38 @@ class LicenseIssueTracker(LineIssueTracker):
     LICENSE_EXEMPTION_RE_LIST = [
         # Third-party code, other than whitelisted third-party modules,
         # may be under a different license.
-        r'3rdparty/(?!(p256-m)/.*)',
+        r"3rdparty/(?!(p256-m)/.*)",
         # Documentation explaining the license may have accidental
         # false positives.
-        r'(ChangeLog|LICENSE|[-0-9A-Z_a-z]+\.md)\Z',
+        r"(ChangeLog|LICENSE|[-0-9A-Z_a-z]+\.md)\Z",
         # Files imported from TF-M, and not used except in test builds,
         # may be under a different license.
-        r'configs/crypto_config_profile_medium\.h\Z',
-        r'configs/tfm_mbedcrypto_config_profile_medium\.h\Z',
+        r"configs/crypto_config_profile_medium\.h\Z",
+        r"configs/tfm_mbedcrypto_config_profile_medium\.h\Z",
         # Third-party file.
-        r'dco\.txt\Z',
+        r"dco\.txt\Z",
     ]
-    path_exemptions = re.compile('|'.join(BINARY_FILE_PATH_RE_LIST +
-                                          LICENSE_EXEMPTION_RE_LIST))
+    path_exemptions = re.compile("|".join(BINARY_FILE_PATH_RE_LIST + LICENSE_EXEMPTION_RE_LIST))
 
-    COPYRIGHT_HOLDER = rb'The Mbed TLS Contributors'
+    COPYRIGHT_HOLDER = rb"The Mbed TLS Contributors"
     # Catch "Copyright foo", "Copyright (C) foo", "Copyright © foo", etc.
-    COPYRIGHT_RE = re.compile(rb'.*\bcopyright\s+((?:\w|\s|[()]|[^ -~])*\w)', re.I)
+    COPYRIGHT_RE = re.compile(rb".*\bcopyright\s+((?:\w|\s|[()]|[^ -~])*\w)", re.I)
 
-    SPDX_HEADER_KEY = b'SPDX-License-Identifier'
-    LICENSE_IDENTIFIER = b'Apache-2.0 OR GPL-2.0-or-later'
-    SPDX_RE = re.compile(br'.*?(' +
-                         re.escape(SPDX_HEADER_KEY) +
-                         br')(:\s*(.*?)\W*\Z|.*)', re.I)
+    SPDX_HEADER_KEY = b"SPDX-License-Identifier"
+    LICENSE_IDENTIFIER = b"Apache-2.0 OR GPL-2.0-or-later"
+    SPDX_RE = re.compile(rb".*?(" + re.escape(SPDX_HEADER_KEY) + rb")(:\s*(.*?)\W*\Z|.*)", re.I)
 
-    LICENSE_MENTION_RE = re.compile(rb'.*(?:' + rb'|'.join([
-        rb'Apache License',
-        rb'General Public License',
-    ]) + rb')', re.I)
+    LICENSE_MENTION_RE = re.compile(
+        rb".*(?:"
+        + rb"|".join(
+            [
+                rb"Apache License",
+                rb"General Public License",
+            ]
+        )
+        + rb")",
+        re.I,
+    )
 
     def __init__(self):
         super().__init__()
@@ -404,13 +414,12 @@ class LicenseIssueTracker(LineIssueTracker):
         self.problem = None
 
     def issue_with_line(self, line, filepath, line_number):
-        #pylint: disable=too-many-return-statements
+        # pylint: disable=too-many-return-statements
 
         # Use endswith() rather than the more correct os.path.basename()
         # because experimentally, it makes a significant difference to
         # the running time.
-        if filepath.endswith(THIS_FILE_BASE_NAME) and \
-           line_number > LINE_NUMBER_BEFORE_LICENSE_ISSUE_TRACKER:
+        if filepath.endswith(THIS_FILE_BASE_NAME) and line_number > LINE_NUMBER_BEFORE_LICENSE_ISSUE_TRACKER:
             # Avoid false positives from the code in this class.
             # Also skip the rest of this file, which is highly unlikely to
             # contain any problematic statements since we put those near the
@@ -419,24 +428,24 @@ class LicenseIssueTracker(LineIssueTracker):
 
         m = self.COPYRIGHT_RE.match(line)
         if m and m.group(1) != self.COPYRIGHT_HOLDER:
-            self.problem = 'Invalid copyright line'
+            self.problem = "Invalid copyright line"
             return True
 
         m = self.SPDX_RE.match(line)
         if m:
             if m.group(1) != self.SPDX_HEADER_KEY:
-                self.problem = 'Misspelled ' + self.SPDX_HEADER_KEY.decode()
+                self.problem = "Misspelled " + self.SPDX_HEADER_KEY.decode()
                 return True
             if not m.group(3):
-                self.problem = 'Improperly formatted SPDX license identifier'
+                self.problem = "Improperly formatted SPDX license identifier"
                 return True
             if m.group(3) != self.LICENSE_IDENTIFIER:
-                self.problem = 'Wrong SPDX license identifier'
+                self.problem = "Wrong SPDX license identifier"
                 return True
 
         m = self.LICENSE_MENTION_RE.match(line)
         if m:
-            self.problem = 'Suspicious license mention'
+            self.problem = "Suspicious license mention"
             return True
 
         return False
@@ -477,14 +486,13 @@ class IntegrityChecker:
 
     @staticmethod
     def collect_files():
-        bytes_output = subprocess.check_output(['git', 'ls-files', '-z'])
-        bytes_filepaths = bytes_output.split(b'\0')[:-1]
-        ascii_filepaths = map(lambda fp: fp.decode('ascii'), bytes_filepaths)
+        bytes_output = subprocess.check_output(["git", "ls-files", "-z"])
+        bytes_filepaths = bytes_output.split(b"\0")[:-1]
+        ascii_filepaths = map(lambda fp: fp.decode("ascii"), bytes_filepaths)
         # Prepend './' to files in the top-level directory so that
         # something like `'/Makefile' in fp` matches in the top-level
         # directory as well as in subdirectories.
-        return [fp if os.path.dirname(fp) else os.path.join(os.curdir, fp)
-                for fp in ascii_filepaths]
+        return [fp if os.path.dirname(fp) else os.path.join(os.curdir, fp) for fp in ascii_filepaths]
 
     def check_files(self):
         for issue_to_check in self.issues_to_check:
@@ -504,7 +512,10 @@ class IntegrityChecker:
 def run_main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "-l", "--log_file", type=str, help="path to optional output log",
+        "-l",
+        "--log_file",
+        type=str,
+        help="path to optional output log",
     )
     check_args = parser.parse_args()
     integrity_check = IntegrityChecker(check_args.log_file)

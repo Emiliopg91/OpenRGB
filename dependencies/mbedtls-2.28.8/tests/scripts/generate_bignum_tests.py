@@ -47,32 +47,36 @@ import sys
 from abc import ABCMeta, abstractmethod
 from typing import Iterator, List, Tuple, TypeVar
 
-import scripts_path # pylint: disable=unused-import
+import scripts_path  # pylint: disable=unused-import
 from mbedtls_dev import test_case
 from mbedtls_dev import test_data_generation
 
-T = TypeVar('T') #pylint: disable=invalid-name
+T = TypeVar("T")  # pylint: disable=invalid-name
+
 
 def hex_to_int(val: str) -> int:
     """Implement the syntax accepted by mbedtls_test_read_mpi().
 
     This is a superset of what is accepted by mbedtls_test_read_mpi_core().
     """
-    if val in ['', '-']:
+    if val in ["", "-"]:
         return 0
     return int(val, 16)
 
+
 def quote_str(val) -> str:
-    return "\"{}\"".format(val)
+    return '"{}"'.format(val)
+
 
 def combination_pairs(values: List[T]) -> List[Tuple[T, T]]:
     """Return all pair combinations from input values."""
     return [(x, y) for x in values for y in values]
 
+
 class BignumTarget(test_data_generation.BaseTarget, metaclass=ABCMeta):
-    #pylint: disable=abstract-method
+    # pylint: disable=abstract-method
     """Target for bignum (legacy) test case generation."""
-    target_basename = 'test_suite_bignum.generated'
+    target_basename = "test_suite_bignum.generated"
 
 
 class BignumOperation(BignumTarget, metaclass=ABCMeta):
@@ -89,14 +93,21 @@ class BignumOperation(BignumTarget, metaclass=ABCMeta):
         input_cases: List of tuples containing pairs of test case inputs. This
             can be used to implement specific pairs of inputs.
     """
+
     symbol = ""
     input_values = [
-        "", "0", "-", "-0",
-        "7b", "-7b",
-        "0000000000000000123", "-0000000000000000123",
-        "1230000000000000000", "-1230000000000000000"
-    ] # type: List[str]
-    input_cases = [] # type: List[Tuple[str, str]]
+        "",
+        "0",
+        "-",
+        "-0",
+        "7b",
+        "-7b",
+        "0000000000000000123",
+        "-0000000000000000123",
+        "1230000000000000000",
+        "-1230000000000000000",
+    ]  # type: List[str]
+    input_cases = []  # type: List[Tuple[str, str]]
 
     def __init__(self, val_a: str, val_b: str) -> None:
         self.arg_a = val_a
@@ -108,7 +119,7 @@ class BignumOperation(BignumTarget, metaclass=ABCMeta):
         return [quote_str(self.arg_a), quote_str(self.arg_b), self.result()]
 
     def description_suffix(self) -> str:
-        #pylint: disable=no-self-use # derived classes need self
+        # pylint: disable=no-self-use # derived classes need self
         """Text to add at the end of the test case description."""
         return ""
 
@@ -121,9 +132,7 @@ class BignumOperation(BignumTarget, metaclass=ABCMeta):
         """
         if not self.case_description:
             self.case_description = "{} {} {}".format(
-                self.value_description(self.arg_a),
-                self.symbol,
-                self.value_description(self.arg_b)
+                self.value_description(self.arg_a), self.symbol, self.value_description(self.arg_b)
             )
             description_suffix = self.description_suffix()
             if description_suffix:
@@ -183,15 +192,11 @@ class BignumOperation(BignumTarget, metaclass=ABCMeta):
 
 class BignumCmp(BignumOperation):
     """Test cases for bignum value comparison."""
+
     count = 0
     test_function = "mpi_cmp_mpi"
     test_name = "MPI compare"
-    input_cases = [
-        ("-2", "-3"),
-        ("-2", "-2"),
-        ("2b4", "2b5"),
-        ("2b5", "2b6")
-        ]
+    input_cases = [("-2", "-3"), ("-2", "-2"), ("2b4", "2b5"), ("2b5", "2b6")]
 
     def __init__(self, val_a, val_b) -> None:
         super().__init__(val_a, val_b)
@@ -204,6 +209,7 @@ class BignumCmp(BignumOperation):
 
 class BignumCmpAbs(BignumCmp):
     """Test cases for absolute bignum value comparison."""
+
     count = 0
     test_function = "mpi_cmp_abs"
     test_name = "MPI compare (abs)"
@@ -214,14 +220,17 @@ class BignumCmpAbs(BignumCmp):
 
 class BignumAdd(BignumOperation):
     """Test cases for bignum value addition."""
+
     count = 0
     symbol = "+"
     test_function = "mpi_add_mpi"
     test_name = "MPI add"
     input_cases = combination_pairs(
         [
-            "1c67967269c6", "9cde3",
-            "-1c67967269c6", "-9cde3",
+            "1c67967269c6",
+            "9cde3",
+            "-1c67967269c6",
+            "-9cde3",
         ]
     )
 
@@ -230,17 +239,17 @@ class BignumAdd(BignumOperation):
         self._result = self.int_a + self.int_b
 
     def description_suffix(self) -> str:
-        if (self.int_a >= 0 and self.int_b >= 0):
-            return "" # obviously positive result or 0
-        if (self.int_a <= 0 and self.int_b <= 0):
-            return "" # obviously negative result or 0
+        if self.int_a >= 0 and self.int_b >= 0:
+            return ""  # obviously positive result or 0
+        if self.int_a <= 0 and self.int_b <= 0:
+            return ""  # obviously negative result or 0
         # The sign of the result is not obvious, so indicate it
-        return ", result{}0".format('>' if self._result > 0 else
-                                    '<' if self._result < 0 else '=')
+        return ", result{}0".format(">" if self._result > 0 else "<" if self._result < 0 else "=")
 
     def result(self) -> str:
         return quote_str("{:x}".format(self._result))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # Use the section of the docstring relevant to the CLI as description
     test_data_generation.main(sys.argv[1:], "\n".join(__doc__.splitlines()[:4]))

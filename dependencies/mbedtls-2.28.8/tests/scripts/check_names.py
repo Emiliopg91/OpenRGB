@@ -44,7 +44,7 @@ import shutil
 import subprocess
 import logging
 
-import scripts_path # pylint: disable=unused-import
+import scripts_path  # pylint: disable=unused-import
 from mbedtls_dev import build_tree
 
 
@@ -54,7 +54,8 @@ MACRO_PATTERN = r"^(MBEDTLS|PSA)_[0-9A-Z_]*[0-9A-Z]$"
 CONSTANTS_PATTERN = MACRO_PATTERN
 IDENTIFIER_PATTERN = r"^(mbedtls|psa)_[0-9a-z_]*[0-9a-z]$"
 
-class Match(): # pylint: disable=too-few-public-methods
+
+class Match:  # pylint: disable=too-few-public-methods
     """
     A class representing a match, together with its found position.
 
@@ -65,6 +66,7 @@ class Match(): # pylint: disable=too-few-public-methods
     * pos: a tuple of (start, end) positions on the line where the match is.
     * name: the match itself.
     """
+
     def __init__(self, filename, line, line_no, pos, name):
         # pylint: disable=too-many-arguments
         self.filename = filename
@@ -81,19 +83,22 @@ class Match(): # pylint: disable=too-few-public-methods
         underline = self.pos[0] * " " + (self.pos[1] - self.pos[0]) * "^"
 
         return (
-            " {0} |\n".format(" " * len(gutter)) +
-            " {0} | {1}".format(gutter, self.line) +
-            " {0} | {1}\n".format(" " * len(gutter), underline)
+            " {0} |\n".format(" " * len(gutter))
+            + " {0} | {1}".format(gutter, self.line)
+            + " {0} | {1}\n".format(" " * len(gutter), underline)
         )
 
-class Problem(abc.ABC): # pylint: disable=too-few-public-methods
+
+class Problem(abc.ABC):  # pylint: disable=too-few-public-methods
     """
     An abstract parent class representing a form of static analysis error.
     It extends an Abstract Base Class, which means it is not instantiable, and
     it also mandates certain abstract methods to be implemented in subclasses.
     """
+
     # Class variable to control the quietness of all problems
     quiet = False
+
     def __init__(self):
         self.textwrapper = textwrap.TextWrapper()
         self.textwrapper.width = 80
@@ -122,7 +127,8 @@ class Problem(abc.ABC): # pylint: disable=too-few-public-methods
         """
         pass
 
-class SymbolNotInHeader(Problem): # pylint: disable=too-few-public-methods
+
+class SymbolNotInHeader(Problem):  # pylint: disable=too-few-public-methods
     """
     A problem that occurs when an exported/available symbol in the object file
     is not explicitly declared in header files. Created with
@@ -131,6 +137,7 @@ class SymbolNotInHeader(Problem): # pylint: disable=too-few-public-methods
     Fields:
     * symbol_name: the name of the symbol.
     """
+
     def __init__(self, symbol_name):
         self.symbol_name = symbol_name
         Problem.__init__(self)
@@ -141,10 +148,11 @@ class SymbolNotInHeader(Problem): # pylint: disable=too-few-public-methods
     def verbose_output(self):
         return self.textwrapper.fill(
             "'{0}' was found as an available symbol in the output of nm, "
-            "however it was not declared in any header files."
-            .format(self.symbol_name))
+            "however it was not declared in any header files.".format(self.symbol_name)
+        )
 
-class PatternMismatch(Problem): # pylint: disable=too-few-public-methods
+
+class PatternMismatch(Problem):  # pylint: disable=too-few-public-methods
     """
     A problem that occurs when something doesn't match the expected pattern.
     Created with NameCheck.check_match_pattern()
@@ -153,30 +161,28 @@ class PatternMismatch(Problem): # pylint: disable=too-few-public-methods
     * pattern: the expected regex pattern
     * match: the Match object in question
     """
+
     def __init__(self, pattern, match):
         self.pattern = pattern
         self.match = match
         Problem.__init__(self)
 
-
     def quiet_output(self):
-        return (
-            "{0}:{1}:{2}"
-            .format(self.match.filename, self.match.line_no, self.match.name)
-        )
+        return "{0}:{1}:{2}".format(self.match.filename, self.match.line_no, self.match.name)
 
     def verbose_output(self):
-        return self.textwrapper.fill(
-            "{0}:{1}: '{2}' does not match the required pattern '{3}'."
-            .format(
-                self.match.filename,
-                self.match.line_no,
-                self.match.name,
-                self.pattern
+        return (
+            self.textwrapper.fill(
+                "{0}:{1}: '{2}' does not match the required pattern '{3}'.".format(
+                    self.match.filename, self.match.line_no, self.match.name, self.pattern
+                )
             )
-        ) + "\n" + str(self.match)
+            + "\n"
+            + str(self.match)
+        )
 
-class Typo(Problem): # pylint: disable=too-few-public-methods
+
+class Typo(Problem):  # pylint: disable=too-few-public-methods
     """
     A problem that occurs when a word using MBED or PSA doesn't
     appear to be defined as constants nor enum values. Created with
@@ -185,30 +191,33 @@ class Typo(Problem): # pylint: disable=too-few-public-methods
     Fields:
     * match: the Match object of the MBED|PSA name in question.
     """
+
     def __init__(self, match):
         self.match = match
         Problem.__init__(self)
 
     def quiet_output(self):
-        return (
-            "{0}:{1}:{2}"
-            .format(self.match.filename, self.match.line_no, self.match.name)
-        )
+        return "{0}:{1}:{2}".format(self.match.filename, self.match.line_no, self.match.name)
 
     def verbose_output(self):
-        return self.textwrapper.fill(
-            "{0}:{1}: '{2}' looks like a typo. It was not found in any "
-            "macros or any enums. If this is not a typo, put "
-            "//no-check-names after it."
-            .format(self.match.filename, self.match.line_no, self.match.name)
-        ) + "\n" + str(self.match)
+        return (
+            self.textwrapper.fill(
+                "{0}:{1}: '{2}' looks like a typo. It was not found in any "
+                "macros or any enums. If this is not a typo, put "
+                "//no-check-names after it.".format(self.match.filename, self.match.line_no, self.match.name)
+            )
+            + "\n"
+            + str(self.match)
+        )
 
-class CodeParser():
+
+class CodeParser:
     """
     Class for retrieving files and parsing the code. This can be used
     independently of the checks that NameChecker performs, for example for
     list_internal_identifiers.py.
     """
+
     def __init__(self, log):
         self.log = log
         build_tree.check_repo_path()
@@ -228,47 +237,54 @@ class CodeParser():
         Returns a dict of parsed item key to the corresponding List of Matches.
         """
         self.log.info("Parsing source code...")
-        self.log.debug(
-            "The following files are excluded from the search: {}"
-            .format(str(self.excluded_files))
-        )
+        self.log.debug("The following files are excluded from the search: {}".format(str(self.excluded_files)))
 
-        all_macros = self.parse_macros([
-            "include/mbedtls/*.h",
-            "include/psa/*.h",
-            "library/*.h",
-            "tests/include/test/drivers/*.h",
-            "3rdparty/everest/include/everest/everest.h",
-            "3rdparty/everest/include/everest/x25519.h"
-        ])
-        private_macros = self.parse_macros([
-            "library/*.c",
-        ])
-        enum_consts = self.parse_enum_consts([
-            "include/mbedtls/*.h",
-            "include/psa/*.h",
-            "library/*.h",
-            "library/*.c",
-            "3rdparty/everest/include/everest/everest.h",
-            "3rdparty/everest/include/everest/x25519.h"
-        ])
-        identifiers, excluded_identifiers = self.parse_identifiers([
-            "include/mbedtls/*.h",
-            "include/psa/*.h",
-            "library/*.h",
-            "3rdparty/everest/include/everest/everest.h",
-            "3rdparty/everest/include/everest/x25519.h"
-        ])
-        mbed_psa_words = self.parse_mbed_psa_words([
-            "include/mbedtls/*.h",
-            "include/psa/*.h",
-            "library/*.h",
-            "3rdparty/everest/include/everest/everest.h",
-            "3rdparty/everest/include/everest/x25519.h",
-            "library/*.c",
-            "3rdparty/everest/library/everest.c",
-            "3rdparty/everest/library/x25519.c"
-        ])
+        all_macros = self.parse_macros(
+            [
+                "include/mbedtls/*.h",
+                "include/psa/*.h",
+                "library/*.h",
+                "tests/include/test/drivers/*.h",
+                "3rdparty/everest/include/everest/everest.h",
+                "3rdparty/everest/include/everest/x25519.h",
+            ]
+        )
+        private_macros = self.parse_macros(
+            [
+                "library/*.c",
+            ]
+        )
+        enum_consts = self.parse_enum_consts(
+            [
+                "include/mbedtls/*.h",
+                "include/psa/*.h",
+                "library/*.h",
+                "library/*.c",
+                "3rdparty/everest/include/everest/everest.h",
+                "3rdparty/everest/include/everest/x25519.h",
+            ]
+        )
+        identifiers, excluded_identifiers = self.parse_identifiers(
+            [
+                "include/mbedtls/*.h",
+                "include/psa/*.h",
+                "library/*.h",
+                "3rdparty/everest/include/everest/everest.h",
+                "3rdparty/everest/include/everest/x25519.h",
+            ]
+        )
+        mbed_psa_words = self.parse_mbed_psa_words(
+            [
+                "include/mbedtls/*.h",
+                "include/psa/*.h",
+                "library/*.h",
+                "3rdparty/everest/include/everest/everest.h",
+                "3rdparty/everest/include/everest/x25519.h",
+                "library/*.c",
+                "3rdparty/everest/library/everest.c",
+                "3rdparty/everest/library/x25519.c",
+            ]
+        )
         symbols = self.parse_symbols()
 
         # Remove identifier macros like mbedtls_printf or mbedtls_calloc
@@ -292,7 +308,7 @@ class CodeParser():
             "identifiers": identifiers,
             "excluded_identifiers": excluded_identifiers,
             "symbols": symbols,
-            "mbed_psa_words": mbed_psa_words
+            "mbed_psa_words": mbed_psa_words,
         }
 
     def is_file_excluded(self, path, exclude_wildcards):
@@ -352,8 +368,7 @@ class CodeParser():
         for include_wildcard in include_wildcards:
             accumulator = accumulator.union(glob.iglob(include_wildcard))
 
-        return list(path for path in accumulator
-                    if not self.is_file_excluded(path, exclude_wildcards))
+        return list(path for path in accumulator if not self.is_file_excluded(path, exclude_wildcards))
 
     def parse_macros(self, include, exclude=None):
         """
@@ -366,9 +381,7 @@ class CodeParser():
         Returns a List of Match objects for the found macros.
         """
         macro_regex = re.compile(r"# *define +(?P<macro>\w+)")
-        exclusions = (
-            "asm", "inline", "EMIT", "_CRT_SECURE_NO_DEPRECATE", "MULADDC_"
-        )
+        exclusions = ("asm", "inline", "EMIT", "_CRT_SECURE_NO_DEPRECATE", "MULADDC_")
 
         files = self.get_included_files(include, exclude)
         self.log.debug("Looking for macros in {} files".format(len(files)))
@@ -381,12 +394,7 @@ class CodeParser():
                         if macro.group("macro").startswith(exclusions):
                             continue
 
-                        macros.append(Match(
-                            header_file,
-                            line,
-                            line_no,
-                            macro.span("macro"),
-                            macro.group("macro")))
+                        macros.append(Match(header_file, line, line_no, macro.span("macro"), macro.group("macro")))
 
         return macros
 
@@ -406,10 +414,7 @@ class CodeParser():
         exclusions = re.compile(r"// *no-check-names|#error")
 
         files = self.get_included_files(include, exclude)
-        self.log.debug(
-            "Looking for MBED|PSA words in {} files"
-            .format(len(files))
-        )
+        self.log.debug("Looking for MBED|PSA words in {} files".format(len(files)))
 
         mbed_psa_words = []
         for filename in files:
@@ -419,12 +424,7 @@ class CodeParser():
                         continue
 
                     for name in mbed_regex.finditer(line):
-                        mbed_psa_words.append(Match(
-                            filename,
-                            line,
-                            line_no,
-                            name.span(0),
-                            name.group(0)))
+                        mbed_psa_words.append(Match(filename, line, line_no, name.span(0), name.group(0)))
 
         return mbed_psa_words
 
@@ -455,40 +455,42 @@ class CodeParser():
                     # beginning of the line -- if they are indented, they might
                     # be sub-structures within structs, etc.
                     optional_c_identifier = r"([_a-zA-Z][_a-zA-Z0-9]*)?"
-                    if (state == states.OUTSIDE_KEYWORD and
-                            re.search(r"^(typedef +)?enum " + \
-                                    optional_c_identifier + \
-                                    r" *{", line)):
+                    if state == states.OUTSIDE_KEYWORD and re.search(
+                        r"^(typedef +)?enum " + optional_c_identifier + r" *{", line
+                    ):
                         state = states.IN_BRACES
-                    elif (state == states.OUTSIDE_KEYWORD and
-                          re.search(r"^(typedef +)?enum", line)):
+                    elif state == states.OUTSIDE_KEYWORD and re.search(r"^(typedef +)?enum", line):
                         state = states.IN_BETWEEN
-                    elif (state == states.IN_BETWEEN and
-                          re.search(r"^{", line)):
+                    elif state == states.IN_BETWEEN and re.search(r"^{", line):
                         state = states.IN_BRACES
-                    elif (state == states.IN_BRACES and
-                          re.search(r"^}", line)):
+                    elif state == states.IN_BRACES and re.search(r"^}", line):
                         state = states.OUTSIDE_KEYWORD
-                    elif (state == states.IN_BRACES and
-                          not re.search(r"^ *#", line)):
+                    elif state == states.IN_BRACES and not re.search(r"^ *#", line):
                         enum_const = re.search(r"^ *(?P<enum_const>\w+)", line)
                         if not enum_const:
                             continue
 
-                        enum_consts.append(Match(
-                            header_file,
-                            line,
-                            line_no,
-                            enum_const.span("enum_const"),
-                            enum_const.group("enum_const")))
+                        enum_consts.append(
+                            Match(
+                                header_file,
+                                line,
+                                line_no,
+                                enum_const.span("enum_const"),
+                                enum_const.group("enum_const"),
+                            )
+                        )
 
         return enum_consts
 
-    IGNORED_CHUNK_REGEX = re.compile('|'.join([
-        r'/\*.*?\*/', # block comment entirely on one line
-        r'//.*', # line comment
-        r'(?P<string>")(?:[^\\\"]|\\.)*"', # string literal
-    ]))
+    IGNORED_CHUNK_REGEX = re.compile(
+        "|".join(
+            [
+                r"/\*.*?\*/",  # block comment entirely on one line
+                r"//.*",  # line comment
+                r'(?P<string>")(?:[^\\\"]|\\.)*"',  # string literal
+            ]
+        )
+    )
 
     def strip_comments_and_literals(self, line, in_block_comment):
         """Strip comments and string literals from line.
@@ -511,50 +513,56 @@ class CodeParser():
             m = re.search(r"\*/", line)
             if m:
                 in_block_comment = False
-                line = line[m.end(0):]
+                line = line[m.end(0) :]
             else:
-                return '', True
+                return "", True
 
         # Remove full comments and string literals.
         # Do it all together to handle cases like "/*" correctly.
         # Note that continuation lines are not supported.
-        line = re.sub(self.IGNORED_CHUNK_REGEX,
-                      lambda s: '""' if s.group('string') else ' ',
-                      line)
+        line = re.sub(self.IGNORED_CHUNK_REGEX, lambda s: '""' if s.group("string") else " ", line)
 
         # Start an unfinished comment?
         # (If `/*` was part of a complete comment, it's already been removed.)
         m = re.search(r"/\*", line)
         if m:
             in_block_comment = True
-            line = line[:m.start(0)]
+            line = line[: m.start(0)]
 
         return line, in_block_comment
 
-    IDENTIFIER_REGEX = re.compile('|'.join([
-        # Match " something(a" or " *something(a". Functions.
-        # Assumptions:
-        # - function definition from return type to one of its arguments is
-        #   all on one line
-        # - function definition line only contains alphanumeric, asterisk,
-        #   underscore, and open bracket
-        r".* \**(\w+) *\( *\w",
-        # Match "(*something)(".
-        r".*\( *\* *(\w+) *\) *\(",
-        # Match names of named data structures.
-        r"(?:typedef +)?(?:struct|union|enum) +(\w+)(?: *{)?$",
-        # Match names of typedef instances, after closing bracket.
-        r"}? *(\w+)[;[].*",
-    ]))
+    IDENTIFIER_REGEX = re.compile(
+        "|".join(
+            [
+                # Match " something(a" or " *something(a". Functions.
+                # Assumptions:
+                # - function definition from return type to one of its arguments is
+                #   all on one line
+                # - function definition line only contains alphanumeric, asterisk,
+                #   underscore, and open bracket
+                r".* \**(\w+) *\( *\w",
+                # Match "(*something)(".
+                r".*\( *\* *(\w+) *\) *\(",
+                # Match names of named data structures.
+                r"(?:typedef +)?(?:struct|union|enum) +(\w+)(?: *{)?$",
+                # Match names of typedef instances, after closing bracket.
+                r"}? *(\w+)[;[].*",
+            ]
+        )
+    )
     # The regex below is indented for clarity.
-    EXCLUSION_LINES = re.compile("|".join([
-        r"extern +\"C\"",
-        r"(typedef +)?(struct|union|enum)( *{)?$",
-        r"} *;?$",
-        r"$",
-        r"//",
-        r"#",
-    ]))
+    EXCLUSION_LINES = re.compile(
+        "|".join(
+            [
+                r"extern +\"C\"",
+                r"(typedef +)?(struct|union|enum)( *{)?$",
+                r"} *;?$",
+                r"$",
+                r"//",
+                r"#",
+            ]
+        )
+    )
 
     def parse_identifiers_in_file(self, header_file, identifiers):
         """
@@ -573,8 +581,7 @@ class CodeParser():
             previous_line = ""
 
             for line_no, line in enumerate(header):
-                line, in_block_comment = \
-                    self.strip_comments_and_literals(line, in_block_comment)
+                line, in_block_comment = self.strip_comments_and_literals(line, in_block_comment)
 
                 if self.EXCLUSION_LINES.match(line):
                     previous_line = ""
@@ -610,12 +617,7 @@ class CodeParser():
                     if not group:
                         continue
 
-                    identifiers.append(Match(
-                        header_file,
-                        line,
-                        line_no,
-                        identifier.span(),
-                        group))
+                    identifiers.append(Match(header_file, line, line_no, identifier.span(), group))
 
     def parse_identifiers(self, include, exclude=None):
         """
@@ -635,11 +637,9 @@ class CodeParser():
           excluded files.
         """
 
-        included_files, excluded_files = \
-            self.get_all_files(include, exclude)
+        included_files, excluded_files = self.get_all_files(include, exclude)
 
-        self.log.debug("Looking for included identifiers in {} files".format \
-            (len(included_files)))
+        self.log.debug("Looking for included identifiers in {} files".format(len(included_files)))
 
         included_identifiers = []
         excluded_identifiers = []
@@ -664,58 +664,38 @@ class CodeParser():
         symbols = []
 
         # Back up the config and atomically compile with the full configuration.
-        shutil.copy(
-            "include/mbedtls/config.h",
-            "include/mbedtls/config.h.bak"
-        )
+        shutil.copy("include/mbedtls/config.h", "include/mbedtls/config.h.bak")
         try:
             # Use check=True in all subprocess calls so that failures are raised
             # as exceptions and logged.
-            subprocess.run(
-                ["python3", "scripts/config.py", "full"],
-                universal_newlines=True,
-                check=True
-            )
+            subprocess.run(["python3", "scripts/config.py", "full"], universal_newlines=True, check=True)
             my_environment = os.environ.copy()
             my_environment["CFLAGS"] = "-fno-asynchronous-unwind-tables"
             # Run make clean separately to lib to prevent unwanted behavior when
             # make is invoked with parallelism.
-            subprocess.run(
-                ["make", "clean"],
-                universal_newlines=True,
-                check=True
-            )
+            subprocess.run(["make", "clean"], universal_newlines=True, check=True)
             subprocess.run(
                 ["make", "lib"],
                 env=my_environment,
                 universal_newlines=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
-                check=True
+                check=True,
             )
 
             # Perform object file analysis using nm
-            symbols = self.parse_symbols_from_nm([
-                "library/libmbedcrypto.a",
-                "library/libmbedtls.a",
-                "library/libmbedx509.a"
-            ])
-
-            subprocess.run(
-                ["make", "clean"],
-                universal_newlines=True,
-                check=True
+            symbols = self.parse_symbols_from_nm(
+                ["library/libmbedcrypto.a", "library/libmbedtls.a", "library/libmbedx509.a"]
             )
+
+            subprocess.run(["make", "clean"], universal_newlines=True, check=True)
         except subprocess.CalledProcessError as error:
             self.log.debug(error.output)
             raise error
         finally:
             # Put back the original config regardless of there being errors.
             # Works also for keyboard interrupts.
-            shutil.move(
-                "include/mbedtls/config.h.bak",
-                "include/mbedtls/config.h"
-            )
+            shutil.move("include/mbedtls/config.h.bak", "include/mbedtls/config.h")
 
         return symbols
 
@@ -744,23 +724,25 @@ class CodeParser():
                 universal_newlines=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
-                check=True
+                check=True,
             ).stdout
 
         for line in nm_output.splitlines():
             if not nm_undefined_regex.search(line):
                 symbol = nm_valid_regex.search(line)
-                if (symbol and not symbol.group("symbol").startswith(exclusions)):
+                if symbol and not symbol.group("symbol").startswith(exclusions):
                     symbols.append(symbol.group("symbol"))
                 else:
                     self.log.error(line)
 
         return symbols
 
-class NameChecker():
+
+class NameChecker:
     """
     Representation of the core name checking operation performed by this script.
     """
+
     def __init__(self, parse_result, log):
         self.parse_result = parse_result
         self.log = log
@@ -781,7 +763,7 @@ class NameChecker():
         pattern_checks = [
             ("macros", MACRO_PATTERN),
             ("enum_consts", CONSTANTS_PATTERN),
-            ("identifiers", IDENTIFIER_PATTERN)
+            ("identifiers", IDENTIFIER_PATTERN),
         ]
         for group, check_pattern in pattern_checks:
             problems += self.check_match_pattern(group, check_pattern)
@@ -809,8 +791,7 @@ class NameChecker():
         Returns the number of problems that need fixing.
         """
         problems = []
-        all_identifiers = self.parse_result["identifiers"] +  \
-            self.parse_result["excluded_identifiers"]
+        all_identifiers = self.parse_result["identifiers"] + self.parse_result["excluded_identifiers"]
 
         for symbol in self.parse_result["symbols"]:
             found_symbol_declared = False
@@ -843,12 +824,9 @@ class NameChecker():
                 problems.append(PatternMismatch(check_pattern, item_match))
             # Double underscore should not be used for names
             if re.search(r".*__.*", item_match.name):
-                problems.append(
-                    PatternMismatch("no double underscore allowed", item_match))
+                problems.append(PatternMismatch("no double underscore allowed", item_match))
 
-        self.output_check_result(
-            "Naming patterns of {}".format(group_to_check),
-            problems)
+        self.output_check_result("Naming patterns of {}".format(group_to_check), problems)
         return len(problems)
 
     def check_for_typos(self):
@@ -864,14 +842,13 @@ class NameChecker():
         # Set comprehension, equivalent to a list comprehension wrapped by set()
         all_caps_names = {
             match.name
-            for match
-            in self.parse_result["macros"] +
-            self.parse_result["private_macros"] +
-            self.parse_result["enum_consts"]
+            for match in self.parse_result["macros"]
+            + self.parse_result["private_macros"]
+            + self.parse_result["enum_consts"]
         }
-        typo_exclusion = re.compile(r"XXX|__|_$|^MBEDTLS_.*CONFIG_FILE$|"
-                                    r"MBEDTLS_TEST_LIBTESTDRIVER*|"
-                                    r"PSA_CRYPTO_DRIVER_TEST")
+        typo_exclusion = re.compile(
+            r"XXX|__|_$|^MBEDTLS_.*CONFIG_FILE$|" r"MBEDTLS_TEST_LIBTESTDRIVER*|" r"PSA_CRYPTO_DRIVER_TEST"
+        )
 
         for name_match in self.parse_result["mbed_psa_words"]:
             found = name_match.name in all_caps_names
@@ -881,9 +858,7 @@ class NameChecker():
             # should still be checked for typos using the equivalent
             # BUILTINs that exist.
             if "MBEDTLS_PSA_ACCEL_" in name_match.name:
-                found = name_match.name.replace(
-                    "MBEDTLS_PSA_ACCEL_",
-                    "MBEDTLS_PSA_BUILTIN_") in all_caps_names
+                found = name_match.name.replace("MBEDTLS_PSA_ACCEL_", "MBEDTLS_PSA_BUILTIN_") in all_caps_names
 
             if not found and not typo_exclusion.search(name_match.name):
                 problems.append(Typo(name_match))
@@ -907,6 +882,7 @@ class NameChecker():
         else:
             self.log.info("{}: PASS".format(name))
 
+
 def main():
     """
     Perform argument parsing, and create an instance of CodeParser and
@@ -918,17 +894,12 @@ def main():
             "This script confirms that the naming of all symbols and identifiers "
             "in Mbed TLS are consistent with the house style and are also "
             "self-consistent.\n\n"
-            "Expected to be run from the Mbed TLS root directory.")
+            "Expected to be run from the Mbed TLS root directory."
+        ),
     )
+    parser.add_argument("-v", "--verbose", action="store_true", help="show parse results")
     parser.add_argument(
-        "-v", "--verbose",
-        action="store_true",
-        help="show parse results"
-    )
-    parser.add_argument(
-        "-q", "--quiet",
-        action="store_true",
-        help="hide unnecessary text, explanations, and highlights"
+        "-q", "--quiet", action="store_true", help="hide unnecessary text, explanations, and highlights"
     )
 
     args = parser.parse_args()
@@ -941,7 +912,7 @@ def main():
     try:
         code_parser = CodeParser(log)
         parse_result = code_parser.comprehensive_parse()
-    except Exception: # pylint: disable=broad-except
+    except Exception:  # pylint: disable=broad-except
         traceback.print_exc()
         sys.exit(2)
 
@@ -949,6 +920,7 @@ def main():
     return_code = name_checker.perform_checks(quiet=args.quiet)
 
     sys.exit(return_code)
+
 
 if __name__ == "__main__":
     main()
