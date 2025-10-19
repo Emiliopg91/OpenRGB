@@ -6,7 +6,7 @@
 |   Zach Deibert (zachdeibert)                  12 Nov 2024 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -15,6 +15,12 @@
 #include <QByteArray>
 #include "SuspendResume.h"
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#define NEFResultType long
+#else
+#define NEFResultType qintptr
+#endif
+
 class SuspendResumeListener : public SuspendResumeListenerBase, private QAbstractNativeEventFilter
 {
 protected:
@@ -22,5 +28,5 @@ protected:
     virtual ~SuspendResumeListener();
 
 private:
-    bool nativeEventFilter(const QByteArray &event_type, void *message, long *result);
+    bool nativeEventFilter(const QByteArray &event_type, void *message, NEFResultType *result);
 };

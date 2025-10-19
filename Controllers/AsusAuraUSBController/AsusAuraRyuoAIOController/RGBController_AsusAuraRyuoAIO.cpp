@@ -7,7 +7,7 @@
 |   using snipets from Chris M (Dr.No)                      |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include "RGBControllerKeyNames.h"
@@ -29,7 +29,7 @@ RGBController_AsusAuraRyuoAIO::RGBController_AsusAuraRyuoAIO(AsusAuraRyuoAIOCont
     controller                  = controller_ptr;
     uint8_t speed               = controller->SPEED_NORMAL;
 
-    name                        = "ROG Ryuo AIO";
+    name                        = controller->GetDeviceName();
     vendor                      = "ASUS";
     type                        = DEVICE_TYPE_COOLER;
     description                 = "ASUS Liquid Cooler with 120mm and 240mm radiators.";

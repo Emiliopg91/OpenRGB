@@ -6,7 +6,7 @@
 |   Martin Hartl (inlart)                       25 Apr 2020 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -26,7 +26,7 @@ enum
 class AuraMainboardController : public AuraUSBController
 {
 public:
-    AuraMainboardController(hid_device* dev_handle, const char* path);
+    AuraMainboardController(hid_device* dev_handle, const char* path, std::string dev_name);
     ~AuraMainboardController();
 
     void SetChannelLEDs
@@ -77,4 +77,6 @@ private:
         unsigned char*  led_data,
         bool            shutdown_effect
         );
+
+    void SetGen1();
 };

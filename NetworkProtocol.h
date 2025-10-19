@@ -6,7 +6,7 @@
 |   Adam Honse (CalcProgrammer1)                09 May 2020 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -19,8 +19,10 @@
 |   2:      Add profile controls (Release 0.6)                          |
 |   3:      Add brightness field to modes (Release 0.7)                 |
 |   4:      Add segments field to zones, network plugins (Release 0.9)  |
+|   5:      Zone flags, controller flags, resizable effects-only zones  |
+                (Release 1.0)                                           |
 \*---------------------------------------------------------------------*/
-#define OPENRGB_SDK_PROTOCOL_VERSION    4
+#define OPENRGB_SDK_PROTOCOL_VERSION    5
 
 /*-----------------------------------------------------*\
 | Default Interface to bind to.                         |
@@ -61,6 +63,8 @@ enum
 
     NET_PACKET_ID_DEVICE_LIST_UPDATED           = 100,  /* Indicate to clients that device list has updated     */
 
+    NET_PACKET_ID_REQUEST_RESCAN_DEVICES        = 140,  /* Request rescan of devices                            */
+
     NET_PACKET_ID_REQUEST_PROFILE_LIST          = 150,  /* Request profile list                                 */
     NET_PACKET_ID_REQUEST_SAVE_PROFILE          = 151,  /* Save current configuration in a new profile          */
     NET_PACKET_ID_REQUEST_LOAD_PROFILE          = 152,  /* Load a given profile                                 */
@@ -73,6 +77,8 @@ enum
     | RGBController class functions                                                                              |
     \*----------------------------------------------------------------------------------------------------------*/
     NET_PACKET_ID_RGBCONTROLLER_RESIZEZONE      = 1000, /* RGBController::ResizeZone()                          */
+    NET_PACKET_ID_RGBCONTROLLER_CLEARSEGMENTS   = 1001, /* RGBController::ClearSegments()                       */
+    NET_PACKET_ID_RGBCONTROLLER_ADDSEGMENT      = 1002, /* RGBController::AddSegment()                          */
 
     NET_PACKET_ID_RGBCONTROLLER_UPDATELEDS      = 1050, /* RGBController::UpdateLEDs()                          */
     NET_PACKET_ID_RGBCONTROLLER_UPDATEZONELEDS  = 1051, /* RGBController::UpdateZoneLEDs()                      */

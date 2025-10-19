@@ -4,7 +4,7 @@
 |   User interface for OpenRGB Hardware IDs dialog          |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include <QString>
@@ -16,22 +16,23 @@
 #include "ResourceManager.h"
 #include "StringUtils.h"
 
-Ui::OpenRGBHardwareIDsDialog::OpenRGBHardwareIDsDialog(QWidget *parent) :
+OpenRGBHardwareIDsDialog::OpenRGBHardwareIDsDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::OpenRGBHardwareIDsDialogUi)
+    ui(new Ui::OpenRGBHardwareIDsDialog)
 {
     ui->setupUi(this);
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     ui->HardwareIdsList->header()->resizeSection(0 /*column index*/, 300 /*width*/);
     ui->HardwareIdsList->header()->resizeSection(1 /*column index*/, 200 /*width*/);
     ui->HardwareIdsList->header()->resizeSection(2 /*column index*/, 100 /*width*/);
 }
 
-Ui::OpenRGBHardwareIDsDialog::~OpenRGBHardwareIDsDialog()
+OpenRGBHardwareIDsDialog::~OpenRGBHardwareIDsDialog()
 {
     delete ui;
 }
 
-int Ui::OpenRGBHardwareIDsDialog::show()
+int OpenRGBHardwareIDsDialog::show()
 {
     /*---------------------------------------------------------*\
     | Add i2c busses infos                                      |
@@ -136,7 +137,7 @@ int Ui::OpenRGBHardwareIDsDialog::show()
     return this->exec();
 }
 
-void Ui::OpenRGBHardwareIDsDialog::on_CopyToClipboardButton_clicked()
+void OpenRGBHardwareIDsDialog::on_CopyToClipboardButton_clicked()
 {
     QClipboard *clipboard = QGuiApplication::clipboard();
     clipboard->setText(strings.join("\n"));

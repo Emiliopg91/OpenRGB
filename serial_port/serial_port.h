@@ -8,7 +8,7 @@
 |   Adam Honse (calcprogrammer1@gmail.com)      21 Jan 2013 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #ifndef SERIAL_PORT_H
@@ -16,6 +16,8 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <vector>
+#include <string>
 
 #ifdef _WIN32
 /*---------------------------------------------------------*\
@@ -31,6 +33,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <termios.h>
+#include <sys/file.h>
 #include <sys/ioctl.h>
 
 //these types are redefined in asm/termios.h
@@ -102,6 +105,8 @@ enum
 class serial_port
 {
 public:
+    static std::vector<std::string> getSerialPorts();
+
     serial_port();
     serial_port(const char * name, unsigned int baud);
     serial_port(const char *            name,

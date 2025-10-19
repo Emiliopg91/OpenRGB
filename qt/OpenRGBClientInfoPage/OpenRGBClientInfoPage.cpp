@@ -4,7 +4,7 @@
 |   User interface for OpenRGB client information page      |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include <iostream>
@@ -13,8 +13,7 @@
 #include "OpenRGBClientInfoPage.h"
 #include "ResourceManager.h"
 #include "SettingsManager.h"
-
-using namespace Ui;
+#include "ui_OpenRGBClientInfoPage.h"
 
 static void UpdateInfoCallback(void * this_ptr)
 {
@@ -32,7 +31,7 @@ public:
 
 OpenRGBClientInfoPage::OpenRGBClientInfoPage(QWidget *parent) :
     QFrame(parent),
-    ui(new Ui::OpenRGBClientInfoPageUi)
+    ui(new Ui::OpenRGBClientInfoPage)
 {
     /*-----------------------------------------------------*\
     | Set initial values for GUI fields                     |
@@ -42,12 +41,9 @@ OpenRGBClientInfoPage::OpenRGBClientInfoPage(QWidget *parent) :
     ui->ClientPortValue->setText(QString::number(OPENRGB_SDK_PORT));
 
     /*-----------------------------------------------------*\
-    | Register callbacks for existing clients               |
+    | Register callbacks with resource manager              |
     \*-----------------------------------------------------*/
-    for(unsigned int client_idx = 0; client_idx < ResourceManager::get()->GetClients().size(); client_idx++)
-    {
-        ResourceManager::get()->GetClients()[client_idx]->RegisterClientInfoChangeCallback(UpdateInfoCallback, this);
-    }
+    ResourceManager::get()->RegisterClientInfoChangeCallback(UpdateInfoCallback, this);
 
     /*-----------------------------------------------------*\
     | Update the information view                           |
@@ -68,22 +64,6 @@ void OpenRGBClientInfoPage::changeEvent(QEvent *event)
     }
 }
 
-void OpenRGBClientInfoPage::AddClient(NetworkClient* new_client)
-{
-    /*-----------------------------------------------------*\
-    | Add a new client to the list, register the callback,  |
-    | and update the information view if the pointer is     |
-    | valid                                                 |
-    \*-----------------------------------------------------*/
-    if(new_client != NULL)
-    {
-        ResourceManager::get()->GetClients().push_back(new_client);
-        new_client->RegisterClientInfoChangeCallback(UpdateInfoCallback, this);
-
-        UpdateInfo();
-    }
-}
-
 void OpenRGBClientInfoPage::UpdateInfo()
 {
     /*-----------------------------------------------------*\
@@ -94,21 +74,24 @@ void OpenRGBClientInfoPage::UpdateInfo()
     /*-----------------------------------------------------*\
     | Set up the tree view header                           |
     \*-----------------------------------------------------*/
-    ui->ClientTree->setColumnCount(4);
+    ui->ClientTree->setColumnCount(5);
     ui->ClientTree->header()->setStretchLastSection(false);
     ui->ClientTree->header()->setSectionResizeMode(0, QHeaderView::Stretch);
-    ui->ClientTree->setColumnWidth(1, 100);
-    ui->ClientTree->setColumnWidth(2, 100);
-    ui->ClientTree->setColumnWidth(3, 100);
+    ui->ClientTree->setColumnWidth(1, 140);
+    ui->ClientTree->setColumnWidth(2, 140);
+    ui->ClientTree->setColumnWidth(3, 140);
+    ui->ClientTree->setColumnWidth(4, 140);
 
     /*-----------------------------------------------------*\
-    | Set up a signal mapper to handle disconnect buttons   |
+    | Set up signal mappers to handle buttons               |
     \*-----------------------------------------------------*/
-    QSignalMapper* signalMapper = new QSignalMapper(this);
-    connect(signalMapper, SIGNAL(mapped(QObject *)), this, SLOT(onClientDisconnectButton_clicked(QObject *)));
+    QSignalMapper* signalMapperDisconnect   = new QSignalMapper(this);
+    QSignalMapper* signalMapperSave         = new QSignalMapper(this);
+    QSignalMapper* signalMapperRescan       = new QSignalMapper(this);
 
-    QSignalMapper* signalMapperSave = new QSignalMapper(this);
-    connect(signalMapperSave, SIGNAL(mapped(QObject *)), this, SLOT(onClientSaveCheckBox_clicked(QObject *)));
+    connect(signalMapperDisconnect, SIGNAL(mapped(QObject *)), this, SLOT(onClientDisconnectButton_clicked(QObject *)));
+    connect(signalMapperSave,       SIGNAL(mapped(QObject *)), this, SLOT(onClientSaveCheckBox_clicked(QObject *)));
+    connect(signalMapperRescan,     SIGNAL(mapped(QObject *)), this, SLOT(onClientRescanButton_clicked(QObject *)));
 
     /*-------------------------------------------------*\
     | Get Client settings                               |
@@ -158,32 +141,49 @@ void OpenRGBClientInfoPage::UpdateInfo()
         /*-----------------------------------------------------*\
         | Create the save checkbox                              |
         \*-----------------------------------------------------*/
-        QCheckBox* new_checkbox = new QCheckBox( "" );
-        ui->ClientTree->setItemWidget(new_top_item, 2, new_checkbox);
-        new_checkbox->setChecked(found);
+        QCheckBox* checkbox_save                = new QCheckBox( "" );
+        ui->ClientTree->setItemWidget(new_top_item, 2, checkbox_save);
+        checkbox_save->setChecked(found);
 
-        connect(new_checkbox, SIGNAL(clicked()), signalMapperSave, SLOT(map()));
+        connect(checkbox_save, SIGNAL(clicked()), signalMapperSave, SLOT(map()));
 
-        NetworkClientPointer * new_save_arg = new NetworkClientPointer();
-        new_save_arg->net_client = ResourceManager::get()->GetClients()[client_idx];
-        new_save_arg->widget = new_checkbox;
+        NetworkClientPointer * arg_save         = new NetworkClientPointer();
+        arg_save->net_client                    = ResourceManager::get()->GetClients()[client_idx];
+        arg_save->widget                        = checkbox_save;
 
-        signalMapperSave->setMapping(new_checkbox, new_save_arg);
+        signalMapperSave->setMapping(checkbox_save, arg_save);
 
         /*-----------------------------------------------------*\
-        | Create the disconnect buttons and connect them to the |
-        | signal mapper                                         |
+        | Create the rescan button if protocol version is 5 or  |
+        | greater                                               |
         \*-----------------------------------------------------*/
-        QPushButton* new_button = new QPushButton(tr("Disconnect"));
-        ui->ClientTree->setItemWidget(new_top_item, 3, new_button);
+        if(ResourceManager::get()->GetClients()[client_idx]->GetProtocolVersion() >= 5)
+        {
+            QPushButton* button_rescan              = new QPushButton(tr("Rescan Devices"));
+            ui->ClientTree->setItemWidget(new_top_item, 3, button_rescan);
 
-        connect(new_button, SIGNAL(clicked()), signalMapper, SLOT(map()));
+            connect(button_rescan, SIGNAL(clicked()), signalMapperRescan, SLOT(map()));
 
-        NetworkClientPointer * new_arg = new NetworkClientPointer();
-        new_arg->net_client = ResourceManager::get()->GetClients()[client_idx];
-        new_arg->widget = new_button;
+            NetworkClientPointer * arg_rescan       = new NetworkClientPointer();
+            arg_rescan->net_client                  = ResourceManager::get()->GetClients()[client_idx];
+            arg_rescan->widget                      = button_rescan;
 
-        signalMapper->setMapping(new_button, new_arg);
+            signalMapperRescan->setMapping(button_rescan, arg_rescan);
+        }
+
+        /*-----------------------------------------------------*\
+        | Create the disconnect button                          |
+        \*-----------------------------------------------------*/
+        QPushButton* button_disconnect          = new QPushButton(tr("Disconnect"));
+        ui->ClientTree->setItemWidget(new_top_item, 4, button_disconnect);
+
+        connect(button_disconnect, SIGNAL(clicked()), signalMapperDisconnect, SLOT(map()));
+
+        NetworkClientPointer * arg_disconnect   = new NetworkClientPointer();
+        arg_disconnect->net_client              = ResourceManager::get()->GetClients()[client_idx];
+        arg_disconnect->widget                  = button_disconnect;
+
+        signalMapperDisconnect->setMapping(button_disconnect, arg_disconnect);
 
         /*-----------------------------------------------------*\
         | Add child items for each device in the client         |
@@ -195,7 +195,7 @@ void OpenRGBClientInfoPage::UpdateInfo()
             | names in them                                         |
             \*-----------------------------------------------------*/
             QTreeWidgetItem* new_item = new QTreeWidgetItem(new_top_item);
-            new_item->setText(0, QString::fromStdString(ResourceManager::get()->GetClients()[client_idx]->server_controllers[dev_idx]->name));
+            new_item->setText(0, QString::fromStdString(ResourceManager::get()->GetClients()[client_idx]->server_controllers[dev_idx]->GetName()));
 
             /*-----------------------------------------------------*\
             | Add child items for each zone in the device           |
@@ -235,7 +235,7 @@ void OpenRGBClientInfoPage::UpdateInfo()
     }
 }
 
-void Ui::OpenRGBClientInfoPage::on_ClientConnectButton_clicked()
+void OpenRGBClientInfoPage::on_ClientConnectButton_clicked()
 {
     /*-----------------------------------------------------*\
     | Read the new client IP and Port values from the UI    |
@@ -265,10 +265,10 @@ void Ui::OpenRGBClientInfoPage::on_ClientConnectButton_clicked()
     rgb_client->RegisterClientInfoChangeCallback(UpdateInfoCallback, this);
 }
 
-void Ui::OpenRGBClientInfoPage::onClientDisconnectButton_clicked(QObject * arg)
+void OpenRGBClientInfoPage::onClientDisconnectButton_clicked(QObject * arg)
 {
     /*-----------------------------------------------------*\
-    | Get the pointer to the disconnecting client from args |
+    | Get the pointer to the client from args               |
     \*-----------------------------------------------------*/
     NetworkClient * disconnect_client = ((NetworkClientPointer *)arg)->net_client;
 
@@ -279,7 +279,20 @@ void Ui::OpenRGBClientInfoPage::onClientDisconnectButton_clicked(QObject * arg)
     ResourceManager::get()->UnregisterNetworkClient(disconnect_client);
 }
 
-void Ui::OpenRGBClientInfoPage::onClientSaveCheckBox_clicked(QObject * arg)
+void OpenRGBClientInfoPage::onClientRescanButton_clicked(QObject * arg)
+{
+    /*-----------------------------------------------------*\
+    | Get the pointer to the client from args               |
+    \*-----------------------------------------------------*/
+    NetworkClient * rescan_client = ((NetworkClientPointer *)arg)->net_client;
+
+    /*-----------------------------------------------------*\
+    | Send a rescan request to the client                   |
+    \*-----------------------------------------------------*/
+    rescan_client->SendRequest_RescanDevices();
+}
+
+void OpenRGBClientInfoPage::onClientSaveCheckBox_clicked(QObject * arg)
 {
     /*-----------------------------------------------------*\
     | Get the pointer to the client from args               |

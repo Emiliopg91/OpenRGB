@@ -6,15 +6,14 @@
 |   Adam Honse (CalcProgrammer1)                11 Feb 2020 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include "super_io.h"
 
-#ifdef WIN32
-#include <Windows.h>
-#include "OlsApi.h"
-
+#if defined(_MACOSX_X86_X64)
+#include "macUSPCIOAccess.h"
+#elif defined(_WIN32)
 #else
 #include <unistd.h>
 #include <sys/types.h>
@@ -33,9 +32,16 @@ int dev_port_fd;
 
 void superio_enter(int ioreg)
 {
-#ifdef WIN32
+#if defined(_MACOSX_X86_X64)
     WriteIoPortByte(ioreg, 0x87);
     WriteIoPortByte(ioreg, 0x87);
+#elif defined(_WIN32)
+    /*-----------------------------------------------------*\
+    | This function is not defined for Windows              |
+    |   For 64-bit Windows, super_io_pawnio.cpp is used     |
+    |   instead.  For 32-bit Windows, this function provides|
+    |   a nonfunctional stub implementation.                |
+    \*-----------------------------------------------------*/
 #else
     unsigned char temp = 0x87;
     dev_port_fd = open("/dev/port", O_RDWR, "rw");
@@ -70,9 +76,16 @@ void superio_enter(int ioreg)
 
 void superio_outb(int ioreg, int reg, int val)
 {
-#ifdef WIN32
+#if defined(_MACOSX_X86_X64)
     WriteIoPortByte(ioreg, reg);
     WriteIoPortByte(ioreg + 1, val);
+#elif defined(_WIN32)
+    /*-----------------------------------------------------*\
+    | This function is not defined for Windows              |
+    |   For 64-bit Windows, super_io_pawnio.cpp is used     |
+    |   instead.  For 32-bit Windows, this function provides|
+    |   a nonfunctional stub implementation.                |
+    \*-----------------------------------------------------*/
 #else
     dev_port_fd = open("/dev/port", O_RDWR, "rw");
 
@@ -105,9 +118,17 @@ void superio_outb(int ioreg, int reg, int val)
 
 int superio_inb(int ioreg, int reg)
 {
-#ifdef WIN32
+#if defined(_MACOSX_X86_X64)
     WriteIoPortByte(ioreg, reg);
     return ReadIoPortByte(ioreg + 1);
+#elif defined(_WIN32)
+    /*-----------------------------------------------------*\
+    | This function is not defined for Windows              |
+    |   For 64-bit Windows, super_io_pawnio.cpp is used     |
+    |   instead.  For 32-bit Windows, this function provides|
+    |   a nonfunctional stub implementation.                |
+    \*-----------------------------------------------------*/
+    return -1;
 #else
     unsigned char temp = 0;
     dev_port_fd = open("/dev/port", O_RDWR, "rw");

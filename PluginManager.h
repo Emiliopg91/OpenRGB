@@ -4,7 +4,7 @@
 |   OpenRGB plugin manager                                  |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -17,7 +17,7 @@
 #include <QDir>
 #include "OpenRGBPluginInterface.h"
 
-typedef struct
+struct OpenRGBPluginEntry
 {
     OpenRGBPluginInfo           info;
     OpenRGBPluginInterface*     plugin;
@@ -29,7 +29,7 @@ typedef struct
     bool                        incompatible;
     bool                        is_system;
     int                         api_version;
-} OpenRGBPluginEntry;
+};
 
 typedef void (*AddPluginCallback)(void *, OpenRGBPluginEntry* plugin);
 typedef void (*RemovePluginCallback)(void *, OpenRGBPluginEntry* plugin);

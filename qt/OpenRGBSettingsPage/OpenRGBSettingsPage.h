@@ -4,7 +4,7 @@
 |   User interface for general settings page                |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -13,8 +13,7 @@
 #include <QDirIterator>
 #include <QTranslator>
 #include <QWidget>
-#include <json.hpp>
-#include "ui_OpenRGBSettingsPage.h"
+#include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
 
@@ -23,7 +22,7 @@ namespace Ui
     class OpenRGBSettingsPage;
 }
 
-class Ui::OpenRGBSettingsPage : public QWidget
+class OpenRGBSettingsPage : public QWidget
 {
     Q_OBJECT
 
@@ -38,7 +37,7 @@ public slots:
     void UpdateProfiles();
 
 private:
-    Ui::OpenRGBSettingsPageUi *ui;
+    Ui::OpenRGBSettingsPage *ui;
     void SaveSettings();
 
     void CreateAutoStartSettings();
@@ -68,7 +67,7 @@ private slots:
     void on_CheckboxAutoStartClient_clicked();
     void on_CheckboxAutoStartProfile_clicked();
     void on_TextServerHost_textChanged(const QString);
-    void on_TextServerPort_textChanged(const QString);
+    void on_TextServerPort_valueChanged(int);
     void on_TextClientHost_textChanged(const QString);
     void on_TextCustomArgs_textChanged(const QString);
     void on_ComboBoxAutoStartProfile_currentTextChanged(const QString);
@@ -78,6 +77,7 @@ private slots:
     void on_CheckboxRunZoneChecks_clicked();
     void on_OpenSettingsFolderButton_clicked();
     void on_CheckboxLogConsole_clicked();
+    void on_CheckboxLogFile_clicked();
     void on_CheckboxAMDSMBusReduceCPU_clicked();
     void on_CheckboxSharedSMBusAccess_clicked();
 
@@ -89,4 +89,6 @@ private slots:
     void on_ComboBoxSuspendProfile_currentTextChanged(const QString suspend_profile_name);
     void on_CheckboxDisableKeyExpansion_clicked();
     void on_CheckboxShowLEDView_clicked();
+    void on_CheckboxAllDevices_clicked(bool checked);
+    void on_CheckboxLegacyWorkaround_clicked(bool checked);
 };

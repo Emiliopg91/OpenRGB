@@ -6,7 +6,7 @@
 |   Chris M (Dr_No)                             28 Jul 2022 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include "AsusAuraCoreLaptopController.h"
@@ -179,6 +179,7 @@ void AsusAuraCoreLaptopController::SetMode(uint8_t mode, uint8_t speed, uint8_t 
 
         if(current_mode == ASUSAURACORELAPTOP_MODE_DIRECT)
         {
+            SendBrightness();
             SendInitDirectMode();
             return;
         }

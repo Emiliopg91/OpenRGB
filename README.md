@@ -42,7 +42,7 @@ This project interacts directly with hardware using reverse engineered protocols
   * An unofficial Flatpak release is [available on Flathub](https://flathub.org/apps/details/org.openrgb.OpenRGB)
     * Note: If using the AppImage or Flatpak versions, ensure you [install the latest udev rules](Documentation/UdevRules.md).
   * Released versions are officially packaged for various distributions including Alpine, Fedora, and Arch.
-  * Arch users can also install from the AUR for both the [release](https://aur.archlinux.org/packages/openrgb/) and [pipeline](https://aur.archlinux.org/packages/openrgb-git/) versions.
+  * Arch users can also install from the [Extra repository](https://archlinux.org/packages/extra/x86_64/openrgb/) or from the AUR for the [pipeline](https://aur.archlinux.org/packages/openrgb-git/) version.
 
 ## Compile OpenRGB
 
@@ -55,6 +55,10 @@ This project interacts directly with hardware using reverse engineered protocols
 ## Join Our Discord
 
 * https://discord.gg/AQwjJPY
+
+## Follow Us On Mastodon
+
+* https://floss.social/@OpenRGB
 
 ## Visit Our Lemmy Community
 
@@ -86,48 +90,49 @@ This project interacts directly with hardware using reverse engineered protocols
 
 * OpenRGB provides a network interface for controlling supported RGB devices from other software.  These projects implement the OpenRGB SDK and provide additional ways for you to control your lighting setup.
 
-  * OpenRGB Python Client (by bahorn): https://github.com/bahorn/OpenRGB-PyClient
-  * OpenRGB Python Client (by jath03): https://github.com/jath03/openrgb-python
-  * OpenRGB Node.js Client (by vlakreeh): https://github.com/vlakreeh/openrgb
-  * D-Bus Connector for OpenRGB (by Vinno97): https://github.com/Vinno97/OpenRGB-DBus-Connector
-  * OpenRGB.NET - C# OpenRGB Client (by diogotr7): https://github.com/diogotr7/OpenRGB.NET
-  * OpenRGB-Client - Java Client (by morg): https://gitlab.com/mguimard/openrgb-client
-  * OpenRGB-SDK - NodeJS client (by Mola19): https://www.npmjs.com/package/openrgb-sdk
-  * OpenRGB-cppSDK - C++ client (by Youda008): https://github.com/Youda008/OpenRGB-cppSDK
-  * openrgb-rs - Rust client (by nicoulaj): https://github.com/nicoulaj/openrgb-rs
+  * [OpenRGB Python Client](https://github.com/jath03/openrgb-python) (by jath03)
+  * [OpenRGB Python Client (deprecated)](https://github.com/bahorn/OpenRGB-PyClient) (by bahorn)  
+  * [OpenRGB Node.js Client](https://github.com/vlakreeh/openrgb) (by vlakreeh)
+  * [D-Bus Connector for OpenRGB](https://github.com/Vinno97/OpenRGB-DBus-Connector) (by Vinno97)
+  * [OpenRGB.NET - C# OpenRGB Client](https://github.com/diogotr7/OpenRGB.NET) (by diogotr7)
+  * [OpenRGB-Client - Java Client](https://gitlab.com/mguimard/openrgb-client) (by morg)
+  * [OpenRGB-SDK - NodeJS client](https://www.npmjs.com/package/openrgb-sdk) (by Mola19)
+  * [OpenRGB-cppSDK - C++ client](https://github.com/Youda008/OpenRGB-cppSDK) (by Youda008)
+  * [openrgb-rs2 - Rust client](https://github.com/Achtuur/openrgb-rs2) (by nicoulaj & Achtuur)
 
 ## Applications Supporting OpenRGB SDK
 
 * While OpenRGB itself only provides control over the lighting effects built into hardware, several open source applications can use the OpenRGB SDK to provide synchronized lighting effects for your devices.
 
-  * Keyboard Visualizer (by me): https://gitlab.com/CalcProgrammer1/KeyboardVisualizer
-  * OpenRGB E1.31 Receiver (by me): https://gitlab.com/CalcProgrammer1/OpenRGBE131Receiver
-  * Project Aurora (support added by diogotr7): https://github.com/Aurora-RGB/Aurora
-  * Artemis 2 (support added by diogotr7 as a plugin): https://github.com/Artemis-RGB/Artemis
-  * RemoteLight (by Drumber, need OpenRGB plugin): https://github.com/Drumber/RemoteLight
-  * OpenRGB-python-FX (by herosilas12): https://github.com/herosilas12/OpenRGB-python-FX
-  * AllMyLights (by sparten11740): https://github.com/sparten11740/allmylights
-  * OpenRGBRemote (by morg): https://gitlab.com/mguimard/openrgbremote
-  * PiLED (by PolisanTheEasyNick): https://github.com/PolisanTheEasyNick/PiLED
+  * [Keyboard Visualizer](https://gitlab.com/CalcProgrammer1/KeyboardVisualizer) (by CalcProgrammer1)
+  * [OpenRGB E1.31 Receiver](https://gitlab.com/CalcProgrammer1/OpenRGBE131Receiver) (by me)
+  * [Aurora](https://github.com/Aurora-RGB/Aurora) (OpenRGB support added by diogotr7)
+  * [Artemis](https://github.com/Artemis-RGB/Artemis) (OpenRGB support added by diogotr7)
+  * [RemoteLight](https://github.com/Drumber/RemoteLight) (by Drumber, requires OpenRGB plugin)
+  * [OpenRGB-python-FX](https://github.com/herosilas12/OpenRGB-python-FX) (by herosilas12)
+  * [AllMyLights](https://github.com/sparten11740/allmylights) (by sparten11740)
+  * [OpenRGBRemote](https://gitlab.com/mguimard/openrgbremote) (by morg)
+  * [PiLED](https://github.com/PolisanTheEasyNick/PiLED) (by PolisanTheEasyNick)
 
 ## OpenRGB Plugins
 
 * OpenRGB provides a plugin interface for adding features to the OpenRGB application.  The following projects provide additional functionality in the form of plugins.
 
-  * OpenRGB E1.31 Receiver Plugin (by me): https://gitlab.com/OpenRGBDevelopers/OpenRGBE131ReceiverPlugin
-  * Effects Engine Plugin (by herosilas12, morg): https://gitlab.com/OpenRGBDevelopers/OpenRGBEffectsPlugin
-  * OpenRGB Visual Map Plugin (by morg): https://gitlab.com/OpenRGBDevelopers/OpenRGBVisualMapPlugin
-  * Scheduler Plugin (by morg): https://gitlab.com/OpenRGBDevelopers/OpenRGBSchedulerPlugin
-  * Skin Plugin (by morg): https://gitlab.com/OpenRGBDevelopers/openrgbskinplugin
-  * Hardware Sync Plugin (by morg): https://gitlab.com/OpenRGBDevelopers/OpenRGBHardwareSyncPlugin
-  * Http Hook Plugin (by morg): https://gitlab.com/OpenRGBDevelopers/OpenRGBHttpHookPlugin
-  * Razer extras Plugin (by morg): https://gitlab.com/OpenRGBDevelopers/OpenRGBRazerExtrasPlugin
-  * Fan Hardware Sync Plugin (by Shady): https://gitlab.com/ShadyNawara/openrgbfansyncplugin
-  * OpenRGB Ambient Plugin (by krojew): https://github.com/krojew/OpenRGB-Ambient
+  * [OpenRGB Effects Plugin](https://gitlab.com/OpenRGBDevelopers/OpenRGBEffectsPlugin) (by herosilas12, morg)
+  * [OpenRGB Visual Map Plugin](https://gitlab.com/OpenRGBDevelopers/OpenRGBVisualMapPlugin) (by morg)
+  * [OpenRGB E1.31 Receiver Plugin](https://gitlab.com/OpenRGBDevelopers/OpenRGBE131ReceiverPlugin) (by CalcProgrammer1)
+  * [OpenRGB Scheduler Plugin](https://gitlab.com/OpenRGBDevelopers/OpenRGBSchedulerPlugin) (by morg)
+  * [OpenRGB Skin Plugin](https://gitlab.com/OpenRGBDevelopers/openrgbskinplugin) (by morg)
+  * [OpenRGB Hardware Sync Plugin](https://gitlab.com/OpenRGBDevelopers/OpenRGBHardwareSyncPlugin) (by morg)
+  * [OpenRGB Http Hook Plugin](https://gitlab.com/OpenRGBDevelopers/OpenRGBHttpHookPlugin) (by morg)
+  * [OpenRGB Razer Extras Plugin](https://gitlab.com/OpenRGBDevelopers/OpenRGBRazerExtrasPlugin) (by morg)
+  * [OpenRGB Fan Hardware Sync Plugin](https://gitlab.com/OpenRGBDevelopers/OpenRGBFanSyncPlugin) (by Shady)
+  * [OpenRGB Ambient Plugin](https://github.com/krojew/OpenRGB-Ambient) (by krojew)
 
 ## Projects Used
 
-  * WinRing0: https://openlibsys.org/
+* OpenRGB directly relies upon these projects.
+  * PawnIO: https://pawnio.eu/
   * libusb: https://github.com/libusb/libusb
   * hidapi: https://github.com/libusb/hidapi
   * libe131: https://github.com/hhromic/libe131
@@ -141,7 +146,7 @@ This project interacts directly with hardware using reverse engineered protocols
 
 ## Projects Researched
 
-While no code from these projects directly made its way into OpenRGB, these projects have been invaluable resources for protocol information.
+* While no code from these projects directly made its way into OpenRGB, these projects have been invaluable resources for protocol information.
 
   * OpenRazer: https://github.com/openrazer/openrazer
   * OpenRazer-Win32: https://github.com/CalcProgrammer1/openrazer-win32

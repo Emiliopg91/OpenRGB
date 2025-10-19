@@ -6,7 +6,7 @@
 |   Adam Honse (CalcProgrammer1)                09 May 2020 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -48,7 +48,7 @@ public:
     void            ListenThreadFunction();
 
     void            WaitOnControllerData();
-    
+
     void        ProcessReply_ControllerCount(unsigned int data_size, char * data);
     void        ProcessReply_ControllerData(unsigned int data_size, char * data, unsigned int dev_idx);
     void        ProcessReply_ProtocolVersion(unsigned int data_size, char * data);
@@ -61,6 +61,10 @@ public:
     void        SendRequest_ControllerData(unsigned int dev_idx);
     void        SendRequest_ProtocolVersion();
 
+    void        SendRequest_RescanDevices();
+
+    void        SendRequest_RGBController_ClearSegments(unsigned int dev_idx, int zone);
+    void        SendRequest_RGBController_AddSegment(unsigned int dev_idx, unsigned char * data, unsigned int size);
     void        SendRequest_RGBController_ResizeZone(unsigned int dev_idx, int zone, int new_size);
 
     void        SendRequest_RGBController_UpdateLEDs(unsigned int dev_idx, unsigned char * data, unsigned int size);
@@ -95,14 +99,20 @@ private:
     std::string     port_ip;
     unsigned short  port_num;
     std::atomic<bool> client_active;
+    bool            client_string_sent;
     bool            controller_data_received;
+    bool            controller_data_requested;
+    bool            protocol_initialized;
     bool            server_connected;
     bool            server_initialized;
+    bool            server_reinitialize;
     unsigned int    server_controller_count;
+    bool            server_controller_count_requested;
     bool            server_controller_count_received;
     unsigned int    server_protocol_version;
     bool            server_protocol_version_received;
     bool            change_in_progress;
+    unsigned int    requested_controllers;
     std::mutex      send_in_progress;
 
     std::mutex      connection_mutex;

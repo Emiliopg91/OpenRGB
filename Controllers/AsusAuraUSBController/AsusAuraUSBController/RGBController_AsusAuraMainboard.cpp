@@ -6,7 +6,7 @@
 |   rytypete                                    30 Aug 2023 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include "RGBController_AsusAuraMainboard.h"
@@ -26,7 +26,6 @@
 RGBController_AuraMainboard::RGBController_AuraMainboard(AuraMainboardController* controller_ptr) :
     RGBController_AuraUSB(controller_ptr)
 {
-    name        = "ASUS Aura USB Mainboard";
     description = "ASUS Aura USB Mainboard Device";
 
     /*-------------------------------------------------------*\

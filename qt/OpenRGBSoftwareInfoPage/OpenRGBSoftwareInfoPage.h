@@ -4,20 +4,19 @@
 |   User interface for software information page            |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #pragma once
 
 #include <QFrame>
-#include "ui_OpenRGBSoftwareInfoPage.h"
 
 namespace Ui
 {
     class OpenRGBSoftwareInfoPage;
 }
 
-class Ui::OpenRGBSoftwareInfoPage : public QFrame
+class OpenRGBSoftwareInfoPage : public QFrame
 {
     Q_OBJECT
 
@@ -26,7 +25,7 @@ public:
     ~OpenRGBSoftwareInfoPage();
 
 private:
-    Ui::OpenRGBSoftwareInfoPageUi *ui;
+    Ui::OpenRGBSoftwareInfoPage *ui;
 
 private slots:
     void changeEvent(QEvent *event);

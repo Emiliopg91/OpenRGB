@@ -7,7 +7,7 @@
 |   Portions based on Linux source code                     |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include "i2c_smbus.h"
@@ -28,6 +28,7 @@ i2c_smbus_interface::i2c_smbus_interface()
     this->pci_vendor           = -1;
     this->pci_subsystem_device = -1;
     this->pci_subsystem_vendor = -1;
+    this->bus_id               = -1;
     i2c_smbus_thread_running   = true;
     i2c_smbus_thread           = new std::thread(&i2c_smbus_interface::i2c_smbus_thread_function, this);
 }

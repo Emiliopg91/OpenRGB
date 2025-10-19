@@ -4,7 +4,7 @@
 |   RGBController for ASUS TUF laptop                       |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include "RGBController_AsusTUFLaptop_Windows.h"
@@ -24,9 +24,9 @@ using namespace std::chrono_literals;
 
 RGBController_AsusTUFLaptopWMI::RGBController_AsusTUFLaptopWMI(AsusTUFLaptopController* controller_ptr)
 {
-    name                        = "ASUS TUF Keyboard";
+    name                        = "ASUS TUF Laptop Keyboard";
     vendor                      = "ASUS";
-    type                        = DEVICE_TYPE_KEYBOARD;
+    type                        = DEVICE_TYPE_LAPTOP;
     description                 = "WMI Device";
     location                    = "\\\\.\\ATKACPI";
 

@@ -1,16 +1,17 @@
 /*---------------------------------------------------------*\
- | * AsusAuraCoreController.cpp                                |
- |                                                           |
- |   Driver for ASUS ROG Aura Core                           |
- |                                                           |
- |   Adam Honse (CalcProgrammer1)                13 Apr 2020 |
- |                                                           |
- |   This file is part of the OpenRGB project                |
- |   SPDX-License-Identifier: GPL-2.0-only                   |
- \*---------------------------------------------------------*/
+| AsusAuraCoreController.cpp                                |
+|                                                           |
+|   Driver for ASUS ROG Aura Core                           |
+|                                                           |
+|   Adam Honse (CalcProgrammer1)                13 Apr 2020 |
+|                                                           |
+|   This file is part of the OpenRGB project                |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
+\*---------------------------------------------------------*/
 
 #include <cstring>
 #include "AsusAuraCoreController.h"
+#include "StringUtils.h"
 
 #define AURA_CORE_MAX_MESSAGE_SIZE  64
 
@@ -49,29 +50,26 @@ std::string AuraCoreController::GetSerialString()
         return("");
     }
 
-    std::wstring return_wstring = serial_string;
-    std::string return_string(return_wstring.begin(), return_wstring.end());
-
-    return(return_string);
+    return(StringUtils::wstring_to_string(serial_string));
 }
 
 void AuraCoreController::SendBrightness
-(
+    (
     unsigned char   brightness
-)
+    )
 {
     unsigned char usb_buf[AURA_CORE_MAX_MESSAGE_SIZE];
 
     if(aura_device.aura_type != AURA_CORE_DEVICE_UNKNOWN)
     {
         /*-----------------------------------------------------*\
-         *       | Zero out buffer                                       |
-         *       \*-----------------------------------------------------*/
+        | Zero out buffer                                       |
+        \*-----------------------------------------------------*/
         memset(usb_buf, 0x00, sizeof(usb_buf));
 
         /*-----------------------------------------------------*\
-         *       | Set up message packet                                 |
-         *       \*-----------------------------------------------------*/
+        | Set up message packet                                 |
+        \*-----------------------------------------------------*/
         usb_buf[0x00]   = 0x5A;
         usb_buf[0x01]   = AURA_CORE_COMMAND_BRIGHTNESS;
         usb_buf[0x02]   = 0xC5;
@@ -79,22 +77,22 @@ void AuraCoreController::SendBrightness
         usb_buf[0x04]   = brightness;
 
         /*-----------------------------------------------------*\
-         *       | Send packet                                           |
-         *       \*-----------------------------------------------------*/
+        | Send packet                                           |
+        \*-----------------------------------------------------*/
         hid_send_feature_report(dev, usb_buf, aura_device.buff_size);
     }
 }
 
 void AuraCoreController::SendUpdate
-(
+    (
     unsigned char   zone,
- unsigned char   mode,
- unsigned char   speed,
- unsigned char   dir,
- unsigned char   red,
- unsigned char   green,
- unsigned char   blue
-)
+    unsigned char   mode,
+    unsigned char   speed,
+    unsigned char   dir,
+    unsigned char   red,
+    unsigned char   green,
+    unsigned char   blue
+    )
 {
     unsigned char usb_buf[AURA_CORE_MAX_MESSAGE_SIZE];
 
@@ -106,13 +104,13 @@ void AuraCoreController::SendUpdate
         }
 
         /*-----------------------------------------------------*\
-         *       | Zero out buffer                                       |
-         *       \*-----------------------------------------------------*/
+        | Zero out buffer                                       |
+        \*-----------------------------------------------------*/
         memset(usb_buf, 0x00, sizeof(usb_buf));
 
         /*-----------------------------------------------------*\
-         *       | Set up message packet                                 |
-         *       \*-----------------------------------------------------*/
+        | Set up message packet                                 |
+        \*-----------------------------------------------------*/
         usb_buf[0x00]   = aura_device.report_id;
         usb_buf[0x01]   = AURA_CORE_COMMAND_UPDATE;
         usb_buf[0x02]   = zone;
@@ -124,8 +122,8 @@ void AuraCoreController::SendUpdate
         usb_buf[0x08]   = dir;
 
         /*-----------------------------------------------------*\
-         *       | Send packet                                           |
-         *       \*-----------------------------------------------------*/
+        | Send packet                                           |
+        \*-----------------------------------------------------*/
         hid_send_feature_report(dev, usb_buf, aura_device.buff_size);
     }
 }
@@ -137,19 +135,19 @@ void AuraCoreController::SendSet()
     if(aura_device.aura_type != AURA_CORE_DEVICE_UNKNOWN)
     {
         /*-----------------------------------------------------*\
-         *       | Zero out buffer                                       |
-         *       \*-----------------------------------------------------*/
+        | Zero out buffer                                       |
+        \*-----------------------------------------------------*/
         memset(usb_buf, 0x00, sizeof(usb_buf));
 
         /*-----------------------------------------------------*\
-         *       | Set up message packet                                 |
-         *       \*-----------------------------------------------------*/
+        | Set up message packet                                 |
+        \*-----------------------------------------------------*/
         usb_buf[0x00]   = aura_device.report_id;
         usb_buf[0x01]   = AURA_CORE_COMMAND_SET;
 
         /*-----------------------------------------------------*\
-         *       | Send packet                                           |
-         *       \*-----------------------------------------------------*/
+        | Send packet                                           |
+        \*-----------------------------------------------------*/
         hid_send_feature_report(dev, usb_buf, aura_device.buff_size);
     }
 }
@@ -161,19 +159,19 @@ void AuraCoreController::SendApply()
     if(aura_device.aura_type != AURA_CORE_DEVICE_UNKNOWN)
     {
         /*-----------------------------------------------------*\
-         *       | Zero out buffer                                       |
-         *       \*-----------------------------------------------------*/
+        | Zero out buffer                                       |
+        \*-----------------------------------------------------*/
         memset(usb_buf, 0x00, sizeof(usb_buf));
 
         /*-----------------------------------------------------*\
-         *       | Set up message packet                                 |
-         *       \*-----------------------------------------------------*/
+        | Set up message packet                                 |
+        \*-----------------------------------------------------*/
         usb_buf[0x00]   = aura_device.report_id;
         usb_buf[0x01]   = AURA_CORE_COMMAND_APPLY;
 
         /*-----------------------------------------------------*\
-         *       | Send packet                                           |
-         *       \*-----------------------------------------------------*/
+        | Send packet                                           |
+        \*-----------------------------------------------------*/
         hid_send_feature_report(dev, usb_buf, aura_device.buff_size);
     }
 }
@@ -187,27 +185,27 @@ void AuraCoreController::InitDirectMode()
     if(aura_device.supports_direct)
     {
         /*-----------------------------------------------------*\
-         *       | Zero out buffer                                       |
-         *       \*-----------------------------------------------------*/
+        | Zero out buffer                                       |
+        \*-----------------------------------------------------*/
         memset(usb_buf, 0x00, sizeof(usb_buf));
 
         /*-----------------------------------------------------*\
-         *       | Set up message packet                                 |
-         *       \*-----------------------------------------------------*/
+        | Set up message packet                                 |
+        \*-----------------------------------------------------*/
         usb_buf[0x00]   = aura_device.report_id;
         usb_buf[0x01]   = AURA_CORE_COMMAND_DIRECT;
         usb_buf[0x02]   = 0xD0;
 
         /*-----------------------------------------------------*\
-         *       | Send packet                                           |
-         *       \*-----------------------------------------------------*/
+        | Send packet                                           |
+        \*-----------------------------------------------------*/
         hid_send_feature_report(dev, usb_buf, aura_device.buff_size);
 
         while(led_count > 0)
         {
             /*-----------------------------------------------------*\
-             *           | Set up second message packet                         |
-             *           \*-----------------------------------------------------*/
+            | Set up second message packet                         |
+            \*-----------------------------------------------------*/
             usb_buf[0x03]   = 0x01;
             usb_buf[0x04]   = 0x02;
             usb_buf[0x05]   = 0x00;
@@ -216,8 +214,8 @@ void AuraCoreController::InitDirectMode()
             usb_buf[0x08]   = 0x00;
 
             /*-----------------------------------------------------*\
-             *           | Send packet 2                                         |
-             *           \*-----------------------------------------------------*/
+            | Send packet 2                                         |
+            \*-----------------------------------------------------*/
             hid_send_feature_report(dev, usb_buf, aura_device.buff_size);
 
             led_count -= aura_device.max_leds_per_message;
@@ -240,13 +238,13 @@ void AuraCoreController::UpdateDirect(std::vector<AuraColor>& color_set)
             unsigned char msg_index = 0x09;
 
             /*-----------------------------------------------------*\
-             *           | Zero out buffer                                       |
-             *           \*-----------------------------------------------------*/
+            | Zero out buffer                                       |
+            \*-----------------------------------------------------*/
             memset(usb_buf, 0x00, sizeof(usb_buf));
 
             /*-----------------------------------------------------*\
-             *           | Set up message packet                                 |
-             *           \*-----------------------------------------------------*/
+            | Set up message packet                                 |
+            \*-----------------------------------------------------*/
             usb_buf[0x00]   = aura_device.report_id;
             usb_buf[0x01]   = AURA_CORE_COMMAND_DIRECT;
             usb_buf[0x02]   = 0xD0;
@@ -260,8 +258,8 @@ void AuraCoreController::UpdateDirect(std::vector<AuraColor>& color_set)
             set_count = 0;
 
             while( (msg_index < sizeof(usb_buf)                 ) &&
-                (led_count > 0                               ) &&
-                (set_count < aura_device.max_leds_per_message)    )
+                   (led_count > 0                               ) &&
+                   (set_count < aura_device.max_leds_per_message)    )
             {
                 if(color_index < color_set.size())
                 {
@@ -282,8 +280,8 @@ void AuraCoreController::UpdateDirect(std::vector<AuraColor>& color_set)
             }
 
             /*-----------------------------------------------------*\
-             *           | Send packet                                           |
-             *           \*-----------------------------------------------------*/
+            | Send packet                                           |
+            \*-----------------------------------------------------*/
             hid_send_feature_report(dev, usb_buf, aura_device.buff_size);
         }
     }
@@ -295,22 +293,22 @@ void AuraCoreController::IdentifyDevice()
     int             num_bytes       = 0;
 
     /*-----------------------------------------------------*\
-     *   | Zero out buffer                                       |
-     *   \*-----------------------------------------------------*/
+    | Zero out buffer                                       |
+    \*-----------------------------------------------------*/
     memset(usb_buf, 0x00, sizeof(usb_buf));
 
     /*-----------------------------------------------------*\
-     *   | First, attempt to read the report from the Keyboard   |
-     *   \*-----------------------------------------------------*/
+    | First, attempt to read the report from the Keyboard   |
+    \*-----------------------------------------------------*/
     usb_buf[0x00]   = aura_device.report_id;
 
     num_bytes = hid_get_feature_report(dev, usb_buf, sizeof(usb_buf));
 
     /*-----------------------------------------------------*\
-     *   | Currently, there is no need to attempt to read the    |
-     *   | returned data.  If the device responded,to the report,|
-     *   | we're good.                                           |
-     *   \*-----------------------------------------------------*/
+    | Currently, there is no need to attempt to read the    |
+    | returned data.  If the device responded,to the report,|
+    | we're good.                                           |
+    \*-----------------------------------------------------*/
     if(num_bytes > 0)
     {
         aura_device.aura_type                   = AURA_CORE_DEVICE_KEYBOARD;
@@ -322,19 +320,19 @@ void AuraCoreController::IdentifyDevice()
     else if(num_bytes == -1)
     {
         /*-------------------------------------------------*\
-         *       | First, attempt to read the report from the        |
-         *       | Keyboard                                          |
-         *       \*-------------------------------------------------*/
+        | First, attempt to read the report from the        |
+        | Keyboard                                          |
+        \*-------------------------------------------------*/
         usb_buf[0]                              = 0x5E;
         num_bytes                               = hid_get_feature_report(dev, usb_buf, sizeof(usb_buf));
 
         if(num_bytes > 0)
         {
             /*---------------------------------------------*\
-             *           | Currently, there is no need to attempt to     |
-             *           | read the returned data.  If the device        |
-             *           | responded,to the report, we're good.          |
-             *           \*---------------------------------------------*/
+            | Currently, there is no need to attempt to     |
+            | read the returned data.  If the device        |
+            | responded,to the report, we're good.          |
+            \*---------------------------------------------*/
             aura_device.aura_type               = AURA_CORE_DEVICE_GA15DH;
             aura_device.buff_size               = 64;
             aura_device.report_id               = 0x5E;
@@ -366,23 +364,23 @@ void AuraCoreController::SendIdString()
     const char      id[] = "ASUS Tech.Inc.";
 
     /*-----------------------------------------------------*\
-     *   | Zero out buffer                                       |
-     *   \*-----------------------------------------------------*/
+    | Zero out buffer                                       |
+    \*-----------------------------------------------------*/
     memset(usb_buf, 0x00, sizeof(usb_buf));
 
     /*-----------------------------------------------------*\
-     *   | Set up message packet                                 |
-     *   \*-----------------------------------------------------*/
+    | Set up message packet                                 |
+    \*-----------------------------------------------------*/
     usb_buf[0x00]   = aura_device.report_id;
 
     /*-----------------------------------------------------*\
-     *   | Copy in string data                                   |
-     *   \*-----------------------------------------------------*/
+    | Copy in string data                                   |
+    \*-----------------------------------------------------*/
     memcpy(&usb_buf[0x01], id, sizeof(id));
 
     /*-----------------------------------------------------*\
-     *   | Send packet                                           |
-     *   \*-----------------------------------------------------*/
+    | Send packet                                           |
+    \*-----------------------------------------------------*/
     hid_send_feature_report(dev, usb_buf, aura_device.buff_size);
 }
 
@@ -391,13 +389,13 @@ void AuraCoreController::SendQuery()
     unsigned char usb_buf[AURA_CORE_MAX_MESSAGE_SIZE];
 
     /*-----------------------------------------------------*\
-     *   | Zero out buffer                                       |
-     *   \*-----------------------------------------------------*/
+    | Zero out buffer                                       |
+    \*-----------------------------------------------------*/
     memset(usb_buf, 0x00, sizeof(usb_buf));
 
     /*-----------------------------------------------------*\
-     *   | Set up message packet                                 |
-     *   \*-----------------------------------------------------*/
+    | Set up message packet                                 |
+    \*-----------------------------------------------------*/
     usb_buf[0x00]   = aura_device.report_id;
     usb_buf[0x01]   = 0x05;
     usb_buf[0x02]   = 0x20;
@@ -406,7 +404,7 @@ void AuraCoreController::SendQuery()
     usb_buf[0x05]   = 0x10;
 
     /*-----------------------------------------------------*\
-     *   | Send packet                                           |
-     *   \*-----------------------------------------------------*/
+    | Send packet                                           |
+    \*-----------------------------------------------------*/
     hid_send_feature_report(dev, usb_buf, aura_device.buff_size);
 }

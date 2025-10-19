@@ -6,7 +6,7 @@
 |   Mola19                                      30 Nov 2021 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include "RGBController_AsusROGStrixEvolve.h"
@@ -26,7 +26,7 @@ RGBController_AsusROGStrixEvolve::RGBController_AsusROGStrixEvolve(AsusAuraMouse
 {
     controller                  = controller_ptr;
 
-    name                        = "ASUS ROG Strix Evolve";
+    name                        = controller->GetName();
     vendor                      = "ASUS";
     type                        = DEVICE_TYPE_MOUSE;
     description                 = "ASUS Aura Mouse Device";

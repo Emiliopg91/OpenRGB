@@ -4,19 +4,20 @@
 |   User interface for bulk resizing zones                  |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
-#include <QDialog>
-#include <QFile>
 #include "OpenRGBZonesBulkResizer.h"
-#include "ui_OpenRGBZonesBulkResizer.h"
 #include "ResourceManager.h"
 #include "SettingsManager.h"
 #include "LogManager.h"
-#include "OpenRGBDialog2.h"
+#include "OpenRGBDialog.h"
 
-using namespace Ui;
+#include "ui_OpenRGBZonesBulkResizer.h"
+
+#include <QDialog>
+#include <QFile>
+#include <QSpinBox>
 
 void OpenRGBZonesBulkResizer::RunChecks(QWidget *parent)
 {
@@ -36,13 +37,13 @@ void OpenRGBZonesBulkResizer::RunChecks(QWidget *parent)
 
             if(!should_run)
             {
-                LOG_DEBUG("Skipping zones sizes checks.");
+                LOG_DEBUG("[ZonesBulkResizer] Skipping zones sizes checks.");
                 return;
             }
         }
     }
 
-    LOG_DEBUG("Running zones sizes checks...");
+    LOG_DEBUG("[ZonesBulkResizer] Running zones sizes checks...");
 
     /*---------------------------------------------------------*\
     | Collect the unconfigured zones                            |
@@ -64,7 +65,7 @@ void OpenRGBZonesBulkResizer::RunChecks(QWidget *parent)
         }
     }
 
-    LOG_DEBUG("Zones checks finished: %d unconfigured zone(s).", zones.size());
+    LOG_DEBUG("[ZonesBulkResizer] Zones checks finished: %d unconfigured zone(s).", zones.size());
 
     /*---------------------------------------------------------*\
     | Show the configuration tool GUI if we have some           |
@@ -94,7 +95,7 @@ void OpenRGBZonesBulkResizer::RunChecks(QWidget *parent)
 
 OpenRGBZonesBulkResizer::OpenRGBZonesBulkResizer(QWidget *parent,  const std::vector<std::tuple<RGBController*, unsigned int>>& unconfigured_zones) :
     QWidget(parent),
-    ui(new Ui::OpenRGBZonesBulkResizerUi),
+    ui(new Ui::OpenRGBZonesBulkResizer),
     unconfigured_zones(unconfigured_zones)
 {
     ui->setupUi(this);
@@ -141,7 +142,7 @@ void OpenRGBZonesBulkResizer::CreateZoneWidget(RGBController* controller, unsign
     | Labels: controller name + zone name                       |
     \*---------------------------------------------------------*/
     QLabel* controller_label = new QLabel(this);
-    controller_label->setText(QString::fromStdString(controller->name));
+    controller_label->setText(QString::fromStdString(controller->GetName()));
 
     QLabel* zone_label = new QLabel(this);
     zone_label->setText(QString::fromStdString(controller->zones[zone_index].name));
