@@ -6,7 +6,7 @@
 |   Mola19                                      20 Aug 2023 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include <iostream>
@@ -28,7 +28,7 @@ RGBController_AsusSagarisKeyboard::RGBController_AsusSagarisKeyboard(AsusSagaris
 {
     controller                  = controller_ptr;
 
-    name                        = controller->GetDeviceName();
+    name                        = "ASUS Sagaris Keyboard";
     vendor                      = "ASUS";
     type                        = DEVICE_TYPE_KEYBOARD;
     description                 = "ASUS Sagaris Keyboard Device";

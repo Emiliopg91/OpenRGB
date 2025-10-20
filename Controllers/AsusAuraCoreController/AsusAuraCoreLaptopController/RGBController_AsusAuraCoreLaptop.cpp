@@ -6,7 +6,7 @@
 |   Chris M (Dr_No)                             28 Jul 2022 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include "RGBController_AsusAuraCoreLaptop.h"
@@ -41,7 +41,7 @@ RGBController_AsusAuraCoreLaptop::RGBController_AsusAuraCoreLaptop(AsusAuraCoreL
 
     name                                    = aura_dev->dmi_name;
     vendor                                  = "Asus";
-    type                                    = DEVICE_TYPE_LAPTOP;
+    type                                    = DEVICE_TYPE_KEYBOARD;
     description                             = controller->GetDeviceDescription();
     serial                                  = controller->GetSerial();
     location                                = controller->GetLocation();
@@ -49,10 +49,7 @@ RGBController_AsusAuraCoreLaptop::RGBController_AsusAuraCoreLaptop(AsusAuraCoreL
     mode Direct;
     Direct.name                 = "Direct";
     Direct.value                = ASUSAURACORELAPTOP_MODE_DIRECT;
-    Direct.flags                = MODE_FLAG_HAS_PER_LED_COLOR | MODE_FLAG_HAS_BRIGHTNESS;
-    Direct.brightness_min       = ASUSAURACORELAPTOP_BRIGHTNESS_MIN;
-    Direct.brightness_max       = ASUSAURACORELAPTOP_BRIGHTNESS_MAX;
-    Direct.brightness           = ASUSAURACORELAPTOP_BRIGHTNESS_MAX;
+    Direct.flags                = MODE_FLAG_HAS_PER_LED_COLOR;
     Direct.color_mode           = MODE_COLORS_PER_LED;
     modes.push_back(Direct);
 

@@ -4,16 +4,17 @@
 |   User interface for resizing zones                       |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include <QLineEdit>
 #include "OpenRGBZoneResizeDialog.h"
-#include "ui_OpenRGBZoneResizeDialog.h"
+
+using namespace Ui;
 
 OpenRGBZoneResizeDialog::OpenRGBZoneResizeDialog(RGBController* edit_dev_ptr, unsigned int edit_zone_idx_val, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::OpenRGBZoneResizeDialog)
+    ui(new Ui::OpenRGBZoneResizeDialogUi)
 {
     edit_dev      = edit_dev_ptr;
     edit_zone_idx = edit_zone_idx_val;
@@ -23,7 +24,6 @@ OpenRGBZoneResizeDialog::OpenRGBZoneResizeDialog(RGBController* edit_dev_ptr, un
     unsigned int size_current = edit_dev->zones[edit_zone_idx].leds_count;
 
     ui->setupUi(this);
-    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     QStringList header_labels;
     header_labels << "Name" << "Size" << "";
@@ -60,7 +60,7 @@ OpenRGBZoneResizeDialog::OpenRGBZoneResizeDialog(RGBController* edit_dev_ptr, un
 
 OpenRGBZoneResizeDialog::OpenRGBZoneResizeDialog(unsigned int edit_zone_min_val, unsigned int edit_zone_max_val, unsigned int edit_zone_current_val, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::OpenRGBZoneResizeDialog)
+    ui(new Ui::OpenRGBZoneResizeDialogUi)
 {
     /*-----------------------------------------------------*\
     | This constructor does not use a device pointer.       |
@@ -68,7 +68,6 @@ OpenRGBZoneResizeDialog::OpenRGBZoneResizeDialog(unsigned int edit_zone_min_val,
     edit_dev = NULL;
 
     ui->setupUi(this);
-    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     /*-----------------------------------------------------*\
     | This constructor is used for resizing mode-specific   |
@@ -99,7 +98,7 @@ void OpenRGBZoneResizeDialog::changeEvent(QEvent *event)
     }
 }
 
-void OpenRGBZoneResizeDialog::on_ResizeSlider_valueChanged(int value)
+void Ui::OpenRGBZoneResizeDialog::on_ResizeSlider_valueChanged(int value)
 {
     ui->ResizeBox->blockSignals(true);
     ui->ResizeBox->setValue(value);
@@ -117,7 +116,7 @@ void OpenRGBZoneResizeDialog::on_ResizeSlider_valueChanged(int value)
     CheckSegmentsValidity();
 }
 
-void OpenRGBZoneResizeDialog::on_segment_lineedit_textChanged()
+void Ui::OpenRGBZoneResizeDialog::on_segment_lineedit_textChanged()
 {
     /*-----------------------------------------------------*\
     | Update the Slider with the LineEdit value for each    |
@@ -132,7 +131,7 @@ void OpenRGBZoneResizeDialog::on_segment_lineedit_textChanged()
     CheckSegmentsValidity();
 }
 
-void OpenRGBZoneResizeDialog::on_segment_slider_valueChanged(int)
+void Ui::OpenRGBZoneResizeDialog::on_segment_slider_valueChanged(int)
 {
     /*-----------------------------------------------------*\
     | Update the LineEdit with the Slider value for each    |
@@ -147,7 +146,7 @@ void OpenRGBZoneResizeDialog::on_segment_slider_valueChanged(int)
     CheckSegmentsValidity();
 }
 
-void OpenRGBZoneResizeDialog::on_ResizeBox_valueChanged(int value)
+void Ui::OpenRGBZoneResizeDialog::on_ResizeBox_valueChanged(int value)
 {
     ui->ResizeSlider->blockSignals(true);
     ui->ResizeSlider->setValue(value);
@@ -165,7 +164,7 @@ void OpenRGBZoneResizeDialog::on_ResizeBox_valueChanged(int value)
     CheckSegmentsValidity();
 }
 
-int OpenRGBZoneResizeDialog::show()
+int Ui::OpenRGBZoneResizeDialog::show()
 {
     int ret_val = 0;
 
@@ -184,7 +183,7 @@ int OpenRGBZoneResizeDialog::show()
     {
         edit_dev->ResizeZone(edit_zone_idx, ret_val);
 
-        edit_dev->ClearSegments(edit_zone_idx);
+        edit_dev->zones[edit_zone_idx].segments.clear();
 
         unsigned int start_idx = 0;
 
@@ -196,7 +195,7 @@ int OpenRGBZoneResizeDialog::show()
             new_segment.start_idx  = start_idx;
             new_segment.leds_count = ((QLineEdit*)ui->SegmentsTreeWidget->itemWidget(ui->SegmentsTreeWidget->topLevelItem(item_idx), 1))->text().toInt();
 
-            edit_dev->AddSegment(edit_zone_idx, new_segment);
+            edit_dev->zones[edit_zone_idx].segments.push_back(new_segment);
 
             start_idx += new_segment.leds_count;
         }
@@ -205,7 +204,7 @@ int OpenRGBZoneResizeDialog::show()
     return(ret_val);
 }
 
-void OpenRGBZoneResizeDialog::on_AddSegmentButton_clicked()
+void Ui::OpenRGBZoneResizeDialog::on_AddSegmentButton_clicked()
 {
     /*---------------------------------------------------------*\
     | Create new line in segments list tree                     |
@@ -250,7 +249,7 @@ void OpenRGBZoneResizeDialog::on_AddSegmentButton_clicked()
     CheckSegmentsValidity();
 }
 
-void OpenRGBZoneResizeDialog::CheckSegmentsValidity()
+void Ui::OpenRGBZoneResizeDialog::CheckSegmentsValidity()
 {
     bool segments_valid = true;
 
@@ -296,7 +295,7 @@ void OpenRGBZoneResizeDialog::CheckSegmentsValidity()
     ui->ButtonBox->setEnabled(segments_valid);
 }
 
-void OpenRGBZoneResizeDialog::on_RemoveSegmentButton_clicked()
+void Ui::OpenRGBZoneResizeDialog::on_RemoveSegmentButton_clicked()
 {
     ui->SegmentsTreeWidget->takeTopLevelItem(ui->SegmentsTreeWidget->topLevelItemCount() - 1);
 

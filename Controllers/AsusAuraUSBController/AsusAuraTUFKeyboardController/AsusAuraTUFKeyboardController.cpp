@@ -6,7 +6,7 @@
 |   Mola19                                      03 Mar 2021 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include <cmath>
@@ -19,13 +19,10 @@
 #include "AsusAuraTUFKeyboardController.h"
 #include "StringUtils.h"
 
-#define HID_MAX_STR 128
-
-AuraTUFKeyboardController::AuraTUFKeyboardController(hid_device* dev_handle, const char* path, uint16_t pid, unsigned short version, std::string dev_name)
+AuraTUFKeyboardController::AuraTUFKeyboardController(hid_device* dev_handle, const char* path, uint16_t pid, unsigned short version)
 {
     dev         = dev_handle;
     location    = path;
-    name        = dev_name;
     device_pid  = pid;
     rev_version = version;
 
@@ -42,34 +39,36 @@ std::string AuraTUFKeyboardController::GetDeviceLocation()
     return("HID: " + location);
 }
 
-std::string AuraTUFKeyboardController::GetName()
+std::string clean_serial(const std::wstring& wstr)
 {
-    return(name);
-}
-
-std::string AuraTUFKeyboardController::GetSerialString()
-{
-    wchar_t serial_string[HID_MAX_STR];
-    memset(serial_string, 0, sizeof(serial_string));
-
-    int ret = hid_get_serial_number_string(dev, serial_string, HID_MAX_STR);
-    if(ret != 0)
-    {
-        return("");
-    }
-
     /*-------------------------------------------------------------------------*\
     | Skip non-ASCII, trailing garbage in serial numbers. Required by the       |
     | Scope II 96, whose original firmware outputs garbage, which even differs  |
     | after computer reboots and therefore breaks OpenRGB profile matching.     |
     \*-------------------------------------------------------------------------*/
-    switch(device_pid)
+    std::string result;
+    for(wchar_t c : wstr)
     {
-        case AURA_ROG_STRIX_SCOPE_II_96_WIRELESS_USB_PID:
-            serial_string[12] = L'\0';
+        // Forbid control chars and anything above final printable low-ASCII.
+        if(c < 32 || c > 126)
+        {
             break;
-        default:
-            break;
+        }
+
+        result += (char)c;
+    }
+
+    return(result);
+}
+
+std::string AuraTUFKeyboardController::GetSerialString()
+{
+    wchar_t serial_string[128];
+    int ret = hid_get_serial_number_string(dev, serial_string, 128);
+
+    if(ret != 0)
+    {
+        return("");
     }
 
     return(StringUtils::wstring_to_string(serial_string));
@@ -105,6 +104,7 @@ std::string AuraTUFKeyboardController::GetVersion()
             case AURA_ROG_STRIX_SCOPE_II_PID:
             case AURA_ROG_STRIX_SCOPE_II_RX_PID:
             case AURA_ROG_STRIX_SCOPE_II_96_WIRELESS_USB_PID:
+            case AURA_ROG_STRIX_SCOPE_II_96_RX_WIRELESS_USB_PID:
                 snprintf(version, 9, "%02X.%02X.%02X", usb_buf_out[6], usb_buf_out[5], usb_buf_out[4]);
                 break;
             case AURA_ROG_STRIX_SCOPE_NX_WIRELESS_DELUXE_2_4_PID:
@@ -510,6 +510,7 @@ void AuraTUFKeyboardController::UpdateDevice
     || device_pid == AURA_ROG_STRIX_SCOPE_NX_WIRELESS_DELUXE_2_4_PID
     || device_pid == AURA_ROG_STRIX_SCOPE_II_PID
     || device_pid == AURA_ROG_STRIX_SCOPE_II_RX_PID
+    || device_pid == AURA_ROG_STRIX_SCOPE_II_96_RX_WIRELESS_USB_PID
     || device_pid == AURA_ROG_STRIX_SCOPE_II_96_WIRELESS_USB_PID)
     {
         if(mode == AURA_KEYBOARD_MODE_WAVE || mode == AURA_KEYBOARD_MODE_RIPPLE)

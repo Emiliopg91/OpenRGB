@@ -4,13 +4,14 @@
 |   User interface entry for OpenRGB system information page|
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include "OpenRGBSystemInfoPage.h"
-#include "ui_OpenRGBSystemInfoPage.h"
 #include "ResourceManager.h"
 #include "i2c_tools.h"
+
+using namespace Ui;
 
 static void UpdateBusListCallback(void * this_ptr)
 {
@@ -21,7 +22,7 @@ static void UpdateBusListCallback(void * this_ptr)
 
 OpenRGBSystemInfoPage::OpenRGBSystemInfoPage(std::vector<i2c_smbus_interface *>& bus, QWidget *parent) :
     QFrame(parent),
-    ui(new Ui::OpenRGBSystemInfoPage),
+    ui(new Ui::OpenRGBSystemInfoPageUi),
     busses(bus)
 {
     ui->setupUi(this);
@@ -46,7 +47,6 @@ OpenRGBSystemInfoPage::OpenRGBSystemInfoPage(std::vector<i2c_smbus_interface *>&
     ui->SMBusDetectionModeBox->addItem("Auto");
     ui->SMBusDetectionModeBox->addItem("Quick");
     ui->SMBusDetectionModeBox->addItem("Read");
-    ui->SMBusDetectionModeBox->addItem("Read Data");
 
     ui->SMBusDetectionModeBox->setCurrentIndex(0);
 }
@@ -64,7 +64,7 @@ void OpenRGBSystemInfoPage::changeEvent(QEvent *event)
     }
 }
 
-void OpenRGBSystemInfoPage::UpdateBusList()
+void Ui::OpenRGBSystemInfoPage::UpdateBusList()
 {
     /*-----------------------------------------------------*\
     | Fill in the combo boxes with device information       |
@@ -79,7 +79,7 @@ void OpenRGBSystemInfoPage::UpdateBusList()
     ui->SMBusAdaptersBox->setCurrentIndex(0);
 }
 
-void OpenRGBSystemInfoPage::on_DetectButton_clicked()
+void Ui::OpenRGBSystemInfoPage::on_DetectButton_clicked()
 {
     int current_index = ui->SMBusAdaptersBox->currentIndex();
 
@@ -105,15 +105,11 @@ void OpenRGBSystemInfoPage::on_DetectButton_clicked()
         case 2:
             ui->SMBusDataText->setPlainText(i2c_detect(bus, MODE_READ).c_str());
             break;
-
-        case 3:
-            ui->SMBusDataText->setPlainText(i2c_detect(bus, MODE_READ_DATA).c_str());
-            break;
         }
     }
 }
 
-void OpenRGBSystemInfoPage::on_DumpButton_clicked()
+void Ui::OpenRGBSystemInfoPage::on_DumpButton_clicked()
 {
     int current_index = ui->SMBusAdaptersBox->currentIndex();
 
@@ -131,7 +127,7 @@ void OpenRGBSystemInfoPage::on_DumpButton_clicked()
     }
 }
 
-void OpenRGBSystemInfoPage::on_ReadButton_clicked()
+void Ui::OpenRGBSystemInfoPage::on_ReadButton_clicked()
 {
     int current_index = ui->SMBusAdaptersBox->currentIndex();
 

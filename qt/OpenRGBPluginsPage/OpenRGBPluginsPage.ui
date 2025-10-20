@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>OpenRGBPluginsPage</class>
- <widget class="QWidget" name="OpenRGBPluginsPage">
+ <class>OpenRGBPluginsPageUi</class>
+ <widget class="QWidget" name="OpenRGBPluginsPageUi">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">Plugins Page</string>
+   <string>Plugins page</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0" colspan="2">

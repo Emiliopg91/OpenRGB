@@ -7,7 +7,7 @@
 |   Adam Honse (calcprogrammer1@gmail.com)      28 Jul 2023 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 /*---------------------------------------------------------*\
@@ -81,12 +81,7 @@ struct scsi_device_info * scsi_enumerate(const char * vendor, const char * produ
         /*-------------------------------------------------*\
         | Read the model string and close the model file    |
         \*-------------------------------------------------*/
-        if(read(sg_model_fd, sg_model_buf, 512) < 0)
-        {
-            close(sg_model_fd);
-            close(sg_vendor_fd);
-            break;
-        }
+        read(sg_model_fd, sg_model_buf, 512);
         close(sg_model_fd);
 
         for(unsigned int i = 0; i < strlen(sg_model_buf); i++)
@@ -101,11 +96,7 @@ struct scsi_device_info * scsi_enumerate(const char * vendor, const char * produ
         /*-------------------------------------------------*\
         | Read the vendor string and close the vendor file  |
         \*-------------------------------------------------*/
-        if(read(sg_vendor_fd, sg_vendor_buf, 512) < 0)
-        {
-            close(sg_vendor_fd);
-            break;
-        }
+        read(sg_vendor_fd, sg_vendor_buf, 512);
         close(sg_vendor_fd);
 
         for(unsigned int i = 0; i < strlen(sg_vendor_buf); i++)

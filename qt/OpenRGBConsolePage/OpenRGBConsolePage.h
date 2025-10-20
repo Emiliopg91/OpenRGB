@@ -4,19 +4,20 @@
 |   User interface for OpenRGB console page                 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
 
 #include <QFrame>
+#include "ui_OpenRGBConsolePage.h"
 
 namespace Ui
 {
     class OpenRGBConsolePage;
 }
 
-class OpenRGBConsolePage : public QFrame
+class Ui::OpenRGBConsolePage : public QFrame
 {
     Q_OBJECT
 
@@ -31,7 +32,7 @@ private slots:
     void on_refresh_clicked();
 
 private:
-    Ui::OpenRGBConsolePage *ui;
+    Ui::OpenRGBConsolePageUi *ui;
 
     void Refresh();
 };

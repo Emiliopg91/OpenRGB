@@ -19,20 +19,13 @@ if [ -e ${1} ]; then
     echo "Warning: File ${1} exists and will be overwritten"
 fi
 
-VERSION_VAR="VERSION_NUM"
-QMAKE_EXE="qmake"
+MAJOR=$(grep MAJOR\  ${PROJECT_FILE} | cut -d= -f 2 | tr -d [:space:])
+MINOR=$(grep MINOR\  ${PROJECT_FILE} | cut -d= -f 2 | tr -d [:space:])
+REVISION=$(grep REVISION\  ${PROJECT_FILE} | cut -d= -f 2 | tr -d [:space:])
 
-if [[ ${1} == *"debian"* ]]; then
-  VERSION_VAR="VERSION_DEB"
-  QMAKE_EXE="qmake"
-fi
+#Convert Revision to a nummber in case it is blank in the project file
+REVISION=$(( ${REVISION} + 0 ))
 
-if [[ ${1} == *"fedora"* ]]; then
-  VERSION_VAR="VERSION_RPM"
-  QMAKE_EXE="qmake-qt5"
-fi
-
-PACKAGE_VERSION=$(${QMAKE_EXE} ${PROJECT_FILE} 2>&1 | grep ${VERSION_VAR} | cut -d ':' -f 3 | tr -d ' ')
-echo $PACKAGE_VERSION
+PACKAGE_VERSION="${MAJOR}.${MINOR}.${REVISION}"
 
 sed -e "s/${VERSION_PATTERN}/${PACKAGE_VERSION}/g" ${INFILE_PATH} > ${1}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>OpenRGBDevicePage</class>
- <widget class="QFrame" name="OpenRGBDevicePage">
+ <class>OpenRGBDevicePageUi</class>
+ <widget class="QFrame" name="OpenRGBDevicePageUi">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">Device Page</string>
+   <string>Device page</string>
   </property>
   <layout class="QGridLayout" name="OpenRGBDevicePageUiGridLayout" rowstretch="0,0" columnstretch="3,1">
    <item row="1" column="1">

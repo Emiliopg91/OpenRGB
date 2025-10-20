@@ -6,7 +6,7 @@
 |   Martin Hartl (inlart)                       25 Apr 2020 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include <cstring>
@@ -14,11 +14,10 @@
 #include "LogManager.h"
 #include "StringUtils.h"
 
-AuraUSBController::AuraUSBController(hid_device* dev_handle, const char* path, std::string dev_name)
+AuraUSBController::AuraUSBController(hid_device* dev_handle, const char* path)
 {
     dev         = dev_handle;
     location    = path;
-    name        = dev_name;
 
     GetFirmwareVersion();
     GetConfigTable();
@@ -41,7 +40,7 @@ std::string AuraUSBController::GetDeviceLocation()
 
 std::string AuraUSBController::GetDeviceName()
 {
-    return(name);
+    return(device_name);
 }
 
 std::string AuraUSBController::GetSerialString()
@@ -55,11 +54,6 @@ std::string AuraUSBController::GetSerialString()
     }
 
     return(StringUtils::wstring_to_string(serial_string));
-}
-
-std::string AuraUSBController::GetDeviceVersion()
-{
-    return(std::string(version));
 }
 
 const std::vector<AuraDeviceInfo>& AuraUSBController::GetAuraDevices() const
@@ -95,11 +89,11 @@ void AuraUSBController::GetConfigTable()
     {
         memcpy(config_table, &usb_buf[4], 60);
 
-        LOG_DEBUG("[%s] ASUS Aura USB config table:", version);
+        LOG_DEBUG("[%s] ASUS Aura USB config table:", device_name);
 
         for(int i = 0; i < 60; i+=6)
         {
-            LOG_DEBUG("[%s] %02X %02X %02X %02X %02X %02X", version,
+            LOG_DEBUG("[%s] %02X %02X %02X %02X %02X %02X", device_name,
                                                             config_table[i + 0],
                                                             config_table[i + 1],
                                                             config_table[i + 2],
@@ -110,7 +104,7 @@ void AuraUSBController::GetConfigTable()
     }
     else
     {
-        LOG_INFO("[%s] Could not read config table, can not add device", version);
+        LOG_INFO("[%s] Could not read config table, can not add device", device_name);
         delete this;
     }
 }
@@ -141,7 +135,7 @@ void AuraUSBController::GetFirmwareVersion()
     \*-----------------------------------------------------*/
     if(usb_buf[1] == 0x02)
     {
-        memcpy(version, &usb_buf[2], 16);
+        memcpy(device_name, &usb_buf[2], 16);
     }
 }
 

@@ -4,14 +4,17 @@
 |   User interface for OpenRGB device page                  |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
+#include "OpenRGBDialog2.h"
 #include "OpenRGBDevicePage.h"
 #include "OpenRGBZoneResizeDialog.h"
 #include "ResourceManager.h"
 #include "SettingsManager.h"
-#include "ui_OpenRGBDevicePage.h"
+#include "hsv.h"
+
+using namespace Ui;
 
 static void UpdateCallback(void * this_ptr)
 {
@@ -54,7 +57,7 @@ QString OpenRGBDevicePage::ModeDescription(const mode& m)
 
 OpenRGBDevicePage::OpenRGBDevicePage(RGBController *dev, QWidget *parent) :
     QFrame(parent),
-    ui(new Ui::OpenRGBDevicePage)
+    ui(new Ui::OpenRGBDevicePageUi)
 {
     ui->setupUi(this);
 
@@ -113,7 +116,7 @@ OpenRGBDevicePage::OpenRGBDevicePage(RGBController *dev, QWidget *parent) :
 
     for(std::size_t i = 0; i < device->modes.size(); i++)
     {
-        ui->ModeBox->addItem(device->GetModeName((unsigned int)i).c_str());
+        ui->ModeBox->addItem(device->modes[i].name.c_str());
         ui->ModeBox->setItemData((int)i, ModeDescription(device->modes[i]), Qt::ToolTipRole);
     }
 
@@ -164,12 +167,12 @@ void OpenRGBDevicePage::changeEvent(QEvent *event)
     }
 }
 
-RGBController* OpenRGBDevicePage::GetController()
+RGBController* Ui::OpenRGBDevicePage::GetController()
 {
     return device;
 }
 
-void OpenRGBDevicePage::on_ZoneBox_currentIndexChanged(int index)
+void Ui::OpenRGBDevicePage::on_ZoneBox_currentIndexChanged(int index)
 {
     /*-----------------------------------------------------*\
     | Read selected mode                                    |
@@ -282,7 +285,7 @@ void OpenRGBDevicePage::on_ZoneBox_currentIndexChanged(int index)
                     \*-------------------------------------*/
                     for(std::size_t i = 0; i < device->leds.size(); i++)
                     {
-                        ui->LEDBox->addItem(device->GetLEDName((unsigned int)i).c_str());
+                        ui->LEDBox->addItem(device->leds[i].name.c_str());
                     }
 
                     /*-------------------------------------*\
@@ -304,15 +307,13 @@ void OpenRGBDevicePage::on_ZoneBox_currentIndexChanged(int index)
                 \*-----------------------------------------*/
                 else if(selected_zone != -1 && selected_segment == -1)
                 {
-                    unsigned int leds_in_zone = device->GetLEDsInZone(selected_zone);
-
                     /*-------------------------------------*\
                     | If there are multiple LEDs, add the   |
                     | "Entire Zone" option to the LED box   |
                     | and enable it, otherwise there is     |
                     | only one LED so disable it            |
                     \*-------------------------------------*/
-                    if(leds_in_zone > 1)
+                    if(device->zones[selected_zone].leds_count > 1)
                     {
                         ui->LEDBox->addItem(tr("Entire Zone"));
                         ui->LEDBox->setEnabled(1);
@@ -326,7 +327,7 @@ void OpenRGBDevicePage::on_ZoneBox_currentIndexChanged(int index)
                     | Fill in the LED list with all LEDs in |
                     | the zone                              |
                     \*-------------------------------------*/
-                    for(std::size_t led_idx = 0; led_idx < leds_in_zone; led_idx++)
+                    for(std::size_t led_idx = 0; led_idx < device->zones[selected_zone].leds_count; led_idx++)
                     {
                         ui->LEDBox->addItem(device->zones[selected_zone].leds[led_idx].name.c_str());
                     }
@@ -412,7 +413,7 @@ void OpenRGBDevicePage::on_ZoneBox_currentIndexChanged(int index)
     }
 }
 
-void OpenRGBDevicePage::on_LEDBox_currentIndexChanged(int index)
+void Ui::OpenRGBDevicePage::on_LEDBox_currentIndexChanged(int index)
 {
     /*-----------------------------------------------------*\
     | Read selected mode                                    |
@@ -590,9 +591,9 @@ void OpenRGBDevicePage::on_LEDBox_currentIndexChanged(int index)
                     /*-------------------------------------*\
                     | Handle single selected LED            |
                     \*-------------------------------------*/
-                    if(device->GetLEDsInZone(selected_zone) == 1 || selected_led != -1)
+                    if(device->zones[selected_zone].leds_count == 1 || selected_led != -1)
                     {
-                        if((unsigned int)selected_led < device->GetLEDsInZone(selected_zone))
+                        if((unsigned int)selected_led < device->zones[selected_zone].leds_count)
                         {
                             /*-----------------------------*\
                             | Get selected LED's current    |
@@ -704,7 +705,7 @@ void OpenRGBDevicePage::on_LEDBox_currentIndexChanged(int index)
 
 }
 
-void OpenRGBDevicePage::on_ModeBox_currentIndexChanged(int index)
+void Ui::OpenRGBDevicePage::on_ModeBox_currentIndexChanged(int index)
 {
     /*-----------------------------------------------------*\
     | Update mode user interface elements                   |
@@ -724,7 +725,7 @@ void OpenRGBDevicePage::on_ModeBox_currentIndexChanged(int index)
 
 }
 
-void OpenRGBDevicePage::on_PerLEDCheck_clicked()
+void Ui::OpenRGBDevicePage::on_PerLEDCheck_clicked()
 {
     /*-----------------------------------------------------*\
     | Change device mode                                    |
@@ -737,7 +738,7 @@ void OpenRGBDevicePage::on_PerLEDCheck_clicked()
     UpdateModeUi();
 }
 
-void OpenRGBDevicePage::on_ModeSpecificCheck_clicked()
+void Ui::OpenRGBDevicePage::on_ModeSpecificCheck_clicked()
 {
     /*-----------------------------------------------------*\
     | Change device mode                                    |
@@ -750,7 +751,7 @@ void OpenRGBDevicePage::on_ModeSpecificCheck_clicked()
     UpdateModeUi();
 }
 
-void OpenRGBDevicePage::on_RandomCheck_clicked()
+void Ui::OpenRGBDevicePage::on_RandomCheck_clicked()
 {
     /*-----------------------------------------------------*\
     | Change device mode                                    |
@@ -763,7 +764,7 @@ void OpenRGBDevicePage::on_RandomCheck_clicked()
     UpdateModeUi();
 }
 
-void OpenRGBDevicePage::on_BrightnessSlider_valueChanged(int /*value*/)
+void Ui::OpenRGBDevicePage::on_BrightnessSlider_valueChanged(int /*value*/)
 {
     /*-----------------------------------------------------*\
     | Change device mode                                    |
@@ -771,7 +772,7 @@ void OpenRGBDevicePage::on_BrightnessSlider_valueChanged(int /*value*/)
     UpdateMode();
 }
 
-void OpenRGBDevicePage::on_SpeedSlider_valueChanged(int /*value*/)
+void Ui::OpenRGBDevicePage::on_SpeedSlider_valueChanged(int /*value*/)
 {
     /*-----------------------------------------------------*\
     | Change device mode                                    |
@@ -779,7 +780,7 @@ void OpenRGBDevicePage::on_SpeedSlider_valueChanged(int /*value*/)
     UpdateMode();
 }
 
-void OpenRGBDevicePage::on_DirectionBox_currentIndexChanged(int /*index*/)
+void Ui::OpenRGBDevicePage::on_DirectionBox_currentIndexChanged(int /*index*/)
 {
     /*-----------------------------------------------------*\
     | Change device mode                                    |
@@ -787,13 +788,13 @@ void OpenRGBDevicePage::on_DirectionBox_currentIndexChanged(int /*index*/)
     UpdateMode();
 }
 
-void OpenRGBDevicePage::UpdateInterface()
+void Ui::OpenRGBDevicePage::UpdateInterface()
 {
     //UpdateModeUi();
     ui->DeviceViewBox->repaint();
 }
 
-void OpenRGBDevicePage::UpdateModeUi()
+void Ui::OpenRGBDevicePage::UpdateModeUi()
 {
     /*-----------------------------------------------------*\
     | Read selected mode                                    |
@@ -1035,6 +1036,7 @@ void OpenRGBDevicePage::UpdateModeUi()
 
                 ui->EditZoneButton->setEnabled(false);
                 ui->ApplyColorsButton->setEnabled(false);
+                //ui->AutoFillCheck->setEnabled(false);
                 break;
 
             case MODE_COLORS_PER_LED:
@@ -1058,7 +1060,7 @@ void OpenRGBDevicePage::UpdateModeUi()
 
                 for(std::size_t zone_idx = 0; zone_idx < device->zones.size(); zone_idx++)
                 {
-                    ui->ZoneBox->addItem(device->GetZoneName((unsigned int)zone_idx).c_str());
+                    ui->ZoneBox->addItem(device->zones[zone_idx].name.c_str());
 
                     for(std::size_t segment_idx = 0; segment_idx < device->zones[zone_idx].segments.size(); segment_idx++)
                     {
@@ -1069,6 +1071,7 @@ void OpenRGBDevicePage::UpdateModeUi()
                 ui->ZoneBox->setCurrentIndex(0);
                 ui->ZoneBox->blockSignals(false);
                 ui->ApplyColorsButton->setEnabled(true);
+                //ui->AutoFillCheck->setEnabled(true);
 
                 /*-----------------------------------------------------*\
                 | Update LED box                                        |
@@ -1112,12 +1115,13 @@ void OpenRGBDevicePage::UpdateModeUi()
                 ui->LEDBox->setEnabled(true);
                 ui->LEDBox->blockSignals(false);
                 ui->ApplyColorsButton->setEnabled(true);
+                //ui->AutoFillCheck->setEnabled(true);
                 break;
         }
     }
 }
 
-void OpenRGBDevicePage::UpdateMode()
+void Ui::OpenRGBDevicePage::UpdateMode()
 {
     /*-----------------------------------------------------*\
     | Read selected mode                                    |
@@ -1256,7 +1260,7 @@ void OpenRGBDevicePage::UpdateMode()
     }
 }
 
-void OpenRGBDevicePage::SetDevice(unsigned char red, unsigned char green, unsigned char blue)
+void Ui::OpenRGBDevicePage::SetDevice(unsigned char red, unsigned char green, unsigned char blue)
 {
     current_color.setRgb(red, green, blue);
 
@@ -1266,7 +1270,7 @@ void OpenRGBDevicePage::SetDevice(unsigned char red, unsigned char green, unsign
     colorChanged();
 }
 
-void OpenRGBDevicePage::UpdateDevice()
+void Ui::OpenRGBDevicePage::UpdateDevice()
 {
     ui->ModeBox->blockSignals(true);
     ui->ModeBox->setCurrentIndex(device->active_mode);
@@ -1275,7 +1279,7 @@ void OpenRGBDevicePage::UpdateDevice()
     UpdateMode();
 }
 
-void OpenRGBDevicePage::SetCustomMode(unsigned char red, unsigned char green, unsigned char blue)
+void Ui::OpenRGBDevicePage::SetCustomMode(unsigned char red, unsigned char green, unsigned char blue)
 {
     RGBColor color = ToRGBColor(red, green, blue);
     /*-----------------------------------------------------*\
@@ -1322,7 +1326,7 @@ void OpenRGBDevicePage::SetCustomMode(unsigned char red, unsigned char green, un
     UpdateMode();
 }
 
-void OpenRGBDevicePage::on_SwatchBox_swatchChanged(const QColor color)
+void Ui::OpenRGBDevicePage::on_SwatchBox_swatchChanged(const QColor color)
 {
     /*-----------------------------------------------------*\
     | Store the swatch color to the current color QColor    |
@@ -1335,7 +1339,7 @@ void OpenRGBDevicePage::on_SwatchBox_swatchChanged(const QColor color)
     colorChanged();
 }
 
-void OpenRGBDevicePage::on_ColorWheelBox_colorChanged(const QColor color)
+void Ui::OpenRGBDevicePage::on_ColorWheelBox_colorChanged(const QColor color)
 {
     /*-----------------------------------------------------*\
     | Store the wheel color to the current color QColor     |
@@ -1348,12 +1352,12 @@ void OpenRGBDevicePage::on_ColorWheelBox_colorChanged(const QColor color)
     colorChanged();
 }
 
-bool OpenRGBDevicePage::autoUpdateEnabled()
+bool Ui::OpenRGBDevicePage::autoUpdateEnabled()
 {
     return !(device->modes[device->active_mode].flags & MODE_FLAG_AUTOMATIC_SAVE);
 }
 
-void OpenRGBDevicePage::on_RedSpinBox_valueChanged(int red)
+void Ui::OpenRGBDevicePage::on_RedSpinBox_valueChanged(int red)
 {
     /*-----------------------------------------------------*\
     | Update the current color QColor red channel           |
@@ -1366,7 +1370,7 @@ void OpenRGBDevicePage::on_RedSpinBox_valueChanged(int red)
     colorChanged();
 }
 
-void OpenRGBDevicePage::on_HueSpinBox_valueChanged(int hue)
+void Ui::OpenRGBDevicePage::on_HueSpinBox_valueChanged(int hue)
 {
     /*-----------------------------------------------------*\
     | Read the saturation and value box values              |
@@ -1385,7 +1389,7 @@ void OpenRGBDevicePage::on_HueSpinBox_valueChanged(int hue)
     colorChanged();
 }
 
-void OpenRGBDevicePage::on_GreenSpinBox_valueChanged(int green)
+void Ui::OpenRGBDevicePage::on_GreenSpinBox_valueChanged(int green)
 {
     /*-----------------------------------------------------*\
     | Update the current color QColor green channel         |
@@ -1398,7 +1402,7 @@ void OpenRGBDevicePage::on_GreenSpinBox_valueChanged(int green)
     colorChanged();
 }
 
-void OpenRGBDevicePage::on_SatSpinBox_valueChanged(int sat)
+void Ui::OpenRGBDevicePage::on_SatSpinBox_valueChanged(int sat)
 {
     /*-----------------------------------------------------*\
     | Read the hue and value box values                     |
@@ -1417,7 +1421,7 @@ void OpenRGBDevicePage::on_SatSpinBox_valueChanged(int sat)
     colorChanged();
 }
 
-void OpenRGBDevicePage::on_BlueSpinBox_valueChanged(int blue)
+void Ui::OpenRGBDevicePage::on_BlueSpinBox_valueChanged(int blue)
 {
     /*-----------------------------------------------------*\
     | Update the current color QColor blue channel          |
@@ -1430,7 +1434,7 @@ void OpenRGBDevicePage::on_BlueSpinBox_valueChanged(int blue)
     colorChanged();
 }
 
-void OpenRGBDevicePage::on_ValSpinBox_valueChanged(int val)
+void Ui::OpenRGBDevicePage::on_ValSpinBox_valueChanged(int val)
 {
     /*-----------------------------------------------------*\
     | Read the hue and saturation box values                |
@@ -1449,7 +1453,7 @@ void OpenRGBDevicePage::on_ValSpinBox_valueChanged(int val)
     colorChanged();
 }
 
-void OpenRGBDevicePage::on_HexLineEdit_textChanged(const QString &arg1)
+void Ui::OpenRGBDevicePage::on_HexLineEdit_textChanged(const QString &arg1)
 {
     /*-----------------------------------------------------*\
     | Make an editable copy of the string                   |
@@ -1493,7 +1497,7 @@ void OpenRGBDevicePage::on_HexLineEdit_textChanged(const QString &arg1)
     UpdateHex = true;
 }
 
-void OpenRGBDevicePage::on_DeviceViewBox_selectionChanged(QVector<int> indices)
+void Ui::OpenRGBDevicePage::on_DeviceViewBox_selectionChanged(QVector<int> indices)
 {
     if(device->modes[device->active_mode].color_mode == MODE_COLORS_PER_LED)
     {
@@ -1538,12 +1542,12 @@ void OpenRGBDevicePage::on_DeviceViewBox_selectionChanged(QVector<int> indices)
     }
 }
 
-void OpenRGBDevicePage::on_SetAllButton_clicked()
+void Ui::OpenRGBDevicePage::on_SetAllButton_clicked()
 {
     emit SetAllDevices(current_color.red(), current_color.green(), current_color.blue());
 }
 
-void OpenRGBDevicePage::on_EditZoneButton_clicked()
+void Ui::OpenRGBDevicePage::on_EditZoneButton_clicked()
 {
     switch(device->modes[device->active_mode].color_mode)
     {
@@ -1620,10 +1624,9 @@ void OpenRGBDevicePage::on_EditZoneButton_clicked()
             }
 
             /*-----------------------------------------*\
-            | Only allow resizing linear zones or       |
-            | effects-only resizable zones              |
+            | Only allow resizing linear zones          |
             \*-----------------------------------------*/
-            if((device->zones[selected_zone].type == ZONE_TYPE_LINEAR) || (device->zones[selected_zone].flags & ZONE_FLAG_RESIZE_EFFECTS_ONLY))
+            if(device->zones[selected_zone].type == ZONE_TYPE_LINEAR)
             {
                 OpenRGBZoneResizeDialog dlg(device, selected_zone);
 
@@ -1680,7 +1683,7 @@ void OpenRGBDevicePage::on_EditZoneButton_clicked()
     }
 }
 
-void OpenRGBDevicePage::ShowDeviceView()
+void Ui::OpenRGBDevicePage::ShowDeviceView()
 {
     /*-----------------------------------------------------*\
     | Read selected mode                                    |
@@ -1702,7 +1705,7 @@ void OpenRGBDevicePage::ShowDeviceView()
     }
 }
 
-void OpenRGBDevicePage::HideDeviceView()
+void Ui::OpenRGBDevicePage::HideDeviceView()
 {
     /*-----------------------------------------------------*\
     | Set device view showing flag to False                 |
@@ -1715,7 +1718,7 @@ void OpenRGBDevicePage::HideDeviceView()
     ui->DeviceViewBoxFrame->hide();
 }
 
-void OpenRGBDevicePage::on_ApplyColorsButton_clicked()
+void Ui::OpenRGBDevicePage::on_ApplyColorsButton_clicked()
 {
     /*-----------------------------------------------------*\
     | Read selected mode                                    |
@@ -1757,7 +1760,7 @@ void OpenRGBDevicePage::on_ApplyColorsButton_clicked()
     }
 }
 
-void OpenRGBDevicePage::on_SelectAllLEDsButton_clicked()
+void Ui::OpenRGBDevicePage::on_SelectAllLEDsButton_clicked()
 {
     if(device->modes[device->active_mode].color_mode == MODE_COLORS_PER_LED)
     {
@@ -1767,7 +1770,7 @@ void OpenRGBDevicePage::on_SelectAllLEDsButton_clicked()
     }
 }
 
-void OpenRGBDevicePage::on_DeviceSaveButton_clicked()
+void Ui::OpenRGBDevicePage::on_DeviceSaveButton_clicked()
 {
     if(device->modes[device->active_mode].flags & MODE_FLAG_MANUAL_SAVE)
     {
@@ -1775,7 +1778,7 @@ void OpenRGBDevicePage::on_DeviceSaveButton_clicked()
     }
 }
 
-void OpenRGBDevicePage::colorChanged()
+void Ui::OpenRGBDevicePage::colorChanged()
 {
     updateColorUi();
 
@@ -1809,7 +1812,7 @@ void OpenRGBDevicePage::colorChanged()
     }
 }
 
-void OpenRGBDevicePage::updateColorUi()
+void Ui::OpenRGBDevicePage::updateColorUi()
 {
     /*-----------------------------------------------------*\
     | Update colorwheel                                     |

@@ -7,7 +7,7 @@
 |   Adam Honse (CalcProgrammer1)                02 Jun 2019 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -29,8 +29,6 @@ typedef unsigned int RGBColor;
 #define RGBGetBValue(rgb)   ((rgb >> 16) & 0x000000FF)
 
 #define ToRGBColor(r, g, b) ((RGBColor)((b << 16) | (g << 8) | (r)))
-
-#define RGBToBGRColor(rgb) ((rgb & 0xFF) << 16 | (rgb & 0xFF00) | (rgb & 0xFF0000) >> 16)
 
 /*------------------------------------------------------------------*\
 | Mode Flags                                                         |
@@ -119,15 +117,6 @@ typedef struct
 } led;
 
 /*------------------------------------------------------------------*\
-| Zone Flags                                                         |
-\*------------------------------------------------------------------*/
-enum
-{
-    ZONE_FLAG_RESIZE_EFFECTS_ONLY       = (1 << 0), /* Zone is resizable, but only for  */
-                                                    /* effects - treat as single LED    */
-};
-
-/*------------------------------------------------------------------*\
 | Zone Types                                                         |
 \*------------------------------------------------------------------*/
 typedef int zone_type;
@@ -161,11 +150,10 @@ typedef struct
 } segment;
 
 /*------------------------------------------------------------------*\
-| Zone Class                                                         |
+| Zone Struct                                                        |
 \*------------------------------------------------------------------*/
-class zone
+typedef struct
 {
-public:
     std::string             name;           /* Zone name                */
     zone_type               type;           /* Zone type                */
     led *                   leds;           /* List of LEDs in zone     */
@@ -176,14 +164,7 @@ public:
     unsigned int            leds_max;       /* Maximum number of LEDs   */
     matrix_map_type *       matrix_map;     /* Matrix map pointer       */
 	std::vector<segment>    segments;       /* Segments in zone         */
-    unsigned int            flags;          /* Zone flags bitfield      */
-
-    /*--------------------------------------------------------------*\
-    | Zone Constructor / Destructor                                  |
-    \*--------------------------------------------------------------*/
-    zone();
-    ~zone();
-};
+} zone;
 
 /*------------------------------------------------------------------*\
 | Device Types                                                       |
@@ -214,22 +195,7 @@ enum
     DEVICE_TYPE_MICROPHONE,
     DEVICE_TYPE_ACCESSORY,
     DEVICE_TYPE_KEYPAD,
-    DEVICE_TYPE_LAPTOP,
-    DEVICE_TYPE_MONITOR,
     DEVICE_TYPE_UNKNOWN,
-};
-
-/*------------------------------------------------------------------*\
-| Controller Flags                                                   |
-\*------------------------------------------------------------------*/
-enum
-{
-    CONTROLLER_FLAG_LOCAL               = (1 << 0), /* Device is local to this instance */
-    CONTROLLER_FLAG_REMOTE              = (1 << 1), /* Device is on a remote instance   */
-    CONTROLLER_FLAG_VIRTUAL             = (1 << 2), /* Device is a virtual device       */
-
-    CONTROLLER_FLAG_RESET_BEFORE_UPDATE = (1 << 8), /* Device resets update flag before */
-                                                    /* calling update function          */
 };
 
 /*------------------------------------------------------------------*\
@@ -243,18 +209,6 @@ class RGBControllerInterface
 {
 public:
     virtual void            SetupColors()                                                                       = 0;
-
-    virtual unsigned int    GetLEDsInZone(unsigned int zone)                                                    = 0;
-    virtual std::string     GetName()                                                                           = 0;
-    virtual std::string     GetVendor()                                                                         = 0;
-    virtual std::string     GetDescription()                                                                    = 0;
-    virtual std::string     GetVersion()                                                                        = 0;
-    virtual std::string     GetSerial()                                                                         = 0;
-    virtual std::string     GetLocation()                                                                       = 0;
-
-    virtual std::string     GetModeName(unsigned int mode)                                                      = 0;
-    virtual std::string     GetZoneName(unsigned int zone)                                                      = 0;
-    virtual std::string     GetLEDName(unsigned int led)                                                        = 0;
 
     virtual RGBColor        GetLED(unsigned int led)                                                            = 0;
     virtual void            SetLED(unsigned int led, RGBColor color)                                            = 0;
@@ -293,9 +247,6 @@ public:
 
     virtual void            DeviceCallThreadFunction()                                                          = 0;
 
-    virtual void            ClearSegments(int zone)                                                             = 0;
-    virtual void            AddSegment(int zone, segment new_segment)                                           = 0;
-
     /*---------------------------------------------------------*\
     | Functions to be implemented in device implementation      |
     \*---------------------------------------------------------*/
@@ -328,9 +279,6 @@ public:
     std::vector<RGBColor>   colors;         /* Color buffer             */
     device_type             type;           /* device type              */
     int                     active_mode = 0;/* active mode              */
-    std::vector<std::string>
-                            led_alt_names;  /* alternate LED names      */
-    unsigned int            flags;          /* controller flags         */
 
     /*---------------------------------------------------------*\
     | RGBController base class constructor                      |
@@ -342,18 +290,6 @@ public:
     | Generic functions implemented in RGBController.cpp        |
     \*---------------------------------------------------------*/
     void                    SetupColors();
-
-    unsigned int            GetLEDsInZone(unsigned int zone);
-    std::string             GetName();
-    std::string             GetVendor();
-    std::string             GetDescription();
-    std::string             GetVersion();
-    std::string             GetSerial();
-    std::string             GetLocation();
-
-    std::string             GetModeName(unsigned int mode);
-    std::string             GetZoneName(unsigned int zone);
-    std::string             GetLEDName(unsigned int led);
 
     RGBColor                GetLED(unsigned int led);
     void                    SetLED(unsigned int led, RGBColor color);
@@ -378,9 +314,6 @@ public:
     unsigned char *         GetSingleLEDColorDescription(int led);
     void                    SetSingleLEDColorDescription(unsigned char* data_buf);
 
-    unsigned char *         GetSegmentDescription(int zone, segment new_segment);
-    void                    SetSegmentDescription(unsigned char* data_buf);
-
     void                    RegisterUpdateCallback(RGBControllerCallback new_callback, void * new_callback_arg);
     void                    UnregisterUpdateCallback(void * callback_arg);
     void                    ClearCallbacks();
@@ -394,9 +327,6 @@ public:
     void                    SaveMode();
 
     void                    DeviceCallThreadFunction();
-
-    void                    ClearSegments(int zone);
-    void                    AddSegment(int zone, segment new_segment);
 
     /*---------------------------------------------------------*\
     | Functions to be implemented in device implementation      |

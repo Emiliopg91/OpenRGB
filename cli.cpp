@@ -4,7 +4,7 @@
 |   OpenRGB command line interface                          |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include <vector>
@@ -29,7 +29,7 @@
 \*-------------------------------------------------------------*/
 #ifdef _WIN32
 #include <shellapi.h>
-    #define strcasecmp _strcmpi
+    #define strcasecmp strcmpi
 #endif
 
 using namespace std::chrono_literals;
@@ -345,7 +345,7 @@ unsigned int ParseMode(DeviceOptions& options, std::vector<RGBController *> &rgb
         }
     }
 
-    std::cout << "Error: Mode '" + options.mode + "' not available for device '" + rgb_controllers[options.device]->GetName() + "'" << std::endl;
+    std::cout << "Error: Mode '" + options.mode + "' not available for device '" + rgb_controllers[options.device]->name + "'" << std::endl;
     return false;
 }
 
@@ -467,7 +467,7 @@ void OptionListDevices(std::vector<RGBController *>& rgb_controllers)
         /*---------------------------------------------------------*\
         | Print device name                                         |
         \*---------------------------------------------------------*/
-        std::cout << controller_idx << ": " << controller->GetName() << std::endl;
+        std::cout << controller_idx << ": " << controller->name << std::endl;
 
         /*---------------------------------------------------------*\
         | Print device type                                         |
@@ -477,33 +477,33 @@ void OptionListDevices(std::vector<RGBController *>& rgb_controllers)
         /*---------------------------------------------------------*\
         | Print device description                                  |
         \*---------------------------------------------------------*/
-        if(!controller->GetDescription().empty())
+        if(!controller->description.empty())
         {
-            std::cout << "  Description:    " << controller->GetDescription() << std::endl;
+            std::cout << "  Description:    " << controller->description << std::endl;
         }
 
         /*---------------------------------------------------------*\
         | Print device version                                      |
         \*---------------------------------------------------------*/
-        if(!controller->GetVersion().empty())
+        if(!controller->version.empty())
         {
-            std::cout << "  Version:        " << controller->GetLocation() << std::endl;
+            std::cout << "  Version:        " << controller->version << std::endl;
         }
 
         /*---------------------------------------------------------*\
         | Print device location                                     |
         \*---------------------------------------------------------*/
-        if(!controller->GetLocation().empty())
+        if(!controller->location.empty())
         {
-            std::cout << "  Location:       " << controller->GetLocation() << std::endl;
+            std::cout << "  Location:       " << controller->location << std::endl;
         }
 
         /*---------------------------------------------------------*\
         | Print device serial                                       |
         \*---------------------------------------------------------*/
-        if(!controller->GetSerial().empty())
+        if(!controller->serial.empty())
         {
-            std::cout << "  Serial:         " << controller->GetSerial() << std::endl;
+            std::cout << "  Serial:         " << controller->serial << std::endl;
         }
 
         /*---------------------------------------------------------*\
@@ -568,8 +568,6 @@ bool OptionDevice(std::vector<DeviceOptions>* current_devices, std::string argum
     {
         int current_device = std::stoi(argument);
 
-        LOG_TRACE("[CLI] using device number %d for argument %s", current_device, argument.c_str());
-
         if((current_device >= static_cast<int>(rgb_controllers.size())) || (current_device < 0))
         {
             throw nullptr;
@@ -591,22 +589,17 @@ bool OptionDevice(std::vector<DeviceOptions>* current_devices, std::string argum
     {
         if(argument.length() > 1)
         {
-            std::string argument_lower = argument;
-            std::transform(argument_lower.begin(), argument_lower.end(), argument_lower.begin(), ::tolower);
-
-            LOG_TRACE("[CLI] Searching for %s", argument_lower.c_str());
-
             for(unsigned int i = 0; i < rgb_controllers.size(); i++)
             {
                 /*---------------------------------------------------------*\
                 | If the argument is not a number then check all the        |
                 |   controllers names for a match                           |
                 \*---------------------------------------------------------*/
-                std::string name            = rgb_controllers[i]->GetName();
+                std::string name            = rgb_controllers[i]->name;
                 std::transform(name.begin(), name.end(), name.begin(), ::tolower);
-                LOG_TRACE("[CLI] Comparing to %s", name.c_str());
+                std::transform(argument.begin(), argument.end(), argument.begin(), ::tolower);
 
-                if(name.find(argument_lower) != std::string::npos)
+                if(name.find(argument) != std::string::npos)
                 {
                     found                   = true;
 
@@ -624,14 +617,9 @@ bool OptionDevice(std::vector<DeviceOptions>* current_devices, std::string argum
         }
         else
         {
-            std::cout << "Error: Empty device ID" << std::endl;
+            std::cout << "Error: Invalid device ID: " + argument << std::endl;
             return false;
         }
-    }
-
-    if(!found)
-    {
-        std::cout << "Error: Cannot find device \"" << argument << "\"" << std::endl;
     }
 
     return found;
@@ -741,10 +729,6 @@ bool OptionMode(std::vector<DeviceOptions>* current_devices, std::string argumen
         }
     }
 
-    if(!found)
-    {
-        std::cout << "Error: No devices for mode \"" << argument << "\"" << std::endl;
-    }
     return found;
 }
 
@@ -781,10 +765,6 @@ bool OptionSpeed(std::vector<DeviceOptions>* current_devices, std::string argume
         }
     }
 
-    if(!found)
-    {
-        std::cout << "Error: No devices for speed \"" << argument << "\"" << std::endl;
-    }
     return found;
 }
 
@@ -821,10 +801,6 @@ bool OptionBrightness(std::vector<DeviceOptions>* current_devices, std::string a
         }
     }
 
-    if(!found)
-    {
-        std::cout << "Error: No devices for brightness \"" << argument << "\"" << std::endl;
-    }
     return found;
 }
 
@@ -888,12 +864,12 @@ bool OptionProfile(std::string argument, std::vector<RGBController *>& rgb_contr
             RGBController* device = rgb_controllers[controller_idx];
 
             device->DeviceUpdateMode();
-            LOG_DEBUG("[CLI] Updating mode for %s to %i", device->GetName().c_str(), device->active_mode);
+            LOG_DEBUG("Updating mode for %s to %i", device->name.c_str(), device->active_mode);
 
             if(device->modes[device->active_mode].color_mode == MODE_COLORS_PER_LED)
             {
                 device->DeviceUpdateLEDs();
-                LOG_DEBUG("[CLI] Mode uses per-LED color, also updating LEDs");
+                LOG_DEBUG("Mode uses per-LED color, also updating LEDs");
             }
         }
 
@@ -1306,7 +1282,7 @@ unsigned int cli_pre_detection(int argc, char* argv[])
         std::string option   = argv[arg_index];
         std::string argument = "";
 
-        LOG_DEBUG("[CLI] Parsing CLI option: %s", option.c_str());
+        LOG_DEBUG("Parsing CLI option: %s", option.c_str());
 
         /*---------------------------------------------------------*\
         | Handle options that take an argument                      |
@@ -1341,11 +1317,11 @@ unsigned int cli_pre_detection(int argc, char* argv[])
             if(filesystem::is_directory(config_path))
             {
                 ResourceManager::get()->SetConfigurationDirectory(config_path);
-                LOG_INFO("[CLI] Setting config directory to %s",argument.c_str()); // TODO: Use config_path in logs somehow
+                LOG_INFO("Setting config directory to %s",argument.c_str()); // TODO: Use config_path in logs somehow
             }
             else
             {
-                LOG_ERROR("[CLI] '%s' is not a valid directory",argument.c_str()); // TODO: Use config_path in logs somehow
+                LOG_ERROR("'%s' is not a valid directory",argument.c_str()); // TODO: Use config_path in logs somehow
                 print_help = true;
                 break;
             }
@@ -1408,7 +1384,7 @@ unsigned int cli_pre_detection(int argc, char* argv[])
                 std::this_thread::sleep_for(10ms);
             }
 
-            ResourceManager::get()->RegisterNetworkClient(client);
+            ResourceManager::get()->GetClients().push_back(client);
 
             cfg_args++;
             arg_index++;
@@ -1498,7 +1474,7 @@ unsigned int cli_pre_detection(int argc, char* argv[])
                     }
                     else
                     {
-                        LOG_ERROR("[CLI] Loglevel out of range: %d (0-6)", level);
+                        LOG_ERROR("Loglevel out of range: %d (0-6)", level);
                         print_help = true;
                         break;
                     }
@@ -1535,7 +1511,7 @@ unsigned int cli_pre_detection(int argc, char* argv[])
                     }
                     else
                     {
-                        LOG_ERROR("[CLI] Invalid loglevel");
+                        LOG_ERROR("Invalid loglevel");
                         print_help = true;
                         break;
                     }
@@ -1543,7 +1519,7 @@ unsigned int cli_pre_detection(int argc, char* argv[])
             }
             else
             {
-                LOG_ERROR("[CLI] Missing argument for --loglevel");
+                LOG_ERROR("Missing argument for --loglevel");
                 print_help = true;
                 break;
             }
@@ -1755,7 +1731,7 @@ unsigned int cli_post_detection()
             break;
 
         case RET_FLAG_PRINT_HELP:
-            std::cout << "Run `OpenRGB --help` for syntax" << std::endl;
+            OptionHelp();
             exit(-1);
             break;
 
@@ -1792,11 +1768,11 @@ unsigned int cli_post_detection()
     {
         if(ResourceManager::get()->GetProfileManager()->SaveProfile(profile_save_filename))
         {
-            LOG_INFO("[CLI] Profile saved successfully");
+            LOG_INFO("Profile saved successfully");
         }
         else
         {
-            LOG_ERROR("[CLI] Profile saving failed");
+            LOG_ERROR("Profile saving failed");
         }
     }
 

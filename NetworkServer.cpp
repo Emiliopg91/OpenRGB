@@ -6,7 +6,7 @@
 |   Adam Honse (CalcProgrammer1)                09 May 2020 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include <cstring>
@@ -49,7 +49,7 @@ NetworkClientInfo::~NetworkClientInfo()
 {
     if(client_sock != INVALID_SOCKET)
     {
-        LOG_INFO("[NetworkServer] Closing server connection: %s", client_ip.c_str());
+        LOG_INFO("NetworkServer: Closing server connection: %s", client_ip.c_str());
         delete client_listen_thread;
         shutdown(client_sock, SD_RECEIVE);
         closesocket(client_sock);
@@ -58,17 +58,14 @@ NetworkClientInfo::~NetworkClientInfo()
 
 NetworkServer::NetworkServer(std::vector<RGBController *>& control) : controllers(control)
 {
-    host                        = OPENRGB_SDK_HOST;
-    port_num                    = OPENRGB_SDK_PORT;
-    server_online               = false;
-    server_listening            = false;
-    legacy_workaround_enabled   = false;
-
+    host             = OPENRGB_SDK_HOST;
+    port_num         = OPENRGB_SDK_PORT;
+    server_online    = false;
+    server_listening = false;
     for(int i = 0; i < MAXSOCK; i++)
     {
         ConnectionThread[i] = nullptr;
     }
-
     profile_manager  = nullptr;
 }
 
@@ -224,11 +221,6 @@ void NetworkServer::SetHost(std::string new_host)
     }
 }
 
-void NetworkServer::SetLegacyWorkaroundEnable(bool enable)
-{
-    legacy_workaround_enabled = enable;
-}
-
 void NetworkServer::SetPort(unsigned short new_port)
 {
     if(server_online == false)
@@ -269,7 +261,7 @@ void NetworkServer::StartServer()
 
     if(err)
     {
-        LOG_ERROR("[NetworkServer] Unable to get address.");
+        LOG_ERROR("NetworkServer: Unable to get address.");
         WSACleanup();
         return;
     }
@@ -283,7 +275,7 @@ void NetworkServer::StartServer()
 
         if(server_sock[socket_count] == INVALID_SOCKET)
         {
-            LOG_ERROR("[NetworkServer] Network socket could not be created.");
+            LOG_ERROR("NetworkServer: Network socket could not be created.");
             WSACleanup();
             return;
         }
@@ -295,23 +287,23 @@ void NetworkServer::StartServer()
         {
             if(errno == EADDRINUSE)
             {
-                LOG_ERROR("[NetworkServer] Could not bind network socket. Is port %hu already being used?", GetPort());
+                LOG_ERROR("NetworkServer: Could not bind network socket. Is port %hu already being used?", GetPort());
             }
             else if(errno == EACCES)
             {
-                LOG_ERROR("[NetworkServer] Could not bind network socket. Access to socket was denied.");
+                LOG_ERROR("NetworkServer: Could not bind network socket. Access to socket was denied.");
             }
             else if(errno == EBADF)
             {
-                LOG_ERROR("[NetworkServer] Could not bind network socket. sockfd is not a valid file descriptor.");
+                LOG_ERROR("NetworkServer: Could not bind network socket. sockfd is not a valid file descriptor.");
             }
             else if(errno == EINVAL)
             {
-                LOG_ERROR("[NetworkServer] Could not bind network socket. The socket is already bound to an address, or addrlen is wrong, or addr is not a valid address for this socket's domain.");
+                LOG_ERROR("NetworkServer: Could not bind network socket. The socket is already bound to an address, or addrlen is wrong, or addr is not a valid address for this socket's domain.");
             }
             else if(errno == ENOTSOCK)
             {
-                LOG_ERROR("[NetworkServer] Could not bind network socket. The file descriptor sockfd does not refer to a socket.");
+                LOG_ERROR("NetworkServer: Could not bind network socket. The file descriptor sockfd does not refer to a socket.");
             }
             else
             {
@@ -319,7 +311,7 @@ void NetworkServer::StartServer()
                 | errno could be a Linux specific error, see:               |
                 | https://man7.org/linux/man-pages/man2/bind.2.html         |
                 \*---------------------------------------------------------*/
-                LOG_ERROR("[NetworkServer] Could not bind network socket. Error code: %d.", errno);
+                LOG_ERROR("NetworkManager: Could not bind network socket. Error code: %d.", errno);
             }
 
             WSACleanup();
@@ -391,7 +383,7 @@ void NetworkServer::ConnectionThreadFunction(int socket_idx)
     /*---------------------------------------------------------*\
     | This thread handles client connections                    |
     \*---------------------------------------------------------*/
-    LOG_INFO("[NetworkServer] Network connection thread started on port %hu", GetPort());
+    LOG_INFO("NetworkServer: Network connection thread started on port %hu", GetPort());
 
     while(server_online == true)
     {
@@ -407,7 +399,7 @@ void NetworkServer::ConnectionThreadFunction(int socket_idx)
         \*---------------------------------------------------------*/
         if(listen(server_sock[socket_idx], 10) < 0)
         {
-            LOG_INFO("[NetworkServer] Connection thread closed");
+            LOG_INFO("NetworkServer: Connection thread closed");
             server_online = false;
 
             return;
@@ -423,7 +415,7 @@ void NetworkServer::ConnectionThreadFunction(int socket_idx)
 
         if(client_info->client_sock < 0)
         {
-            LOG_INFO("[NetworkServer] Connection thread closed");
+            LOG_INFO("NetworkServer: Connection thread closed");
             server_online = false;
 
             server_listening = false;
@@ -482,7 +474,7 @@ void NetworkServer::ConnectionThreadFunction(int socket_idx)
         ClientInfoChanged();
     }
 
-    LOG_INFO("[NetworkServer] Connection thread closed");
+    LOG_INFO("NetworkServer: Connection thread closed");
     server_online = false;
     server_listening = false;
     ServerListeningChanged();
@@ -552,7 +544,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
 {
     SOCKET client_sock = client_info->client_sock;
 
-    LOG_INFO("[NetworkServer] Network server started");
+    LOG_INFO("NetworkServer: Network server started");
 
     /*---------------------------------------------------------*\
     | This thread handles messages received from clients        |
@@ -572,7 +564,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
 
             if(bytes_read <= 0)
             {
-                LOG_ERROR("[NetworkServer] recv_select failed receiving magic, closing listener");
+                LOG_ERROR("NetworkServer: recv_select failed receiving magic, closing listener");
                 goto listen_done;
             }
 
@@ -581,7 +573,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
             \*---------------------------------------------------------*/
             if(header.pkt_magic[i] != openrgb_sdk_magic[i])
             {
-                LOG_ERROR("[NetworkServer] Invalid magic received");
+                LOG_ERROR("NetworkServer: Invalid magic received");
                 continue;
             }
         }
@@ -601,7 +593,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
 
             if(tmp_bytes_read <= 0)
             {
-                LOG_ERROR("[NetworkServer] recv_select failed receiving header, closing listener");
+                LOG_ERROR("NetworkServer: recv_select failed receiving header, closing listener");
                 goto listen_done;
             }
 
@@ -623,7 +615,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
 
                 if(tmp_bytes_read <= 0)
                 {
-                    LOG_ERROR("[NetworkServer] recv_select failed receiving data, closing listener");
+                    LOG_ERROR("NetworkServer: recv_select failed receiving data, closing listener");
                     goto listen_done;
                 }
                 bytes_read += tmp_bytes_read;
@@ -668,10 +660,6 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                 ProcessRequest_ClientString(client_sock, header.pkt_size, data);
                 break;
 
-            case NET_PACKET_ID_REQUEST_RESCAN_DEVICES:
-                ProcessRequest_RescanDevices();
-                break;
-
             case NET_PACKET_ID_RGBCONTROLLER_RESIZEZONE:
                 if(data == NULL)
                 {
@@ -701,15 +689,14 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                 | Verify the color description size (first 4 bytes of data) |
                 | matches the packet size in the header                     |
                 |                                                           |
-                | If protocol version is 4 or below and the legacy SDK      |
-                | compatibility workaround is enabled, ignore this check.   |
-                | This allows backwards compatibility with old versions of  |
-                | SDK applications that didn't properly implement the size  |
-                | field.                                                    |
+                | If protocol version is 4 or below, allow the description  |
+                | size to be zero.  This allows backwards compatibility with|
+                | versions of the OpenRGB.NET SDK implementation which had  |
+                | a bug where this field would always be zero.              |
                 \*---------------------------------------------------------*/
                 if((header.pkt_size == *((unsigned int*)data))
                 || ((client_info->client_protocol_version <= 4)
-                 && (legacy_workaround_enabled)))
+                 && (*((unsigned int*)data) == 0)))
                 {
                     if(header.pkt_dev_idx < controllers.size())
                     {
@@ -719,7 +706,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                 }
                 else
                 {
-                    LOG_ERROR("[NetworkServer] UpdateLEDs packet has invalid size. Packet size: %d, Data size: %d", header.pkt_size, *((unsigned int*)data));
+                    LOG_ERROR("NetworkServer: UpdateLEDs packet has invalid size. Packet size: %d, Data size: %d", header.pkt_size, *((unsigned int*)data));
                     goto listen_done;
                 }
                 break;
@@ -734,15 +721,14 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                 | Verify the color description size (first 4 bytes of data) |
                 | matches the packet size in the header                     |
                 |                                                           |
-                | If protocol version is 4 or below and the legacy SDK      |
-                | compatibility workaround is enabled, ignore this check.   |
-                | This allows backwards compatibility with old versions of  |
-                | SDK applications that didn't properly implement the size  |
-                | field.                                                    |
+                | If protocol version is 4 or below, allow the description  |
+                | size to be zero.  This allows backwards compatibility with|
+                | versions of the OpenRGB.NET SDK implementation which had  |
+                | a bug where this field would always be zero.              |
                 \*---------------------------------------------------------*/
                 if((header.pkt_size == *((unsigned int*)data))
                 || ((client_info->client_protocol_version <= 4)
-                 && (legacy_workaround_enabled)))
+                 && (*((unsigned int*)data) == 0)))
                 {
                     if(header.pkt_dev_idx < controllers.size())
                     {
@@ -756,7 +742,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                 }
                 else
                 {
-                    LOG_ERROR("[NetworkServer] UpdateZoneLEDs packet has invalid size. Packet size: %d, Data size: %d", header.pkt_size, *((unsigned int*)data));
+                    LOG_ERROR("NetworkServer: UpdateZoneLEDs packet has invalid size. Packet size: %d, Data size: %d", header.pkt_size, *((unsigned int*)data));
                     goto listen_done;
                 }
                 break;
@@ -785,7 +771,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                 }
                 else
                 {
-                    LOG_ERROR("[NetworkServer] UpdateSingleLED packet has invalid size. Packet size: %d, Data size: %d", header.pkt_size, (sizeof(int) + sizeof(RGBColor)));
+                    LOG_ERROR("NetworkServer: UpdateSingleLED packet has invalid size. Packet size: %d, Data size: %d", header.pkt_size, (sizeof(int) + sizeof(RGBColor)));
                     goto listen_done;
                 }
                 break;
@@ -807,15 +793,14 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                 | Verify the mode description size (first 4 bytes of data)  |
                 | matches the packet size in the header                     |
                 |                                                           |
-                | If protocol version is 4 or below and the legacy SDK      |
-                | compatibility workaround is enabled, ignore this check.   |
-                | This allows backwards compatibility with old versions of  |
-                | SDK applications that didn't properly implement the size  |
-                | field.                                                    |
+                | If protocol version is 4 or below, allow the description  |
+                | size to be zero.  This allows backwards compatibility with|
+                | versions of the OpenRGB.NET SDK implementation which had  |
+                | a bug where this field would always be zero.              |
                 \*---------------------------------------------------------*/
                 if((header.pkt_size == *((unsigned int*)data))
                 || ((client_info->client_protocol_version <= 4)
-                 && (legacy_workaround_enabled)))
+                 && (*((unsigned int*)data) == 0)))
                 {
                     if(header.pkt_dev_idx < controllers.size())
                     {
@@ -825,7 +810,7 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                 }
                 else
                 {
-                    LOG_ERROR("[NetworkServer] UpdateMode packet has invalid size. Packet size: %d, Data size: %d", header.pkt_size, *((unsigned int*)data));
+                    LOG_ERROR("NetworkServer: UpdateMode packet has invalid size. Packet size: %d, Data size: %d", header.pkt_size, *((unsigned int*)data));
                     goto listen_done;
                 }
                 break;
@@ -840,15 +825,14 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                 | Verify the mode description size (first 4 bytes of data)  |
                 | matches the packet size in the header                     |
                 |                                                           |
-                | If protocol version is 4 or below and the legacy SDK      |
-                | compatibility workaround is enabled, ignore this check.   |
-                | This allows backwards compatibility with old versions of  |
-                | SDK applications that didn't properly implement the size  |
-                | field.                                                    |
+                | If protocol version is 4 or below, allow the description  |
+                | size to be zero.  This allows backwards compatibility with|
+                | versions of the OpenRGB.NET SDK implementation which had  |
+                | a bug where this field would always be zero.              |
                 \*---------------------------------------------------------*/
                 if((header.pkt_size == *((unsigned int*)data))
                 || ((client_info->client_protocol_version <= 4)
-                 && (legacy_workaround_enabled)))
+                 && (*((unsigned int*)data) == 0)))
                 {
                     if(header.pkt_dev_idx < controllers.size())
                     {
@@ -936,41 +920,6 @@ void NetworkServer::ListenThreadFunction(NetworkClientInfo * client_info)
                     }
                     break;
                 }
-                break;
-
-            case NET_PACKET_ID_RGBCONTROLLER_CLEARSEGMENTS:
-                if(data == NULL)
-                {
-                    break;
-                }
-
-                if((header.pkt_dev_idx < controllers.size()) && (header.pkt_size == sizeof(int)))
-                {
-                    int zone;
-
-                    memcpy(&zone, data, sizeof(int));
-
-                    controllers[header.pkt_dev_idx]->ClearSegments(zone);
-                    profile_manager->SaveProfile("sizes", true);
-                }
-                break;
-
-            case NET_PACKET_ID_RGBCONTROLLER_ADDSEGMENT:
-                {
-                    /*---------------------------------------------------------*\
-                    | Verify the segment description size (first 4 bytes of     |
-                    | data) matches the packet size in the header               |
-                    \*---------------------------------------------------------*/
-                    if(header.pkt_size == *((unsigned int*)data))
-                    {
-                        if(header.pkt_dev_idx < controllers.size())
-                        {
-                            controllers[header.pkt_dev_idx]->SetSegmentDescription((unsigned char *)data);
-                            profile_manager->SaveProfile("sizes", true);
-                        }
-                    }
-                }
-                break;
         }
 
         delete[] data;
@@ -1050,11 +999,6 @@ void NetworkServer::ProcessRequest_ClientString(SOCKET client_sock, unsigned int
     ClientInfoChanged();
 }
 
-void NetworkServer::ProcessRequest_RescanDevices()
-{
-    ResourceManager::get()->DetectDevices();
-}
-
 void NetworkServer::SendReply_ControllerCount(SOCKET client_sock)
 {
     NetPacketHeader reply_hdr;
@@ -1064,10 +1008,8 @@ void NetworkServer::SendReply_ControllerCount(SOCKET client_sock)
 
     reply_data = (unsigned int)controllers.size();
 
-    send_in_progress.lock();
     send(client_sock, (const char *)&reply_hdr, sizeof(NetPacketHeader), 0);
     send(client_sock, (const char *)&reply_data, sizeof(unsigned int), 0);
-    send_in_progress.unlock();
 }
 
 void NetworkServer::SendReply_ControllerData(SOCKET client_sock, unsigned int dev_idx, unsigned int protocol_version)
@@ -1082,10 +1024,8 @@ void NetworkServer::SendReply_ControllerData(SOCKET client_sock, unsigned int de
 
         InitNetPacketHeader(&reply_hdr, dev_idx, NET_PACKET_ID_REQUEST_CONTROLLER_DATA, reply_size);
 
-        send_in_progress.lock();
         send(client_sock, (const char *)&reply_hdr, sizeof(NetPacketHeader), 0);
         send(client_sock, (const char *)reply_data, reply_size, 0);
-        send_in_progress.unlock();
 
         delete[] reply_data;
     }
@@ -1100,21 +1040,18 @@ void NetworkServer::SendReply_ProtocolVersion(SOCKET client_sock)
 
     reply_data = OPENRGB_SDK_PROTOCOL_VERSION;
 
-    send_in_progress.lock();
     send(client_sock, (const char *)&reply_hdr, sizeof(NetPacketHeader), 0);
     send(client_sock, (const char *)&reply_data, sizeof(unsigned int), 0);
-    send_in_progress.unlock();
 }
 
 void NetworkServer::SendRequest_DeviceListChanged(SOCKET client_sock)
 {
     NetPacketHeader pkt_hdr;
+    LOG_INFO("NetworkServer: Sending DeviceListChangedEvents");
 
     InitNetPacketHeader(&pkt_hdr, 0, NET_PACKET_ID_DEVICE_LIST_UPDATED, 0);
 
-    send_in_progress.lock();
     send(client_sock, (char *)&pkt_hdr, sizeof(NetPacketHeader), 0);
-    send_in_progress.unlock();
 }
 
 void NetworkServer::SendReply_ProfileList(SOCKET client_sock)
@@ -1132,10 +1069,8 @@ void NetworkServer::SendReply_ProfileList(SOCKET client_sock)
 
     InitNetPacketHeader(&reply_hdr, 0, NET_PACKET_ID_REQUEST_PROFILE_LIST, reply_size);
 
-    send_in_progress.lock();
     send(client_sock, (const char *)&reply_hdr, sizeof(NetPacketHeader), 0);
     send(client_sock, (const char *)reply_data, reply_size, 0);
-    send_in_progress.unlock();
 }
 
 void NetworkServer::SendReply_PluginList(SOCKET client_sock)
@@ -1221,8 +1156,8 @@ void NetworkServer::SendReply_PluginList(SOCKET client_sock)
         /*---------------------------------------------------------*\
         | Copy in plugin sdk version (data)                         |
         \*---------------------------------------------------------*/
-        memcpy(&data_buf[data_ptr], &plugins[i].protocol_version, sizeof(unsigned int));
-        data_ptr += sizeof(unsigned int);
+        memcpy(&data_buf[data_ptr], &plugins[i].protocol_version, sizeof(int));
+        data_ptr += sizeof(int);
     }
 
     NetPacketHeader reply_hdr;
@@ -1232,10 +1167,8 @@ void NetworkServer::SendReply_PluginList(SOCKET client_sock)
 
     InitNetPacketHeader(&reply_hdr, 0, NET_PACKET_ID_REQUEST_PLUGIN_LIST, reply_size);
 
-    send_in_progress.lock();
     send(client_sock, (const char *)&reply_hdr, sizeof(NetPacketHeader), 0);
     send(client_sock, (const char *)data_buf, reply_size, 0);
-    send_in_progress.unlock();
 
     delete [] data_buf;
 }
@@ -1246,12 +1179,9 @@ void NetworkServer::SendReply_PluginSpecific(SOCKET client_sock, unsigned int pk
 
     InitNetPacketHeader(&reply_hdr, 0, NET_PACKET_ID_PLUGIN_SPECIFIC, data_size + sizeof(pkt_type));
 
-    send_in_progress.lock();
     send(client_sock, (const char *)&reply_hdr, sizeof(NetPacketHeader), 0);
     send(client_sock, (const char *)&pkt_type, sizeof(pkt_type), 0);
     send(client_sock, (const char *)data, data_size, 0);
-    send_in_progress.unlock();
-
     delete [] data;
 }
 

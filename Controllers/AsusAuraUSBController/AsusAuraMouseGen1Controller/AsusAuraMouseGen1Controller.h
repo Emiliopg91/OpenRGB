@@ -6,7 +6,7 @@
 |   Mola19                                      30 Nov 2021 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -21,37 +21,33 @@
 class AsusAuraMouseGen1Controller
 {
 public:
-    AsusAuraMouseGen1Controller(hid_device* dev_handle, const char* path, uint16_t pid, std::string dev_name);
+    AsusAuraMouseGen1Controller(hid_device* dev_handle, const char* path, uint16_t pid);
     virtual ~AsusAuraMouseGen1Controller();
 
     std::string GetDeviceLocation();
-    std::string GetName();
     std::string GetSerialString();
     std::string GetVersion();
+    int GetActiveProfile();
 
-    int         GetActiveProfile();
+    void SendUpdate
+        (
+        unsigned char   key,
+        unsigned char   value
+        );
 
-    void        SendUpdate
-                    (
-                    unsigned char   key,
-                    unsigned char   value
-                    );
+    void UpdateProfile
+        (
+        unsigned char   key,
+        unsigned char   profile,
+        unsigned char   value
+        );
+    void SendDirectSpatha(std::vector<RGBColor> colors);
 
-    void        UpdateProfile
-                    (
-                    unsigned char   key,
-                    unsigned char   profile,
-                    unsigned char   value
-                    );
+    void ResetToSavedLighting();
 
-    void        SendDirectSpatha(std::vector<RGBColor> colors);
-
-    void        ResetToSavedLighting();
-
-    uint16_t    device_pid;
+    uint16_t                    device_pid;
 
 private:
-    hid_device* dev;
-    std::string location;
-    std::string name;
+    hid_device*                 dev;
+    std::string                 location;
 };

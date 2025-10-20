@@ -4,19 +4,20 @@
 |   User interface entry for OpenRGB plugin container widget|
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
 
 #include <QWidget>
+#include "ui_OpenRGBPluginContainer.h"
 
 namespace Ui
 {
     class OpenRGBPluginContainer;
 }
 
-class OpenRGBPluginContainer : public QWidget
+class Ui::OpenRGBPluginContainer : public QWidget
 {
     Q_OBJECT
 
@@ -29,7 +30,7 @@ public:
     QWidget* plugin_widget;
 
 private:
-    Ui::OpenRGBPluginContainer *ui;
+    Ui::OpenRGBPluginContainerUi *ui;
 
 private slots:
     void changeEvent(QEvent *event);

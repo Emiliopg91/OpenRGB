@@ -7,7 +7,7 @@
 |   Adam Honse (CalcProgrammer1)                05 Jan 2021 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -15,7 +15,7 @@
 #include <QtPlugin>
 #include <QLabel>
 #include <QMenu>
-#include "ResourceManagerInterface.h"
+#include "ResourceManager.h"
 
 #define OpenRGBPluginInterface_IID  "com.OpenRGBPluginInterface"
 
@@ -25,9 +25,8 @@
 | 1:    OpenRGB 0.61    First versioned API, introduced with plugin settings changes                    |
 | 2:    OpenRGB 0.7     First released versioned API, callback unregister functions in ResourceManager  |
 | 3:    OpenRGB 0.9     Use filesystem::path for paths, Added segments                                  |
-| 4:    OpenRGB 1.0     Resizable effects-only zones, zone flags                                        |
 \*-----------------------------------------------------------------------------------------------------*/
-#define OPENRGB_PLUGIN_API_VERSION  4
+#define OPENRGB_PLUGIN_API_VERSION  3
 
 /*-----------------------------------------------------------------------------------------------------*\
 | Plugin Tab Location Values                                                                            |
@@ -77,7 +76,7 @@ public:
     /*-------------------------------------------------------------------------------------------------*\
     | Plugin Functionality                                                                              |
     \*-------------------------------------------------------------------------------------------------*/
-    virtual void                Load(ResourceManagerInterface* resource_manager_ptr)                = 0;
+    virtual void                Load(bool dark_theme, ResourceManager* resource_manager_ptr)        = 0;
     virtual QWidget*            GetWidget()                                                         = 0;
     virtual QMenu*              GetTrayMenu()                                                       = 0;
     virtual void                Unload()                                                            = 0;

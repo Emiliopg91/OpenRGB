@@ -4,11 +4,12 @@
 |   User interface for server information page              |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include "OpenRGBServerInfoPage.h"
-#include "ui_OpenRGBServerInfoPage.h"
+
+using namespace Ui;
 
 static void UpdateInfoCallback(void * this_ptr)
 {
@@ -19,7 +20,7 @@ static void UpdateInfoCallback(void * this_ptr)
 
 OpenRGBServerInfoPage::OpenRGBServerInfoPage(NetworkServer * server, QWidget *parent) :
     QFrame(parent),
-    ui(new Ui::OpenRGBServerInfoPage)
+    ui(new Ui::OpenRGBServerInfoPageUi)
 {
     network_server = server;
 
@@ -87,7 +88,7 @@ void OpenRGBServerInfoPage::UpdateInfo()
     }
 }
 
-void OpenRGBServerInfoPage::on_ServerStartButton_clicked()
+void Ui::OpenRGBServerInfoPage::on_ServerStartButton_clicked()
 {
     if(network_server->GetOnline() == false)
     {
@@ -99,7 +100,7 @@ void OpenRGBServerInfoPage::on_ServerStartButton_clicked()
     }
 }
 
-void OpenRGBServerInfoPage::on_ServerStopButton_clicked()
+void Ui::OpenRGBServerInfoPage::on_ServerStopButton_clicked()
 {
     if(network_server->GetOnline() == true)
     {

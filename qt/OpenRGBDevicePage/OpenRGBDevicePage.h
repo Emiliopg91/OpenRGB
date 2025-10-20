@@ -4,12 +4,13 @@
 |   User interface for OpenRGB device page                  |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
 
 #include <QFrame>
+#include "ui_OpenRGBDevicePage.h"
 #include "RGBController.h"
 
 namespace Ui
@@ -17,7 +18,7 @@ namespace Ui
     class OpenRGBDevicePage;
 }
 
-class OpenRGBDevicePage : public QFrame
+class Ui::OpenRGBDevicePage : public QFrame
 {
     Q_OBJECT
 
@@ -69,7 +70,7 @@ private slots:
     void on_DeviceSaveButton_clicked();
 
 private:
-    Ui::OpenRGBDevicePage *ui;
+    Ui::OpenRGBDevicePageUi *ui;
     RGBController *device;
 
     bool InvertedSpeed      = false;

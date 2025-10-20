@@ -8,7 +8,7 @@
 |   Adam Honse (calcprogrammer1@gmail.com)      15 Dec 2016 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include "net_port.h"
@@ -22,12 +22,6 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <iostream>
-
-#ifdef _WIN32
-#define connect_socklen_t int
-#else
-#define connect_socklen_t socklen_t
-#endif
 
 const char yes = 1;
 
@@ -52,12 +46,7 @@ net_port::~net_port()
     }
 }
 
-bool net_port::udp_client(const char* client_name, const char * port)
-{
-    return(udp_client(client_name, port, "0"));
-}
-
-bool net_port::udp_client(const char * client_name, const char * send_port, const char * recv_port)
+bool net_port::udp_client(const char * client_name, const char * port)
 {
     sockaddr_in myAddress;
 
@@ -78,7 +67,7 @@ bool net_port::udp_client(const char * client_name, const char * send_port, cons
 
     myAddress.sin_family = AF_INET;
     myAddress.sin_addr.s_addr = inet_addr("0.0.0.0");
-    myAddress.sin_port = htons(atoi(recv_port));
+    myAddress.sin_port = htons(0);
 
     if(bind(sock, (sockaddr*)&myAddress, sizeof(myAddress)) == SOCKET_ERROR)
     {
@@ -90,7 +79,7 @@ bool net_port::udp_client(const char * client_name, const char * send_port, cons
     addrinfo hints = {};
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_DGRAM;
-    if(getaddrinfo(client_name, send_port, &hints, &result_list) == 0)
+    if(getaddrinfo(client_name, port, &hints, &result_list) == 0)
     {
         memcpy(&addrDest, result_list->ai_addr, result_list->ai_addrlen);
         freeaddrinfo(result_list);
@@ -104,32 +93,28 @@ bool net_port::udp_client(const char * client_name, const char * send_port, cons
     }
 }
 
-void net_port::udp_join_multicast_group(const char * group_name)
-{
-    struct ip_mreq group;
-
-    group.imr_multiaddr.s_addr = inet_addr(group_name);
-    group.imr_interface.s_addr = inet_addr("0.0.0.0");
-
-    setsockopt(sock, IPPROTO_IP, IP_ADD_MEMBERSHIP, (char *)&group, sizeof(group));
-}
-
 int net_port::udp_listen(char * recv_data, int length)
 {
     return(recvfrom(sock, recv_data, length, 0, NULL, NULL));
 }
 
-void net_port::set_receive_timeout(int sec, int usec)
+int net_port::udp_listen_timeout(char * recv_data, int length, int sec, int usec)
 {
-#ifdef WIN32
-    DWORD tv = ( sec * 1000 ) + ( usec / 1000 );
-#else
+    fd_set fds;
     struct timeval tv;
+
+    FD_ZERO(&fds);
+    FD_SET(sock, &fds);
+
     tv.tv_sec   = sec;
     tv.tv_usec  = usec;
-#endif
 
-    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
+    if(select(sock, &fds, NULL, NULL, &tv) <= 0)
+    {
+        return(0);
+    }
+
+    return(recvfrom(sock, recv_data, length, 0, NULL, NULL));
 }
 
 int net_port::udp_write(char * buffer, int length)
@@ -192,7 +177,7 @@ bool net_port::tcp_client_connect()
             connected = false;
             return(false);
         }
-        connect(sock, res->ai_addr, (connect_socklen_t)res->ai_addrlen);
+        connect(sock, res->ai_addr, res->ai_addrlen);
 
         FD_ZERO(&fdset);
         FD_SET(sock, &fdset);
@@ -349,7 +334,7 @@ int net_port::tcp_write(char * buffer, int length)
         waitd.tv_sec = 5;
         waitd.tv_usec = 0;
 
-        if(select((int)*(clients[i]) + 1, NULL, &writefd, NULL, &waitd))
+        if(select(*(clients[i]) + 1, NULL, &writefd, NULL, &waitd))
         {
             val = send(*(clients[i]), (const char *)&length, sizeof(length), 0);
 

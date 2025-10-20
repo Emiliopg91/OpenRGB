@@ -6,7 +6,7 @@
 |   Adam Honse (CalcProgrammer1)                09 May 2020 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -18,7 +18,6 @@
 #include "NetworkProtocol.h"
 #include "net_port.h"
 #include "ProfileManager.h"
-#include "ResourceManager.h"
 
 #define MAXSOCK 32
 #define TCP_TIMEOUT_SECONDS 5
@@ -72,7 +71,6 @@ public:
     void                                RegisterServerListeningChangeCallback(NetServerCallback, void * new_callback_arg);
 
     void                                SetHost(std::string host);
-    void                                SetLegacyWorkaroundEnable(bool enable);
     void                                SetPort(unsigned short new_port);
 
     void                                StartServer();
@@ -83,7 +81,6 @@ public:
 
     void                                ProcessRequest_ClientProtocolVersion(SOCKET client_sock, unsigned int data_size, char * data);
     void                                ProcessRequest_ClientString(SOCKET client_sock, unsigned int data_size, char * data);
-    void                                ProcessRequest_RescanDevices();
 
     void                                SendReply_ControllerCount(SOCKET client_sock);
     void                                SendReply_ControllerData(SOCKET client_sock, unsigned int dev_idx, unsigned int protocol_version);
@@ -95,7 +92,7 @@ public:
     void                                SendReply_PluginSpecific(SOCKET client_sock, unsigned int pkt_type, unsigned char* data, unsigned int data_size);
 
     void                                SetProfileManager(ProfileManagerInterface* profile_manager_pointer);
-
+    
     void                                RegisterPlugin(NetworkPlugin plugin);
     void                                UnregisterPlugin(std::string plugin_name);
 
@@ -123,14 +120,11 @@ protected:
 
     std::vector<NetworkPlugin>          plugins;
 
-    std::mutex                          send_in_progress;
-
 private:
 #ifdef WIN32
     WSADATA     wsa;
 #endif
 
-    bool            legacy_workaround_enabled;
     int             socket_count;
     SOCKET          server_sock[MAXSOCK];
 

@@ -6,7 +6,7 @@
 |   Mola19                                      08 Mar 2022 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -27,21 +27,19 @@ enum
 class AuraMonitorController
 {
 public:
-    AuraMonitorController(hid_device* dev_handle, const char* path, uint16_t pid, std::string dev_name);
+    AuraMonitorController(hid_device* dev_handle, const char* path, uint16_t pid);
     virtual ~AuraMonitorController();
 
     std::string GetDeviceLocation();
-    std::string GetNameString();
     std::string GetSerialString();
 
-    void        BeginUpdate();
-    void        UpdateLed(int led, unsigned char red, unsigned char green, unsigned char blue);
-    void        ApplyChanges();
+    void BeginUpdate();
+    void UpdateLed(int led, unsigned char red, unsigned char green, unsigned char blue);
+    void ApplyChanges();
 
-    uint16_t    device_pid;
+    uint16_t                    device_pid;
 
 private:
-    hid_device* dev;
-    std::string location;
-    std::string name;
+    hid_device*                 dev;
+    std::string                 location;
 };

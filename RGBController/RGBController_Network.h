@@ -7,7 +7,7 @@
 |   Adam Honse (CalcProgrammer1)                11 Apr 2020 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -22,8 +22,6 @@ public:
 
     void        SetupZones();
 
-    void        ClearSegments(int zone);
-    void        AddSegment(int zone, segment new_segment);
     void        ResizeZone(int zone, int new_size);
 
     void        DeviceUpdateLEDs();

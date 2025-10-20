@@ -6,7 +6,7 @@
 |   Chris M (Dr_No)                             04 Feb 2023 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -67,7 +67,6 @@ enum KEYBOARD_OPCODE
     KEYBOARD_OPCODE_INS_SHFT_ADJACENT   = 3,
     KEYBOARD_OPCODE_INSERT_ROW          = 4,
     KEYBOARD_OPCODE_REMOVE_ROW          = 5,
-    KEYBOARD_OPCODE_ADD_ALT_NAME        = 6,
 };
 
 typedef struct
@@ -77,7 +76,6 @@ typedef struct
     std::uint8_t                            col;
     unsigned int                            value;
     const char*                             name;
-    const char*                             alt_name;
     KEYBOARD_OPCODE                         opcode;
 }   keyboard_led;
 
@@ -122,8 +120,6 @@ public:
     unsigned int                GetKeyCount();
     std::string                 GetKeyNameAt(unsigned int key_idx);
     std::string                 GetKeyNameAt(unsigned int row, unsigned int col);
-    std::string                 GetKeyAltNameAt(unsigned int key_idx);
-    std::string                 GetKeyAltNameAt(unsigned int row, unsigned int col);
 
     unsigned int                GetKeyValueAt(unsigned int key_idx);
     unsigned int                GetKeyValueAt(unsigned int row, unsigned int col);
@@ -145,7 +141,6 @@ private:
     void                        SwapKeys(std::vector<keyboard_led> keys);
     void                        RemoveKey(keyboard_led keys);
     void                        RemoveRow(std::uint8_t row);
-    void                        AddAltName(keyboard_led key);
 
     KEYBOARD_LAYOUT             layout;
     KEYBOARD_SIZE               physical_size;

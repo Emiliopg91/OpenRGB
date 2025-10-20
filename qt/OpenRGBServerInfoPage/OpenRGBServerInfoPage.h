@@ -4,13 +4,14 @@
 |   User interface for server information page              |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
 
 #include <QFrame>
 #include "RGBController.h"
+#include "ui_OpenRGBServerInfoPage.h"
 #include "NetworkServer.h"
 
 namespace Ui
@@ -18,7 +19,7 @@ namespace Ui
     class OpenRGBServerInfoPage;
 }
 
-class OpenRGBServerInfoPage : public QFrame
+class Ui::OpenRGBServerInfoPage : public QFrame
 {
     Q_OBJECT
 
@@ -35,7 +36,7 @@ private slots:
     void on_ServerStopButton_clicked();
 
 private:
-    Ui::OpenRGBServerInfoPage *ui;
+    Ui::OpenRGBServerInfoPageUi *ui;
 
     NetworkServer* network_server;
 };

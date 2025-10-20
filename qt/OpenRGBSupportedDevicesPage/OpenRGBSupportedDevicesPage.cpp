@@ -4,7 +4,7 @@
 |   User interface for enabling and disabling devices       |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include "OpenRGBSupportedDevicesPage.h"
@@ -12,9 +12,11 @@
 #include "ResourceManager.h"
 #include "OpenRGBHardwareIDsDialog.h"
 
+using namespace Ui;
+
 OpenRGBSupportedDevicesPage::OpenRGBSupportedDevicesPage(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::OpenRGBSupportedDevicesPage)
+    ui(new Ui::OpenRGBSupportedDevicesPageUi)
 {
     ui->setupUi(this);
 
@@ -68,7 +70,7 @@ void OpenRGBSupportedDevicesPage::on_GetHardwareIDsButton_clicked()
 
 void OpenRGBSupportedDevicesPage::on_Filter_textChanged(const QString &arg1)
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+#ifdef _QT6
     detectorSortModel->setFilterRegularExpression(QRegularExpression(arg1 , QRegularExpression::CaseInsensitiveOption));
 #else
     detectorSortModel->setFilterRegExp(QRegExp(arg1, Qt::CaseInsensitive));

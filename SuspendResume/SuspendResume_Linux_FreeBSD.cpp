@@ -6,7 +6,7 @@
 |   Zach Deibert (zachdeibert)                  12 Nov 2024 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include <QDBusConnection>
@@ -14,12 +14,12 @@
 
 SuspendResumeLoginManager::SuspendResumeLoginManager(SuspendResumeListener *srl) : srl(srl), bus(QDBusConnection::systemBus())
 {
-    bus.connect("org.freedesktop.login1", "/org/freedesktop/login1", "org.freedesktop.login1.Manager", "PrepareForSleep", this, SLOT(PrepareForSleep(bool)));
+    bus.connect("org.freedesktop.login1", "/org/freedesktop/login1", "org.freedesktop.login1.Manager", "PrepareForSleep", this, SLOT(PrepareForSleep()));
 }
 
 SuspendResumeLoginManager::~SuspendResumeLoginManager()
 {
-    bus.disconnect("org.freedesktop.login1", "/org/freedesktop/login1", "org.freedesktop.login1.Manager", "PrepareForSleep", this, SLOT(PrepareForSleep(bool)));
+    bus.disconnect("org.freedesktop.login1", "/org/freedesktop/login1", "org.freedesktop.login1.Manager", "PrepareForSleep", this, SLOT(PrepareForSleep()));
 }
 
 void SuspendResumeLoginManager::PrepareForSleep(bool mode)

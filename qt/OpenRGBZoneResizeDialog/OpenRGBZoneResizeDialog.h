@@ -4,12 +4,13 @@
 |   User interface for resizing zones                       |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
 
 #include <QDialog>
+#include "ui_OpenRGBZoneResizeDialog.h"
 
 #include "RGBController.h"
 
@@ -18,7 +19,7 @@ namespace Ui
     class OpenRGBZoneResizeDialog;
 }
 
-class OpenRGBZoneResizeDialog : public QDialog
+class Ui::OpenRGBZoneResizeDialog : public QDialog
 {
     Q_OBJECT
 
@@ -44,7 +45,7 @@ private slots:
     void on_segment_lineedit_textChanged();
 
 private:
-    Ui::OpenRGBZoneResizeDialog *ui;
+    Ui::OpenRGBZoneResizeDialogUi *ui;
     RGBController* edit_dev;
     unsigned int edit_zone_idx;
 

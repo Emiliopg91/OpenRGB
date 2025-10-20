@@ -6,7 +6,7 @@
 |   Adam Honse (CalcProgrammer1)                12 Jul 2023 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include "RGBController_AsusROGAlly.h"
@@ -26,7 +26,7 @@ RGBController_AsusROGAlly::RGBController_AsusROGAlly(ROGAllyController* controll
 {
     controller                  = controller_ptr;
 
-    name                        = controller->GetName();
+    name                        = "ASUS ROG Ally";
     vendor                      = "ASUS";
     type                        = DEVICE_TYPE_GAMEPAD;
     description                 = "ASUS ROG Ally Device";

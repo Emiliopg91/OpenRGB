@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>OpenRGBConsolePage</class>
- <widget class="QFrame" name="OpenRGBConsolePage">
+ <class>OpenRGBConsolePageUi</class>
+ <widget class="QFrame" name="OpenRGBConsolePageUi">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">Log Console Page</string>
+   <string>Log console page</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0">

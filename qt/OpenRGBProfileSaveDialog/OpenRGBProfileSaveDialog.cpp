@@ -4,12 +4,12 @@
 |   User interface entry for OpenRGB profile save dialog    |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include <QCloseEvent>
 #include "ResourceManager.h"
-#include "OpenRGBDialog.h"
+#include "OpenRGBDialog2.h"
 #include "ProfileManager.h"
 #include "OpenRGBProfileSaveDialog.h"
 #include "ui_OpenRGBProfileSaveDialog.h"
@@ -18,11 +18,10 @@
 #include <QSettings>
 #endif
 
-OpenRGBProfileSaveDialog::OpenRGBProfileSaveDialog(QWidget *parent) :
-    QDialog(parent), ui(new Ui::OpenRGBProfileSaveDialog)
+Ui::OpenRGBProfileSaveDialog::OpenRGBProfileSaveDialog(QWidget *parent) :
+    QDialog(parent), ui(new Ui::OpenRGBProfileSaveDialogUi)
 {
     ui->setupUi(this);
-    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     std::vector<std::string> filenames = ResourceManager::get()->GetProfileManager()->profile_list;
 
@@ -44,12 +43,12 @@ OpenRGBProfileSaveDialog::OpenRGBProfileSaveDialog(QWidget *parent) :
     }
 }
 
-OpenRGBProfileSaveDialog::~OpenRGBProfileSaveDialog()
+Ui::OpenRGBProfileSaveDialog::~OpenRGBProfileSaveDialog()
 {
     delete ui;
 }
 
-void OpenRGBProfileSaveDialog::changeEvent(QEvent *event)
+void Ui::OpenRGBProfileSaveDialog::changeEvent(QEvent *event)
 {
     if(event->type() == QEvent::LanguageChange)
     {
@@ -57,7 +56,7 @@ void OpenRGBProfileSaveDialog::changeEvent(QEvent *event)
     }
 }
 
-std::string OpenRGBProfileSaveDialog::show()
+std::string Ui::OpenRGBProfileSaveDialog::show()
 {
     std::string return_string;
 

@@ -4,7 +4,7 @@
 |   Functionality for OpenRGB custom font icons             |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -46,9 +46,7 @@ public:
         toolbox             = 0xF019,
         unknown             = 0xF01A,
         virtual_controller  = 0xF01B,
-        usb                 = 0xF01C,
-        laptop              = 0xF01D,
-        monitor             = 0xF01E
+        usb                 = 0xF01C
     };
 
     static QString icon(int);

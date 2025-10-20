@@ -6,7 +6,7 @@
 |   Mola19                                      06 Aug 2022 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include <cstring>
@@ -14,11 +14,10 @@
 #include "AsusStrixClawController.h"
 #include "StringUtils.h"
 
-StrixClawController::StrixClawController(hid_device* dev_handle, const char* path, std::string dev_name)
+StrixClawController::StrixClawController(hid_device* dev_handle, const char* path)
 {
     dev         = dev_handle;
     location    = path;
-    name        = dev_name;
 }
 
 StrixClawController::~StrixClawController()
@@ -29,11 +28,6 @@ StrixClawController::~StrixClawController()
 std::string StrixClawController::GetDeviceLocation()
 {
     return("HID: " + location);
-}
-
-std::string StrixClawController::GetDeviceName()
-{
-    return(name);
 }
 
 std::string StrixClawController::GetSerialString()

@@ -5,17 +5,16 @@
 |   engineering i2c devices                                 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include <string>
 #include "i2c_smbus.h"
 
-#define MODE_AUTO       0
-#define MODE_QUICK      1
-#define MODE_READ       2
-#define MODE_READ_DATA  3
-#define MODE_FUNC       4
+#define MODE_AUTO   0
+#define MODE_QUICK  1
+#define MODE_READ   2
+#define MODE_FUNC   3
 
 std::string i2c_detect(i2c_smbus_interface * bus, int mode);
 

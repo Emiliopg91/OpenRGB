@@ -4,15 +4,15 @@
 |   User interface entry for OpenRGB plugin container widget|
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include "OpenRGBPluginContainer.h"
 #include "ui_OpenRGBPluginContainer.h"
 
-OpenRGBPluginContainer::OpenRGBPluginContainer(QWidget *plugin, QWidget *parent) :
+Ui::OpenRGBPluginContainer::OpenRGBPluginContainer(QWidget *plugin, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::OpenRGBPluginContainer)
+    ui(new Ui::OpenRGBPluginContainerUi)
 {
     ui->setupUi(this);
 
@@ -24,12 +24,12 @@ OpenRGBPluginContainer::OpenRGBPluginContainer(QWidget *plugin, QWidget *parent)
     Hide();
 }
 
-OpenRGBPluginContainer::~OpenRGBPluginContainer()
+Ui::OpenRGBPluginContainer::~OpenRGBPluginContainer()
 {
     delete ui;
 }
 
-void OpenRGBPluginContainer::changeEvent(QEvent *event)
+void Ui::OpenRGBPluginContainer::changeEvent(QEvent *event)
 {
     if(event->type() == QEvent::LanguageChange)
     {
@@ -37,13 +37,13 @@ void OpenRGBPluginContainer::changeEvent(QEvent *event)
     }
 }
 
-void OpenRGBPluginContainer::Hide()
+void Ui::OpenRGBPluginContainer::Hide()
 {
     plugin_widget->hide();
     ui->PluginContainerLayout->layout()->invalidate();
 }
 
-void OpenRGBPluginContainer::Show()
+void Ui::OpenRGBPluginContainer::Show()
 {
     plugin_widget->show();
     ui->PluginContainerLayout->layout()->invalidate();

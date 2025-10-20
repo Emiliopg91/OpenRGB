@@ -4,17 +4,16 @@
 |   Qt widget for OpenRGB tab label                         |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include <QFontMetrics>
 #include "TabLabel.h"
 #include "OpenRGBFont.h"
-#include "ui_TabLabel.h"
 
-TabLabel::TabLabel(int icon, QString name, char* original, char* context) :
+Ui::TabLabel::TabLabel(int icon, QString name, char* original, char* context) :
     QWidget(nullptr),
-    ui(new Ui::TabLabel)
+    ui(new Ui::TabLabelUi)
 {
     ui->setupUi(this);
 
@@ -30,12 +29,12 @@ TabLabel::TabLabel(int icon, QString name, char* original, char* context) :
     ctxt    = context;
 }
 
-TabLabel::~TabLabel()
+Ui::TabLabel::~TabLabel()
 {
     delete ui;
 }
 
-void TabLabel::changeEvent(QEvent *event)
+void Ui::TabLabel::changeEvent(QEvent *event)
 {
     if(event->type() == QEvent::LanguageChange)
     {

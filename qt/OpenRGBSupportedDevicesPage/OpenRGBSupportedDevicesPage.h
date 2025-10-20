@@ -4,7 +4,7 @@
 |   User interface for enabling and disabling devices       |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -12,13 +12,14 @@
 #include <QWidget>
 #include <QSortFilterProxyModel>
 #include "DetectorTableModel.h"
+#include "ui_OpenRGBSupportedDevicesPage.h"
 
 namespace Ui
 {
     class OpenRGBSupportedDevicesPage;
 }
 
-class OpenRGBSupportedDevicesPage : public QWidget
+class Ui::OpenRGBSupportedDevicesPage : public QWidget
 {
     Q_OBJECT
 
@@ -38,5 +39,5 @@ private slots:
     void on_ToggleAllCheckbox_toggled(const bool checked);
 
 private:
-    Ui::OpenRGBSupportedDevicesPage *ui;
+    Ui::OpenRGBSupportedDevicesPageUi *ui;
 };

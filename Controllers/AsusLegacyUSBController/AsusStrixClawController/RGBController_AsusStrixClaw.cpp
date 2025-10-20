@@ -6,7 +6,7 @@
 |   Mola19                                      06 Aug 2022 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include "RGBController_AsusStrixClaw.h"
@@ -26,7 +26,7 @@ RGBController_StrixClaw::RGBController_StrixClaw(StrixClawController* controller
 {
     controller   = controller_ptr;
 
-    name         = controller->GetDeviceName();
+    name         = "ASUS ROG Strix Claw";
     vendor       = "ASUS";
     type         = DEVICE_TYPE_MOUSE;
     description  = "ASUS Legacy Mouse Device";

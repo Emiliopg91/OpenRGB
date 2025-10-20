@@ -6,18 +6,17 @@
 |   Adam Honse (CalcProgrammer1)                12 Jul 2023 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include <cstring>
 #include "AsusROGAllyController.h"
 #include "StringUtils.h"
 
-ROGAllyController::ROGAllyController(hid_device* dev_handle, const char* path, std::string dev_name)
+ROGAllyController::ROGAllyController(hid_device* dev_handle, const char* path)
 {
     dev         = dev_handle;
     location    = path;
-    name        = dev_name;
 
     SendInitialization();
 }
@@ -30,11 +29,6 @@ ROGAllyController::~ROGAllyController()
 std::string ROGAllyController::GetDeviceLocation()
 {
     return("HID: " + location);
-}
-
-std::string ROGAllyController::GetName()
-{
-    return(name);
 }
 
 std::string ROGAllyController::GetSerialString()

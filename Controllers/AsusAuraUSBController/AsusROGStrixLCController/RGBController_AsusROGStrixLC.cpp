@@ -6,7 +6,7 @@
 |   Chris M (Dr_No)                             17 Jan 2022 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include "RGBControllerKeyNames.h"
@@ -28,7 +28,7 @@ RGBController_AsusROGStrixLC::RGBController_AsusROGStrixLC(AsusROGStrixLCControl
     controller                  = controller_ptr;
     uint8_t speed               = ROGSTRIXLC_CONTROLLER_SPEED_NORMAL;
 
-    name                        = controller->GetDeviceName();
+    name                        = "ROG Strix LC";
     vendor                      = "ASUS";
     type                        = DEVICE_TYPE_COOLER;
     description                 = "ASUS Liquid Cooler including 120mm, 140mm, 240mm, 280mm and 360mm radiators.";

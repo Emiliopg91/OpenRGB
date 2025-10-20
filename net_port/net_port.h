@@ -8,7 +8,7 @@
 |   Adam Honse (calcprogrammer1@gmail.com)      15 Dec 2016 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -58,7 +58,6 @@ public:
 
     //Function to open the port
     bool udp_client(const char* client_name, const char * port);
-    bool udp_client(const char * client_name, const char * send_port, const char * recv_port);
     bool tcp_client(const char* client_name, const char * port);
     bool tcp_client_connect();
 
@@ -68,9 +67,8 @@ public:
     SOCKET *    tcp_server_get_client(std::size_t client_idx);
     SOCKET *    tcp_server_listen();
 
-    void udp_join_multicast_group(const char * group_name);
-
     int udp_listen(char * recv_data, int length);
+    int udp_listen_timeout(char * recv_data, int length, int sec, int usec);
     int tcp_listen(char * recv_data, int length);
 
     //Function to write data to the serial port
@@ -79,8 +77,6 @@ public:
     int tcp_client_write(char * buffer, int length);
 
     void tcp_close();
-
-    void set_receive_timeout(int sec, int usec);
 
     bool connected;
     SOCKET sock;

@@ -7,12 +7,12 @@
 |   using snipets from Chris M (Dr.No)                      |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include "AsusAuraRyuoAIOController.h"
 
-AsusAuraRyuoAIOController::AsusAuraRyuoAIOController(hid_device* dev_handle, const char* path, std::string dev_name) : AuraUSBController(dev_handle, path, dev_name)
+AsusAuraRyuoAIOController::AsusAuraRyuoAIOController(hid_device* dev_handle, const char* path) : AuraUSBController(dev_handle, path)
 {
     /*-----------------------------------------------------*\
     | Add addressable devices                               |

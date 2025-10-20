@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>OpenRGBPluginContainer</class>
- <widget class="QWidget" name="OpenRGBPluginContainer">
+ <class>OpenRGBPluginContainerUi</class>
+ <widget class="QWidget" name="OpenRGBPluginContainerUi">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string notr="true">Plugin Container</string>
+   <string>Plugin container</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="leftMargin">

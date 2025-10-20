@@ -4,19 +4,20 @@
 |   Qt widget for OpenRGB tab label                         |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
 
 #include <QWidget>
+#include "ui_TabLabel.h"
 
 namespace Ui
 {
     class TabLabel;
 }
 
-class TabLabel : public QWidget
+class Ui::TabLabel : public QWidget
 {
     Q_OBJECT
 
@@ -25,7 +26,7 @@ public:
     ~TabLabel();
 
 private:
-    Ui::TabLabel *ui;
+    Ui::TabLabelUi *ui;
     char* label;
     char* ctxt;
 

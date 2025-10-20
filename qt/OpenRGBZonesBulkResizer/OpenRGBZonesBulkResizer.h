@@ -4,12 +4,13 @@
 |   User interface for bulk resizing zones                  |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
 
 #include <QWidget>
+#include "ui_OpenRGBZonesBulkResizer.h"
 #include "RGBController.h"
 
 namespace Ui
@@ -17,7 +18,7 @@ namespace Ui
     class OpenRGBZonesBulkResizer;
 }
 
-class OpenRGBZonesBulkResizer : public QWidget
+class Ui::OpenRGBZonesBulkResizer : public QWidget
 {
     Q_OBJECT
 
@@ -28,7 +29,7 @@ public:
     ~OpenRGBZonesBulkResizer();
 
 private:
-    Ui::OpenRGBZonesBulkResizer *ui;
+    Ui::OpenRGBZonesBulkResizerUi *ui;
 
     const std::vector<std::tuple<RGBController*, unsigned int>>& unconfigured_zones;
 

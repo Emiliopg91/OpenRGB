@@ -4,7 +4,7 @@
 |   Utility function for dockless mode in MacOS             |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #ifndef MACUTILS_H

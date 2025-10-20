@@ -4,12 +4,13 @@
 |   User interface entry for OpenRGB plugin entry widget    |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
 
 #include <QWidget>
+#include "ui_OpenRGBPluginsEntry.h"
 
 namespace Ui
 {
@@ -18,22 +19,16 @@ namespace Ui
 
 typedef void (*EnableClickCallback)(void *, void *);
 
-struct OpenRGBPluginEntry;
-
-class OpenRGBPluginsEntry : public QWidget
+class Ui::OpenRGBPluginsEntry : public QWidget
 {
     Q_OBJECT
 
 public:
     explicit OpenRGBPluginsEntry(QWidget *parent = nullptr);
     ~OpenRGBPluginsEntry();
-    void fillFrom(const OpenRGBPluginEntry* plugin);
-    bool isSystem() const;
-    bool isPluginEnabled() const;
-    std::string getName() const;
-    std::string getDescription() const;
-    std::string getPath() const;
 
+    Ui::OpenRGBPluginsEntryUi * ui;
+    bool                        is_system;
 
     void RegisterEnableClickCallback(EnableClickCallback new_callback, void * new_callback_arg);
 
@@ -44,6 +39,4 @@ private slots:
 private:
     EnableClickCallback EnableClickCallbackVal;
     void *              EnableClickCallbackArg;
-    Ui::OpenRGBPluginsEntry * ui;
-    bool                      is_system;
 };

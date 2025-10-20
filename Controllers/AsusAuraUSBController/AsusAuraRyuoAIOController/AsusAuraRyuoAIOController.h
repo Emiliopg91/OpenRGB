@@ -7,7 +7,7 @@
 |   using snipets from Chris M (Dr.No)                      |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -60,7 +60,7 @@ public:
         SPEED_FASTEST     = 0x00, // Fastest speed
     };
 
-    AsusAuraRyuoAIOController(hid_device* dev_handle, const char* path, std::string dev_name);
+    AsusAuraRyuoAIOController(hid_device* dev_handle, const char* path);
     ~AsusAuraRyuoAIOController();
 
     std::string             GetLocation();

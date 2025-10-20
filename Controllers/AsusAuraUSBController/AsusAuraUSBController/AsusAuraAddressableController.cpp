@@ -6,13 +6,13 @@
 |   Adam Honse (CalcProgrammer1)                18 Jan 2020 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-or-later               |
+|   SPDX-License-Identifier: GPL-2.0-only                   |
 \*---------------------------------------------------------*/
 
 #include <cstring>
 #include "AsusAuraAddressableController.h"
 
-AuraAddressableController::AuraAddressableController(hid_device* dev_handle, const char* path, std::string dev_name) : AuraUSBController(dev_handle, path, dev_name)
+AuraAddressableController::AuraAddressableController(hid_device* dev_handle, const char* path) : AuraUSBController(dev_handle, path)
 {
     /*-----------------------------------------------------*\
     | Add addressable devices                               |
