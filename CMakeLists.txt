@@ -16,6 +16,12 @@ set(CMAKE_AUTOUIC ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Gui Widgets DBus)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Gui Widgets DBus)
 
+find_package(httplib CONFIG REQUIRED)
+
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(NLOHMANN_JSON REQUIRED nlohmann_json)
+pkg_check_modules(LIBUSB REQUIRED libusb-1.0)
+
 #-----------------------------------------------------------------------------------------------#
 # Git information                                                                               #
 #-----------------------------------------------------------------------------------------------#
@@ -66,8 +72,6 @@ include_directories(
 
     # Dependencias externas
     dependencies/CRCpp
-    dependencies/httplib
-    dependencies/json
     dependencies/mdns
     dependencies/stb
 
