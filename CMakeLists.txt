@@ -170,7 +170,6 @@ list(FILTER OPENRGB_HEADERS EXCLUDE REGEX "Controllers/ENESMBusController/ROGAri
 list(FILTER OPENRGB_HEADERS EXCLUDE REGEX "Controllers/ENESMBusController/ENESMBusInterface/ENESMBusInterface_ROGArion")
 
 # Recursos y traducciones
-set(OPENRGB_RESOURCES ${CMAKE_SOURCE_DIR}/qt/resources.qrc)
 file(GLOB OPENRGB_TRANSLATIONS "${CMAKE_SOURCE_DIR}/qt/i18n/*.ts")
 
 
@@ -214,10 +213,6 @@ add_compile_definitions(
 # Install rules                                                                                 #
 #-----------------------------------------------------------------------------------------------#
 install(TARGETS OpenRGB DESTINATION bin)
-install(FILES qt/org.openrgb.OpenRGB.desktop DESTINATION share/applications)
-install(FILES qt/org.openrgb.OpenRGB.png DESTINATION share/icons/hicolor/128x128/apps)
-install(FILES qt/org.openrgb.OpenRGB.metainfo.xml DESTINATION share/metainfo)
-install(FILES qt/openrgb.service DESTINATION lib/systemd/system)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
   target_compile_options(OpenRGB PRIVATE
