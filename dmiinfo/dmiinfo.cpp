@@ -6,7 +6,7 @@
 |   Chris M (Dr_No)                             30 Jun 2020 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include "dmiinfo.h"
@@ -34,10 +34,11 @@ DMIInfo::DMIInfo()
 std::string DMIInfo::readWMIQuery(std::string query, std::string key)
 {
     HRESULT hres;
-    Wmi wmi;
+    Wmi     wmi;
 
-    // Query WMI for Win32_PnPSignedDriver entries with names matching "SMBUS" or "SM BUS"
-    // These devices may be browsed under Device Manager -> System Devices
+    /*-----------------------------------------------------*\
+    | Query WMI                                             |
+    \*-----------------------------------------------------*/
     std::vector<QueryObj> q_result;
     hres = wmi.query(query, q_result);
 

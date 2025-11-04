@@ -6,7 +6,7 @@
 |   Mola19                                      28 May 2022 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include <cmath>
@@ -176,7 +176,7 @@ static const std::vector<led_value> led_names =
 
 RGBController_AsusCerberusKeyboard::RGBController_AsusCerberusKeyboard(AsusCerberusKeyboardController* controller_ptr)
 {
-    controller  = controller_ptr;
+    controller                      = controller_ptr;
 
     /*------------------------------------------------------------------------------------------------------*\
     | this device has 6 different profiles, but there is no way to fetch them from the device,               |
@@ -185,13 +185,13 @@ RGBController_AsusCerberusKeyboard::RGBController_AsusCerberusKeyboard(AsusCerbe
 
     controller->SetProfile(1);
 
-    name        = "ASUS Cerberus Keyboard";
-    vendor      = "ASUS";
-    type        = DEVICE_TYPE_KEYBOARD;
-    description = "ASUS Cerberus Keyboard Device";
-    location    = controller->GetDeviceLocation();
-    serial      = controller->GetSerialString();
-    version     = controller->GetVersion();
+    name                            = controller->GetDeviceName();
+    vendor                          = "ASUS";
+    type                            = DEVICE_TYPE_KEYBOARD;
+    description                     = "ASUS Cerberus Keyboard Device";
+    location                        = controller->GetDeviceLocation();
+    serial                          = controller->GetSerialString();
+    version                         = controller->GetVersion();
 
     mode Custom;
     Custom.name                     = "Custom";

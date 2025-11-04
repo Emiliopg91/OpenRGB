@@ -4,7 +4,7 @@
 |   RGBController for ASUS TUF laptop                       |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include "RGBController_AsusTUFLaptop_Linux.h"
@@ -27,9 +27,9 @@ RGBController_AsusTUFLaptopLinux::RGBController_AsusTUFLaptopLinux(AsusTUFLaptop
 {
     controller                      = controller_ptr;
 
-    name                            = "ASUS TUF Keyboard";
+    name                            = "ASUS TUF Laptop Keyboard";
     vendor                          = "ASUS";
-    type                            = DEVICE_TYPE_KEYBOARD;
+    type                            = DEVICE_TYPE_LAPTOP;
     description                     = "Asus TUF Device";
     location                        = ASUS_KBD_BACKLIGHT_BASE_PATH;
 

@@ -7,7 +7,7 @@
 |   Chris M (Dr_No)                             25 Jan 2022 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include "RGBControllerKeyNames.h"
@@ -190,3 +190,4 @@ const char* KEY_FR_EXCLAIMATION       = "Key: !";
 const char* KEY_ES_OPEN_QUESTION_MARK = "Key: ¿/¡";
 const char* KEY_ES_TILDE              = "Key: ´/¨";
 const char* KEY_ES_ENIE               = "Key: Ñ";
+const char* KEY_BR_TILDE              = "Key: ~";

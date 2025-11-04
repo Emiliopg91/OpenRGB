@@ -1,13 +1,13 @@
 /*---------------------------------------------------------*\
-| AsusAuraCoreLaptopController.cpp                          |
-|                                                           |
-|   Driver for ASUS ROG Aura Core Laptop                    |
-|                                                           |
-|   Chris M (Dr_No)                             28 Jul 2022 |
-|                                                           |
-|   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
-\*---------------------------------------------------------*/
+ * | AsusAuraCoreLaptopController.cpp                          |
+ * |                                                           |
+ * |   Driver for ASUS ROG Aura Core Laptop                    |
+ * |                                                           |
+ * |   Chris M (Dr_No)                             28 Jul 2022 |
+ * |                                                           |
+ * |   This file is part of the OpenRGB project                |
+ * |   SPDX-License-Identifier: GPL-2.0-or-later               |
+ * \*---------------------------------------------------------*/
 
 #include "AsusAuraCoreLaptopController.h"
 #include "dmiinfo.h"
@@ -36,9 +36,9 @@ AsusAuraCoreLaptopController::AsusAuraCoreLaptopController(hid_device* dev_handl
     location                = path;
 
     /*---------------------------------------------------------*\
-    | The motherboard name will uniquely ID the laptop to       |
-    |   determine the metadata of the device.                   |
-    \*---------------------------------------------------------*/
+     *    | The motherboard name will uniquely ID the laptop to       |
+     *    |   determine the metadata of the device.                   |
+     *    \*---------------------------------------------------------*/
     DMIInfo dmi_info;
     std::string dmi_name    = dmi_info.getMainboard();
     bool not_found          = true;
@@ -48,8 +48,8 @@ AsusAuraCoreLaptopController::AsusAuraCoreLaptopController(hid_device* dev_handl
         if(aura_core_laptop_device_list[i]->dmi_name == dmi_name)
         {
             /*---------------------------------------------------------*\
-            | Set device ID                                             |
-            \*---------------------------------------------------------*/
+             *            | Set device ID                                             |
+             *            \*---------------------------------------------------------*/
             not_found       = false;
             device_index    = i;
             break;
@@ -64,8 +64,8 @@ AsusAuraCoreLaptopController::AsusAuraCoreLaptopController(hid_device* dev_handl
     }
 
     /*---------------------------------------------------------*\
-    | Only set power config for known devices                   |
-    \*---------------------------------------------------------*/
+     *    | Only set power config for known devices                   |
+     *    \*---------------------------------------------------------*/
     SetPowerConfigFromJSON();
     SendInitDirectMode();
 }
@@ -83,8 +83,8 @@ const aura_core_laptop_device* AsusAuraCoreLaptopController::GetDeviceData()
 std::string AsusAuraCoreLaptopController::GetDeviceDescription()
 {
     /*---------------------------------------------------------*\
-    | Get device name from HID manufacturer and product strings |
-    \*---------------------------------------------------------*/
+     *    | Get device name from HID manufacturer and product strings |
+     *    \*---------------------------------------------------------*/
     wchar_t name_string[HID_MAX_STR];
 
     hid_get_manufacturer_string(dev, name_string, HID_MAX_STR);
@@ -101,22 +101,22 @@ unsigned int AsusAuraCoreLaptopController::GetKeyboardLayout()
     uint8_t result                                          = 0;
     uint8_t rd_buf[ASUSAURACORELAPTOP_WRITE_PACKET_SIZE]    = { ASUSAURACORELAPTOP_REPORT_ID };
     uint8_t buffer[ASUSAURACORELAPTOP_WRITE_PACKET_SIZE]    = { ASUSAURACORELAPTOP_REPORT_ID,
-                                                                ASUSAURACORELAPTOP_CMD_LAYOUT,
-                                                                0x20,
-                                                                0x31,
-                                                                0x00,
-                                                                0x10  };
+        ASUSAURACORELAPTOP_CMD_LAYOUT,
+        0x20,
+        0x31,
+        0x00,
+        0x10  };
 
-    /*---------------------------------------------------------*\
-    | Clear the read buffer to ensure we read the right packet  |
-    \*---------------------------------------------------------*/
-    do
-    {
-        result = hid_read_timeout(dev, rd_buf, ASUSAURACORELAPTOP_WRITE_PACKET_SIZE, 10);
-    }
-    while(result > 0);
+        /*---------------------------------------------------------*\
+         *    | Clear the read buffer to ensure we read the right packet  |
+         *    \*---------------------------------------------------------*/
+        do
+        {
+            result = hid_read_timeout(dev, rd_buf, ASUSAURACORELAPTOP_WRITE_PACKET_SIZE, 10);
+        }
+        while(result > 0);
 
-    memset(&rd_buf[1],     0, ASUSAURACORELAPTOP_WRITE_PACKET_SIZE - 1);
+        memset(&rd_buf[1],     0, ASUSAURACORELAPTOP_WRITE_PACKET_SIZE - 1);
     memset(&buffer[index], 0, ASUSAURACORELAPTOP_WRITE_PACKET_SIZE - index);
 
     hid_send_feature_report(dev, buffer, ASUSAURACORELAPTOP_WRITE_PACKET_SIZE);
@@ -160,12 +160,12 @@ std::string AsusAuraCoreLaptopController::GetLocation()
 void AsusAuraCoreLaptopController::SetMode(uint8_t mode, uint8_t speed, uint8_t brightness, RGBColor color1, RGBColor color2, uint8_t random, uint8_t direction)
 {
     bool needs_update       = !( (current_mode          == mode         )   &&
-                                 (current_speed         == speed        )   &&
-                                 (current_brightness    == brightness   )   &&
-                                 (current_c1            == color1       )   &&
-                                 (current_c2            == color2       )   &&
-                                 (current_random        == random       )   &&
-                                 (current_direction     == direction    )   );
+    (current_speed         == speed        )   &&
+    (current_brightness    == brightness   )   &&
+    (current_c1            == color1       )   &&
+    (current_c2            == color2       )   &&
+    (current_random        == random       )   &&
+    (current_direction     == direction    )   );
 
     if(needs_update)
     {
@@ -179,6 +179,7 @@ void AsusAuraCoreLaptopController::SetMode(uint8_t mode, uint8_t speed, uint8_t 
 
         if(current_mode == ASUSAURACORELAPTOP_MODE_DIRECT)
         {
+            SendBrightness();
             SendInitDirectMode();
             return;
         }
@@ -200,76 +201,76 @@ void AsusAuraCoreLaptopController::SendInitDirectMode()
 void AsusAuraCoreLaptopController::SetLedsDirect(std::vector<RGBColor *> colors)
 {
     /*---------------------------------------------------------*\
-    | The keyboard zone is a set of 168 keys (indexed from 0)   |
-    |   sent in 11 packets of 16 triplets. The Lid and Lightbar |
-    |   zones are sent in one final packet afterwards.          |
-    \*---------------------------------------------------------*/
+     *    | The keyboard zone is a set of 168 keys (indexed from 0)   |
+     *    |   sent in 11 packets of 16 triplets. The Lid and Lightbar |
+     *    |   zones are sent in one final packet afterwards.          |
+     *    \*---------------------------------------------------------*/
     const uint8_t   key_set                                 = 167;
     const uint8_t   led_count                               = (uint8_t)colors.size();
     const uint16_t  map_size                                = 3 * led_count;
     const uint8_t   leds_per_packet                         = 16;
     uint8_t buffer[ASUSAURACORELAPTOP_WRITE_PACKET_SIZE]    = { ASUSAURACORELAPTOP_REPORT_ID, ASUSAURACORELAPTOP_CMD_DIRECT,
-                                                                0x00, 0x01, 0x01, 0x01, 0x00, leds_per_packet, 0x00 };
-    uint8_t*        key_buf                                 = new uint8_t[map_size];
+        0x00, 0x01, 0x01, 0x01, 0x00, leds_per_packet, 0x00 };
+        uint8_t*        key_buf                                 = new uint8_t[map_size];
 
-    memset(key_buf, 0, map_size);
+        memset(key_buf, 0, map_size);
 
-    for(uint8_t led_index = 0; led_index < led_count; led_index++)
-    {
-        std::size_t buf_idx     = (led_index * 3);
-
-        key_buf[buf_idx]        = RGBGetRValue(*colors[led_index]);
-        key_buf[buf_idx + 1]    = RGBGetGValue(*colors[led_index]);
-        key_buf[buf_idx + 2]    = RGBGetBValue(*colors[led_index]);
-    }
-
-    for(uint8_t i = 0; i < key_set; i += leds_per_packet)
-    {
-        uint8_t leds_remaining  = key_set - i;
-
-        if(leds_remaining < leds_per_packet)
+        for(uint8_t led_index = 0; led_index < led_count; led_index++)
         {
-            buffer[07]          = leds_remaining;
+            std::size_t buf_idx     = (led_index * 3);
 
-            memset(&buffer[ASUSAURACORELAPTOP_DATA_BYTE],
-                   0,
-                   ASUSAURACORELAPTOP_WRITE_PACKET_SIZE - ASUSAURACORELAPTOP_DATA_BYTE);
+            key_buf[buf_idx]        = RGBGetRValue(*colors[led_index]);
+            key_buf[buf_idx + 1]    = RGBGetGValue(*colors[led_index]);
+            key_buf[buf_idx + 2]    = RGBGetBValue(*colors[led_index]);
         }
 
-        buffer[06]              = i;
-        memcpy(&buffer[ASUSAURACORELAPTOP_DATA_BYTE], &key_buf[3 * i], (3 * buffer[07]));
+        for(uint8_t i = 0; i < key_set; i += leds_per_packet)
+        {
+            uint8_t leds_remaining  = key_set - i;
+
+            if(leds_remaining < leds_per_packet)
+            {
+                buffer[07]          = leds_remaining;
+
+                memset(&buffer[ASUSAURACORELAPTOP_DATA_BYTE],
+                       0,
+                       ASUSAURACORELAPTOP_WRITE_PACKET_SIZE - ASUSAURACORELAPTOP_DATA_BYTE);
+            }
+
+            buffer[06]              = i;
+            memcpy(&buffer[ASUSAURACORELAPTOP_DATA_BYTE], &key_buf[3 * i], (3 * buffer[07]));
+
+            LOG_DEBUG("[%s] Sending buffer @ index %d thru index %d",
+                      aura_core_laptop_device_list[device_index]->dmi_name.c_str(),
+                      i,
+                      i + buffer[07]);
+
+            hid_send_feature_report(dev, buffer, ASUSAURACORELAPTOP_WRITE_PACKET_SIZE);
+        }
+
+        buffer[4] = 0x04;
+        buffer[5] = 0x00;
+        buffer[6] = 0x00;
+        buffer[7] = 0x00;
+
+        memset(&buffer[ASUSAURACORELAPTOP_DATA_BYTE],
+               0,
+               ASUSAURACORELAPTOP_WRITE_PACKET_SIZE - ASUSAURACORELAPTOP_DATA_BYTE);
+
+        if(led_count > key_set)
+        {
+            memcpy(&buffer[ASUSAURACORELAPTOP_DATA_BYTE],
+                   &key_buf[3 * key_set],
+                   (3 * (led_count - key_set)));
+        }
 
         LOG_DEBUG("[%s] Sending buffer @ index %d thru index %d",
                   aura_core_laptop_device_list[device_index]->dmi_name.c_str(),
-                  i,
-                  i + buffer[07]);
+                  key_set,
+                  led_count);
 
         hid_send_feature_report(dev, buffer, ASUSAURACORELAPTOP_WRITE_PACKET_SIZE);
-    }
-
-    buffer[4] = 0x04;
-    buffer[5] = 0x00;
-    buffer[6] = 0x00;
-    buffer[7] = 0x00;
-
-    memset(&buffer[ASUSAURACORELAPTOP_DATA_BYTE],
-           0,
-           ASUSAURACORELAPTOP_WRITE_PACKET_SIZE - ASUSAURACORELAPTOP_DATA_BYTE);
-
-    if(led_count > key_set)
-    {
-        memcpy(&buffer[ASUSAURACORELAPTOP_DATA_BYTE],
-               &key_buf[3 * key_set],
-               (3 * (led_count - key_set)));
-    }
-
-    LOG_DEBUG("[%s] Sending buffer @ index %d thru index %d",
-              aura_core_laptop_device_list[device_index]->dmi_name.c_str(),
-              key_set,
-              led_count);
-
-    hid_send_feature_report(dev, buffer, ASUSAURACORELAPTOP_WRITE_PACKET_SIZE);
-    delete[] key_buf;
+        delete[] key_buf;
 }
 
 void AsusAuraCoreLaptopController::SendBrightness()
@@ -353,9 +354,9 @@ void AsusAuraCoreLaptopController::SetPowerConfigFromJSON()
     json device_settings                = settings_manager->GetSettings(detector_name);
 
     /*---------------------------------------------------------*\
-    | Get Power state config from the settings manager          |
-    |   If PowerConfig is not found then write it to settings   |
-    \*---------------------------------------------------------*/
+     *    | Get Power state config from the settings manager          |
+     *    |   If PowerConfig is not found then write it to settings   |
+     *    \*---------------------------------------------------------*/
     if(!device_settings.contains(section_power))
     {
         json pcfg;
@@ -388,10 +389,10 @@ void AsusAuraCoreLaptopController::SetPowerConfigFromJSON()
     }
 
     /*-----------------------------------------------------------------------------*\
-    | Power state flags are packed in zones but the order is inconsistent.          |
-    |   With thanks to AsusCtl for helping to decipher the packet captures          |
-    |   https://gitlab.com/asus-linux/asusctl/-/blob/main/rog-aura/src/usb.rs#L150  |
-    \*-----------------------------------------------------------------------------*/
+     *    | Power state flags are packed in zones but the order is inconsistent.          |
+     *    |   With thanks to AsusCtl for helping to decipher the packet captures          |
+     *    |   https://gitlab.com/asus-linux/asusctl/-/blob/main/rog-aura/src/usb.rs#L150  |
+     *    \*-----------------------------------------------------------------------------*/
     bool flag_array[32] =
     {
         power_config[0].state,      power_config[4].state,
@@ -443,3 +444,4 @@ uint32_t AsusAuraCoreLaptopController::PackPowerFlags(bool flags[])
 
     return temp;
 }
+

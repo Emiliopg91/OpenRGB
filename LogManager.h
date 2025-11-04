@@ -4,7 +4,7 @@
 |   Manages log file and output to the console              |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #ifndef LOGMANAGER_H
@@ -15,7 +15,7 @@
 #include <vector>
 #include <queue>
 #include <memory>
-#include "json.hpp"
+#include <nlohmann/json.hpp>
 #include "filesystem.h"
 
 /*-------------------------------------------------*\
@@ -60,7 +60,7 @@ private:
     LogManager(const LogManager&) = delete;
     LogManager(LogManager&&) = delete;
     ~LogManager();
-    std::mutex entry_mutex;
+    std::recursive_mutex entry_mutex;
     std::mutex section_mutex;
     std::ofstream log_stream;
 
@@ -78,7 +78,7 @@ private:
 
     // Logfile max level
     unsigned int loglevel = LL_INFO;
-    
+
     // Verbosity (stdout) max level
     unsigned int verbosity = LL_WARNING;
 
@@ -90,6 +90,8 @@ private:
 
     // A non-guarded flush()
     void _flush();
+
+    void rotate_logs(const filesystem::path& folder, const filesystem::path& templ, int max_count);
 
 public:
     static LogManager* get();
@@ -107,6 +109,7 @@ public:
     std::vector<PLogMessage> messages();
 
     bool log_console_enabled;
+    bool log_file_enabled;
     static const char* log_codes[];
 };
 

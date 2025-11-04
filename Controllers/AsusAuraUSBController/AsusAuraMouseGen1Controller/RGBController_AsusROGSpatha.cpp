@@ -6,7 +6,7 @@
 |   Mola19                                      05 Nov 2023 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include "RGBController_AsusROGSpatha.h"
@@ -30,7 +30,7 @@ RGBController_AsusROGSpatha::RGBController_AsusROGSpatha(AsusAuraMouseGen1Contro
 {
     controller                  = controller_ptr;
 
-    name                        = "ASUS ROG Spatha";
+    name                        = controller->GetName();
     vendor                      = "ASUS";
     type                        = DEVICE_TYPE_MOUSE;
     description                 = "ASUS Aura Mouse Device";

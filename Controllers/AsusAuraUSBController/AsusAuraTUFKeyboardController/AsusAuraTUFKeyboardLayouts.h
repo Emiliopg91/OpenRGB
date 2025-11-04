@@ -6,7 +6,7 @@
 |   Mola19                                      02 Nov 2021 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -144,7 +144,7 @@ static unsigned int ASUS_ROG_STRIX_SCOPE_II_LAYOUT_KEYS_ISO[6][24] =
 
 static unsigned int ASUS_ROG_STRIX_SCOPE_II_96_WIRELESS_LAYOUT_KEYS_ANSI[6][19] =
 {
-    {   0,   6,  11,  17,  22,  27,  33,  39,  45,  50,  55,  61,  67,  72,  77,  80,  86,  97,  NA },
+    {   0,   6,  11,  17,  22,  27,  33,  39,  45,  50,  55,  61,  67,  72,  77,  80,  86,  NA,  97 },
     {   1,   7,  12,  18,  23,  28,  34,  40,  46,  51,  56,  62,  68,  73,  NA,  81,  87,  92,  98 },
     {   2,   8,  13,  19,  24,  29,  35,  41,  47,  52,  57,  63,  69,  74,  NA,  82,  88,  93,  99 },
     {   3,   9,  14,  20,  25,  30,  36,  42,  48,  53,  58,  64,  NA,  75,  NA,  83,  89,  94,  NA },
@@ -154,7 +154,7 @@ static unsigned int ASUS_ROG_STRIX_SCOPE_II_96_WIRELESS_LAYOUT_KEYS_ANSI[6][19] 
 
 static unsigned int ASUS_ROG_STRIX_SCOPE_II_96_WIRELESS_LAYOUT_KEYS_ISO[6][19] =
 {
-    {   0,   6,  12,  18,  23,  28,  34,  40,  46,  51,  56,  62,  68,  74,  78,  81,  87,  98,  NA },
+    {   0,   6,  12,  18,  23,  28,  34,  40,  46,  51,  56,  62,  68,  74,  78,  81,  87,  NA,  98 },
     {   1,   7,  13,  19,  24,  29,  35,  41,  47,  52,  57,  63,  69,  75,  NA,  82,  88,  93,  99 },
     {   2,   8,  14,  20,  25,  30,  36,  42,  48,  53,  58,  64,  70,  NA,  NA,  83,  89,  94, 100 },
     {   3,   9,  15,  21,  26,  31,  37,  43,  49,  54,  59,  65,  71,  76,  NA,  84,  90,  95,  NA },
@@ -1794,8 +1794,8 @@ static std::map<int,layout_info> AsusROGStrixScopeII96WirelessLayouts =
     {
         ASUS_TUF_K7_LAYOUT_US,
         {
-            *ASUS_ROG_STRIX_SCOPE_II_96_WIRELESS_LAYOUT_KEYS_ISO,
-            102,
+            *ASUS_ROG_STRIX_SCOPE_II_96_WIRELESS_LAYOUT_KEYS_ANSI,
+            101,
             6,
             19,
             {
@@ -1810,7 +1810,6 @@ static std::map<int,layout_info> AsusROGStrixScopeII96WirelessLayouts =
                 { KEY_EN_1,                   0x09 },
                 { KEY_EN_Q,                   0x0A },
                 { KEY_EN_A,                   0x0B },
-                { KEY_EN_ISO_BACK_SLASH,      0x0C },
                 { KEY_EN_LEFT_WINDOWS,        0x0D },
 
                 { KEY_EN_F2,                  0x10 },
@@ -1882,13 +1881,13 @@ static std::map<int,layout_info> AsusROGStrixScopeII96WirelessLayouts =
                 { KEY_EN_F12,                 0x60 },
                 { KEY_EN_EQUALS,              0x61 },
                 { KEY_EN_RIGHT_BRACKET,       0x62 },
-                { KEY_EN_POUND,               0x63 },
                 { KEY_EN_RIGHT_SHIFT,         0x64 },
                 { KEY_EN_RIGHT_CONTROL,       0x65 },
 
                 { KEY_EN_INSERT,              0x68 },
                 { KEY_EN_BACKSPACE,           0x69 },
-                { KEY_EN_ISO_ENTER,           0x6B },
+                { KEY_EN_ANSI_BACK_SLASH,     0x6A },
+                { KEY_EN_ANSI_ENTER,          0x6B },
                 { KEY_EN_LEFT_ARROW,          0x6D },
 
                 { KEY_EN_DELETE,              0x70 },

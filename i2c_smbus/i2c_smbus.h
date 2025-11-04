@@ -7,7 +7,7 @@
 |   Portions based on Linux source code                     |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #ifndef I2C_SMBUS_H
@@ -83,6 +83,8 @@ public:
     int pci_vendor;
     int pci_subsystem_device;
     int pci_subsystem_vendor;
+
+    int bus_id;
 
     i2c_smbus_interface();
     virtual ~i2c_smbus_interface();

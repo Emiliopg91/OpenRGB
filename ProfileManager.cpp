@@ -4,7 +4,7 @@
 |   OpenRGB profile manager                                 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include <fstream>
@@ -83,6 +83,16 @@ bool ProfileManager::SaveProfile(std::string profile_name, bool sizes)
         \*---------------------------------------------------------*/
         for(std::size_t controller_index = 0; controller_index < controllers.size(); controller_index++)
         {
+            /*-----------------------------------------------------*\
+            | Ignore remote and virtual controllers when saving     |
+            | sizes                                                 |
+            \*-----------------------------------------------------*/
+            if(sizes && (controllers[controller_index]->flags & CONTROLLER_FLAG_REMOTE
+                      || controllers[controller_index]->flags & CONTROLLER_FLAG_VIRTUAL))
+            {
+                break;
+            }
+
             unsigned char *controller_data = controllers[controller_index]->GetDeviceDescription(profile_version);
             unsigned int controller_size;
 
@@ -239,38 +249,38 @@ bool ProfileManager::LoadDeviceFromListWithOptions
         \*---------------------------------------------------------*/
         bool location_check;
 
-        if(load_controller->location.find("HID: ") == 0)
+        if(load_controller->GetLocation().find("HID: ") == 0)
         {
             location_check = true;
         }
-        else if(load_controller->location.find("I2C: ") == 0)
+        else if(load_controller->GetLocation().find("I2C: ") == 0)
         {
-            std::size_t loc = load_controller->location.rfind(", ");
+            std::size_t loc = load_controller->GetLocation().rfind(", ");
             if(loc == std::string::npos)
             {
                 location_check = false;
             }
             else
             {
-                std::string i2c_address = load_controller->location.substr(loc + 2);
-                location_check = temp_controller->location.find(i2c_address) != std::string::npos;
+                std::string i2c_address = load_controller->GetLocation().substr(loc + 2);
+                location_check = temp_controller->GetLocation().find(i2c_address) != std::string::npos;
             }
         }
         else
         {
-            location_check = temp_controller->location == load_controller->location;
+            location_check = temp_controller->GetLocation() == load_controller->GetLocation();
         }
 
         /*---------------------------------------------------------*\
         | Test if saved controller data matches this controller     |
         \*---------------------------------------------------------*/
-        if((temp_controller_used[temp_index]    == false                       )
-         &&(temp_controller->type               == load_controller->type       )
-         &&(temp_controller->name               == load_controller->name       )
-         &&(temp_controller->description        == load_controller->description)
-         &&(temp_controller->version            == load_controller->version    )
-         &&(temp_controller->serial             == load_controller->serial     )
-         &&(location_check                      == true                        ))
+        if((temp_controller_used[temp_index]    == false                            )
+         &&(temp_controller->type               == load_controller->type            )
+         &&(temp_controller->GetName()          == load_controller->GetName()       )
+         &&(temp_controller->GetDescription()   == load_controller->GetDescription())
+         &&(temp_controller->GetVersion()       == load_controller->GetVersion()    )
+         &&(temp_controller->GetSerial()        == load_controller->GetSerial()     )
+         &&(location_check                      == true                             ))
         {
             /*---------------------------------------------------------*\
             | Set used flag for this temp device                        |
@@ -291,14 +301,19 @@ bool ProfileManager::LoadDeviceFromListWithOptions
                          &&(temp_controller->zones[zone_idx].leds_min   == load_controller->zones[zone_idx].leds_min  )
                          &&(temp_controller->zones[zone_idx].leds_max   == load_controller->zones[zone_idx].leds_max  ))
                         {
-                            if (temp_controller->zones[zone_idx].leds_count != load_controller->zones[zone_idx].leds_count)
+                            if(temp_controller->zones[zone_idx].leds_count != load_controller->zones[zone_idx].leds_count)
                             {
                                 load_controller->ResizeZone((int)zone_idx, temp_controller->zones[zone_idx].leds_count);
                             }
 
-                            for(std::size_t segment_idx = 0; segment_idx < temp_controller->zones[zone_idx].segments.size(); segment_idx++)
+                            if(temp_controller->zones[zone_idx].segments.size() != load_controller->zones[zone_idx].segments.size())
                             {
-                                load_controller->zones[zone_idx].segments.push_back(temp_controller->zones[zone_idx].segments[segment_idx]);
+                                load_controller->zones[zone_idx].segments.clear();
+
+                                for(std::size_t segment_idx = 0; segment_idx < temp_controller->zones[zone_idx].segments.size(); segment_idx++)
+                                {
+                                    load_controller->zones[zone_idx].segments.push_back(temp_controller->zones[zone_idx].segments[segment_idx]);
+                                }
                             }
                         }
                     }
@@ -402,8 +417,8 @@ bool ProfileManager::LoadProfileWithOptions
     for(std::size_t controller_index = 0; controller_index < controllers.size(); controller_index++)
     {
         bool temp_ret_val = LoadDeviceFromListWithOptions(temp_controllers, temp_controller_used, controllers[controller_index], load_size, load_settings);
-        std::string current_name = controllers[controller_index]->name + " @ " + controllers[controller_index]->location;
-        LOG_INFO("Profile loading: %s for %s", ( temp_ret_val ? "Succeeded" : "FAILED!" ), current_name.c_str());
+        std::string current_name = controllers[controller_index]->GetName() + " @ " + controllers[controller_index]->GetLocation();
+        LOG_INFO("[ProfileManager] Profile loading: %s for %s", ( temp_ret_val ? "Succeeded" : "FAILED!" ), current_name.c_str());
         ret_val |= temp_ret_val;
     }
 
@@ -443,7 +458,7 @@ void ProfileManager::UpdateProfileList()
 
         if(filename.find(".orp") != std::string::npos)
         {
-            LOG_INFO("Found file: %s attempting to validate header", filename.c_str());
+            LOG_INFO("[ProfileManager] Found file: %s attempting to validate header", filename.c_str());
 
             /*---------------------------------------------------------*\
             | Open input file in binary mode                            |
@@ -471,16 +486,16 @@ void ProfileManager::UpdateProfileList()
                     filename.erase(filename.length() - 4);
                     profile_list.push_back(filename);
 
-                    LOG_INFO("Valid v%i profile found for %s", profile_version, filename.c_str());
+                    LOG_INFO("[ProfileManager] Valid v%i profile found for %s", profile_version, filename.c_str());
                 }
                 else
                 {
-                    LOG_WARNING("Profile %s isn't valid for current version (v%i, expected v%i at most)", filename.c_str(), profile_version, OPENRGB_PROFILE_VERSION);
+                    LOG_WARNING("[ProfileManager] Profile %s isn't valid for current version (v%i, expected v%i at most)", filename.c_str(), profile_version, OPENRGB_PROFILE_VERSION);
                 }
             }
             else
             {
-                LOG_WARNING("Profile %s isn't valid: header is missing", filename.c_str());
+                LOG_WARNING("[ProfileManager] Profile %s isn't valid: header is missing", filename.c_str());
             }
 
             profile_file.close();

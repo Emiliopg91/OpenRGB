@@ -6,7 +6,7 @@
 |   Mola19                                      30 Nov 2021 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include <cstring>
@@ -15,11 +15,12 @@
 #include "AsusAuraMouseGen1Controller.h"
 #include "StringUtils.h"
 
-AsusAuraMouseGen1Controller::AsusAuraMouseGen1Controller(hid_device* dev_handle, const char* path, uint16_t pid)
+AsusAuraMouseGen1Controller::AsusAuraMouseGen1Controller(hid_device* dev_handle, const char* path, uint16_t pid, std::string dev_name)
 {
     dev         = dev_handle;
     location    = path;
     device_pid  = pid;
+    name        = dev_name;
 }
 
 AsusAuraMouseGen1Controller::~AsusAuraMouseGen1Controller()
@@ -30,6 +31,11 @@ AsusAuraMouseGen1Controller::~AsusAuraMouseGen1Controller()
 std::string AsusAuraMouseGen1Controller::GetDeviceLocation()
 {
     return("HID: " + location);
+}
+
+std::string AsusAuraMouseGen1Controller::GetName()
+{
+    return(name);
 }
 
 std::string AsusAuraMouseGen1Controller::GetSerialString()

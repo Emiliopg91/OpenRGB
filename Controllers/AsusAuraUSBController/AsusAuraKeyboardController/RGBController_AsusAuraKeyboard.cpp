@@ -6,7 +6,7 @@
 |   Adam Honse (CalcProgrammer1)                19 Mar 2020 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include "RGBControllerKeyNames.h"
@@ -358,21 +358,21 @@ static const std::vector<aura_keyboard_led> default_65pct_led_names =
 
 RGBController_AuraKeyboard::RGBController_AuraKeyboard(AuraKeyboardController* controller_ptr, AuraKeyboardMappingLayoutType keyboard_layout)
 {
-    controller  = controller_ptr;
-    layout      = keyboard_layout;
+    controller          = controller_ptr;
+    layout              = keyboard_layout;
 
-    name        = "ASUS Aura Keyboard";
-    vendor      = "ASUS";
-    type        = DEVICE_TYPE_KEYBOARD;
-    description = "ASUS Aura Keyboard Device";
-    location    = controller->GetDeviceLocation();
-    serial      = controller->GetSerialString();
+    name                = controller->GetNameString();
+    vendor              = "ASUS";
+    type                = DEVICE_TYPE_KEYBOARD;
+    description         = "ASUS Aura Keyboard Device";
+    location            = controller->GetDeviceLocation();
+    serial              = controller->GetSerialString();
 
     mode Direct;
-    Direct.name       = "Direct";
-    Direct.value      = 0;
-    Direct.flags      = MODE_FLAG_HAS_PER_LED_COLOR;
-    Direct.color_mode = MODE_COLORS_PER_LED;
+    Direct.name         = "Direct";
+    Direct.value        = 0;
+    Direct.flags        = MODE_FLAG_HAS_PER_LED_COLOR;
+    Direct.color_mode   = MODE_COLORS_PER_LED;
     modes.push_back(Direct);
 
     SetupZones();
