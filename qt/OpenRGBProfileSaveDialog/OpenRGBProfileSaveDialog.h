@@ -4,21 +4,20 @@
 |   User interface entry for OpenRGB profile save dialog    |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #pragma once
 
 #include <QDialog>
-#include "ui_OpenRGBProfileSaveDialog.h"
-#include "OpenRGBDialog2.h"
+#include "OpenRGBDialog.h"
 
 namespace Ui
 {
     class OpenRGBProfileSaveDialog;
 }
 
-class Ui::OpenRGBProfileSaveDialog : public QDialog
+class OpenRGBProfileSaveDialog : public QDialog
 {
     Q_OBJECT
 
@@ -29,7 +28,7 @@ public:
     std::string show();
 
 private:
-    Ui::OpenRGBProfileSaveDialogUi *ui;
+    Ui::OpenRGBProfileSaveDialog *ui;
 
 private slots:
     void changeEvent(QEvent *event);

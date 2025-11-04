@@ -7,7 +7,7 @@
 |   Adam Honse (CalcProgrammer1)                11 Apr 2020 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include <cstring>
@@ -23,6 +23,29 @@ RGBController_Network::RGBController_Network(NetworkClient * client_ptr, unsigne
 void RGBController_Network::SetupZones()
 {
     //Don't send anything, this function should only process on host
+}
+
+void RGBController_Network::ClearSegments(int zone)
+{
+    client->SendRequest_RGBController_ClearSegments(dev_idx, zone);
+
+    client->SendRequest_ControllerData(dev_idx);
+    client->WaitOnControllerData();
+}
+
+void RGBController_Network::AddSegment(int zone, segment new_segment)
+{
+    unsigned char * data = GetSegmentDescription(zone, new_segment);
+    unsigned int size;
+
+    memcpy(&size, &data[0], sizeof(unsigned int));
+
+    client->SendRequest_RGBController_AddSegment(dev_idx, data, size);
+
+    delete[] data;
+
+    client->SendRequest_ControllerData(dev_idx);
+    client->WaitOnControllerData();
 }
 
 void RGBController_Network::ResizeZone(int zone, int new_size)

@@ -6,7 +6,7 @@
 |   Zach Deibert (zachdeibert)                  12 Nov 2024 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include <QByteArray>
@@ -24,7 +24,7 @@ SuspendResumeListener::~SuspendResumeListener()
     QCoreApplication::instance()->removeNativeEventFilter(this);
 }
 
-bool SuspendResumeListener::nativeEventFilter(const QByteArray &event_type, void *message, long *result)
+bool SuspendResumeListener::nativeEventFilter(const QByteArray &event_type, void *message, NEFResultType *result)
 {
     (void)result;
     if(event_type == "windows_generic_MSG")

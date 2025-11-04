@@ -6,7 +6,7 @@
 |   Adam Honse (CalcProgrammer1)                10 Jan 2022 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include "RGBController_AsusAuraMousemat.h"
@@ -26,7 +26,7 @@ RGBController_AuraMousemat::RGBController_AuraMousemat(AuraMousematController* c
 {
     controller                  = controller_ptr;
 
-    name                        = "ASUS Aura Mousemat";
+    name                        = controller->GetName();
     vendor                      = "ASUS";
     type                        = DEVICE_TYPE_MOUSEMAT;
     description                 = "ASUS Aura Mousemat Device";

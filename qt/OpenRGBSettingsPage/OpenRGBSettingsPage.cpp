@@ -4,7 +4,7 @@
 |   User interface for general settings page                |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include <QUrl>
@@ -17,11 +17,9 @@
 #include "SettingsManager.h"
 #include "ProfileManager.h"
 
-using namespace Ui;
-
 OpenRGBSettingsPage::OpenRGBSettingsPage(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::OpenRGBSettingsPageUi)
+    ui(new Ui::OpenRGBSettingsPage)
 {
     ui->setupUi(this);
 
@@ -48,8 +46,10 @@ OpenRGBSettingsPage::OpenRGBSettingsPage(QWidget *parent) :
     QDirIterator file(":/i18n/", QDirIterator::Subdirectories);
     while(file.hasNext())
     {
-        translator.load(file.next());
-        map.insert(translator.translate("Ui::OpenRGBSettingsPage", "English - US"), file.filePath());
+        if(translator.load(file.next()))
+        {
+            map.insert(translator.translate("OpenRGBSettingsPage", "English - US"), file.filePath());
+        }
     }
 
     ui->ComboBoxLanguage->blockSignals(true);
@@ -73,7 +73,7 @@ OpenRGBSettingsPage::OpenRGBSettingsPage(QWidget *parent) :
     /*---------------------------------------------------------*\
     | Load theme settings                                       |
     \*---------------------------------------------------------*/
-    ui->ComboBoxTheme->addItems({"auto", "light", "dark"});
+    ui->ComboBoxTheme->addItems({"Auto", "Light", "Dark"});
 
     json theme_settings = ResourceManager::get()->GetSettingsManager()->GetSettings("Theme");
 
@@ -84,7 +84,7 @@ OpenRGBSettingsPage::OpenRGBSettingsPage(QWidget *parent) :
     }
     else
     {
-        ui->ComboBoxTheme->setCurrentText(QString::fromStdString(("light")));
+        ui->ComboBoxTheme->setCurrentText(QString::fromStdString(("Light")));
     }
 
     theme_initialized = true;
@@ -186,22 +186,42 @@ OpenRGBSettingsPage::OpenRGBSettingsPage(QWidget *parent) :
     /*---------------------------------------------------------*\
     | Checkboxes                                                |
     \*---------------------------------------------------------*/
+    if(log_manager_settings.contains("log_file"))
+    {
+        ui->CheckboxLogFile->setChecked(log_manager_settings["log_file"]);
+    }
+    else
+    {
+        ui->CheckboxLogFile->setChecked(true);
+    }
+
     if(log_manager_settings.contains("log_console"))
     {
         ui->CheckboxLogConsole->setChecked(log_manager_settings["log_console"]);
     }
+    else
+    {
+        ui->CheckboxLogConsole->setChecked(false);
+    }
 
     /*---------------------------------------------------------*\
-    | Load drivers settings (Windows only)                      |
+    | Load drivers settings (Windows only or Mac)               |
     \*---------------------------------------------------------*/
-#ifdef _WIN32
+#if defined(WIN32) || defined(_MACOSX_X86_X64)
     json drivers_settings = ResourceManager::get()->GetSettingsManager()->GetSettings("Drivers");
 
     if(drivers_settings.contains("amd_smbus_reduce_cpu"))
     {
         ui->CheckboxAMDSMBusReduceCPU->setChecked(drivers_settings["amd_smbus_reduce_cpu"]);
     }
-
+#else
+    ui->DriversSettingsLabel->hide();
+    ui->CheckboxAMDSMBusReduceCPU->hide();
+#endif
+    /*---------------------------------------------------------*\
+    | Load drivers settings (Windows only)                      |
+    \*---------------------------------------------------------*/
+#ifdef _WIN32
     if(drivers_settings.contains("shared_smbus_access"))
     {
         ui->CheckboxSharedSMBusAccess->setChecked(drivers_settings["shared_smbus_access"]);
@@ -211,8 +231,6 @@ OpenRGBSettingsPage::OpenRGBSettingsPage(QWidget *parent) :
         ui->CheckboxSharedSMBusAccess->setChecked(true);
     }
 #else
-    ui->DriversSettingsLabel->hide();
-    ui->CheckboxAMDSMBusReduceCPU->hide();
     ui->CheckboxSharedSMBusAccess->hide();
 #endif
 
@@ -236,7 +254,7 @@ OpenRGBSettingsPage::OpenRGBSettingsPage(QWidget *parent) :
     ui->TextServerHost->setText(QString::fromStdString(autostart_settings["host"]));
     ui->TextServerHost->setEnabled(autostart_settings["setserverhost"]);
 
-    ui->TextServerPort->setText(QString::fromStdString(autostart_settings["port"]));
+    ui->TextServerPort->setValue(QString::fromStdString(autostart_settings["port"]).toInt());
     ui->TextServerPort->setEnabled(autostart_settings["setserverport"]);
 
     ui->TextClientHost->setText(QString::fromStdString(autostart_settings["client"]));
@@ -423,6 +441,23 @@ void OpenRGBSettingsPage::UpdateProfiles()
             }
         }
     }
+
+    /*---------------------------------------------------------*\
+    | Load server settings                              |
+    \*---------------------------------------------------------*/
+    json server_settings = ResourceManager::get()->GetSettingsManager()->GetSettings("Server");
+
+    if(server_settings.contains("all_devices"))
+    {
+        bool all_devices = server_settings["all_devices"];
+        ui->CheckboxAllDevices->setChecked(all_devices);
+    }
+
+    if(server_settings.contains("legacy_workaround"))
+    {
+        bool legacy_workaround = server_settings["legacy_workaround"];
+        ui->CheckboxLegacyWorkaround->setChecked(legacy_workaround);
+    }
 }
 
 void OpenRGBSettingsPage::on_ComboBoxLanguage_currentTextChanged(const QString language)
@@ -505,7 +540,7 @@ void OpenRGBSettingsPage::on_CheckboxMinimizeOnClose_clicked()
     SaveSettings();
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxLoadGeometry_clicked()
+void OpenRGBSettingsPage::on_CheckboxLoadGeometry_clicked()
 {
     json ui_settings = ResourceManager::get()->GetSettingsManager()->GetSettings("UserInterface");
     ui_settings["geometry"]["load_geometry"] = ui->CheckboxLoadGeometry->isChecked();
@@ -513,7 +548,7 @@ void Ui::OpenRGBSettingsPage::on_CheckboxLoadGeometry_clicked()
     SaveSettings();
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxSaveGeometry_clicked()
+void OpenRGBSettingsPage::on_CheckboxSaveGeometry_clicked()
 {
     json ui_settings = ResourceManager::get()->GetSettingsManager()->GetSettings("UserInterface");
     ui_settings["geometry"]["save_on_exit"] = ui->CheckboxSaveGeometry->isChecked();
@@ -521,7 +556,7 @@ void Ui::OpenRGBSettingsPage::on_CheckboxSaveGeometry_clicked()
     SaveSettings();
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxRunZoneChecks_clicked()
+void OpenRGBSettingsPage::on_CheckboxRunZoneChecks_clicked()
 {
     json ui_settings = ResourceManager::get()->GetSettingsManager()->GetSettings("UserInterface");
     ui_settings["RunZoneChecks"] = ui->CheckboxRunZoneChecks->isChecked();
@@ -529,7 +564,7 @@ void Ui::OpenRGBSettingsPage::on_CheckboxRunZoneChecks_clicked()
     SaveSettings();
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxSetOnExit_clicked(bool checked)
+void OpenRGBSettingsPage::on_CheckboxSetOnExit_clicked(bool checked)
 {
     json ui_settings                                             = ResourceManager::get()->GetSettingsManager()->GetSettings("UserInterface");
     ui_settings["autoload_profiles"]["exit_profile"]["enabled"]  = checked;
@@ -540,7 +575,7 @@ void Ui::OpenRGBSettingsPage::on_CheckboxSetOnExit_clicked(bool checked)
     ui->ComboBoxExitProfile->setEnabled(checked);
 }
 
-void Ui::OpenRGBSettingsPage::on_ComboBoxExitProfile_currentTextChanged(const QString exit_profile_name)
+void OpenRGBSettingsPage::on_ComboBoxExitProfile_currentTextChanged(const QString exit_profile_name)
 {
     json ui_settings                                         = ResourceManager::get()->GetSettingsManager()->GetSettings("UserInterface");
     ui_settings["autoload_profiles"]["exit_profile"]["name"] = exit_profile_name.toStdString();
@@ -548,7 +583,7 @@ void Ui::OpenRGBSettingsPage::on_ComboBoxExitProfile_currentTextChanged(const QS
     SaveSettings();
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxSetOnResume_clicked(bool checked)
+void OpenRGBSettingsPage::on_CheckboxSetOnResume_clicked(bool checked)
 {
     json ui_settings                                              = ResourceManager::get()->GetSettingsManager()->GetSettings("UserInterface");
     ui_settings["autoload_profiles"]["resume_profile"]["enabled"] = checked;
@@ -559,7 +594,7 @@ void Ui::OpenRGBSettingsPage::on_CheckboxSetOnResume_clicked(bool checked)
     ui->ComboBoxResumeProfile->setEnabled(checked);
 }
 
-void Ui::OpenRGBSettingsPage::on_ComboBoxResumeProfile_currentTextChanged(const QString resume_profile_name)
+void OpenRGBSettingsPage::on_ComboBoxResumeProfile_currentTextChanged(const QString resume_profile_name)
 {
     json ui_settings                                           = ResourceManager::get()->GetSettingsManager()->GetSettings("UserInterface");
     ui_settings["autoload_profiles"]["resume_profile"]["name"] = resume_profile_name.toStdString();
@@ -567,7 +602,7 @@ void Ui::OpenRGBSettingsPage::on_ComboBoxResumeProfile_currentTextChanged(const 
     SaveSettings();
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxSetOnSuspend_clicked(bool checked)
+void OpenRGBSettingsPage::on_CheckboxSetOnSuspend_clicked(bool checked)
 {
     json ui_settings                                               = ResourceManager::get()->GetSettingsManager()->GetSettings("UserInterface");
     ui_settings["autoload_profiles"]["suspend_profile"]["enabled"] = checked;
@@ -578,7 +613,7 @@ void Ui::OpenRGBSettingsPage::on_CheckboxSetOnSuspend_clicked(bool checked)
     ui->ComboBoxSuspendProfile->setEnabled(checked);
 }
 
-void Ui::OpenRGBSettingsPage::on_ComboBoxSuspendProfile_currentTextChanged(const QString suspend_profile_name)
+void OpenRGBSettingsPage::on_ComboBoxSuspendProfile_currentTextChanged(const QString suspend_profile_name)
 {
     json ui_settings                                            = ResourceManager::get()->GetSettingsManager()->GetSettings("UserInterface");
     ui_settings["autoload_profiles"]["suspend_profile"]["name"] = suspend_profile_name.toStdString();
@@ -586,7 +621,23 @@ void Ui::OpenRGBSettingsPage::on_ComboBoxSuspendProfile_currentTextChanged(const
     SaveSettings();
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxAutoStart_clicked()
+void OpenRGBSettingsPage::on_CheckboxAllDevices_clicked(bool checked)
+{
+    json server_settings                                        = ResourceManager::get()->GetSettingsManager()->GetSettings("Server");
+    server_settings["all_devices"]                              = checked;
+    ResourceManager::get()->GetSettingsManager()->SetSettings("Server", server_settings);
+    SaveSettings();
+}
+
+void OpenRGBSettingsPage::on_CheckboxLegacyWorkaround_clicked(bool checked)
+{
+    json server_settings                                        = ResourceManager::get()->GetSettingsManager()->GetSettings("Server");
+    server_settings["legacy_workaround"]                        = checked;
+    ResourceManager::get()->GetSettingsManager()->SetSettings("Server", server_settings);
+    SaveSettings();
+}
+
+void OpenRGBSettingsPage::on_CheckboxAutoStart_clicked()
 {
     if(autostart_initialized)
     {
@@ -607,67 +658,67 @@ void Ui::OpenRGBSettingsPage::on_CheckboxAutoStart_clicked()
     }
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxAutoStartMinimized_clicked()
+void OpenRGBSettingsPage::on_CheckboxAutoStartMinimized_clicked()
 {
     SaveAutoStartSetting("setminimized", ui->CheckboxAutoStartMinimized->isChecked());
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxAutoStartServer_clicked()
+void OpenRGBSettingsPage::on_CheckboxAutoStartServer_clicked()
 {
     SaveAutoStartSetting("setserver", ui->CheckboxAutoStartServer->isChecked());
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxAutoStartSetServerHost_clicked()
+void OpenRGBSettingsPage::on_CheckboxAutoStartSetServerHost_clicked()
 {
     SaveAutoStartSetting("setserverhost", ui->CheckboxAutoStartSetServerHost->isChecked());
     ui->TextServerHost->setEnabled(ui->CheckboxAutoStartSetServerHost->isChecked());
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxAutoStartSetServerPort_clicked()
+void OpenRGBSettingsPage::on_CheckboxAutoStartSetServerPort_clicked()
 {
     SaveAutoStartSetting("setserverport", ui->CheckboxAutoStartSetServerPort->isChecked());
     ui->TextServerPort->setEnabled(ui->CheckboxAutoStartSetServerPort->isChecked());
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxAutoStartClient_clicked()
+void OpenRGBSettingsPage::on_CheckboxAutoStartClient_clicked()
 {
     SaveAutoStartSetting("setclient", ui->CheckboxAutoStartClient->isChecked());
     ui->TextClientHost->setEnabled(ui->CheckboxAutoStartClient->isChecked());
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxAutoStartProfile_clicked()
+void OpenRGBSettingsPage::on_CheckboxAutoStartProfile_clicked()
 {
     SaveAutoStartSetting("setprofile", ui->CheckboxAutoStartProfile->isChecked());
     ui->ComboBoxAutoStartProfile->setEnabled(ui->CheckboxAutoStartProfile->isChecked());
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxAutoStartCustom_clicked()
+void OpenRGBSettingsPage::on_CheckboxAutoStartCustom_clicked()
 {
     SaveAutoStartSetting("setcustom", ui->CheckboxAutoStartCustom->isChecked());
     ui->TextCustomArgs->setEnabled(ui->CheckboxAutoStartCustom->isChecked());
 }
 
-void Ui::OpenRGBSettingsPage::on_TextServerHost_textChanged(QString host)
+void OpenRGBSettingsPage::on_TextServerHost_textChanged(QString host)
 {
     SaveAutoStartSetting("host", host);
 }
 
-void Ui::OpenRGBSettingsPage::on_TextServerPort_textChanged(QString port)
+void OpenRGBSettingsPage::on_TextServerPort_valueChanged(int port)
 {
-    SaveAutoStartSetting("port", port);
+    SaveAutoStartSetting("port", QString::number(port));
 }
 
-void Ui::OpenRGBSettingsPage::on_TextClientHost_textChanged(QString client)
+void OpenRGBSettingsPage::on_TextClientHost_textChanged(QString client)
 {
     SaveAutoStartSetting("client", client);
 }
 
-void Ui::OpenRGBSettingsPage::on_TextCustomArgs_textChanged(QString custom)
+void OpenRGBSettingsPage::on_TextCustomArgs_textChanged(QString custom)
 {
     SaveAutoStartSetting("custom", custom);
 }
 
-void Ui::OpenRGBSettingsPage::on_ComboBoxAutoStartProfile_currentTextChanged(const QString profile)
+void OpenRGBSettingsPage::on_ComboBoxAutoStartProfile_currentTextChanged(const QString profile)
 {
     SaveAutoStartSetting("profile", profile);
 }
@@ -820,7 +871,7 @@ void OpenRGBSettingsPage::ConfigureAutoStart()
 
         if (!auto_start.EnableAutoStart(auto_start_info))
         {
-            ui->AutoStartStatusLabel->setText(tr("A problem occurred enabling Start At Login."));
+            ui->AutoStartStatusLabel->setText(tr("A problem occurred enabling Start at Login."));
             ui->AutoStartStatusLabel->show();
             SetAutoStartVisibility(true);
         }
@@ -930,7 +981,7 @@ void OpenRGBSettingsPage::SaveSettings()
     ResourceManager::get()->GetSettingsManager()->SaveSettings();
 }
 
-void Ui::OpenRGBSettingsPage::on_OpenSettingsFolderButton_clicked()
+void OpenRGBSettingsPage::on_OpenSettingsFolderButton_clicked()
 {
     std::string config_dir = ResourceManager::get()->GetConfigurationDirectory().generic_u8string();
     QUrl url = QUrl::fromLocalFile(QString::fromStdString(config_dir));
@@ -938,7 +989,7 @@ void Ui::OpenRGBSettingsPage::on_OpenSettingsFolderButton_clicked()
 }
 
 
-void Ui::OpenRGBSettingsPage::on_CheckboxLogConsole_clicked()
+void OpenRGBSettingsPage::on_CheckboxLogConsole_clicked()
 {
     json log_manager_settings = ResourceManager::get()->GetSettingsManager()->GetSettings("LogManager");
     log_manager_settings["log_console"] = ui->CheckboxLogConsole->isChecked();
@@ -946,7 +997,15 @@ void Ui::OpenRGBSettingsPage::on_CheckboxLogConsole_clicked()
     SaveSettings();
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxAMDSMBusReduceCPU_clicked()
+void OpenRGBSettingsPage::on_CheckboxLogFile_clicked()
+{
+    json log_manager_settings = ResourceManager::get()->GetSettingsManager()->GetSettings("LogManager");
+    log_manager_settings["log_file"] = ui->CheckboxLogFile->isChecked();
+    ResourceManager::get()->GetSettingsManager()->SetSettings("LogManager", log_manager_settings);
+    SaveSettings();
+}
+
+void OpenRGBSettingsPage::on_CheckboxAMDSMBusReduceCPU_clicked()
 {
     json drivers_settings = ResourceManager::get()->GetSettingsManager()->GetSettings("Drivers");
     drivers_settings["amd_smbus_reduce_cpu"] = ui->CheckboxAMDSMBusReduceCPU->isChecked();
@@ -954,7 +1013,7 @@ void Ui::OpenRGBSettingsPage::on_CheckboxAMDSMBusReduceCPU_clicked()
     SaveSettings();
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxSharedSMBusAccess_clicked()
+void OpenRGBSettingsPage::on_CheckboxSharedSMBusAccess_clicked()
 {
     json drivers_settings = ResourceManager::get()->GetSettingsManager()->GetSettings("Drivers");
     drivers_settings["shared_smbus_access"] = ui->CheckboxSharedSMBusAccess->isChecked();
@@ -962,7 +1021,7 @@ void Ui::OpenRGBSettingsPage::on_CheckboxSharedSMBusAccess_clicked()
     SaveSettings();
 }
 
-void Ui::OpenRGBSettingsPage::on_CheckboxDisableKeyExpansion_clicked()
+void OpenRGBSettingsPage::on_CheckboxDisableKeyExpansion_clicked()
 {
     json ui_settings                            = ResourceManager::get()->GetSettingsManager()->GetSettings("UserInterface");
     ui_settings["disable_key_expansion"]        = ui->CheckboxDisableKeyExpansion->isChecked();
@@ -970,7 +1029,7 @@ void Ui::OpenRGBSettingsPage::on_CheckboxDisableKeyExpansion_clicked()
     SaveSettings();
 }
 
-void  Ui::OpenRGBSettingsPage::on_CheckboxShowLEDView_clicked()
+void  OpenRGBSettingsPage::on_CheckboxShowLEDView_clicked()
 {
     json ui_settings                = ResourceManager::get()->GetSettingsManager()->GetSettings("UserInterface");
     ui_settings["show_led_view"]    = ui->CheckboxShowLEDView->isChecked();

@@ -6,7 +6,7 @@
 |   Chris M (Dr_No)                             17 Jan 2022 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #pragma once
@@ -58,7 +58,7 @@ enum
 class AsusROGStrixLCController : public AuraUSBController
 {
 public:
-    AsusROGStrixLCController(hid_device* dev_handle, const char* path);
+    AsusROGStrixLCController(hid_device* dev_handle, const char* path, std::string dev_name);
     ~AsusROGStrixLCController();
 
     std::string             GetLocation();

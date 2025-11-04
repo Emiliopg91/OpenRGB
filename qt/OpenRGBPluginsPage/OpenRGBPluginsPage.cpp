@@ -4,7 +4,7 @@
 |   User interface entry for OpenRGB plugin settings        |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include <QFileDialog>
@@ -16,17 +16,18 @@
 #include "SettingsManager.h"
 #include "OpenRGBPluginsPage.h"
 #include "ui_OpenRGBPluginsPage.h"
+#include "ResourceManager.h"
 
 void EnableClickCallbackFunction(void* this_ptr, void* entry_ptr)
 {
-    Ui::OpenRGBPluginsPage* this_page = (Ui::OpenRGBPluginsPage*)this_ptr;
+    OpenRGBPluginsPage* this_page = (OpenRGBPluginsPage*)this_ptr;
 
-    this_page->on_EnableButton_clicked((Ui::OpenRGBPluginsEntry*)entry_ptr);
+    this_page->on_EnableButton_clicked((OpenRGBPluginsEntry*)entry_ptr);
 }
 
-Ui::OpenRGBPluginsPage::OpenRGBPluginsPage(PluginManager* plugin_manager_ptr, QWidget *parent) :
+OpenRGBPluginsPage::OpenRGBPluginsPage(PluginManager* plugin_manager_ptr, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::OpenRGBPluginsPageUi)
+    ui(new Ui::OpenRGBPluginsPage)
 {
     plugin_manager = plugin_manager_ptr;
     ui->setupUi(this);
@@ -34,12 +35,12 @@ Ui::OpenRGBPluginsPage::OpenRGBPluginsPage(PluginManager* plugin_manager_ptr, QW
     RefreshList();
 }
 
-Ui::OpenRGBPluginsPage::~OpenRGBPluginsPage()
+OpenRGBPluginsPage::~OpenRGBPluginsPage()
 {
     delete ui;
 }
 
-void Ui::OpenRGBPluginsPage::changeEvent(QEvent *event)
+void OpenRGBPluginsPage::changeEvent(QEvent *event)
 {
     if(event->type() == QEvent::LanguageChange)
     {
@@ -47,7 +48,7 @@ void Ui::OpenRGBPluginsPage::changeEvent(QEvent *event)
     }
 }
 
-void Ui::OpenRGBPluginsPage::RefreshList()
+void OpenRGBPluginsPage::RefreshList()
 {
     ui->PluginsList->clear();
     entries.clear();
@@ -59,44 +60,9 @@ void Ui::OpenRGBPluginsPage::RefreshList()
         /*---------------------------------------------------------*\
         | Fill in plugin information fields                         |
         \*---------------------------------------------------------*/
-        entry->ui->NameValue->setText(QString::fromStdString(plugin.info.Name));
-        entry->ui->DescriptionValue->setText(QString::fromStdString(plugin.info.Description));
-        entry->ui->VersionValue->setText(QString::fromStdString(plugin.info.Version));
-        entry->ui->CommitValue->setText(QString::fromStdString(plugin.info.Commit));
-        entry->ui->URLValue->setText(QString::fromStdString(plugin.info.URL));
-        entry->ui->APIVersionValue->setText(QString::number(plugin.api_version));
-
-        /*---------------------------------------------------------*\
-        | If the plugin is incompatible, highlight the API version  |
-        | in red and disable the enable checkbox                    |
-        \*---------------------------------------------------------*/
-        if(plugin.incompatible)
-        {
-            entry->ui->APIVersionValue->setStyleSheet("QLabel { color : red; }");
-            entry->ui->EnabledCheckBox->setEnabled(false);
-        }
-
-        /*---------------------------------------------------------*\
-        | Fill in plugin icon                                       |
-        \*---------------------------------------------------------*/
-        QPixmap pixmap(QPixmap::fromImage(plugin.info.Icon));
-
-        entry->ui->IconView->setPixmap(pixmap);
-        entry->ui->IconView->setScaledContents(true);
-
-        /*---------------------------------------------------------*\
-        | Fill in plugin path                                       |
-        \*---------------------------------------------------------*/
-        entry->ui->PathValue->setText(QString::fromStdString(plugin.path));
-
-        /*---------------------------------------------------------*\
-        | Fill in plugin enabled status                             |
-        \*---------------------------------------------------------*/
-        entry->ui->EnabledCheckBox->setChecked((plugin.enabled));
+        entry->fillFrom(&plugin);
 
         entry->RegisterEnableClickCallback(EnableClickCallbackFunction, this);
-
-        entry->is_system = plugin.is_system;
 
         /*---------------------------------------------------------*\
         | Add the entry to the plugin list                          |
@@ -112,7 +78,7 @@ void Ui::OpenRGBPluginsPage::RefreshList()
     }
 }
 
-void Ui::OpenRGBPluginsPage::on_InstallPluginButton_clicked()
+void OpenRGBPluginsPage::on_InstallPluginButton_clicked()
 {
     /*-----------------------------------------------------*\
     | Open a file selection prompt to choose the plugin file|
@@ -127,7 +93,7 @@ void Ui::OpenRGBPluginsPage::on_InstallPluginButton_clicked()
     }
 }
 
-bool Ui::OpenRGBPluginsPage::InstallPlugin(std::string install_file)
+bool OpenRGBPluginsPage::InstallPlugin(std::string install_file)
 {
     filesystem::path from_path = filesystem::u8path(install_file);
     filesystem::path to_path   = ResourceManager::get()->GetConfigurationDirectory() / "plugins" / from_path.filename();
@@ -185,7 +151,7 @@ bool Ui::OpenRGBPluginsPage::InstallPlugin(std::string install_file)
     return false;
 }
 
-void Ui::OpenRGBPluginsPage::on_RemovePluginButton_clicked()
+void OpenRGBPluginsPage::on_RemovePluginButton_clicked()
 {
     QMessageBox::StandardButton reply;
 
@@ -212,7 +178,7 @@ void Ui::OpenRGBPluginsPage::on_RemovePluginButton_clicked()
     /*-----------------------------------------------------*\
     | Don't allow removing system plugins                   |
     \*-----------------------------------------------------*/
-    if(entries[cur_row]->is_system)
+    if(entries[cur_row]->isSystem())
     {
         return;
     }
@@ -232,42 +198,30 @@ void Ui::OpenRGBPluginsPage::on_RemovePluginButton_clicked()
             if((plugin_settings["plugins"][plugin_idx].contains("name"))
              &&(plugin_settings["plugins"][plugin_idx].contains("description")))
             {
-                if((plugin_settings["plugins"][plugin_idx]["name"] == entries[cur_row]->ui->NameValue->text().toStdString())
-                 &&(plugin_settings["plugins"][plugin_idx]["description"] == entries[cur_row]->ui->DescriptionValue->text().toStdString()))
+                if((plugin_settings["plugins"][plugin_idx]["name"] == entries[cur_row]->getName())
+                 &&(plugin_settings["plugins"][plugin_idx]["description"] == entries[cur_row]->getDescription()))
                 {
+                    /*-------------------------------------*\
+                    | Remove plugin from settings           |
+                    \*-------------------------------------*/
                     plugin_settings["plugins"].erase(plugin_idx);
-
-                    ResourceManager::get()->GetSettingsManager()->SetSettings("Plugins", plugin_settings);
-                    ResourceManager::get()->GetSettingsManager()->SaveSettings();
-
-                    break;
                 }
             }
         }
     }
 
     /*-----------------------------------------------------*\
-    | Remove plugin entry from GUI plugin entries list      |
+    | Mark plugin to be removed on next restart             |
     \*-----------------------------------------------------*/
-    QListWidgetItem* item = ui->PluginsList->takeItem(cur_row);
+    plugin_settings["plugins_remove"][plugin_settings["plugins_remove"].size()] = entries[cur_row]->getPath();
 
-    ui->PluginsList->removeItemWidget(item);
-    delete item;
+    ResourceManager::get()->GetSettingsManager()->SetSettings("Plugins", plugin_settings);
+    ResourceManager::get()->GetSettingsManager()->SaveSettings();
 
-    /*-----------------------------------------------------*\
-    | Command plugin manager to unload and remove the plugin|
-    \*-----------------------------------------------------*/
-    plugin_manager->RemovePlugin(entries[cur_row]->ui->PathValue->text().toStdString());
-
-    /*-----------------------------------------------------*\
-    | Delete the plugin file and refresh the GUI            |
-    \*-----------------------------------------------------*/
-    filesystem::remove(entries[cur_row]->ui->PathValue->text().toStdString());
-
-    RefreshList();
+    QMessageBox::information(this, tr("Restart Needed"), tr("The plugin will be fully removed after restarting OpenRGB."), QMessageBox::Ok);
 }
 
-void Ui::OpenRGBPluginsPage::on_EnableButton_clicked(OpenRGBPluginsEntry* entry)
+void OpenRGBPluginsPage::on_EnableButton_clicked(OpenRGBPluginsEntry* entry)
 {
     /*-----------------------------------------------------*\
     | Open plugin list and check if plugin is in the list   |
@@ -279,14 +233,14 @@ void Ui::OpenRGBPluginsPage::on_EnableButton_clicked(OpenRGBPluginsEntry* entry)
     \*-----------------------------------------------------*/
     std::string     name        = "";
     std::string     description = "";
-    bool            enabled     = entry->ui->EnabledCheckBox->isChecked();
+    bool            enabled     = entry->isPluginEnabled();
     bool            found       = false;
     unsigned int    plugin_ct   = 0;
     unsigned int    plugin_idx  = 0;
 
-    std::string     entry_name  = entry->ui->NameValue->text().toStdString();
-    std::string     entry_desc  = entry->ui->DescriptionValue->text().toStdString();
-    std::string     entry_path  = entry->ui->PathValue->text().toStdString();
+    std::string     entry_name  = entry->getName();
+    std::string     entry_desc  = entry->getDescription();
+    std::string     entry_path  = entry->getPath();
 
     if(plugin_settings.contains("plugins"))
     {
@@ -343,7 +297,7 @@ void Ui::OpenRGBPluginsPage::on_EnableButton_clicked(OpenRGBPluginsEntry* entry)
     }
 }
 
-void Ui::OpenRGBPluginsPage::on_PluginsList_itemSelectionChanged()
+void OpenRGBPluginsPage::on_PluginsList_itemSelectionChanged()
 {
     /*-----------------------------------------------------*\
     | Get index of selected plugin entry                    |
@@ -351,16 +305,31 @@ void Ui::OpenRGBPluginsPage::on_PluginsList_itemSelectionChanged()
     int cur_row = ui->PluginsList->currentRow();
 
     /*-----------------------------------------------------*\
+    | Disable the remove button if no item selected         |
+    \*-----------------------------------------------------*/
+    if(cur_row == -1)
+    {
+        ui->RemovePluginButton->setEnabled(false);
+        return;
+    }
+
+    /*-----------------------------------------------------*\
     | Enable the remove button when there's a selected item |
     | and the selected item is not a system plugin          |
     \*-----------------------------------------------------*/
-    if(!entries[cur_row]->is_system)
+    if(!entries[cur_row]->isSystem())
     {
         ui->RemovePluginButton->setEnabled(!ui->PluginsList->selectedItems().empty());
+        ui->RemovePluginButton->setText("Remove Plugin");
+    }
+    else
+    {
+        ui->RemovePluginButton->setEnabled(false);
+        ui->RemovePluginButton->setText("System Plugin - Cannot Remove");
     }
 }
 
-void Ui::OpenRGBPluginsPage::on_PluginsList_PluginsDropped(std::vector<std::string> path_list)
+void OpenRGBPluginsPage::on_PluginsList_PluginsDropped(std::vector<std::string> path_list)
 {
     bool installed = false;
 

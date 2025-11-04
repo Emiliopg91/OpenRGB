@@ -13,11 +13,7 @@
     </message>
 </context>
 <context>
-    <name>OpenRGBClientInfoPageUi</name>
-    <message>
-        <source>Client info page</source>
-        <translation>클라이언트 정보 페이지</translation>
-    </message>
+    <name>OpenRGBClientInfoPage</name>
     <message>
         <source>Port:</source>
         <translation>포트:</translation>
@@ -42,13 +38,13 @@
         <source>Save Connection</source>
         <translation>연결 저장</translation>
     </message>
+    <message>
+        <source>Disconnect</source>
+        <translation>연결 끊기</translation>
+    </message>
 </context>
 <context>
-    <name>OpenRGBConsolePageUi</name>
-    <message>
-        <source>Log console page</source>
-        <translation>로그 콘솔 페이지</translation>
-    </message>
+    <name>OpenRGBConsolePage</name>
     <message>
         <source>Log level</source>
         <translation>로그 수준</translation>
@@ -63,11 +59,7 @@
     </message>
 </context>
 <context>
-    <name>OpenRGBDMXSettingsEntryUi</name>
-    <message>
-        <source>E131 settings entry</source>
-        <translation>E131 설정 항목</translation>
-    </message>
+    <name>OpenRGBDMXSettingsEntry</name>
     <message>
         <source>Brightness Channel:</source>
         <translation>밝기 채널:</translation>
@@ -98,11 +90,7 @@
     </message>
 </context>
 <context>
-    <name>OpenRGBDMXSettingsPageUi</name>
-    <message>
-        <source>E131 settings page</source>
-        <translation>E131 설정 페이지</translation>
-    </message>
+    <name>OpenRGBDMXSettingsPage</name>
     <message>
         <source>Add</source>
         <translation>추가</translation>
@@ -117,11 +105,7 @@
     </message>
 </context>
 <context>
-    <name>OpenRGBDeviceInfoPageUi</name>
-    <message>
-        <source>Device info page</source>
-        <translation>장치 정보 페이지</translation>
-    </message>
+    <name>OpenRGBDeviceInfoPage</name>
     <message>
         <source>Name:</source>
         <translation>이름:</translation>
@@ -150,13 +134,13 @@
         <source>Serial:</source>
         <translation>시리얼:</translation>
     </message>
+    <message>
+        <source>Flags:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
-    <name>OpenRGBDevicePageUi</name>
-    <message>
-        <source>Device page</source>
-        <translation>장치 페이지</translation>
-    </message>
+    <name>OpenRGBDevicePage</name>
     <message>
         <source>G:</source>
         <translation>G:</translation>
@@ -245,1086 +229,10 @@
         <source>Edit</source>
         <translation>편집</translation>
     </message>
-</context>
-<context>
-    <name>OpenRGBDialog2Ui</name>
     <message>
-        <source>OpenRGB</source>
-        <translation>OpenRGB (한국어화: OctopusET)</translation>
+        <source>Hex:</source>
+        <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Devices</source>
-        <translation>장치</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation>정보</translation>
-    </message>
-    <message>
-        <source>Settings</source>
-        <translation>설정</translation>
-    </message>
-    <message>
-        <source>Toggle LED View</source>
-        <translation>LED 보기 전환</translation>
-    </message>
-    <message>
-        <source>Rescan Devices</source>
-        <translation>장치 다시 스캔</translation>
-    </message>
-    <message>
-        <source>Save Profile</source>
-        <translation>프로파일 저장</translation>
-    </message>
-    <message>
-        <source>Delete Profile</source>
-        <translation>프로파일 삭제</translation>
-    </message>
-    <message>
-        <source>Load Profile</source>
-        <translation>프로파일 불러오기</translation>
-    </message>
-    <message>
-        <source>OpenRGB is detecting devices...</source>
-        <translation>OpenRGB가 장치를 찾고 있습니다...</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>취소</translation>
-    </message>
-    <message>
-        <source>Save Profile As...</source>
-        <translation>다음으로 프로파일 저장...</translation>
-    </message>
-    <message>
-        <source>Save Profile with custom name</source>
-        <translation>다른 이름으로 프로파일 저장</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBDialogUi</name>
-    <message>
-        <source>OpenRGB</source>
-        <translation type="vanished">OpenRGB</translation>
-    </message>
-    <message>
-        <source>Device</source>
-        <translation type="vanished">장치</translation>
-    </message>
-    <message>
-        <source>Red</source>
-        <translation type="vanished">빨강</translation>
-    </message>
-    <message>
-        <source>Green</source>
-        <translation type="vanished">초록</translation>
-    </message>
-    <message>
-        <source>Blue</source>
-        <translation type="vanished">파랑</translation>
-    </message>
-    <message>
-        <source>Mode</source>
-        <translation type="vanished">모드</translation>
-    </message>
-    <message>
-        <source>Set All</source>
-        <translation type="vanished">모두 설정</translation>
-    </message>
-    <message>
-        <source>Set Device</source>
-        <translation type="vanished">장치 설정</translation>
-    </message>
-    <message>
-        <source>Zone</source>
-        <translation type="vanished">구역</translation>
-    </message>
-    <message>
-        <source>Set Zone</source>
-        <translation type="vanished">구역 설정</translation>
-    </message>
-    <message>
-        <source>Set LED</source>
-        <translation type="vanished">LED 설정</translation>
-    </message>
-    <message>
-        <source>LED</source>
-        <translation type="vanished">LED</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBE131SettingsEntryUi</name>
-    <message>
-        <source>E131 settings entry</source>
-        <translation>E131 설정 항목</translation>
-    </message>
-    <message>
-        <source>Start Channel:</source>
-        <translation>시작 채널:</translation>
-    </message>
-    <message>
-        <source>Number of LEDs:</source>
-        <translation>LED 개수:</translation>
-    </message>
-    <message>
-        <source>Start Universe:</source>
-        <translation>시작 Universe:</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation>이름:</translation>
-    </message>
-    <message>
-        <source>Matrix Order:</source>
-        <translation>매트릭스 순서:</translation>
-    </message>
-    <message>
-        <source>Matrix Height:</source>
-        <translation>매트릭스 높이:</translation>
-    </message>
-    <message>
-        <source>Matrix Width:</source>
-        <translation>매트릭스 너비:</translation>
-    </message>
-    <message>
-        <source>Type:</source>
-        <translation>유형:</translation>
-    </message>
-    <message>
-        <source>IP (Unicast):</source>
-        <translation>IP (Unicast):</translation>
-    </message>
-    <message>
-        <source>Universe Size:</source>
-        <translation>Universe 크기:</translation>
-    </message>
-    <message>
-        <source>Keepalive Time:</source>
-        <translation>지속 시간:</translation>
-    </message>
-    <message>
-        <source>RGB Order:</source>
-        <translation>RGB 순서:</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBE131SettingsPageUi</name>
-    <message>
-        <source>E131 settings page</source>
-        <translation>E131 설정 페이지</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>추가</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>제거</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>저장</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBElgatoKeyLightSettingsEntryUi</name>
-    <message>
-        <source>Dialog</source>
-        <translation>대화 상자</translation>
-    </message>
-    <message>
-        <source>IP:</source>
-        <translation>IP:</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBElgatoKeyLightSettingsPageUi</name>
-    <message>
-        <source>Dialog</source>
-        <translation>대화 상자</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>추가</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>삭제</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>저장</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBElgatoLightStripSettingsEntryUi</name>
-    <message>
-        <source>Dialog</source>
-        <translation>대화 상자</translation>
-    </message>
-    <message>
-        <source>IP:</source>
-        <translation>IP:</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBElgatoLightStripSettingsPageUi</name>
-    <message>
-        <source>Dialog</source>
-        <translation>대화 상자</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>추가</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>삭제</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>저장</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBHardwareIDsDialogUi</name>
-    <message>
-        <source>Hardware IDs</source>
-        <translation>하드웨어 ID</translation>
-    </message>
-    <message>
-        <source>Copy to clipboard</source>
-        <translation>클립보드에 복사</translation>
-    </message>
-    <message>
-        <source>Location</source>
-        <translation>위치</translation>
-    </message>
-    <message>
-        <source>Device</source>
-        <translation>장치</translation>
-    </message>
-    <message>
-        <source>Vendor</source>
-        <translation>제조업체</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBKasaSmartSettingsEntryUi</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
-        <source>IP:</source>
-        <translation>IP:</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation>이름</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBKasaSmartSettingsPageUi</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>추가</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>제거</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>저장</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBLIFXSettingsEntryUi</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
-        <source>IP:</source>
-        <translation>IP:</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation>이름</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBLIFXSettingsPageUi</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>추가</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>제거</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>저장</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBNanoleafNewDeviceDialogUi</name>
-    <message>
-        <source>New Nanoleaf device</source>
-        <translation>새로운 Nanoleaf 장치</translation>
-    </message>
-    <message>
-        <source>IP address:</source>
-        <translation>IP 주소:</translation>
-    </message>
-    <message>
-        <source>Port:</source>
-        <translation>포트:</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBNanoleafSettingsEntryUi</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
-        <source>IP:</source>
-        <translation>IP:</translation>
-    </message>
-    <message>
-        <source>Port:</source>
-        <translation>포트:</translation>
-    </message>
-    <message>
-        <source>Auth Key:</source>
-        <translation>인증 키:</translation>
-    </message>
-    <message>
-        <source>Unpair</source>
-        <translation>페어링 해제</translation>
-    </message>
-    <message>
-        <source>Pair</source>
-        <translation>페어링</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBNanoleafSettingsPageUi</name>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
-        <source>Scan</source>
-        <translation>스캔</translation>
-    </message>
-    <message>
-        <source>To pair, hold the on-off button down for 5-7 seconds until the LED starts flashing in a pattern, then click the &quot;Pair&quot; button within 30 seconds.</source>
-        <translation>페어링을 하려면 온오프 버튼을 5-7초 LED가 규칙적으로 깜빡이기 시작할 때 까지 누르세요, 그리고 30초 내로 &quot;페어링&quot; 버튼을 누르세요.</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>추가추가</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>제거</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBPhilipsHueSettingsEntryUi</name>
-    <message>
-        <source>IP:</source>
-        <translation>IP:</translation>
-    </message>
-    <message>
-        <source>Entertainment Mode:</source>
-        <translation>엔터테이먼트 모드:</translation>
-    </message>
-    <message>
-        <source>Username:</source>
-        <translation>Username:</translation>
-    </message>
-    <message>
-        <source>Client Key:</source>
-        <translation>클라이언트 키:</translation>
-    </message>
-    <message>
-        <source>Unpair Bridge</source>
-        <translation>브릿지 페어링 해제</translation>
-    </message>
-    <message>
-        <source>MAC:</source>
-        <translation>MAC 주소:</translation>
-    </message>
-    <message>
-        <source>Form</source>
-        <translation>양식</translation>
-    </message>
-    <message>
-        <source>Auto Connect Group:</source>
-        <translation>자동 연결 그룹:</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBPhilipsHueSettingsPageUi</name>
-    <message>
-        <source>Philips Hue settings page</source>
-        <translation>필립스 Hue 설정 페이지</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>제거</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>추가</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>저장</translation>
-    </message>
-    <message>
-        <source>After adding a Hue entry and saving, restart OpenRGB and press the Sync button on your Hue bridge to pair it.</source>
-        <translation>Hue 항목을 추가하고 저장한 후에 OpenRGB를 재시작하고 Hue Bridge의 Sync 버튼을 눌러 페어링하세요.</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBPhilipsWizSettingsEntryUi</name>
-    <message>
-        <source>Philips WIZ settings entry</source>
-        <translation>필립스 WIZ 설정 항목</translation>
-    </message>
-    <message>
-        <source>IP:</source>
-        <translation>IP:</translation>
-    </message>
-    <message>
-        <source>Use Cool White</source>
-        <translation>Cool White 사용</translation>
-    </message>
-    <message>
-        <source>Use Warm White</source>
-        <translation>Warm White 사용</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBPhilipsWizSettingsPageUi</name>
-    <message>
-        <source>Philips WIZ settings page</source>
-        <translation>필립스 WIZ 설정 페이지</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>추가</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>제거</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>저장</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBPluginContainerUi</name>
-    <message>
-        <source>Plugin container</source>
-        <translation>플러그인 컨테이너</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBPluginsEntryUi</name>
-    <message>
-        <source>Plugins entry</source>
-        <translation>플러그인 항목</translation>
-    </message>
-    <message>
-        <source>Version:</source>
-        <translation>버전:</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation>이름:</translation>
-    </message>
-    <message>
-        <source>Description:</source>
-        <translation>설명:</translation>
-    </message>
-    <message>
-        <source>URL:</source>
-        <translation>URL:</translation>
-    </message>
-    <message>
-        <source>Path:</source>
-        <translation>경로:</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation>활성화</translation>
-    </message>
-    <message>
-        <source>Commit:</source>
-        <translation>커밋:</translation>
-    </message>
-    <message>
-        <source>Icon</source>
-        <translation type="vanished">아이콘</translation>
-    </message>
-    <message>
-        <source>API Version:</source>
-        <translation>API 버전:</translation>
-    </message>
-    <message>
-        <source>API Version Value</source>
-        <translation>API 버전 값</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBPluginsPageUi</name>
-    <message>
-        <source>Plugins page</source>
-        <translation>플러그인 페이지</translation>
-    </message>
-    <message>
-        <source>Install Plugin</source>
-        <translation>플러그인 설치</translation>
-    </message>
-    <message>
-        <source>Remove Plugin</source>
-        <translation>플러그인 제거</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;Looking for plugins? See the official list at &lt;a href=&quot;https://openrgb.org/plugins.html&quot;&gt;OpenRGB.org&lt;/a&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;플러그인을 찾고 있나요? &lt;a href=&quot;https://openrgb.org/plugins.html&quot;&gt;OpenRGB.org&lt;/a&gt;의 공식 목록을 참고하세요.&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBProfileSaveDialogUi</name>
-    <message>
-        <source>Profile Name</source>
-        <translation>프로파일 이름</translation>
-    </message>
-    <message>
-        <source>New Profile Name:</source>
-        <translation type="vanished">새 프로파일 이름:</translation>
-    </message>
-    <message>
-        <source>Save to an existing profile:</source>
-        <translation>이미 있는 프로파일에 저장:</translation>
-    </message>
-    <message>
-        <source>Create a new profile:</source>
-        <translation>새로운 프로파일 만들기:</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBQMKORGBSettingsEntryUi</name>
-    <message>
-        <source>QMK settings entry</source>
-        <translation>QMK 설정 항목</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation>이름:</translation>
-    </message>
-    <message>
-        <source>USB PID:</source>
-        <translation>USB PID:</translation>
-    </message>
-    <message>
-        <source>USB VID:</source>
-        <translation>USB VID:</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBQMKORGBSettingsPageUi</name>
-    <message>
-        <source>QMK Settings page</source>
-        <translation>QMK 설정 페이지</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>추가</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>제거</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>저장</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBSerialSettingsEntryUi</name>
-    <message>
-        <source>Serial settings entry</source>
-        <translation>시리얼 설정 항목</translation>
-    </message>
-    <message>
-        <source>Baud:</source>
-        <translation>Baud:</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation>이름:</translation>
-    </message>
-    <message>
-        <source>Number of LEDs:</source>
-        <translation>LED 개수:</translation>
-    </message>
-    <message>
-        <source>Port:</source>
-        <translation>포트:</translation>
-    </message>
-    <message>
-        <source>Protocol:</source>
-        <translation>프로토콜:</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBSerialSettingsPageUi</name>
-    <message>
-        <source>Serial settings page</source>
-        <translation>시리얼 설정 페이지</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>추가</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>제거</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>저장</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBServerInfoPageUi</name>
-    <message>
-        <source>Server info page</source>
-        <translation>서버 정보 페이지</translation>
-    </message>
-    <message>
-        <source>Stop Server</source>
-        <translation>서버 종료</translation>
-    </message>
-    <message>
-        <source>Server Port:</source>
-        <translation>서버 포트:</translation>
-    </message>
-    <message>
-        <source>Start Server</source>
-        <translation>서버 시작</translation>
-    </message>
-    <message>
-        <source>Server Status:</source>
-        <translation>서버 상태:</translation>
-    </message>
-    <message>
-        <source>Offline</source>
-        <translation>오프라인</translation>
-    </message>
-    <message>
-        <source>Connected Clients:</source>
-        <translation>연결된 클라이언트:</translation>
-    </message>
-    <message>
-        <source>Server Host:</source>
-        <translation>서버 호스트:</translation>
-    </message>
-    <message>
-        <source>Client IP</source>
-        <translation>클라이언트 IP</translation>
-    </message>
-    <message>
-        <source>Protocol Version</source>
-        <translation>프로토콜 버전</translation>
-    </message>
-    <message>
-        <source>Client Name</source>
-        <translation>클라이언트 이름</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBSettingsPageUi</name>
-    <message>
-        <source>Settings page</source>
-        <translation>설정 페이지</translation>
-    </message>
-    <message>
-        <source>Load Window Geometry</source>
-        <translation>윈도우 지오메트리 불러오기</translation>
-    </message>
-    <message>
-        <source>90000</source>
-        <translation>90000</translation>
-    </message>
-    <message>
-        <source>Run zone checks on rescan</source>
-        <translation>다시 스캔할 때 구역 검사 진행</translation>
-    </message>
-    <message>
-        <source>Start Server</source>
-        <translation>서버 시작</translation>
-    </message>
-    <message>
-        <source>Start Minimized</source>
-        <translation>최소화 상태로 시작</translation>
-    </message>
-    <message>
-        <source>User Interface Settings:</source>
-        <translation>UI 설정:</translation>
-    </message>
-    <message>
-        <source>Start At Login</source>
-        <translation>로그인 시에 시작</translation>
-    </message>
-    <message>
-        <source>Minimize On Close</source>
-        <translation>종료되지 않고 최소화</translation>
-    </message>
-    <message>
-        <source>Save Geometry On Close</source>
-        <translation>닫을 때 지오메트리 저장</translation>
-    </message>
-    <message>
-        <source>Start Client</source>
-        <translation>클라이언트 시작</translation>
-    </message>
-    <message>
-        <source>Load Profile</source>
-        <translation>프로파일 불러오기</translation>
-    </message>
-    <message>
-        <source>Set Server Port</source>
-        <translation>서버 포트 설정</translation>
-    </message>
-    <message>
-        <source>Theme (restart required)</source>
-        <translation>테마 (재시작 필요)</translation>
-    </message>
-    <message>
-        <source>Enable Log Console (restart required)</source>
-        <translation>콘솔 로그 활성화 (재시작 필요)</translation>
-    </message>
-    <message>
-        <source>Custom Arguments</source>
-        <translation>사용자 인자</translation>
-    </message>
-    <message>
-        <source>Log Manager Settings:</source>
-        <translation>로그 관리자 설정:</translation>
-    </message>
-    <message>
-        <source>Start at Login Status</source>
-        <translation>로그인 상태에서 시작</translation>
-    </message>
-    <message>
-        <source>Start At Login Settings:</source>
-        <translation>로그인 시에 시작 설정:</translation>
-    </message>
-    <message>
-        <source>Open Settings Folder</source>
-        <translation>설정 폴더 열기</translation>
-    </message>
-    <message>
-        <source>Drivers Settings</source>
-        <translation>드라이버 설정</translation>
-    </message>
-    <message>
-        <source>Greyscale Tray Icon</source>
-        <translation>흑백 트레이 아이콘</translation>
-    </message>
-    <message>
-        <source>AMD SMBus: Reduce CPU Usage (restart required)</source>
-        <translation>AMD SMBus : CPU 사용량 감소 (재시작 필요)</translation>
-    </message>
-    <message>
-        <source>Set Profile on Exit</source>
-        <translation>종료 시 프로파일 설정</translation>
-    </message>
-    <message>
-        <source>Shared SMBus Access (restart required)</source>
-        <translation>공유된 SMBus 접근 (재시작 필요)</translation>
-    </message>
-    <message>
-        <source>Set Server Host</source>
-        <translation>서버 호스트 설정</translation>
-    </message>
-    <message>
-        <source>Language</source>
-        <translation>언어 (Language)</translation>
-    </message>
-    <message>
-        <source>Disable key expansion in device view</source>
-        <translation>장치 화면에서 키 확장 비활성화</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBSoftwareInfoPageUi</name>
-    <message>
-        <source>Software info page</source>
-        <translation>소프트웨어 정보 페이지</translation>
-    </message>
-    <message>
-        <source>Build Date:</source>
-        <translation>빌드 날짜:</translation>
-    </message>
-    <message>
-        <source>Git Commit ID:</source>
-        <translation>Git 커밋 ID:</translation>
-    </message>
-    <message>
-        <source>Git Commit Date:</source>
-        <translation>Git 커밋 날짜:</translation>
-    </message>
-    <message>
-        <source>Git Branch:</source>
-        <translation>Git 브랜치:</translation>
-    </message>
-    <message>
-        <source>Version:</source>
-        <translation>버전:</translation>
-    </message>
-    <message>
-        <source>Gitlab page</source>
-        <translation>Gitlab 페이지</translation>
-    </message>
-    <message>
-        <source>Website</source>
-        <translation>웹사이트</translation>
-    </message>
-    <message>
-        <source>&lt;a href=&quot;https://openrgb.org&quot;&gt;https://openrgb.org&lt;/a&gt;</source>
-        <translation>&lt;a href=&quot;https://openrgb.org&quot;&gt;https://openrgb.org&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;a href=&quot;https://gitlab.com/CalcProgrammer1/OpenRGB&quot;&gt;https://gitlab.com/CalcProgrammer1/OpenRGB&lt;/a&gt;</source>
-        <translation>&lt;a href=&quot;https://gitlab.com/CalcProgrammer1/OpenRGB&quot;&gt;https://gitlab.com/CalcProgrammer1/OpenRGB&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <source>SDK Version:</source>
-        <translation>SDK 버전:</translation>
-    </message>
-    <message>
-        <source>Plugin API Version:</source>
-        <translation>플러그인 API 버전:</translation>
-    </message>
-    <message>
-        <source>SDK Version Value</source>
-        <translation>SDK 버전 값</translation>
-    </message>
-    <message>
-        <source>Plugin API Version Value</source>
-        <translation>Plugin API 버전 값</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBSupportedDevicesPageUi</name>
-    <message>
-        <source>Supported devices</source>
-        <translation>지원되는 장치</translation>
-    </message>
-    <message>
-        <source>Filter:</source>
-        <translation>필터:</translation>
-    </message>
-    <message>
-        <source>Enable/Disable all</source>
-        <translation>전부 활성화/비활성화</translation>
-    </message>
-    <message>
-        <source>Apply changes</source>
-        <translation>수정사항 적용</translation>
-    </message>
-    <message>
-        <source>Get hardware IDs</source>
-        <translation>하드웨어 ID 얻기</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBSystemInfoPageUi</name>
-    <message>
-        <source>System info page</source>
-        <translation>시스템 정보 페이지</translation>
-    </message>
-    <message>
-        <source>SMBus Adapters:</source>
-        <translation>SMBus Adapters:</translation>
-    </message>
-    <message>
-        <source>Address:</source>
-        <translation>주소:</translation>
-    </message>
-    <message>
-        <source>Read Device</source>
-        <translation>장치 읽기</translation>
-    </message>
-    <message>
-        <source>SMBus Dumper:</source>
-        <translation>SMBus Dumper:</translation>
-    </message>
-    <message>
-        <source>0x</source>
-        <translation>0x</translation>
-    </message>
-    <message>
-        <source>SMBus Detector:</source>
-        <translation>SMBus Detector:</translation>
-    </message>
-    <message>
-        <source>Detection Mode:</source>
-        <translation>감지 모드:</translation>
-    </message>
-    <message>
-        <source>Detect Devices</source>
-        <translation>장치 감지</translation>
-    </message>
-    <message>
-        <source>Dump Device</source>
-        <translation>장치 덤프</translation>
-    </message>
-    <message>
-        <source>SMBus Reader:</source>
-        <translation>SMBus Reader:</translation>
-    </message>
-    <message>
-        <source>Addr:</source>
-        <translation>주소:</translation>
-    </message>
-    <message>
-        <source>Reg:</source>
-        <translation>레지스터:</translation>
-    </message>
-    <message>
-        <source>Size:</source>
-        <translation>크기:</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBYeelightSettingsEntryUi</name>
-    <message>
-        <source>Yeelight settings entry</source>
-        <translation>Yeelight 설정 항목</translation>
-    </message>
-    <message>
-        <source>IP:</source>
-        <translation>IP 주소:</translation>
-    </message>
-    <message>
-        <source>?</source>
-        <translation>?</translation>
-    </message>
-    <message>
-        <source>Music Mode:</source>
-        <translation>음악 모드:</translation>
-    </message>
-    <message>
-        <source>Override host IP:</source>
-        <translation>호스트 IP 덮어쓰기:</translation>
-    </message>
-    <message>
-        <source>Left blank for auto discovering host ip</source>
-        <translation>비워두면 자동으로 호스트 IP 감지</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBYeelightSettingsPageUi</name>
-    <message>
-        <source>Yeelight settings page</source>
-        <translation>Yeelight 설정 창</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>추가</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>제거</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>저장</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBZoneResizeDialogUi</name>
-    <message>
-        <source>Resize Zone</source>
-        <translation>구역 크기 조절</translation>
-    </message>
-    <message>
-        <source>Add Segment</source>
-        <translation>세그먼트 추가</translation>
-    </message>
-    <message>
-        <source>Remove Segment</source>
-        <translation>세그먼트 제거</translation>
-    </message>
-    <message>
-        <source>Length</source>
-        <translation>길이</translation>
-    </message>
-</context>
-<context>
-    <name>OpenRGBZonesBulkResizerUi</name>
-    <message>
-        <source>Zones resizer</source>
-        <translation>구역 크기 조절 도구</translation>
-    </message>
-    <message>
-        <source>Do not show again</source>
-        <translation>다시 보지 않기</translation>
-    </message>
-    <message>
-        <source>Save and close</source>
-        <translation>저장하고 닫기</translation>
-    </message>
-    <message>
-        <source>Ignore</source>
-        <translation>무시</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;One or more resizable zones have not been configured.  Resizable zones are most commonly used for addressable RGB headers where the size of the connected device cannot be detected automatically.&lt;/p&gt;&lt;p&gt;Please enter the number of LEDs in each zone below.&lt;/p&gt;&lt;p&gt;For more information about calcuating the correct size, please check &lt;a href=&quot;https://openrgb.org/resize.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;this link.&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;하나 이상의 크기 조정 가능 구역이 구성되지 않았습니다. 크기 조정 가능 구역은 연결된 장치의 크기를 자동으로 감지할 수 없는 ADDRESSABLE RGB 헤더에 보통 사용됩니다. &lt;/p&gt;&lt;p&gt;각 구역의 LED 개수를 입력하세요&lt;/p&gt;&lt;p&gt;정확한 크기를 계산하는 방법에 대해 더 많은 정보를 얻고 싶다면 &lt;a href=&quot;https://openrgb.org/resize.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;다음 링크를&lt;/span&gt;&lt;/a&gt; 확인하세요.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-</context>
-<context>
-    <name>TabLabelUi</name>
-    <message>
-        <source>Tab Label</source>
-        <translation>탭 레이블</translation>
-    </message>
-    <message>
-        <source>device name</source>
-        <translation>장치 이름</translation>
-    </message>
-</context>
-<context>
-    <name>Ui::OpenRGBClientInfoPage</name>
-    <message>
-        <source>Disconnect</source>
-        <translation>연결 끊기</translation>
-    </message>
-</context>
-<context>
-    <name>Ui::OpenRGBDevicePage</name>
     <message>
         <source>Set individual LEDs to static colors.  Safe for use with software-driven effects.</source>
         <translation>개별 LED를 정적 색상으로 설정합니다. 소프트웨어 기반 이펙트와 같이 사용해도 안전합니다.</translation>
@@ -1394,10 +302,6 @@
         <translation>장치에 저장됨</translation>
     </message>
     <message>
-        <source>Save To Device</source>
-        <translation>장치에 저장</translation>
-    </message>
-    <message>
         <source>Saving Not Supported</source>
         <translation>저장이 지원되지 않습니다</translation>
     </message>
@@ -1415,7 +319,59 @@
     </message>
 </context>
 <context>
-    <name>Ui::OpenRGBDialog2</name>
+    <name>OpenRGBDialog</name>
+    <message>
+        <source>OpenRGB</source>
+        <translation>OpenRGB</translation>
+    </message>
+    <message>
+        <source>Devices</source>
+        <translation>장치</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation>정보</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>설정</translation>
+    </message>
+    <message>
+        <source>Toggle LED View</source>
+        <translation>LED 보기 전환</translation>
+    </message>
+    <message>
+        <source>Rescan Devices</source>
+        <translation>장치 다시 스캔</translation>
+    </message>
+    <message>
+        <source>Save Profile</source>
+        <translation>프로파일 저장</translation>
+    </message>
+    <message>
+        <source>Delete Profile</source>
+        <translation>프로파일 삭제</translation>
+    </message>
+    <message>
+        <source>Load Profile</source>
+        <translation>프로파일 불러오기</translation>
+    </message>
+    <message>
+        <source>OpenRGB is detecting devices...</source>
+        <translation>OpenRGB가 장치를 찾고 있습니다...</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>취소</translation>
+    </message>
+    <message>
+        <source>Save Profile As...</source>
+        <translation>다음으로 프로파일 저장...</translation>
+    </message>
+    <message>
+        <source>Save Profile with custom name</source>
+        <translation>다른 이름으로 프로파일 저장</translation>
+    </message>
     <message>
         <source>Show/Hide</source>
         <translation>표시/숨김</translation>
@@ -1509,10 +465,6 @@
         <translation>SDK 서버</translation>
     </message>
     <message>
-        <source>Delete Profile</source>
-        <translation>프로파일 삭제</translation>
-    </message>
-    <message>
         <source>Do you really want to delete this profile?</source>
         <translation>정말로 이 프로파일을 삭제하시겠습니까?</translation>
     </message>
@@ -1532,7 +484,7 @@
         <source>Elgato KeyLight Devices</source>
         <translation>Elgato KeyLight 장치</translation>
     </message>
-	<message>
+    <message>
         <source>Elgato LightStrip Devices</source>
         <translation>Elgato LightStrip 장치</translation>
     </message>
@@ -1542,7 +494,7 @@
     </message>
     <message>
         <source>Software</source>
-        <translation>소프트웨어</translation>
+        <translation type="vanished">소프트웨어</translation>
     </message>
     <message>
         <source>DMX Devices</source>
@@ -1552,9 +504,65 @@
         <source>Kasa Smart Devices</source>
         <translation>Kasa Smart 장치</translation>
     </message>
+    <message>
+        <source>About OpenRGB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Govee Devices</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
-    <name>Ui::OpenRGBE131SettingsEntry</name>
+    <name>OpenRGBE131SettingsEntry</name>
+    <message>
+        <source>Start Channel:</source>
+        <translation>시작 채널:</translation>
+    </message>
+    <message>
+        <source>Number of LEDs:</source>
+        <translation>LED 개수:</translation>
+    </message>
+    <message>
+        <source>Start Universe:</source>
+        <translation>시작 Universe:</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>이름:</translation>
+    </message>
+    <message>
+        <source>Matrix Order:</source>
+        <translation>매트릭스 순서:</translation>
+    </message>
+    <message>
+        <source>Matrix Height:</source>
+        <translation>매트릭스 높이:</translation>
+    </message>
+    <message>
+        <source>Matrix Width:</source>
+        <translation>매트릭스 너비:</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation>유형:</translation>
+    </message>
+    <message>
+        <source>IP (Unicast):</source>
+        <translation>IP (Unicast):</translation>
+    </message>
+    <message>
+        <source>Universe Size:</source>
+        <translation>Universe 크기:</translation>
+    </message>
+    <message>
+        <source>Keepalive Time:</source>
+        <translation>지속 시간:</translation>
+    </message>
+    <message>
+        <source>RGB Order:</source>
+        <translation>RGB 순서:</translation>
+    </message>
     <message>
         <source>Single</source>
         <translation>단일</translation>
@@ -1601,7 +609,363 @@
     </message>
 </context>
 <context>
-    <name>Ui::OpenRGBPluginsPage</name>
+    <name>OpenRGBE131SettingsPage</name>
+    <message>
+        <source>Add</source>
+        <translation>추가</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>제거</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>저장</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBElgatoKeyLightSettingsEntry</name>
+    <message>
+        <source>IP:</source>
+        <translation>IP:</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBElgatoKeyLightSettingsPage</name>
+    <message>
+        <source>Add</source>
+        <translation>추가</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>삭제</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>저장</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBElgatoLightStripSettingsEntry</name>
+    <message>
+        <source>IP:</source>
+        <translation>IP:</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBElgatoLightStripSettingsPage</name>
+    <message>
+        <source>Add</source>
+        <translation>추가</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>삭제</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>저장</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBGoveeSettingsEntry</name>
+    <message>
+        <source>IP:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBGoveeSettingsPage</name>
+    <message>
+        <source>Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">저장</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBHardwareIDsDialog</name>
+    <message>
+        <source>Hardware IDs</source>
+        <translation>하드웨어 ID</translation>
+    </message>
+    <message>
+        <source>Copy to clipboard</source>
+        <translation>클립보드에 복사</translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation>위치</translation>
+    </message>
+    <message>
+        <source>Device</source>
+        <translation>장치</translation>
+    </message>
+    <message>
+        <source>Vendor</source>
+        <translation>제조업체</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBKasaSmartSettingsEntry</name>
+    <message>
+        <source>IP:</source>
+        <translation>IP:</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>이름</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBKasaSmartSettingsPage</name>
+    <message>
+        <source>Add</source>
+        <translation>추가</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>제거</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>저장</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBLIFXSettingsEntry</name>
+    <message>
+        <source>IP:</source>
+        <translation>IP:</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>이름</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBLIFXSettingsPage</name>
+    <message>
+        <source>Add</source>
+        <translation>추가</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>제거</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>저장</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBNanoleafNewDeviceDialog</name>
+    <message>
+        <source>New Nanoleaf device</source>
+        <translation>새로운 Nanoleaf 장치</translation>
+    </message>
+    <message>
+        <source>IP address:</source>
+        <translation>IP 주소:</translation>
+    </message>
+    <message>
+        <source>Port:</source>
+        <translation>포트:</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBNanoleafSettingsEntry</name>
+    <message>
+        <source>IP:</source>
+        <translation>IP:</translation>
+    </message>
+    <message>
+        <source>Port:</source>
+        <translation>포트:</translation>
+    </message>
+    <message>
+        <source>Auth Key:</source>
+        <translation>인증 키:</translation>
+    </message>
+    <message>
+        <source>Unpair</source>
+        <translation>페어링 해제</translation>
+    </message>
+    <message>
+        <source>Pair</source>
+        <translation>페어링</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBNanoleafSettingsPage</name>
+    <message>
+        <source>Scan</source>
+        <translation>스캔</translation>
+    </message>
+    <message>
+        <source>To pair, hold the on-off button down for 5-7 seconds until the LED starts flashing in a pattern, then click the &quot;Pair&quot; button within 30 seconds.</source>
+        <translation>페어링을 하려면 온오프 버튼을 5-7초 LED가 규칙적으로 깜빡이기 시작할 때 까지 누르세요, 그리고 30초 내로 &quot;페어링&quot; 버튼을 누르세요.</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>추가추가</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>제거</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBPhilipsHueSettingsEntry</name>
+    <message>
+        <source>IP:</source>
+        <translation>IP:</translation>
+    </message>
+    <message>
+        <source>Entertainment Mode:</source>
+        <translation>엔터테이먼트 모드:</translation>
+    </message>
+    <message>
+        <source>Username:</source>
+        <translation>Username:</translation>
+    </message>
+    <message>
+        <source>Client Key:</source>
+        <translation>클라이언트 키:</translation>
+    </message>
+    <message>
+        <source>Unpair Bridge</source>
+        <translation>브릿지 페어링 해제</translation>
+    </message>
+    <message>
+        <source>MAC:</source>
+        <translation>MAC 주소:</translation>
+    </message>
+    <message>
+        <source>Auto Connect Group:</source>
+        <translation>자동 연결 그룹:</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBPhilipsHueSettingsPage</name>
+    <message>
+        <source>Remove</source>
+        <translation>제거</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>추가</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>저장</translation>
+    </message>
+    <message>
+        <source>After adding a Hue entry and saving, restart OpenRGB and press the Sync button on your Hue bridge to pair it.</source>
+        <translation>Hue 항목을 추가하고 저장한 후에 OpenRGB를 재시작하고 Hue Bridge의 Sync 버튼을 눌러 페어링하세요.</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBPhilipsWizSettingsEntry</name>
+    <message>
+        <source>IP:</source>
+        <translation>IP:</translation>
+    </message>
+    <message>
+        <source>Use Cool White</source>
+        <translation>Cool White 사용</translation>
+    </message>
+    <message>
+        <source>Use Warm White</source>
+        <translation>Warm White 사용</translation>
+    </message>
+    <message>
+        <source>White Strategy:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Average</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBPhilipsWizSettingsPage</name>
+    <message>
+        <source>Add</source>
+        <translation>추가</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>제거</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>저장</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBPluginsEntry</name>
+    <message>
+        <source>Version:</source>
+        <translation>버전:</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>이름:</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation>설명:</translation>
+    </message>
+    <message>
+        <source>URL:</source>
+        <translation>URL:</translation>
+    </message>
+    <message>
+        <source>Path:</source>
+        <translation>경로:</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>활성화</translation>
+    </message>
+    <message>
+        <source>Commit:</source>
+        <translation>커밋:</translation>
+    </message>
+    <message>
+        <source>API Version:</source>
+        <translation>API 버전:</translation>
+    </message>
+    <message>
+        <source>API Version Value</source>
+        <translation>API 버전 값</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBPluginsPage</name>
+    <message>
+        <source>Install Plugin</source>
+        <translation>플러그인 설치</translation>
+    </message>
+    <message>
+        <source>Remove Plugin</source>
+        <translation>플러그인 제거</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;Looking for plugins? See the official list at &lt;a href=&quot;https://openrgb.org/plugins.html&quot;&gt;OpenRGB.org&lt;/a&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;플러그인을 찾고 있나요? &lt;a href=&quot;https://openrgb.org/plugins.html&quot;&gt;OpenRGB.org&lt;/a&gt;의 공식 목록을 참고하세요.&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
     <message>
         <source>Install OpenRGB Plugin</source>
         <translation>OpenRGB 플러그인 설치</translation>
@@ -1619,16 +983,143 @@
         <translation>같은 파일 이름의 플러그인이 이미 설치됐습니다. 정말로 이 플러그인을 교체 하시겠습니까?</translation>
     </message>
     <message>
-        <source>Remove Plugin</source>
-        <translation>플러그인 제거</translation>
-    </message>
-    <message>
         <source>Are you sure you want to remove this plugin?</source>
         <translation>정말로 이 플러그인을 제거하시겠습니까?</translation>
     </message>
+    <message>
+        <source>Restart Needed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The plugin will be fully removed after restarting OpenRGB.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
-    <name>Ui::OpenRGBServerInfoPage</name>
+    <name>OpenRGBProfileSaveDialog</name>
+    <message>
+        <source>Profile Name</source>
+        <translation>프로파일 이름</translation>
+    </message>
+    <message>
+        <source>Save to an existing profile:</source>
+        <translation>이미 있는 프로파일에 저장:</translation>
+    </message>
+    <message>
+        <source>Create a new profile:</source>
+        <translation>새로운 프로파일 만들기:</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBQMKORGBSettingsEntry</name>
+    <message>
+        <source>Name:</source>
+        <translation>이름:</translation>
+    </message>
+    <message>
+        <source>USB PID:</source>
+        <translation>USB PID:</translation>
+    </message>
+    <message>
+        <source>USB VID:</source>
+        <translation>USB VID:</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBQMKORGBSettingsPage</name>
+    <message>
+        <source>Add</source>
+        <translation>추가</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>제거</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>저장</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBSerialSettingsEntry</name>
+    <message>
+        <source>Baud:</source>
+        <translation>Baud:</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>이름:</translation>
+    </message>
+    <message>
+        <source>Number of LEDs:</source>
+        <translation>LED 개수:</translation>
+    </message>
+    <message>
+        <source>Port:</source>
+        <translation>포트:</translation>
+    </message>
+    <message>
+        <source>Protocol:</source>
+        <translation>프로토콜:</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBSerialSettingsPage</name>
+    <message>
+        <source>Add</source>
+        <translation>추가</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>제거</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>저장</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBServerInfoPage</name>
+    <message>
+        <source>Stop Server</source>
+        <translation>서버 종료</translation>
+    </message>
+    <message>
+        <source>Server Port:</source>
+        <translation>서버 포트:</translation>
+    </message>
+    <message>
+        <source>Start Server</source>
+        <translation>서버 시작</translation>
+    </message>
+    <message>
+        <source>Server Status:</source>
+        <translation>서버 상태:</translation>
+    </message>
+    <message>
+        <source>Offline</source>
+        <translation>오프라인</translation>
+    </message>
+    <message>
+        <source>Connected Clients:</source>
+        <translation>연결된 클라이언트:</translation>
+    </message>
+    <message>
+        <source>Server Host:</source>
+        <translation>서버 호스트:</translation>
+    </message>
+    <message>
+        <source>Client IP</source>
+        <translation>클라이언트 IP</translation>
+    </message>
+    <message>
+        <source>Protocol Version</source>
+        <translation>프로토콜 버전</translation>
+    </message>
+    <message>
+        <source>Client Name</source>
+        <translation>클라이언트 이름</translation>
+    </message>
     <message>
         <source>Stopping...</source>
         <translation>종료 중...</translation>
@@ -1637,15 +1128,139 @@
         <source>Online</source>
         <translation>온라인</translation>
     </message>
-    <message>
-        <source>Offline</source>
-        <translation>오프라인</translation>
-    </message>
 </context>
 <context>
-    <name>Ui::OpenRGBSettingsPage</name>
+    <name>OpenRGBSettingsPage</name>
     <message>
-        <source>A problem occurred enabling Start At Login.</source>
+        <source>Load Window Geometry</source>
+        <translation>윈도우 지오메트리 불러오기</translation>
+    </message>
+    <message>
+        <source>90000</source>
+        <translation>90000</translation>
+    </message>
+    <message>
+        <source>Run Zone Checks on Rescan</source>
+        <translation>다시 스캔할 때 구역 검사 진행</translation>
+    </message>
+    <message>
+        <source>Start Server</source>
+        <translation>서버 시작</translation>
+    </message>
+    <message>
+        <source>Start Minimized</source>
+        <translation>최소화 상태로 시작</translation>
+    </message>
+    <message>
+        <source>User Interface Settings:</source>
+        <translation>UI 설정:</translation>
+    </message>
+    <message>
+        <source>Start at Login</source>
+        <translation>로그인 시에 시작</translation>
+    </message>
+    <message>
+        <source>Minimize on Close</source>
+        <translation>종료되지 않고 최소화</translation>
+    </message>
+    <message>
+        <source>Save Geometry on Close</source>
+        <translation>닫을 때 지오메트리 저장</translation>
+    </message>
+    <message>
+        <source>Start Client</source>
+        <translation>클라이언트 시작</translation>
+    </message>
+    <message>
+        <source>Load Profile</source>
+        <translation>프로파일 불러오기</translation>
+    </message>
+    <message>
+        <source>Set Server Port</source>
+        <translation>서버 포트 설정</translation>
+    </message>
+    <message>
+        <source>Theme (restart required)</source>
+        <translation>테마 (재시작 필요)</translation>
+    </message>
+    <message>
+        <source>Enable Log Console (restart required)</source>
+        <translation>콘솔 로그 활성화 (재시작 필요)</translation>
+    </message>
+    <message>
+        <source>Custom Arguments</source>
+        <translation>사용자 인자</translation>
+    </message>
+    <message>
+        <source>Log Manager Settings:</source>
+        <translation>로그 관리자 설정:</translation>
+    </message>
+    <message>
+        <source>Start at Login Status</source>
+        <translation>로그인 상태에서 시작</translation>
+    </message>
+    <message>
+        <source>Start at Login Settings:</source>
+        <translation>로그인 시에 시작 설정:</translation>
+    </message>
+    <message>
+        <source>Open Settings Folder</source>
+        <translation>설정 폴더 열기</translation>
+    </message>
+    <message>
+        <source>Drivers Settings</source>
+        <translation>드라이버 설정</translation>
+    </message>
+    <message>
+        <source>Greyscale Tray Icon</source>
+        <translation>흑백 트레이 아이콘</translation>
+    </message>
+    <message>
+        <source>AMD SMBus: Reduce CPU Usage (restart required)</source>
+        <translation>AMD SMBus : CPU 사용량 감소 (재시작 필요)</translation>
+    </message>
+    <message>
+        <source>Set Profile on Exit</source>
+        <translation>종료 시 프로파일 설정</translation>
+    </message>
+    <message>
+        <source>Shared SMBus Access (restart required)</source>
+        <translation>공유된 SMBus 접근 (재시작 필요)</translation>
+    </message>
+    <message>
+        <source>Set Server Host</source>
+        <translation>서버 호스트 설정</translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation>언어 (Language)</translation>
+    </message>
+    <message>
+        <source>Disable Key Expansion in Device View</source>
+        <translation>장치 화면에서 키 확장 비활성화</translation>
+    </message>
+    <message>
+        <source>Hex Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show LED View by Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set Profile on Suspend</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set Profile on Resume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Log File (restart required)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A problem occurred enabling Start at Login.</source>
         <translation>로그인 시에 시작을 활성화 하는 도중에 문제가 발생했습니다.</translation>
     </message>
     <message>
@@ -1658,7 +1273,184 @@
     </message>
 </context>
 <context>
-    <name>Ui::OpenRGBYeelightSettingsEntry</name>
+    <name>OpenRGBSoftwareInfoPage</name>
+    <message>
+        <source>Build Date:</source>
+        <translation>빌드 날짜:</translation>
+    </message>
+    <message>
+        <source>Git Commit ID:</source>
+        <translation>Git 커밋 ID:</translation>
+    </message>
+    <message>
+        <source>Git Commit Date:</source>
+        <translation>Git 커밋 날짜:</translation>
+    </message>
+    <message>
+        <source>Git Branch:</source>
+        <translation>Git 브랜치:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation>버전:</translation>
+    </message>
+    <message>
+        <source>GitLab:</source>
+        <translation>GitLab 페이지:</translation>
+    </message>
+    <message>
+        <source>Website:</source>
+        <translation>웹사이트:</translation>
+    </message>
+    <message>
+        <source>&lt;a href=&quot;https://openrgb.org&quot;&gt;https://openrgb.org&lt;/a&gt;</source>
+        <translation>&lt;a href=&quot;https://openrgb.org&quot;&gt;https://openrgb.org&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;a href=&quot;https://gitlab.com/CalcProgrammer1/OpenRGB&quot;&gt;https://gitlab.com/CalcProgrammer1/OpenRGB&lt;/a&gt;</source>
+        <translation>&lt;a href=&quot;https://gitlab.com/CalcProgrammer1/OpenRGB&quot;&gt;https://gitlab.com/CalcProgrammer1/OpenRGB&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <source>SDK Version:</source>
+        <translation>SDK 버전:</translation>
+    </message>
+    <message>
+        <source>Plugin API Version:</source>
+        <translation>플러그인 API 버전:</translation>
+    </message>
+    <message>
+        <source>Qt Version Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qt Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OS Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OS Version Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GNU General Public License, version 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>License:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copyright:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adam Honse, OpenRGB Team</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;OpenRGB&lt;/b&gt;, an open-source RGB control utility</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBSupportedDevicesPage</name>
+    <message>
+        <source>Filter:</source>
+        <translation>필터:</translation>
+    </message>
+    <message>
+        <source>Enable/Disable all</source>
+        <translation>전부 활성화/비활성화</translation>
+    </message>
+    <message>
+        <source>Apply Changes</source>
+        <translation>수정사항 적용</translation>
+    </message>
+    <message>
+        <source>Get Hardware IDs</source>
+        <translation>하드웨어 ID 얻기</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBSystemInfoPage</name>
+    <message>
+        <source>SMBus Adapters:</source>
+        <translation>SMBus Adapters:</translation>
+    </message>
+    <message>
+        <source>Address:</source>
+        <translation>주소:</translation>
+    </message>
+    <message>
+        <source>Read Device</source>
+        <translation>장치 읽기</translation>
+    </message>
+    <message>
+        <source>SMBus Dumper:</source>
+        <translation>SMBus Dumper:</translation>
+    </message>
+    <message>
+        <source>0x</source>
+        <translation>0x</translation>
+    </message>
+    <message>
+        <source>SMBus Detector:</source>
+        <translation>SMBus Detector:</translation>
+    </message>
+    <message>
+        <source>Detection Mode:</source>
+        <translation>감지 모드:</translation>
+    </message>
+    <message>
+        <source>Detect Devices</source>
+        <translation>장치 감지</translation>
+    </message>
+    <message>
+        <source>Dump Device</source>
+        <translation>장치 덤프</translation>
+    </message>
+    <message>
+        <source>SMBus Reader:</source>
+        <translation>SMBus Reader:</translation>
+    </message>
+    <message>
+        <source>Addr:</source>
+        <translation>주소:</translation>
+    </message>
+    <message>
+        <source>Reg:</source>
+        <translation>레지스터:</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation>크기:</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBYeelightSettingsEntry</name>
+    <message>
+        <source>IP:</source>
+        <translation>IP 주소:</translation>
+    </message>
+    <message>
+        <source>?</source>
+        <translation>?</translation>
+    </message>
+    <message>
+        <source>Music Mode:</source>
+        <translation>음악 모드:</translation>
+    </message>
+    <message>
+        <source>Override host IP:</source>
+        <translation>호스트 IP 덮어쓰기:</translation>
+    </message>
+    <message>
+        <source>Left blank for auto discovering host ip</source>
+        <translation>비워두면 자동으로 호스트 IP 감지</translation>
+    </message>
     <message>
         <source>Choose an IP...</source>
         <translation>IP 선택...</translation>
@@ -1669,7 +1461,61 @@
     </message>
 </context>
 <context>
-    <name>Ui::OpenRGBZonesBulkResizer</name>
+    <name>OpenRGBYeelightSettingsPage</name>
+    <message>
+        <source>Add</source>
+        <translation>추가</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>제거</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>저장</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBZoneResizeDialog</name>
+    <message>
+        <source>Resize Zone</source>
+        <translation>구역 크기 조절</translation>
+    </message>
+    <message>
+        <source>Add Segment</source>
+        <translation>세그먼트 추가</translation>
+    </message>
+    <message>
+        <source>Remove Segment</source>
+        <translation>세그먼트 제거</translation>
+    </message>
+    <message>
+        <source>Length</source>
+        <translation>길이</translation>
+    </message>
+</context>
+<context>
+    <name>OpenRGBZonesBulkResizer</name>
+    <message>
+        <source>Do not show again</source>
+        <translation>다시 보지 않기</translation>
+    </message>
+    <message>
+        <source>Save and close</source>
+        <translation>저장하고 닫기</translation>
+    </message>
+    <message>
+        <source>Ignore</source>
+        <translation>무시</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;One or more resizable zones have not been configured.  Resizable zones are most commonly used for addressable RGB headers where the size of the connected device cannot be detected automatically.&lt;/p&gt;&lt;p&gt;Please enter the number of LEDs in each zone below.&lt;/p&gt;&lt;p&gt;For more information about calcuating the correct size, please check &lt;a href=&quot;https://openrgb.org/resize.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;this link.&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;하나 이상의 크기 조정 가능 구역이 구성되지 않았습니다. 크기 조정 가능 구역은 연결된 장치의 크기를 자동으로 감지할 수 없는 ADDRESSABLE RGB 헤더에 보통 사용됩니다. &lt;/p&gt;&lt;p&gt;각 구역의 LED 개수를 입력하세요&lt;/p&gt;&lt;p&gt;정확한 크기를 계산하는 방법에 대해 더 많은 정보를 얻고 싶다면 &lt;a href=&quot;https://openrgb.org/resize.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;다음 링크를&lt;/span&gt;&lt;/a&gt; 확인하세요.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>Zones Resizer</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <source>Resize the zones</source>
         <translation>구역 재설정</translation>
@@ -1685,6 +1531,32 @@
     <message>
         <source>Size</source>
         <translation>크기</translation>
+    </message>
+</context>
+<context>
+    <name>ResourceManager</name>
+    <message>
+        <source>&lt;h2&gt;Some internal devices may not be detected:&lt;/h2&gt;&lt;p&gt;One or more I2C or SMBus interfaces failed to initialize.&lt;/p&gt;&lt;p&gt;&lt;b&gt;RGB DRAM modules, some motherboards&apos; onboard RGB lighting, and RGB Graphics Cards, will not be available in OpenRGB&lt;/b&gt; without I2C or SMBus.&lt;/p&gt;&lt;h4&gt;How to fix this:&lt;/h4&gt;&lt;p&gt;On Windows, this is usually caused by a failure to load the WinRing0 driver.&lt;/p&gt;&lt;p&gt;You must run OpenRGB as administrator at least once to allow WinRing0 to set up.&lt;/p&gt;&lt;p&gt;See &lt;a href=&apos;https://help.openrgb.org/&apos;&gt;help.openrgb.org&lt;/a&gt; for additional troubleshooting steps if you keep seeing this message.&lt;br&gt;&lt;/p&gt;&lt;h3&gt;If you are not using internal RGB on a desktop this message is not important to you.&lt;/h3&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;h2&gt;Some internal devices may not be detected:&lt;/h2&gt;&lt;p&gt;One or more I2C or SMBus interfaces failed to initialize.&lt;/p&gt;&lt;p&gt;&lt;b&gt;RGB DRAM modules, some motherboards&apos; onboard RGB lighting, and RGB Graphics Cards, will not be available in OpenRGB&lt;/b&gt; without I2C or SMBus.&lt;/p&gt;&lt;h4&gt;How to fix this:&lt;/h4&gt;&lt;p&gt;On Linux, this is usually because the i2c-dev module is not loaded.&lt;/p&gt;&lt;p&gt;You must load the i2c-dev module along with the correct i2c driver for your motherboard. This is usually i2c-piix4 for AMD systems and i2c-i801 for Intel systems.&lt;/p&gt;&lt;p&gt;See &lt;a href=&apos;https://help.openrgb.org/&apos;&gt;help.openrgb.org&lt;/a&gt; for additional troubleshooting steps if you keep seeing this message.&lt;br&gt;&lt;/p&gt;&lt;h3&gt;If you are not using internal RGB on a desktop this message is not important to you.&lt;/h3&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;h2&gt;WARNING:&lt;/h2&gt;&lt;p&gt;The OpenRGB udev rules are not installed.&lt;/p&gt;&lt;p&gt;Most devices will not be available unless running OpenRGB as root.&lt;/p&gt;&lt;p&gt;If using AppImage, Flatpak, or self-compiled versions of OpenRGB you must install the udev rules manually&lt;/p&gt;&lt;p&gt;See &lt;a href=&apos;https://openrgb.org/udev&apos;&gt;https://openrgb.org/udev&lt;/a&gt; to install the udev rules manually&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;h2&gt;WARNING:&lt;/h2&gt;&lt;p&gt;Multiple OpenRGB udev rules are installed.&lt;/p&gt;&lt;p&gt;The udev rules file 60-openrgb.rules is installed in both /etc/udev/rules.d and /usr/lib/udev/rules.d.&lt;/p&gt;&lt;p&gt;Multiple udev rules files can conflict, it is recommended to remove one of them.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabLabel</name>
+    <message>
+        <source>device name</source>
+        <translation>장치 이름</translation>
     </message>
 </context>
 </TS>

@@ -10,9 +10,9 @@ SMBus is generally not meant to be accessed by user applications, but RGB softwa
 
 ## Windows
 
-  * On Windows, OpenRGB uses the [WinRing0](https://github.com/GermanAizek/WinRing0) driver to access the SMBus interface.
-  *  **You must run the application as Administrator the first time to allow WinRing0 to set up.  It can be run as a normal user afterwards**
-  * Early versions of OpenRGB used [InpOut32](https://www.highrez.co.uk/downloads/inpout32/). This is no longer needed and should be removed to avoid warnings by some anti-cheat software. You can uninstall Inpout32 by following the instructions [here](https://gitlab.com/CalcProgrammer1/OpenRGB/-/issues/669#note_461054255).
+  * On Windows, OpenRGB uses the [PawnIO](https://pawnio.eu/) driver to access the SMBus interface.  You must install PawnIO by downloading and running its installer prior to using OpenRGB.
+  *  **You must run the application as Administrator in order for PawnIO to be able to access SMBus.  OpenRGB may be installed as a background service that runs with Administrator permissions.**
+  * Early versions of OpenRGB used [WinRing0](https://github.com/GermanAizek/WinRing0) and even earlier versions used [InpOut32](https://www.highrez.co.uk/downloads/inpout32/). These drivers are no longer used and should be removed to avoid warnings by anti-cheat and anti-virus software. You can uninstall Inpout32 by following the instructions [here](https://gitlab.com/CalcProgrammer1/OpenRGB/-/issues/669#note_461054255).
 
 ## Linux
 
@@ -21,9 +21,12 @@ SMBus is generally not meant to be accessed by user applications, but RGB softwa
   3. Load the i2c driver for your chipset:
       * Intel
         * `sudo modprobe i2c-i801`
-        * `sudo modprobe i2c-nct6775` - Secondary controller for motherboard LEDs (requires [kernel patch](https://gitlab.com/OpenRGBDevelopers/OpenRGB-Wiki/-/blob/stable/OpenRGB-Kernel-Patch.md))
       * AMD
         * `sudo modprobe i2c-piix4`
+      * Nuvoton
+        * This interface is used alongside `i2c-i801` on some older ASUS Intel motherboards for the on-board lighting.
+        * `sudo modprobe i2c-nct6793`
+        * Note: The i2c-nct6793 driver must be installed separately, see [i2c-nct6793-dkms](https://gitlab.com/CalcProgrammer1/i2c-nct6793-dkms)
 
   * If you want the i2c modules to load automatically at boot, run the following:
       1. `sudo touch /etc/modules-load.d/i2c.conf`

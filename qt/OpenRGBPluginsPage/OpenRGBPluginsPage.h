@@ -4,14 +4,13 @@
 |   User interface entry for OpenRGB plugin settings        |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #pragma once
 
 #include <QWidget>
 #include "OpenRGBPluginsEntry.h"
-#include "ui_OpenRGBPluginsPage.h"
 #include "PluginManager.h"
 
 namespace Ui
@@ -19,7 +18,7 @@ namespace Ui
     class OpenRGBPluginsPage;
 }
 
-class Ui::OpenRGBPluginsPage : public QWidget
+class OpenRGBPluginsPage : public QWidget
 {
     Q_OBJECT
 
@@ -28,6 +27,7 @@ public:
     ~OpenRGBPluginsPage();
 
     void on_EnableButton_clicked(OpenRGBPluginsEntry* entry);
+    void RefreshList();
 
 private slots:
     void changeEvent(QEvent *event);
@@ -40,10 +40,9 @@ private slots:
     void on_PluginsList_PluginsDropped(std::vector<std::string>);
 
 private:
-    Ui::OpenRGBPluginsPageUi*   ui;
+    Ui::OpenRGBPluginsPage*     ui;
     PluginManager*              plugin_manager;
     std::vector<OpenRGBPluginsEntry*> entries;
 
     bool InstallPlugin(std::string path);
-    void RefreshList();
 };

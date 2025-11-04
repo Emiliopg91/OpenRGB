@@ -5,7 +5,7 @@
 |   engineering i2c devices                                 |
 |                                                           |
 |   This file is part of the OpenRGB project                |
-|   SPDX-License-Identifier: GPL-2.0-only                   |
+|   SPDX-License-Identifier: GPL-2.0-or-later               |
 \*---------------------------------------------------------*/
 
 #include "i2c_tools.h"
@@ -61,6 +61,9 @@ std::string i2c_detect(i2c_smbus_interface * bus, int mode)
                 break;
             case MODE_READ:
                 res = bus->i2c_smbus_read_byte(slave_addr);
+                break;
+            case MODE_READ_DATA:
+                res = bus->i2c_smbus_read_byte_data(slave_addr, 0);
                 break;
             default:
                 if ((i + j >= 0x30 && i + j <= 0x37)
