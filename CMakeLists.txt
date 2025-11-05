@@ -218,6 +218,17 @@ add_compile_definitions(
 #-----------------------------------------------------------------------------------------------#
 install(TARGETS OpenRGB DESTINATION bin)
 
+# ---------------------------------------------------------------------------------------
+# Remove -pipe from global flags (incompatible with -save-temps)
+# ---------------------------------------------------------------------------------------
+foreach(var CMAKE_C_FLAGS CMAKE_CXX_FLAGS CMAKE_C_FLAGS_RELEASE CMAKE_CXX_FLAGS_RELEASE
+            CMAKE_C_FLAGS_DEBUG CMAKE_CXX_FLAGS_DEBUG)
+  if(${var} MATCHES "-pipe")
+    string(REPLACE "-pipe" "" ${var} "${${var}}")
+    message(STATUS "Removed -pipe from ${var}: ${${var}}")
+  endif()
+endforeach()
+
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
   target_compile_options(OpenRGB PRIVATE
     -Wno-implicit-fallthrough -Wno-psabi -Wno-unused-parameter
